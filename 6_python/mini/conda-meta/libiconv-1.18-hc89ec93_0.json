@@ -1,0 +1,43 @@
+{
+  "name": "libiconv",
+  "version": "1.18",
+  "build": "hc89ec93_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "libiconv-1.18-hc89ec93_0.conda",
+  "md5": "53c556b8109eaab09231874106a025f3",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libiconv-1.18-hc89ec93_0.conda",
+  "sha256": "73e19e873fad84ca239ccfd53a51830a8004a14b388a9d30a8c09ce3b8b386a2",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "constrains": [],
+  "license": "LGPL-2.1-only",
+  "timestamp": 1771491956000,
+  "size": 703101,
+  "requested_spec": "pkgs/main/win-64::libiconv==1.18=hc89ec93_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\libiconv-1.18-hc89ec93_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\libiconv-1.18-hc89ec93_0",
+  "files": [
+    "Library/bin/charset.dll",
+    "Library/bin/iconv.dll",
+    "Library/include/iconv.h",
+    "Library/include/libcharset.h",
+    "Library/include/localcharset.h",
+    "Library/lib/charset.lib",
+    "Library/lib/iconv.lib"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\libiconv-1.18-hc89ec93_0",
+    "type": 1
+  }
+}

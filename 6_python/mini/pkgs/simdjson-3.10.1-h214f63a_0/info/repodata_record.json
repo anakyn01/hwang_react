@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "h214f63a_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "vc >=14.2,<15.0a0",
+    "vs2015_runtime >=14.29.30133,<15.0a0"
+  ],
+  "fn": "simdjson-3.10.1-h214f63a_0.conda",
+  "license": "Apache-2.0",
+  "license_family": "Apache",
+  "md5": "e89a4c728f54ef6e0d7845fd1992af58",
+  "name": "simdjson",
+  "platform": "win32",
+  "sha256": "fc942285ef1ed85c6ae955752e7ebadda95161eefc560c8e034d0d56f33110e1",
+  "size": 281697,
+  "subdir": "win-64",
+  "timestamp": 1734048180000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/simdjson-3.10.1-h214f63a_0.conda",
+  "version": "3.10.1"
+}

@@ -1,0 +1,17 @@
+{
+  "libxml2": "2.13",
+  "bzip2": "1",
+  "zlib": "1.2",
+  "c_compiler": "vs2019",
+  "c_stdlib": "vs",
+  "c_stdlib_version": "2019.11",
+  "vc": "14",
+  "target_platform": "win-64",
+  "libarchive": "3.8",
+  "channel_targets": "defaults",
+  "xz": "5",
+  "openssl": "3",
+  "libiconv": "1",
+  "lz4_c": "1.9",
+  "zstd": "1.5"
+}

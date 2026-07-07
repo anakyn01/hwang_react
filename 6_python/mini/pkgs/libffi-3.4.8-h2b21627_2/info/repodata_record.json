@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "h2b21627_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "fn": "libffi-3.4.8-h2b21627_2.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "69ce09a0b01c764627f0f1b0272bad48",
+  "name": "libffi",
+  "platform": "win32",
+  "sha256": "df0ee82af2a982e25d6592fd9dab2e1fcc9314708156888a45f1f5af3c6ce324",
+  "size": 120596,
+  "subdir": "win-64",
+  "timestamp": 1777296713000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libffi-3.4.8-h2b21627_2.conda",
+  "version": "3.4.8"
+}

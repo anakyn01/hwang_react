@@ -1,0 +1,25 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "cryptography >=3.4.0"
+  ],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "pyjwt-2.12.1-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "ea6817e7fbafb39b117e5d6c30f40a54",
+  "name": "pyjwt",
+  "platform": "win32",
+  "sha256": "7aef9d733577597c67e2e122e275063bb1b62289943dde8fc2053e052b4669c4",
+  "size": 102610,
+  "subdir": "win-64",
+  "timestamp": 1773773869000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pyjwt-2.12.1-py313haa95532_0.conda",
+  "version": "2.12.1"
+}

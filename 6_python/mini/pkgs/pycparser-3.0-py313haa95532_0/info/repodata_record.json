@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "pycparser-3.0-py313haa95532_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "9487fca3796d5c8cd0c361909099518d",
+  "name": "pycparser",
+  "platform": "win32",
+  "sha256": "48cef9cf6d54f01afab07973fc1b295586120acffb2b9ca592a5bc0deee49dd2",
+  "size": 140506,
+  "subdir": "win-64",
+  "timestamp": 1774959857000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pycparser-3.0-py313haa95532_0.conda",
+  "version": "3.0"
+}

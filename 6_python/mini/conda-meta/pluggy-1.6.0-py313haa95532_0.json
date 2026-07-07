@@ -1,0 +1,61 @@
+{
+  "name": "pluggy",
+  "version": "1.6.0",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "pluggy-1.6.0-py313haa95532_0.conda",
+  "md5": "56ed40dd2a648486a27c2c79f253f2e6",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pluggy-1.6.0-py313haa95532_0.conda",
+  "sha256": "d5286244f6ebbceb1cc19c77a342fe6849f646a4a51d2aa8a7fe48af4d75b4c0",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1776973096000,
+  "size": 48203,
+  "requested_spec": "pkgs/main/win-64::pluggy==1.6.0=py313haa95532_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\pluggy-1.6.0-py313haa95532_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\pluggy-1.6.0-py313haa95532_0",
+  "files": [
+    "Lib/site-packages/pluggy-1.6.0.dist-info/INSTALLER",
+    "Lib/site-packages/pluggy-1.6.0.dist-info/METADATA",
+    "Lib/site-packages/pluggy-1.6.0.dist-info/RECORD",
+    "Lib/site-packages/pluggy-1.6.0.dist-info/REQUESTED",
+    "Lib/site-packages/pluggy-1.6.0.dist-info/WHEEL",
+    "Lib/site-packages/pluggy-1.6.0.dist-info/direct_url.json",
+    "Lib/site-packages/pluggy-1.6.0.dist-info/licenses/LICENSE",
+    "Lib/site-packages/pluggy-1.6.0.dist-info/top_level.txt",
+    "Lib/site-packages/pluggy/__init__.py",
+    "Lib/site-packages/pluggy/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/pluggy/__pycache__/_callers.cpython-313.pyc",
+    "Lib/site-packages/pluggy/__pycache__/_hooks.cpython-313.pyc",
+    "Lib/site-packages/pluggy/__pycache__/_manager.cpython-313.pyc",
+    "Lib/site-packages/pluggy/__pycache__/_result.cpython-313.pyc",
+    "Lib/site-packages/pluggy/__pycache__/_tracing.cpython-313.pyc",
+    "Lib/site-packages/pluggy/__pycache__/_version.cpython-313.pyc",
+    "Lib/site-packages/pluggy/__pycache__/_warnings.cpython-313.pyc",
+    "Lib/site-packages/pluggy/_callers.py",
+    "Lib/site-packages/pluggy/_hooks.py",
+    "Lib/site-packages/pluggy/_manager.py",
+    "Lib/site-packages/pluggy/_result.py",
+    "Lib/site-packages/pluggy/_tracing.py",
+    "Lib/site-packages/pluggy/_version.py",
+    "Lib/site-packages/pluggy/_warnings.py",
+    "Lib/site-packages/pluggy/py.typed"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\pluggy-1.6.0-py313haa95532_0",
+    "type": 1
+  }
+}

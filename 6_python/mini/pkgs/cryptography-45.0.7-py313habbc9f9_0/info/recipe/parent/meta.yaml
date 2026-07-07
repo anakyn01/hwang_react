@@ -1,0 +1,120 @@
+{% set name = "cryptography" %}
+{% set version = "45.0.7" %}
+
+package:
+  name: {{ name }}-split
+  version: {{ version }}
+
+source:
+  url: https://github.com/pyca/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 45510eacb3c64216da238cd9d959815ab4bf6652cee84607f4319b134ec0504e
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - python
+
+build:
+  number: 0
+
+outputs:
+  - name: {{ name }}-vectors
+    script: build_vectors.bat  # [win]
+    script: build_vectors.sh   # [not win]
+    run_exports:
+      - {{ pin_subpackage('cryptography-vectors', max_pin='x.x.x') }}
+    requirements:
+      host:
+        - pip
+        - python
+        - flit-core >=3.2,<4
+      run:
+        - python
+    test:
+      imports:
+        - cryptography_vectors
+      requires:
+        - pip
+      commands:
+        - pip check
+  - name: {{ name }}
+    script: build_main.bat  # [win]
+    script: build_main.sh   # [not win]
+    requirements:
+      build:
+        - {{ stdlib('c') }}
+        - {{ compiler('c') }}
+        - {{ compiler('rust') }}
+      host:
+        - pip
+        - python
+        - setuptools !=74.0.0,!=74.1.0,!=74.1.1,!=74.1.2
+        - cffi >=1.14
+        - maturin >=1.9.4,<2
+        - openssl {{ openssl }}
+      run:
+        - python
+        - cffi >=1.14
+        - openssl
+      run_constrained:
+        - bcrypt >=3.1.5
+
+    # Import tests take place in run_test.py
+    test:
+      imports:
+        - cryptography
+        - cryptography.fernet
+        - cryptography.hazmat
+        - cryptography.hazmat.backends
+        - cryptography.hazmat.backends.openssl
+        - cryptography.hazmat.bindings
+        - cryptography.hazmat.bindings.openssl
+        - cryptography.hazmat.primitives
+        - cryptography.hazmat.primitives.asymmetric
+        - cryptography.hazmat.primitives.ciphers
+        - cryptography.hazmat.primitives.kdf
+        - cryptography.hazmat.primitives.twofactor
+        - cryptography.x509
+      requires:
+        - certifi >=2024
+        - cryptography-vectors {{ version }}
+        - pip
+        - pytest >=7.4.0
+        - pytest-xdist >=3.5.0
+        - pytest-benchmark >=4.0
+        - pretend >=0.7
+      source_files:
+        - tests
+        - pyproject.toml
+      commands:
+        - echo ON  # [win]
+        - pip check
+        # run_test.py will check that the correct openssl version is linked
+        - pytest -v tests
+
+about:
+  home: https://github.com/pyca/cryptography
+  license: Apache-2.0 OR BSD-3-Clause
+  license_family: OTHER
+  license_file:
+    - LICENSE
+    - LICENSE.APACHE
+    - LICENSE.BSD
+  summary: Provides cryptographic recipes and primitives to Python developers
+  description: |
+    Cryptography is a package which provides cryptographic recipes and
+    primitives to Python developers. Our goal is for it to be your
+    "cryptographic standard library". It supports Python 3.6+ and PyPy3 7.2+.
+    cryptography includes both high level recipes and low level interfaces to
+    common cryptographic algorithms such as symmetric ciphers, message digests,
+    and key derivation functions.
+  dev_url: https://github.com/pyca/cryptography
+  doc_url: https://cryptography.io
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - ocefpaf
+    - chenghlee

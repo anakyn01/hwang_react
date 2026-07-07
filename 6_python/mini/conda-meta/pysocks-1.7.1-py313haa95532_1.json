@@ -1,0 +1,49 @@
+{
+  "name": "pysocks",
+  "version": "1.7.1",
+  "build": "py313haa95532_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "pysocks-1.7.1-py313haa95532_1.conda",
+  "md5": "fbfa708fb7dba50f62e0363778296f29",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pysocks-1.7.1-py313haa95532_1.conda",
+  "sha256": "80a495f4af262ca1119720a007eab7dda13008f48ba1a9e0a0b0003638dc71aa",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "win_inet_pton"
+  ],
+  "constrains": [],
+  "license": "BSD 3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1761753068000,
+  "size": 35859,
+  "requested_spec": "pkgs/main/win-64::pysocks==1.7.1=py313haa95532_1",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\pysocks-1.7.1-py313haa95532_1.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\pysocks-1.7.1-py313haa95532_1",
+  "files": [
+    "Lib/site-packages/__pycache__/socks.cpython-313.pyc",
+    "Lib/site-packages/__pycache__/sockshandler.cpython-313.pyc",
+    "Lib/site-packages/pysocks-1.7.1.dist-info/INSTALLER",
+    "Lib/site-packages/pysocks-1.7.1.dist-info/METADATA",
+    "Lib/site-packages/pysocks-1.7.1.dist-info/RECORD",
+    "Lib/site-packages/pysocks-1.7.1.dist-info/REQUESTED",
+    "Lib/site-packages/pysocks-1.7.1.dist-info/WHEEL",
+    "Lib/site-packages/pysocks-1.7.1.dist-info/direct_url.json",
+    "Lib/site-packages/pysocks-1.7.1.dist-info/licenses/LICENSE",
+    "Lib/site-packages/pysocks-1.7.1.dist-info/top_level.txt",
+    "Lib/site-packages/socks.py",
+    "Lib/site-packages/sockshandler.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\pysocks-1.7.1-py313haa95532_1",
+    "type": 1
+  }
+}

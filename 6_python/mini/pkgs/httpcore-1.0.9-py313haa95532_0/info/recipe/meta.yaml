@@ -1,0 +1,73 @@
+# This file created by conda-build 25.4.2
+# meta.yaml template originally from:
+# C:\b\abs_25m7_xthp6\clone\recipe, last modified Thu May 29 14:40:53 2025
+# ------------------------------------------------
+
+package:
+  name: httpcore
+  version: 1.0.9
+source:
+  sha256: 6e34463af53fd2ab5d807f399a9b45ea31c3dfa2276f15a2c3f00afff6e176e8
+  url: https://pypi.io/packages/source/h/httpcore/httpcore-1.0.9.tar.gz
+build:
+  number: '0'
+  script: C:\\b\\abs_25m7_xthp6\\croot\\httpcore_1748526065845\\_h_env\\python.exe
+    -m pip install . -vv --no-deps --no-build-isolation
+  string: py313haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.2.25 haa95532_0
+    - expat 2.7.1 h8ddb27b_0
+    - hatch-fancy-pypi-readme 24.1.0 py313haa95532_0
+    - hatchling 1.27.0 py313haa95532_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - openssl 3.0.16 h3f729d1_0
+    - packaging 24.2 py313haa95532_0
+    - pathspec 0.10.3 py313haa95532_0
+    - pip 25.1 pyhc872135_2
+    - pluggy 1.5.0 py313haa95532_0
+    - python 3.13.2 hadb2040_100_cp313
+    - python_abi 3.13 0_cp313
+    - setuptools 78.1.1 py313haa95532_0
+    - sqlite 3.45.3 h2bbff1b_0
+    - tk 8.6.14 h0416ee5_0
+    - trove-classifiers 2024.10.14 py313haa95532_0
+    - tzdata 2025b h04d1e81_0
+    - vc 14.42 haa95532_5
+    - vs2015_runtime 14.42.34433 hbfb602d_5
+    - wheel 0.45.1 py313haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.2.13 h8cc25b3_1
+  run:
+    - certifi
+    - h11 >=0.16
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+test:
+  commands:
+    - pip check
+  imports:
+    - httpcore
+  requires:
+    - pip
+about:
+  description: The HTTP Core package provides a minimal low-level HTTP client, which
+    does one thing only. Sending HTTP requests.
+  dev_url: https://github.com/encode/httpcore
+  doc_url: https://www.encode.io/httpcore/
+  home: https://github.com/encode/httpcore
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE.md
+  summary: The next generation HTTP client.
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 258ab686-9ae2-4bf4-92ba-033f69def5ff
+  recipe-maintainers:
+    - nicoddemus
+    - synapticarbors
+  remote_url: git@github.com:AnacondaRecipes/httpcore-feedstock.git
+  sha: bf922a7a787fe76f6d2a10110d0d35537d06e5ca

@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "constrains": [
+    "pytest-mypy >=1.0.1",
+    "pytest-checkdocs >=2.4",
+    "shtab >=1.1.0",
+    "pytest-enabler >=3.4"
+  ],
+  "depends": [
+    "jaraco.classes",
+    "jaraco.context",
+    "jaraco.functools",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "pywin32-ctypes >=0.2.0"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "keyring",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1763637248210,
+  "version": "25.7.0"
+}

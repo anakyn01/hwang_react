@@ -1,0 +1,25 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "certifi",
+    "h11 >=0.16",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "httpcore-1.0.9-py313haa95532_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "2262f0f3863efb10f8f4442438401a8d",
+  "name": "httpcore",
+  "platform": "win32",
+  "sha256": "d500fb5bedabbb40813f548184b7fa6f3fd92893209c0762777d8b7926e94af2",
+  "size": 131010,
+  "subdir": "win-64",
+  "timestamp": 1748526313000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/httpcore-1.0.9-py313haa95532_0.conda",
+  "version": "1.0.9"
+}

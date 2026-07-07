@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "h3d06f0e_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "krb5 1.22.1"
+  ],
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "fn": "libkrb5-1.22.1-h3d06f0e_1.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "7cf3e0d3e8de34c05bc06825387cc5d5",
+  "name": "libkrb5",
+  "platform": "win32",
+  "sha256": "b179996d88eb33e2d0adc3418ee08c04dea5b96e49f76502c09af1643f8d9245",
+  "size": 693609,
+  "subdir": "win-64",
+  "timestamp": 1775138282000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libkrb5-1.22.1-h3d06f0e_1.conda",
+  "version": "1.22.1"
+}

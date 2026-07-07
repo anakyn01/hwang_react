@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "truststore-0.10.1-py313haa95532_1.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "02621c34f9d5bed45c55831d62a45ae7",
+  "name": "truststore",
+  "platform": "win32",
+  "sha256": "e3cdd87c4b0acadd89a849d52e28b2624a3029ff88ba75a77a74bfec6e037135",
+  "size": 49487,
+  "subdir": "win-64",
+  "timestamp": 1762521065000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/truststore-0.10.1-py313haa95532_1.conda",
+  "version": "0.10.1"
+}

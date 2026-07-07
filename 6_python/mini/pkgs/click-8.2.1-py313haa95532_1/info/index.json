@@ -1,0 +1,17 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_1",
+  "build_number": 1,
+  "depends": [
+    "colorama",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "name": "click",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1764332409785,
+  "version": "8.2.1"
+}

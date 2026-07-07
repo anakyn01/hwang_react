@@ -1,0 +1,32 @@
+{
+  "arch": "x86_64",
+  "build": "h19d1b0a_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "libbrotlicommon >=1.2.0,<1.3.0a0",
+    "libbrotlidec >=1.2.0,<1.3.0a0",
+    "libbrotlienc >=1.2.0,<1.3.0a0",
+    "libkrb5 >=1.22.1,<1.23.0a0",
+    "libssh2 >=1.11.1",
+    "libssh2 >=1.11.1,<2.0a0",
+    "libzlib >=1.3.1,<2.0a0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208",
+    "zstd >=1.5.7,<1.6.0a0"
+  ],
+  "fn": "libcurl-8.19.0-h19d1b0a_0.conda",
+  "license": "curl",
+  "license_family": "MIT",
+  "md5": "2364f8dcdcfb94324165da29b23e7324",
+  "name": "libcurl",
+  "platform": "win32",
+  "sha256": "62bf3fccf66c74678df3e6bc6d9f28cb3e629c47d2596ad9929d74325441d4bb",
+  "size": 397374,
+  "subdir": "win-64",
+  "timestamp": 1774299584000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libcurl-8.19.0-h19d1b0a_0.conda",
+  "version": "8.19.0"
+}

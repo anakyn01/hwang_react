@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "certifi-2026.4.22-py313haa95532_0.conda",
+  "license": "MPL-2.0",
+  "license_family": "Other",
+  "md5": "b19d3b36b39e5b63be97023a3d1aa2ff",
+  "name": "certifi",
+  "platform": "win32",
+  "sha256": "96dd62789edf2dfa5441907cee0b76ec987779786c464a7196ef23e5f9e03bd7",
+  "size": 136049,
+  "subdir": "win-64",
+  "timestamp": 1776971281000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/certifi-2026.4.22-py313haa95532_0.conda",
+  "version": "2026.4.22"
+}

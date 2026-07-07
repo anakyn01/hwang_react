@@ -1,0 +1,119 @@
+{% set version = "4.0.0" %}
+
+package:
+  name: mpdecimal
+  version: {{ version }}
+
+source:
+  url: https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-{{ version }}.tar.gz
+  sha256: 942445c3245b22730fd41a67a7c5c231d11cb1b9936b9c0f76334fb7d0b4468c
+  patches:
+    - fix-dll-name.diff
+
+build:
+  number: 0
+  missing_dso_whitelist:     # [s390x]
+    - "$RPATH/ld64.so.1"     # [s390x]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make                   # [unix]
+    - wget                   # [unix]
+    - unzip                  # [unix]
+    - m2-patch               # [win]
+    - patch                  # [not win]
+  host:
+  run:
+
+outputs:
+  - name: libmpdec
+    files:
+      - lib/libmpdec.so.*           # [linux]
+      - lib/libmpdec.*.dylib        # [osx]
+      - Library/bin/libmpdec-*.dll  # [win]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libmpdec.so.{{ version[0] }}               # [linux]
+        - test -f ${PREFIX}/lib/libmpdec.so.{{ version }}                  # [linux]
+        - test -f ${PREFIX}/lib/libmpdec.{{ version[0] }}.dylib            # [osx]
+        - if not exist %LIBRARY_BIN%\libmpdec-{{ version[0] }}.dll exit 1  # [win]
+
+  - name: libmpdecxx
+    files:
+      - lib/libmpdec++.so.*           # [linux]
+      - lib/libmpdec++.*.dylib        # [osx]
+      - Library/bin/libmpdec++-*.dll  # [win]
+    requirements:
+      build:
+        - {{ compiler('cxx') }}
+      host:
+        - {{ pin_subpackage("libmpdec", exact=True) }}
+      run:
+        - {{ pin_subpackage("libmpdec", exact=True) }}
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libmpdec++.so.{{ version[0] }}               # [linux]
+        - test -f ${PREFIX}/lib/libmpdec++.so.{{ version }}                  # [linux]
+        - test -f ${PREFIX}/lib/libmpdec++.{{ version[0] }}.dylib            # [osx]
+        - if not exist %LIBRARY_BIN%\libmpdec++-{{ version[0] }}.dll exit 1  # [win]
+
+  - name: libmpdec-devel
+    build:
+      run_exports:
+        - {{ pin_subpackage("libmpdec") }}
+    files:
+      - lib/libmpdec.so              # [linux]
+      - lib/libmpdec.dylib           # [osx]
+      - lib/pkgconfig/libmpdec.pc    # [not win]
+      - include/mpdecimal.h          # [not win]
+      - Library/lib/mpdec.lib        # [win]
+      - Library/include/mpdecimal.h  # [win]
+    requirements:
+      - {{ pin_subpackage("libmpdec", exact=True) }}
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libmpdec.so            # [linux]
+        - test -f ${PREFIX}/lib/libmpdec.dylib         # [osx]
+        - if not exist %LIBRARY_LIB%\mpdec.lib exit 1  # [win]
+
+  - name: libmpdecxx-devel
+    build:
+      run_exports:
+        - {{ pin_subpackage("libmpdecxx") }}
+    files:
+      - lib/libmpdec++.so            # [linux]
+      - lib/libmpdec++.dylib         # [osx]
+      - lib/pkgconfig/libmpdec++.pc  # [not win]
+      - include/decimal.hh           # [not win]
+      - Library/lib/mpdec++.lib      # [win]
+      - Library/include/decimal.hh   # [win]
+    requirements:
+      - {{ pin_subpackage("libmpdecxx", exact=True) }}
+      - {{ pin_subpackage("libmpdec-devel", exact=True) }}
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libmpdec++.so            # [linux]
+        - test -f ${PREFIX}/lib/libmpdec++.dylib         # [osx]
+        - if not exist %LIBRARY_LIB%\mpdec++.lib exit 1  # [win]
+
+about:
+  home: https://www.bytereef.org/mpdecimal/index.html
+  license: BSD-2-Clause
+  license_file: COPYRIGHT.txt
+  license_family: BSD
+  summary: A package for correctly-rounded arbitrary precision decimal floating point arithmetic
+  description: |
+    libmpdec is a fast C library for correctly-rounded arbitrary precision decimal floating point 
+    arithmetic. It is a complete implementation of Mike Cowlishaw/IBM's 
+    General Decimal Arithmetic Specification.
+  doc_url: https://www.bytereef.org/mpdecimal/index.html
+  dev_url: https://www.bytereef.org/mpdecimal/download.html
+
+extra:
+  recipe-maintainers:
+    - isuruf

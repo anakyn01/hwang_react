@@ -1,0 +1,83 @@
+# This file created by conda-build 25.5.0
+# ------------------------------------------------
+
+package:
+  name: typing-extensions
+  version: 4.15.0
+source:
+  url: https://pypi.io/packages/source/t/typing_extensions/typing_extensions-4.15.0.tar.gz
+  sha256: 0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466
+build:
+  number: 0
+  string: py313haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.7.15 haa95532_0
+    - expat 2.7.1 h8ddb27b_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - openssl 3.0.17 h35632f6_0
+    - python 3.13.5 h286a616_100_cp313
+    - python_abi 3.13 0_cp313
+    - sqlite 3.50.2 hda9a48d_1
+    - tk 8.6.15 hf199647_0
+    - tzdata 2025b h04d1e81_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - xz 5.6.4 h4754444_1
+    - zlib 1.2.13 h8cc25b3_1
+  run:
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+    - typing_extensions 4.15.0 py313haa95532_0
+test:
+  imports:
+    - typing_extensions
+  requires:
+    - pip
+  commands:
+    - pip check
+about:
+  home: https://github.com/python/typing_extensions
+  license: PSF-2.0
+  license_family: PSF
+  license_file: LICENSE
+  summary: Backported and Experimental Type Hints for Python
+  description: 'The typing module was added to the standard library in Python 3.5,
+    but
+
+    many new features have been added to the module since then.
+
+    This means users of older Python versions who are unable to upgrade will not be
+
+    able to take advantage of new types added to the typing module, such as
+
+    typing.Protocol or typing.TypedDict.
+
+
+    The typing_extensions module contains backports of these changes.
+
+    Experimental types that will eventually be added to the ``typing``
+
+    module are also included in typing_extensions.
+
+    '
+  doc_url: https://github.com/python/typing_extensions/blob/main/README.md
+  dev_url: https://github.com/python/typing_extensions
+extra:
+  recipe-maintainers:
+    - cbouss
+  skip-lints:
+    - missing_pip_check
+    - missing_python_build_tool
+    - outputs_not_unique
+    - patch_unnecessary
+    - wrong_output_script_key
+  final: true
+  copy_test_source_files: true
+  sha: 75ebfe58b58fafacd87b2825b1343f206be2fbad
+  remote_url: git@github.com:AnacondaRecipes/typing_extensions-feedstock.git
+  flow_run_id: ecea22aa-25a5-4751-b630-21582a969580

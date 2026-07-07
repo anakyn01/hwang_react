@@ -1,0 +1,25 @@
+{
+  "arch": "x86_64",
+  "build": "h23a355e_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "pcre2 >=10.46,<10.47.0a0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "fn": "libsolv-0.7.30-h23a355e_2.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "0ae4849097816b4452e8fe8a28376a61",
+  "name": "libsolv",
+  "platform": "win32",
+  "sha256": "b0f6d1ed7cd48d37ae9c1ba34c0fb70baded93a09718c29c6ecf924dd8e0165c",
+  "size": 444021,
+  "subdir": "win-64",
+  "timestamp": 1760357137000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libsolv-0.7.30-h23a355e_2.conda",
+  "version": "0.7.30"
+}

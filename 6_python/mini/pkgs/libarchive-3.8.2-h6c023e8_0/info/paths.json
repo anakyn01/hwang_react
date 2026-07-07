@@ -1,0 +1,583 @@
+{
+  "paths": [
+    {
+      "_path": "Library/bin/archive.dll",
+      "path_type": "hardlink",
+      "sha256": "dfb177253c5ddb4c2b31a61a01f56e30cf03554d8c6f9981accedc8c71157ce4",
+      "size_in_bytes": 1216840
+    },
+    {
+      "_path": "Library/bin/bsdcat.exe",
+      "path_type": "hardlink",
+      "sha256": "3f4de4abd5ee50ab64a14de9bdf954cf94c03b027daa0830d28cf6a3a8ac884f",
+      "size_in_bytes": 247624
+    },
+    {
+      "_path": "Library/bin/bsdcpio.exe",
+      "path_type": "hardlink",
+      "sha256": "0d3f7fea67168424338f8f7e267b9c047784267568619b1c3ac38fe1c24a9c04",
+      "size_in_bytes": 1210184
+    },
+    {
+      "_path": "Library/bin/bsdtar.exe",
+      "path_type": "hardlink",
+      "sha256": "f57f9b0593211738726673979b572cd4e5ddc783057efe4bf17cc21a207b4aa4",
+      "size_in_bytes": 1241416
+    },
+    {
+      "_path": "Library/include/archive.h",
+      "path_type": "hardlink",
+      "sha256": "074bc7f327dfdc0362ba5ab90ff345d0038bb9cd0773e50cd0348a1956c09d8b",
+      "size_in_bytes": 56094
+    },
+    {
+      "_path": "Library/include/archive_entry.h",
+      "path_type": "hardlink",
+      "sha256": "e2dd6a55ba3387e35ab7a19031555ad7d5832970d631c9d154345eeea2b34c49",
+      "size_in_bytes": 35426
+    },
+    {
+      "_path": "Library/lib/archive.lib",
+      "path_type": "hardlink",
+      "sha256": "53bda719da0ee484a2cc43e4971ab46b62b08fda732e4804b73b631aec32b1ac",
+      "size_in_bytes": 121322
+    },
+    {
+      "_path": "Library/lib/archive_static.lib",
+      "path_type": "hardlink",
+      "sha256": "8f35eda6d483a1e6533044eda1e78a8cad5b3203cf57e2302a672ab8add5f627",
+      "size_in_bytes": 2148450
+    },
+    {
+      "_path": "Library/lib/pkgconfig/libarchive.pc",
+      "file_mode": "text",
+      "path_type": "hardlink",
+      "prefix_placeholder": "C:/miniconda3/conda-bld/libarchive_1761151787217/_h_env",
+      "sha256": "e19f9fffb17f00514f0df2884398cb96f3406a0067693b28c79bac98863380cc",
+      "size_in_bytes": 466
+    },
+    {
+      "_path": "Library/share/man/man1/bsdcat.1",
+      "path_type": "hardlink",
+      "sha256": "3af4cd30565d11decffb5590bd8e9a15c4666fd72a858c807bfefc9f334d08ef",
+      "size_in_bytes": 832
+    },
+    {
+      "_path": "Library/share/man/man1/bsdcpio.1",
+      "path_type": "hardlink",
+      "sha256": "64060b496ac98f8be918f84a1f1a125d34f0793b75ed6d8652bcf34f3de038d1",
+      "size_in_bytes": 11378
+    },
+    {
+      "_path": "Library/share/man/man1/bsdtar.1",
+      "path_type": "hardlink",
+      "sha256": "27a819cdf8ab5d63cc8a0ff4c33f720b23f61e343dd623f52bff3b29364d6bfe",
+      "size_in_bytes": 40609
+    },
+    {
+      "_path": "Library/share/man/man3/archive_entry.3",
+      "path_type": "hardlink",
+      "sha256": "12eab89a1dd60155fe884e0d437882f3d66c8ed4fd95ef3f3edd42a32354d036",
+      "size_in_bytes": 4946
+    },
+    {
+      "_path": "Library/share/man/man3/archive_entry_acl.3",
+      "path_type": "hardlink",
+      "sha256": "d026ed9ee2e74278c795b596e48d52cee706dc6f9159f8faf72f889b24d70f8b",
+      "size_in_bytes": 14663
+    },
+    {
+      "_path": "Library/share/man/man3/archive_entry_linkify.3",
+      "path_type": "hardlink",
+      "sha256": "5977d279447fd69f50010c12bc2193bcb2f8ba39bb5552685d2bc744249d977c",
+      "size_in_bytes": 6045
+    },
+    {
+      "_path": "Library/share/man/man3/archive_entry_misc.3",
+      "path_type": "hardlink",
+      "sha256": "154ce58f01b3f3d96092cfe376bf99c6313eabc8d9877993491cd27863507567",
+      "size_in_bytes": 2527
+    },
+    {
+      "_path": "Library/share/man/man3/archive_entry_paths.3",
+      "path_type": "hardlink",
+      "sha256": "c3a7cbdd434b690212dcc005bb4be287d2d81354e52a8fbd6022e5cde3ff8d9d",
+      "size_in_bytes": 5660
+    },
+    {
+      "_path": "Library/share/man/man3/archive_entry_perms.3",
+      "path_type": "hardlink",
+      "sha256": "43270c8df214866f32a26318c117b95b5bf87913ccbeef594a553d36769a6853",
+      "size_in_bytes": 7829
+    },
+    {
+      "_path": "Library/share/man/man3/archive_entry_stat.3",
+      "path_type": "hardlink",
+      "sha256": "b82ff43c981d9ab490e3f56e39a798e11f4790582f732e5d8c742f0a8b00a1f8",
+      "size_in_bytes": 8293
+    },
+    {
+      "_path": "Library/share/man/man3/archive_entry_time.3",
+      "path_type": "hardlink",
+      "sha256": "b94a830bf3feca608ef83cf2c285adca607c33d7e385308def0aaa2d74c648f1",
+      "size_in_bytes": 4594
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read.3",
+      "path_type": "hardlink",
+      "sha256": "37818823222d5416c97f987e4aa490d8a6f8c8d69a37acb341a94c908b679c20",
+      "size_in_bytes": 7333
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_add_passphrase.3",
+      "path_type": "hardlink",
+      "sha256": "0331b0feef0f70536ff6137a98c9879936d695191ef0129f55f90478470de5b3",
+      "size_in_bytes": 2520
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_data.3",
+      "path_type": "hardlink",
+      "sha256": "e66a42bc875587b0ec06417ad7273babd45a05425dfb4d7eb9c756ac0c14ab5b",
+      "size_in_bytes": 4313
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_disk.3",
+      "path_type": "hardlink",
+      "sha256": "6bb5d45708c82332a5b86ca499770200759f5b683c903d456d00b689d48735dc",
+      "size_in_bytes": 13965
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_extract.3",
+      "path_type": "hardlink",
+      "sha256": "31bdcb59e85068e03c7679062681948c1fe566ea91222a55cf3ddc22d7bbabbc",
+      "size_in_bytes": 4474
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_filter.3",
+      "path_type": "hardlink",
+      "sha256": "b9debf709b439c6fcde641c92400e2a6762106a5bb1adeb5f28adb4683395199",
+      "size_in_bytes": 5676
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_format.3",
+      "path_type": "hardlink",
+      "sha256": "5b9c5f1039032d62839ad5e06a6615a66f13936ca17b902e3a04eb6b9de5235f",
+      "size_in_bytes": 6625
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_free.3",
+      "path_type": "hardlink",
+      "sha256": "1b9668e22eba1b5afeb35a59cfbbffd23a1dc772a31b03cbc60a0a5085298aa9",
+      "size_in_bytes": 3129
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_header.3",
+      "path_type": "hardlink",
+      "sha256": "853e676b779bd569fc74bc83f26dacb8457c7de140c5ec50f663f65d67223b8c",
+      "size_in_bytes": 3021
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_new.3",
+      "path_type": "hardlink",
+      "sha256": "b25bc127b6d991b97ad7b9cb88b5adb9f8e01365306fde5bc3f3841d402ebc79",
+      "size_in_bytes": 2107
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_open.3",
+      "path_type": "hardlink",
+      "sha256": "dd1c558d1c95536740a3560e839d400ccdf01c4e6ae8d11b6ff65378ee913439",
+      "size_in_bytes": 6920
+    },
+    {
+      "_path": "Library/share/man/man3/archive_read_set_options.3",
+      "path_type": "hardlink",
+      "sha256": "6c6326fbf5d4248f6ab3024f95f5fc92db086353d7f67cfe2cf0ae6dd15ab85d",
+      "size_in_bytes": 7660
+    },
+    {
+      "_path": "Library/share/man/man3/archive_util.3",
+      "path_type": "hardlink",
+      "sha256": "d827f8411c59572cc29a5f23dd95dbffd9a5f2c25a614449c7b2d0f956253916",
+      "size_in_bytes": 7123
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write.3",
+      "path_type": "hardlink",
+      "sha256": "c85417c954cdabd986958f95166cb9ccc0e314bb9009d623b7191fe5042a6065",
+      "size_in_bytes": 7477
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_blocksize.3",
+      "path_type": "hardlink",
+      "sha256": "4206e110dea128b7ef20f8690e35b2454a1ce69d7d495d8ef44582ac16bc2570",
+      "size_in_bytes": 4210
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_data.3",
+      "path_type": "hardlink",
+      "sha256": "62dac4b25c0294095f0a586a5585d01638a4ec104836220ed1a5500d54e1d84c",
+      "size_in_bytes": 3147
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_disk.3",
+      "path_type": "hardlink",
+      "sha256": "f26626b59f0f34aaf8a5a303cbf07ede8406a57fe15885ae9a50ec71a780b47b",
+      "size_in_bytes": 12088
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_filter.3",
+      "path_type": "hardlink",
+      "sha256": "26c388b9c5301b9dc050e03ee74b09d923adb78f394fcf6b87fd4504db8e41a1",
+      "size_in_bytes": 4556
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_finish_entry.3",
+      "path_type": "hardlink",
+      "sha256": "86544084af5e79e1eea5f14bc042a5fbf7af3f9bf9b67361a896c390819a8da8",
+      "size_in_bytes": 2711
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_format.3",
+      "path_type": "hardlink",
+      "sha256": "397187ef8559fe3606d922e4bfd711936cf099c5e37b5edb1e2dfcb8aa9e344b",
+      "size_in_bytes": 6540
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_free.3",
+      "path_type": "hardlink",
+      "sha256": "353cf610a04861aa445d664042b402a48b849bde3a5e002659db1de1f2339a11",
+      "size_in_bytes": 3108
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_header.3",
+      "path_type": "hardlink",
+      "sha256": "c6da9a8b40a38358b1679c6c1b3ac3b4c1c6129cabe41380fdfe899532521f33",
+      "size_in_bytes": 2481
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_new.3",
+      "path_type": "hardlink",
+      "sha256": "9e2fd6ce3da1053f2d94813a97aaee50f8bc982c24ec5204c2b698e2eddd83fd",
+      "size_in_bytes": 2046
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_open.3",
+      "path_type": "hardlink",
+      "sha256": "2bd9292b4c7cb1cc821aaebc1c06890dd08124eca94b8a0c2548baf121a33cc3",
+      "size_in_bytes": 8208
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_set_options.3",
+      "path_type": "hardlink",
+      "sha256": "433481c971742d39754c43276e5f89b373e3dceb5c4bf7e257fb61cc9cc2c019",
+      "size_in_bytes": 24059
+    },
+    {
+      "_path": "Library/share/man/man3/archive_write_set_passphrase.3",
+      "path_type": "hardlink",
+      "sha256": "058e56b848af29e18502e5cd7bc01bac4a7302fc5814679695ff0c9f463f0abf",
+      "size_in_bytes": 2503
+    },
+    {
+      "_path": "Library/share/man/man3/libarchive.3",
+      "path_type": "hardlink",
+      "sha256": "ae63b2f3d009448f43a18ed4d4bc81c5a428e1342054d0b9df76abab216a3450",
+      "size_in_bytes": 8362
+    },
+    {
+      "_path": "Library/share/man/man3/libarchive_changes.3",
+      "path_type": "hardlink",
+      "sha256": "41da371326a71af0532b0d540779052ffb29f077f9a60bb178b8146312282a51",
+      "size_in_bytes": 10172
+    },
+    {
+      "_path": "Library/share/man/man3/libarchive_internals.3",
+      "path_type": "hardlink",
+      "sha256": "442ee98b3be9dc75f89fb2d3ba58dc6280f8b4f0ebec225d1938f0d3f459c0fd",
+      "size_in_bytes": 13664
+    },
+    {
+      "_path": "Library/share/man/man5/cpio.5",
+      "path_type": "hardlink",
+      "sha256": "4adc8c6f573bbe97230fa47e7301ed513adb27cc42ec81466509f13d001b75d9",
+      "size_in_bytes": 13355
+    },
+    {
+      "_path": "Library/share/man/man5/libarchive-formats.5",
+      "path_type": "hardlink",
+      "sha256": "72b3de4803c55860a5a055c57cd14f7d2265970cb1e7f08297fe53b543e7bc62",
+      "size_in_bytes": 19385
+    },
+    {
+      "_path": "Library/share/man/man5/mtree.5",
+      "path_type": "hardlink",
+      "sha256": "59fb7a07c9734e514699f2a98c0feee2702d2a3dbba5756ef1ac06092fe71983",
+      "size_in_bytes": 8071
+    },
+    {
+      "_path": "Library/share/man/man5/tar.5",
+      "path_type": "hardlink",
+      "sha256": "9e477ebe3f4502ece6af78fd7a88a14e04f8155cf6db40479cf9797324558e34",
+      "size_in_bytes": 31730
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_entry.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "964ceddcfacab12d599d44cf94fb46100203f4f3adc65a896845282bca093e5b",
+      "size_in_bytes": 28892
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_entry_acl.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "ec1abf133e44ec9f7c17d8670584b229a25973efd763d165f3ab4f34486c293c",
+      "size_in_bytes": 40652
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_entry_linkify.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "2f8a3e69a1341a4b3dc6b89a5dd1fc471a2b1fafb35b2bfc8f0388fb33ba5b10",
+      "size_in_bytes": 28375
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_entry_misc.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "acdf1f7d9f213c164fb5ce4e64f39f5420c15f2763cba0c68409570278117812",
+      "size_in_bytes": 22898
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_entry_paths.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "d1c9f851375266c1ec16fa5789b0bb95b3968ce9d4653bc69d64c7fb848bb96c",
+      "size_in_bytes": 25042
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_entry_perms.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "3c81f0076ebd124576f1bf46692a75f2e0d28511695f3a41e43add2e3ec89d6d",
+      "size_in_bytes": 31807
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_entry_stat.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "1cd672104b91361873180b8280992e1ddf22be282448a8d2a5a62b894adb3310",
+      "size_in_bytes": 32663
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_entry_time.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "e00476d5b2e7691e9969d75e8b6b7eadc8be7c63fd06d73b566292fcd4eeb2fc",
+      "size_in_bytes": 23917
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "0254a36a96ec3ffbbcf5317dd55fe4c0bbd5784fc7733613eff3d8070f343389",
+      "size_in_bytes": 36845
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_add_passphrase.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "0b9a6251c6fb755a79747a549ca04d02cfc37e9655c21936c0e39435da8384d7",
+      "size_in_bytes": 23425
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_data.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "a5f396ff42713b7022febc9ff39dbd3149e6fda62eb3456b34af5b34f8cba042",
+      "size_in_bytes": 27400
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_disk.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "e737fa7854344b1da1d603e989f14b3dd80b4df7418b983adab66a87d1a0e566",
+      "size_in_bytes": 44813
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_extract.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "cb61800d546b7f83651f907367dd1ba5619e4581e4bfdad0703edb82ae4a3898",
+      "size_in_bytes": 28353
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_filter.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "c4fc3af51ebebefa100349d63e1dbde6dd3d3d69b3b979ee85a26e2e263d5fa0",
+      "size_in_bytes": 27380
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_format.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "2f68d4fed074875b4335196584e7cfe07bf12b8c71961e737f0bd4c2efb71bb9",
+      "size_in_bytes": 29861
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_free.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "3bdbdc9fd753de5efc8acf6a62ab1fff9687ed16025104a35c1f4c2952dd4e78",
+      "size_in_bytes": 25094
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_header.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "690edd5d22fec2c917aeb88602d4376ee4f1dfe64a582578eeedeee3d17e7139",
+      "size_in_bytes": 24615
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_new.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "a6085ce204544b389b289c32c6ec16a35ba1886025bbca410fcfe1149eb90391",
+      "size_in_bytes": 21996
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_open.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "e551bb4c1a7434617f8b4586dd44882102d540b575f4a1f4d9d89381958ee4e7",
+      "size_in_bytes": 32688
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_read_set_options.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "1468484b44a4b543585a316efe3eb3e48e5cb31562b3bf1658bbfe6e50e78a94",
+      "size_in_bytes": 31930
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_util.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "2af876853c2883493751a119135d87b1f59c966ae603fd8e206c28a2e3b1e151",
+      "size_in_bytes": 30188
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "959b1e17718fb27296dacb995e91579c48d17256f513192c77e59af22eeee05f",
+      "size_in_bytes": 38676
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_blocksize.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "7a01b6cfa86e2649ae9eafeec8a1643fb3895b6a9035ce644d86e04abcbe3602",
+      "size_in_bytes": 27601
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_data.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "cbceac23dc0fd65d1e456b144941a759fb0fa569101ffd5c301da5aba1bb8b59",
+      "size_in_bytes": 24443
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_disk.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "3af227c80b3b752f48a38bda2ca72bb9d94ef340a9bd8321b323124fc478e8ae",
+      "size_in_bytes": 40952
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_filter.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "7a55c3cbe6127d923a8f8109ce0f9f73e715f0860bdb7753df5d81b79dba0486",
+      "size_in_bytes": 26391
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_finish_entry.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "123733985db2ea760341b0596f1ab4461431ee640e24f26fbacd6a1ddfa16423",
+      "size_in_bytes": 25386
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_format.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "cd43bdef9442afc7fe7f09c62d46390b94e69e247df048c6c7d34a3dfa552d73",
+      "size_in_bytes": 28940
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_free.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "128dbf309e7fa7736544fb8f82c5784bbbb668e39e64791b8984ca80116be9f6",
+      "size_in_bytes": 24204
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_header.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "a5c37114e6d0a3636352f3288e2fbe72658f146d520f12921ce21bdee1a0d6e2",
+      "size_in_bytes": 23841
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_new.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "4c9392e1bff1659c526bc054b483ab535c097063c995c1715ad758544e708431",
+      "size_in_bytes": 21380
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_open.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "6598cff516c967b267975872be8fa3ca4729b28bc08846104e4648b9ab2907e3",
+      "size_in_bytes": 34368
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_set_options.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "d8b3bffb763c67b0d2e1884befc529d554d604be7c5b12402a495f1c98f8ea05",
+      "size_in_bytes": 50482
+    },
+    {
+      "_path": "Library/share/man/pdf/archive_write_set_passphrase.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "20775d8197888f3fc3635f31c1962b27031973853223ca2a6242777cf4c718e6",
+      "size_in_bytes": 23618
+    },
+    {
+      "_path": "Library/share/man/pdf/bsdcpio.1.pdf",
+      "path_type": "hardlink",
+      "sha256": "91b613cc22f94e00c4762188579dfca4dba1306e08ff50e0fbe22d83495f41d9",
+      "size_in_bytes": 41760
+    },
+    {
+      "_path": "Library/share/man/pdf/bsdtar.1.pdf",
+      "path_type": "hardlink",
+      "sha256": "0868564358d497e5e63f9363ae2af0693543585734da1fe77c3d563cae98873c",
+      "size_in_bytes": 79749
+    },
+    {
+      "_path": "Library/share/man/pdf/cpio.5.pdf",
+      "path_type": "hardlink",
+      "sha256": "c9ec5f92f72aa8a21fab563f7c0a024d6a2c8b792172f54d1c499a977b086e33",
+      "size_in_bytes": 38774
+    },
+    {
+      "_path": "Library/share/man/pdf/libarchive-formats.5.pdf",
+      "path_type": "hardlink",
+      "sha256": "3444f4f261a17094936accc37fdce2cfd210f5bc427ee8089ff3e971e1591aed",
+      "size_in_bytes": 46207
+    },
+    {
+      "_path": "Library/share/man/pdf/libarchive.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "8d417362df5add219b02a31c0afffa1431efd738379dde18d48134c7e26febaa",
+      "size_in_bytes": 32739
+    },
+    {
+      "_path": "Library/share/man/pdf/libarchive_changes.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "0ae1d011b37eecbbef8820cff0d5e0ecda7bcdf86ff88cd1bb0077ae19d8dbce",
+      "size_in_bytes": 38380
+    },
+    {
+      "_path": "Library/share/man/pdf/libarchive_internals.3.pdf",
+      "path_type": "hardlink",
+      "sha256": "5be755bf8541310412701e0914b838acd45c646c5380ddea321b06ba89ab694c",
+      "size_in_bytes": 40663
+    },
+    {
+      "_path": "Library/share/man/pdf/mtree.5.pdf",
+      "path_type": "hardlink",
+      "sha256": "b4216ec07bb379dc911c490c5f1153fc854108390afc667da2ec29d431100fee",
+      "size_in_bytes": 34044
+    },
+    {
+      "_path": "Library/share/man/pdf/tar.5.pdf",
+      "path_type": "hardlink",
+      "sha256": "6498c05eb258b5fbf0e709e549821951f07a1c9bd311edae910ec88a3cb474a1",
+      "size_in_bytes": 66128
+    }
+  ],
+  "paths_version": 1
+}

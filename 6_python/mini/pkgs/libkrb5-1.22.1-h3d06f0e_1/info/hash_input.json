@@ -1,0 +1,9 @@
+{
+  "c_compiler": "vs2022",
+  "cxx_compiler": "vs2022",
+  "target_platform": "win-64",
+  "libkrb5": "1.22",
+  "c_stdlib": "vs",
+  "channel_targets": "defaults",
+  "c_stdlib_version": "2022.14"
+}

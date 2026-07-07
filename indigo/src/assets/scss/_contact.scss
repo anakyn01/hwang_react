@@ -1,0 +1,82 @@
+@import 'variables';
+
+.contact-section{
+    margin-top:109px;
+
+    @media all and (min-width: $bp-tablet) {
+        margin-top:176px;
+    }
+
+    .sec-tit{
+        margin-bottom: 47px;
+        text-align: center;
+
+        @media all and (min-width: $bp-tablet){
+            margin-bottom: 76px;
+        }
+
+        @media all and (min-width: $bp-pc){
+        float:left; margin-bottom: 0;
+        }
+    }
+
+    .form-box{
+
+        @media all and (min-width: $bp-pc){
+            float:right;
+            width:74.5583038869258%;
+        }
+
+        .form, .textarea{
+            @media all and (min-width: $bp-tablet){
+                float:left;
+                width:48.69791666666667%;
+            }
+
+            @media all and (min-width: $bp-pc){
+                float:left;
+                width:48.81516587677725%;
+            }
+        }
+
+        .form{
+            @media all and (min-width: $bp-tablet) {
+                margin-right: 2.604166666666667%; /* 20px ÷ 768px*/
+            }
+            @media all and (min-width: $bp-pc) {
+                margin-right: 2.369668246445498%; /* 20px ÷ 844px*/
+            }
+
+            input{
+                padding-bottom: 13px;
+                margin-bottom: 38px;
+
+                @media all and (min-width: $bp-tablet) {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                }
+            }
+        }
+
+        .textare textarea{
+height: 165px;
+        }
+
+        .send-btn{
+      margin-top: 36px;
+      text-align: right;
+
+            input{
+padding: 15px;
+        margin: 0; 
+        border: 0;
+        font-size: 12px;
+        color: #fff;
+        background: $primary;
+        font-family: 'Montserrat';
+        cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,295 @@
+@import "reset";
+@import "react";
+
+//flex 1
+body{
+    .header{
+    text-align: center;
+    padding:32px;
+    } //헤더에 텍스트 가운대로 정렬
+
+    .container{
+        display:flex; //가로 로 합치기
+        flex-wrap:wrap; //선행으로 플렉스 선언후 감싸는가 아닌가
+        //가로공간이 부족하면 자동으로 아래 줄로 넘기라는 뜻
+        padding:0 4px;
+    }
+
+    .column{
+        flex:25%;//가로크기를 25%면적으로
+        max-width:25%;
+
+        img{
+        margin-top: 8px;  
+        width:100%; 
+        vertical-align: middle;
+        }
+    }
+
+    @media screen and (max-width: 800px) {//800px 이하일때
+        .column{
+            flex:50%;
+            max-width:50%;
+        }
+    }
+
+    @media screen and (max-width: 600px) {//600px 이하일때
+        .column{
+            flex:100%;
+            max-width:100%;
+        }
+    }
+
+}
+
+//flex 1 end
+
+//flex 2
+body{
+    .banner{
+        background-color: yellow; padding: 5px;
+        text-align:center;
+    }
+    .Header{
+        padding:60px; text-align:center;
+        background-color: #1abc9c;
+        color:white;
+    }
+    .Navbar{
+        display:flex; background-color: #333;
+        a{
+            color:white; padding:14px 20px;
+            text-decoration: none;
+            text-align: center;
+            transition:all ease-in-out 0.2s ;
+            &:hover{
+                background-color: #ddd;
+                color:black;
+            }
+        }
+ 
+    }
+.fluid{
+  display:flex; flex-wrap:wrap;  
+}
+
+    .side{
+        flex:30%;
+        background-color: #f1f1f1;
+        padding:20px;
+    }
+    .main{
+        flex:70%;
+        background-color: white;
+        padding:20px;
+    }
+
+    .fakeimg{
+        background-color: #aaa;
+        width:100%; padding:20px;
+    }
+    .h-200{
+        height:200px;
+    }
+    .h-60{
+        height:60px;
+    }
+
+    .Footer{
+        padding:20px;
+        text-align:center;
+        background-color: #ddd;
+    }
+
+    @media screen and (max-width: 700px) {
+        .fluid, .Navbar{
+            flex-direction:column;
+        }
+    }//가로 700픽셀 이하일때  플렉스 방향을 칸을 중심으로
+}
+//flex 2 end
+
+//grid 1
+//flex가 한줄을 정리하는데 능숙하다면 Grid는 전체화면을 바둑판처럼 
+//나누어 위치를 잡는 최적화된 도구
+body{
+    .ContainerFluid{
+display:grid;
+grid-template-columns: repeat(12, [col-start] 1fr);
+gap:20px;
+/*
+12단 그리드 : 화면 가로 전체를 12개의 칸으로 쪼개서 생각한다는 뜻
+1fr: 1fraction(비율)이라는 뜻으로 남은 공간을 균등하게 나누라는 의미
+*/
+    }
+
+    .ContainerFluid > * {
+        border:1px solid green;
+        background-color: beige;
+        padding:10px;
+        grid-column:col-start / span 12;
+        //시작이 붙은 이름표부터 오른쪽으로 12칸만큼의 공간을 전부차지해라
+    }
+
+
+
+    .head{
+
+    }
+    .GridNav{
+        ul{
+          list-style: none;
+          margin:0; padding:0;  
+        }
+    }
+ 
+
+    @media (min-width: 576px) {//태블릿
+        .sidebar{
+        grid-column:col-start / span 3;
+        grid-row:3;
+        }
+        .ads{
+        grid-column: col-start / span 3;
+        }
+        .content, .gridFooter {
+            grid-column: col-start 4 / span 9;
+        }
+        .GridNav{
+            ul{
+            display:flex; 
+            justify-content: space-between;
+            }
+        }
+    }
+
+    @media (min-width: 768px) {//pc
+        .sidebar{
+        grid-column:col-start 11/ span 2;
+        }
+        .ads{
+        grid-column: col-start 11/ span 2;
+        }
+        .gridFooter {
+            grid-column: col-start / span 12;
+        }
+        .content{
+   grid-column:col-start 3/ span 8;
+grid-row: 2 / 4;         
+        }
+        .GridNav{
+grid-column:col-start / span 2;
+grid-row: 2 / 4;
+            
+            ul{
+flex-direction:column;
+            }
+        }
+    }
+}
+//grid 1 end
+
+//max-width: 800px 800px 이하 min-width:800px 800px 이상 요즘은 min-wdith
+
+
+//grid 2
+body{
+    .wrap{
+        display:grid;
+        padding:10px;
+        //기본 : 모바일 (1열)
+        grid-template-columns:repeat(12, [col-start] 1fr) ;
+        gap:10px;
+    }
+    .wrap > *{
+        border:2px solid green;
+        background-color:beige;
+        padding:20px;
+        grid-column: col-start / span 12;
+    }
+    .w-nav{
+        ul{
+            list-style:none;
+        }
+    }
+
+    //576픽셀 이상 태블릿 (2열)
+    @media (min-width: 576px) {
+  //1) 내비게이션
+        .w-nav{
+            ul{
+                display:flex;//우선 리스트형태로 되어 있는걸 가로로 모음
+                justify-content: space-between;
+                //왼쪽 오른쪽을 기준으로 가운데 요소가 마진이 균등하게 배열
+            }
+        }
+        .w-sidebar{
+            grid-column: col-start  / span 3;
+            grid-row:3;
+        }
+ 
+        .w-content{
+            grid-column: col-start  / span 3;
+        }
+        .w-ads{
+            grid-column: col-start / span 3;
+        }
+       .w-content, .w-footer{
+            grid-column: col-start 4  / span 9;
+        }
+
+  
+  
+    }
+
+    //768px이상 pc3열 최소 768px이상이 되면 아래의 스타일을 적용해라
+    @media (min-width:768px) {
+        .w-nav{
+            grid-column: col-start / span 2;
+            //왼쪽에 가장 가깝게 시작 근거가 숫자를 사용하지 않음 그리드 12면적에서 
+            //2만큼에 면적차지
+            grid-row: 2/ 4; //세로가 4줄이 있는데 나는 여기서 2줄에 높이만큼
+            ul{
+                flex-direction:column;
+            }
+
+        }
+        .w-content {
+            grid-column:col-start 3 / span 8;
+            grid-row: 2 / 4;
+        }
+        .w-sidebar{
+            grid-column: col-start 11 / span 2;
+        }
+        .w-ads{
+            grid-column: col-start 11 / span 2;
+        }
+        .w-footer{
+            grid-column: col-start / span 12;
+        }
+    }
+}
+
+//grid 2 end
+/*
+      //너비가 최소 576px이상일때 아래의 스타일을 적용해라
+        .wrap{//wrap안에 공간을 2개 열로 나눈다
+            grid-template-columns: 1fr 3fr;
+            //왼쪽은 1fr 오른쪽은 3fr만큼 차지해라
+        }
+        .w-header, .w-footer{
+            grid-column: 1 / span 2;
+            //헤더와 푸터는 위아래로 길게 배치되어야 하니 2개열 전체를
+            //혼자 다 차지하라
+        }
+        .w-nav{grid-column:1; grid-row: span 2;}
+        .w-content, .w-sidebar{grid-column: 2;}
+
+                .wrap{
+grid-template-columns: 200px 1fr 200px;
+//왼쪽을 200px 가운대는  유연하게  늘어남 오른쪽을 200px            
+        }
+        .w-header, .w-footer{
+        grid-column: span 3;
+        }
+*/

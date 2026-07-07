@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "pluggy-1.6.0-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "56ed40dd2a648486a27c2c79f253f2e6",
+  "name": "pluggy",
+  "platform": "win32",
+  "sha256": "d5286244f6ebbceb1cc19c77a342fe6849f646a4a51d2aa8a7fe48af4d75b4c0",
+  "size": 48203,
+  "subdir": "win-64",
+  "timestamp": 1776973096000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pluggy-1.6.0-py313haa95532_0.conda",
+  "version": "1.6.0"
+}

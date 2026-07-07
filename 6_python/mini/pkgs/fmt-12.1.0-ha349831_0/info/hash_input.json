@@ -1,0 +1,9 @@
+{
+  "fmt": "11",
+  "c_stdlib": "vs",
+  "c_stdlib_version": "2022.14",
+  "channel_targets": "defaults",
+  "target_platform": "win-64",
+  "vc": "14",
+  "cxx_compiler": "vs2022"
+}

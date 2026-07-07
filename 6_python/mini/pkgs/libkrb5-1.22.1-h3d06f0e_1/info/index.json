@@ -1,0 +1,20 @@
+{
+  "arch": "x86_64",
+  "build": "h3d06f0e_1",
+  "build_number": 1,
+  "constrains": [
+    "krb5 1.22.1"
+  ],
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "libkrb5",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1775138282724,
+  "version": "1.22.1"
+}

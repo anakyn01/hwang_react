@@ -1,0 +1,59 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/_ruamel_yaml.cp313-win_amd64.pyd",
+      "path_type": "hardlink",
+      "sha256": "afdf4cfdfc249e2ec27052ad576c2abfdfcc842de436eea4748bd120064ee7f5",
+      "size_in_bytes": 256840
+    },
+    {
+      "_path": "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "23e8327eaebc02e378250dbad1c8dd1cc0cdb743a13307d7dd6c0fa35e8b5d9e",
+      "size_in_bytes": 3305
+    },
+    {
+      "_path": "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "4d269251801b9b5a0c79b5896b6fb03bba6f1a7e08f1761a5d91c88510cff753",
+      "size_in_bytes": 844
+    },
+    {
+      "_path": "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "a95d0420f9638f55c2fefb926ad4568e7d369d9233dcdd6df23b19cfb1c1af65",
+      "size_in_bytes": 101
+    },
+    {
+      "_path": "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "d1b4994d4a61a2a64c904105601ebc4ffdea33bd79c4cf57f65e65d19577e3e0",
+      "size_in_bytes": 94
+    },
+    {
+      "_path": "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/licenses/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "f8ad7efe71dde909f2d694f7dc69470d3dbe07c001c0b30c6bd9951e472077fa",
+      "size_in_bytes": 1121
+    },
+    {
+      "_path": "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "d6c25b6b7206776b1a6f7bbfea45b234f4bcc86fc01ed3f425d99a0e80785c1d",
+      "size_in_bytes": 20
+    }
+  ],
+  "paths_version": 1
+}

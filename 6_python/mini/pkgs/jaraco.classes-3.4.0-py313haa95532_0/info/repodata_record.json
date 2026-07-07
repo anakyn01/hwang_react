@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "more-itertools",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "jaraco.classes-3.4.0-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "a8fd08b7543a5b778d2e2c29c5aa88e9",
+  "name": "jaraco.classes",
+  "platform": "win32",
+  "sha256": "7eb0c4ee04a96ad65ae0c51d58ad17d5203b76ddcd2d4702503a50127434fd27",
+  "size": 21078,
+  "subdir": "win-64",
+  "timestamp": 1755516602000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/jaraco.classes-3.4.0-py313haa95532_0.conda",
+  "version": "3.4.0"
+}

@@ -1,0 +1,83 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/__pycache__/jsonpointer.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "0bc7dee518af8752dd6df63c9beaef815c5935a9a8664521d3bf7f0505a7cefa",
+      "size_in_bytes": 13044
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "5af6a271629c7de0c215dcd4d504f24a29ff8b25306a5e24ace8d1bd4c10375c",
+      "size_in_bytes": 2478
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "23952c28163506c6ef5f7992d5d91ec1352184e5f055d1a6c53a28e02484bfc9",
+      "size_in_bytes": 1008
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "c14c80f0e6ae95195b7f032d990b2f367806af140702f90a72f466762ce5262d",
+      "size_in_bytes": 92
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "87707fd404c41fd8c78bc16d089af810e552f4b51a143d0ed74363aa40af34a6",
+      "size_in_bytes": 101
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/licenses/AUTHORS",
+      "path_type": "hardlink",
+      "sha256": "4d58319d0f59c87bef5b07b3fe4db0f19c2d7d5545b034c6bf7b57c89bbef57f",
+      "size_in_bytes": 113
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/licenses/LICENSE.txt",
+      "path_type": "hardlink",
+      "sha256": "d8b24f15d472885f788a2d6e985850f264627b86012a17bb242c83f310d907e5",
+      "size_in_bytes": 1413
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer-3.1.1.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "06c51c6abfc2d276733c657669c92b27d0a9554f3fd16fe91d82b0a5d9d675d3",
+      "size_in_bytes": 12
+    },
+    {
+      "_path": "Lib/site-packages/jsonpointer.py",
+      "path_type": "hardlink",
+      "sha256": "8fcd6596bee332f11d024e38845a988e787e2c0faec2e5fe791e156d165cc277",
+      "size_in_bytes": 10551
+    },
+    {
+      "_path": "Scripts/jsonpointer-script.py",
+      "path_type": "hardlink",
+      "sha256": "610b9a1fe77a031a988fb5bc0d4eb557eadb26bac83e4d45278fac81923254d4",
+      "size_in_bytes": 1805
+    },
+    {
+      "_path": "Scripts/jsonpointer.exe",
+      "path_type": "hardlink",
+      "sha256": "f24d102084620e54fe68d07f6e9169118b283f8d33d0c8f4b974c2e05a306059",
+      "size_in_bytes": 54032
+    }
+  ],
+  "paths_version": 1
+}

@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "semver-3.0.4-py313haa95532_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "2dbcf40ddf66f02858c49c67ce0fd953",
+  "name": "semver",
+  "platform": "win32",
+  "sha256": "5158570e5a5891716906743ce9eebe1a0572143dffe808ecba634e5a2c0b3859",
+  "size": 70112,
+  "subdir": "win-64",
+  "timestamp": 1761903400000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/semver-3.0.4-py313haa95532_0.conda",
+  "version": "3.0.4"
+}

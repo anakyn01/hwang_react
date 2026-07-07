@@ -1,0 +1,49 @@
+{
+  "name": "jaraco.functools",
+  "version": "4.4.0",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "jaraco.functools-4.4.0-py313haa95532_0.conda",
+  "md5": "25711ebee8c977aa282a9aa5ceea0817",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/jaraco.functools-4.4.0-py313haa95532_0.conda",
+  "sha256": "d6495ad19759532a27e73055a1f13de378af550ff07878543e252b76c095660c",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "more-itertools",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1768389476000,
+  "size": 24310,
+  "requested_spec": "pkgs/main/win-64::jaraco.functools==4.4.0=py313haa95532_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\jaraco.functools-4.4.0-py313haa95532_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\jaraco.functools-4.4.0-py313haa95532_0",
+  "files": [
+    "Lib/site-packages/jaraco/functools/__init__.py",
+    "Lib/site-packages/jaraco/functools/__init__.pyi",
+    "Lib/site-packages/jaraco/functools/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/jaraco/functools/py.typed",
+    "Lib/site-packages/jaraco_functools-4.4.0.dist-info/INSTALLER",
+    "Lib/site-packages/jaraco_functools-4.4.0.dist-info/METADATA",
+    "Lib/site-packages/jaraco_functools-4.4.0.dist-info/RECORD",
+    "Lib/site-packages/jaraco_functools-4.4.0.dist-info/REQUESTED",
+    "Lib/site-packages/jaraco_functools-4.4.0.dist-info/WHEEL",
+    "Lib/site-packages/jaraco_functools-4.4.0.dist-info/direct_url.json",
+    "Lib/site-packages/jaraco_functools-4.4.0.dist-info/licenses/LICENSE",
+    "Lib/site-packages/jaraco_functools-4.4.0.dist-info/top_level.txt"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\jaraco.functools-4.4.0-py313haa95532_0",
+    "type": 1
+  }
+}

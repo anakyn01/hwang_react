@@ -1,0 +1,60 @@
+{
+  "name": "idna",
+  "version": "3.11",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "idna-3.11-py313haa95532_0.conda",
+  "md5": "426a9add5ed691e72c893059ee0485fd",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/idna-3.11-py313haa95532_0.conda",
+  "sha256": "8264d301462d3eb44c813da4c4e092fc2f32b257ef5692a00573ac4c0346d920",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1761912082000,
+  "size": 203986,
+  "requested_spec": "pkgs/main/win-64::idna==3.11=py313haa95532_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\idna-3.11-py313haa95532_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\idna-3.11-py313haa95532_0",
+  "files": [
+    "Lib/site-packages/idna-3.11.dist-info/INSTALLER",
+    "Lib/site-packages/idna-3.11.dist-info/METADATA",
+    "Lib/site-packages/idna-3.11.dist-info/RECORD",
+    "Lib/site-packages/idna-3.11.dist-info/REQUESTED",
+    "Lib/site-packages/idna-3.11.dist-info/WHEEL",
+    "Lib/site-packages/idna-3.11.dist-info/direct_url.json",
+    "Lib/site-packages/idna-3.11.dist-info/licenses/LICENSE.md",
+    "Lib/site-packages/idna/__init__.py",
+    "Lib/site-packages/idna/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/idna/__pycache__/codec.cpython-313.pyc",
+    "Lib/site-packages/idna/__pycache__/compat.cpython-313.pyc",
+    "Lib/site-packages/idna/__pycache__/core.cpython-313.pyc",
+    "Lib/site-packages/idna/__pycache__/idnadata.cpython-313.pyc",
+    "Lib/site-packages/idna/__pycache__/intranges.cpython-313.pyc",
+    "Lib/site-packages/idna/__pycache__/package_data.cpython-313.pyc",
+    "Lib/site-packages/idna/__pycache__/uts46data.cpython-313.pyc",
+    "Lib/site-packages/idna/codec.py",
+    "Lib/site-packages/idna/compat.py",
+    "Lib/site-packages/idna/core.py",
+    "Lib/site-packages/idna/idnadata.py",
+    "Lib/site-packages/idna/intranges.py",
+    "Lib/site-packages/idna/package_data.py",
+    "Lib/site-packages/idna/py.typed",
+    "Lib/site-packages/idna/uts46data.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\idna-3.11-py313haa95532_0",
+    "type": 1
+  }
+}

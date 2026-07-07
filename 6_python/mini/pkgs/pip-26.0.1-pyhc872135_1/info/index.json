@@ -1,0 +1,18 @@
+{
+  "arch": null,
+  "build": "pyhc872135_1",
+  "build_number": 1,
+  "depends": [
+    "python >=3.9,<3.14.0a0",
+    "setuptools",
+    "wheel"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "pip",
+  "noarch": "python",
+  "platform": null,
+  "subdir": "noarch",
+  "timestamp": 1774988902802,
+  "version": "26.0.1"
+}

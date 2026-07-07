@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Ref",
+      "request": "launch",
+      "mainClass": "Ref",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
+      "name": "Enum",
+      "request": "launch",
+      "mainClass": "Enum",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
+      "name": "Inherit",
+      "request": "launch",
+      "mainClass": "Inherit",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "d:/hwang_react/7_study",
+      "program": "d:/hwang_react/7_study/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+@import 'variables';
+
+.container{
+    width:90%; max-width:1132px;
+    margin:0 auto;
+    //display:flex를 사용하기전 가운데 정렬
+    &:after{
+        display:block;
+        content:"";
+        clear:both;
+    }
+}
+
+.cfixed:after{
+    display:block;
+    content:"";
+    clear: both;
+}
+
+.blind{
+    position:absolute;
+    width:0; height:0;
+    text-indent:-9999px;
+    overflow:hidden;
+    line-height:0;//행간
+}
+
+.sec-tit{
+font-size:42px; color:$primary;
+font-weight:normal;
+letter-spacing:-0.03rem;//한글만 마이너스 자간이 사용됨
+}
+
+.divider{
+    width:90%;
+    max-width: 1132px;
+    margin:0 auto;
+    margin-top: 77px;
+    background-color: #eee;
+
+    //@media 이걸 미디어쿼리라고 한다
+    @media all and (min-width: $bp-tablet){
+        margin-top:124px;
+    }
+}
+
+.m-divider{
+    width:20px; 
+    margin: 0 auto;
+    margin-top:77px;
+    background-color: $primary;
+
+    @media all and (min-width: $bp-tablet){
+        margin-top:124px;
+    }
+}
+
+ul, ol, li {
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+

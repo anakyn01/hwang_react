@@ -1,0 +1,51 @@
+{
+  "name": "libbrotlienc",
+  "version": "1.2.0",
+  "build": "h483e6b9_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "libbrotlienc-1.2.0-h483e6b9_0.conda",
+  "md5": "f2b21ddeba6f3dc5b3206b6913128cc8",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libbrotlienc-1.2.0-h483e6b9_0.conda",
+  "sha256": "5ff2563603fe5f0114da382bc0de34b060751a6aea9690f919fd20fdf448c3be",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "libbrotlicommon 1.2.0 h907acca_0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1762363815000,
+  "size": 259203,
+  "requested_spec": "pkgs/main/win-64::libbrotlienc==1.2.0=h483e6b9_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlienc-1.2.0-h483e6b9_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlienc-1.2.0-h483e6b9_0",
+  "files": [
+    "Library/bin/brotlienc.dll",
+    "Library/lib/brotlienc.lib",
+    "Library/lib/pkgconfig/libbrotlienc.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "Library/lib/pkgconfig/libbrotlienc.pc",
+        "prefix_placeholder": "C:/miniconda3/conda-bld/brotli-split_1762363672018/_h_env",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "9f046220a34258e6b65d599b06fcf69a3c520766b50df6209d01868104a707df",
+        "size_in_bytes": 419,
+        "sha256_in_prefix": "8845e5eb2ad69478c0ac7622841f7d06ba256b4591bba0d2a67779d0589bd190"
+      }
+    ]
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlienc-1.2.0-h483e6b9_0",
+    "type": 1
+  }
+}

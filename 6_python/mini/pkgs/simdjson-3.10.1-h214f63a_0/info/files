@@ -1,0 +1,8 @@
+Library/bin/simdjson.dll
+Library/include/simdjson.h
+Library/lib/cmake/simdjson/simdjson-config-version.cmake
+Library/lib/cmake/simdjson/simdjson-config.cmake
+Library/lib/cmake/simdjson/simdjsonTargets-release.cmake
+Library/lib/cmake/simdjson/simdjsonTargets.cmake
+Library/lib/pkgconfig/simdjson.pc
+Library/lib/simdjson.lib

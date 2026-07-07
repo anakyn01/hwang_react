@@ -1,0 +1,50 @@
+# This file created by conda-build 25.5.0
+# meta.yaml template originally from:
+# C:\b\abs_aft8v5g2uz\clone\recipe, last modified Thu Jun 12 16:20:29 2025
+# ------------------------------------------------
+
+package:
+  name: anaconda_prompt
+  version: 1.1.0
+build:
+  number: '1'
+  string: haa95532_1
+requirements:
+  run_constrained:
+    - anaconda-navigator >=1.9.8
+    - menuinst >=2.1.1
+  build: []
+  run: []
+test:
+  commands:
+    - IF NOT EXIST "%PREFIX%\\Menu\\anaconda_prompt_menu.json" EXIT 1
+    - IF NOT EXIST "%PREFIX%\\Menu\\anaconda_prompt.ico" EXIT 1
+app:
+  entry: start cmd.exe /K "${CONDA_ROOT_PREFIX}\\Scripts\\activate.bat" "${CONDA_PREFIX}"
+  summary: Opens a terminal instance with conda activated (requires menuinst 2.1.1
+    or greater).
+  icon: anaconda_prompt_win.png
+  type: desk
+about:
+  description: 'Package to create shortcuts for terminals with an activated conda
+    environment.
+
+    '
+  license: BSD-3-Clause AND CC-BY-NC-ND-4.0
+  license_family: Other
+  license_file:
+    - LICENSE
+    - LICENSE-BSD-3-Clause
+    - LICENSE-CC-BY-NC-ND-4.0
+  summary: Terminal shortcut creator for Anaconda
+  home: https://github.com/AnacondaRecipes/anaconda_prompt-feedstock
+  dev_url: https://github.com/AnacondaRecipes/anaconda_prompt-feedstock
+  doc_url: https://github.com/AnacondaRecipes/anaconda_prompt-feedstock/blob/main/README.md
+extra:
+  recipe-maintainers:
+    - marcoesters
+  final: true
+  copy_test_source_files: true
+  sha: f8bef516080395c412f9ba8cd9734a7567f7926f
+  remote_url: git@github.com:AnacondaRecipes/anaconda_prompt-feedstock.git
+  flow_run_id: af578437-f969-4326-a0a1-9f83d10ecfab

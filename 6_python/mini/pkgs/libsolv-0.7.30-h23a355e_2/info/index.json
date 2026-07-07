@@ -1,0 +1,18 @@
+{
+  "arch": "x86_64",
+  "build": "h23a355e_2",
+  "build_number": 2,
+  "depends": [
+    "pcre2 >=10.46,<10.47.0a0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "name": "libsolv",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1760357137426,
+  "version": "0.7.30"
+}

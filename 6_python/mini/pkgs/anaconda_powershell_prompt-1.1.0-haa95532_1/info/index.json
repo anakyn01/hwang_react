@@ -1,0 +1,22 @@
+{
+  "app_entry": "start powershell.exe -ExecutionPolicy ByPass -NoExit -Command  \"& '${CONDA_ROOT_PREFIX}\\\\shell\\\\condabin\\\\conda-hook.ps1' ; conda activate '${CONDA_PREFIX}'\"",
+  "app_type": "desk",
+  "arch": "x86_64",
+  "build": "haa95532_1",
+  "build_number": 1,
+  "constrains": [
+    "anaconda-navigator >=1.9.8",
+    "menuinst >=2.1.1"
+  ],
+  "depends": [],
+  "icon": "672d1b0b3ea4c19776daed178b0fbd7a.png",
+  "license": "BSD-3-Clause AND CC-BY-NC-ND-4.0",
+  "license_family": "Other",
+  "name": "anaconda_powershell_prompt",
+  "platform": "win",
+  "subdir": "win-64",
+  "summary": "Opens a PowerShell instance with conda activated (requires menuinst 2.1.1 or greater).",
+  "timestamp": 1749741667961,
+  "type": "app",
+  "version": "1.1.0"
+}

@@ -1,0 +1,134 @@
+# This file created by conda-build 26.3.0
+# meta.yaml template originally from:
+# C:\Users\task_177676177280234\pydantic-feedstock\recipe, last modified Tue Apr 21 08:57:10 2026
+# ------------------------------------------------
+
+package:
+  name: pydantic
+  version: 2.13.2
+source:
+  url: https://pypi.org/packages/source/p/pydantic/pydantic-2.13.2.tar.gz
+  sha256: b418196607e61081c3226dcd4f0672f2a194828abb9109e9cfb84026564df2d1
+build:
+  number: '0'
+  script: C:\\Users\\task_177676177280234\\croot\\pydantic_1776761879357\\_h_env\\python.exe
+    -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir
+    -vvv
+  string: py313haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2026.3.19 haa95532_0
+    - hatch-fancy-pypi-readme 24.1.0 py313haa95532_1
+    - hatchling 1.29.0 py313haa95532_0
+    - libexpat 2.7.5 hd7fb8db_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - libzlib 1.3.1 h02ab6af_0
+    - openssl 3.5.6 hbb43b14_0
+    - packaging 26.0 py313haa95532_0
+    - pathspec 1.0.4 py313haa95532_0
+    - pip 26.0.1 pyhc872135_1
+    - pluggy 1.5.0 py313haa95532_0
+    - python 3.13.13 h39c999c_100_cp313
+    - python_abi 3.13 3_cp313
+    - setuptools 82.0.1 py313haa95532_0
+    - sqlite 3.51.2 hee5a0db_0
+    - tk 8.6.15 hf199647_0
+    - trove-classifiers 2026.1.14.14 py313haa95532_0
+    - tzdata 2026a he532380_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - wheel 0.46.3 py313haa95532_0
+    - xz 5.8.2 h53af0af_0
+    - zlib 1.3.1 h02ab6af_0
+  run:
+    - annotated-types >=0.6.0
+    - pydantic-core ==2.46.2
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+    - typing-inspection >=0.4.2
+    - typing_extensions >=4.14.1
+  run_constrained:
+    - email-validator >=2.0.0
+    - tzdata
+test:
+  source_files:
+    - tests
+  imports:
+    - pydantic
+    - pydantic._internal
+    - pydantic._internal._config
+    - pydantic._internal._decorators
+    - pydantic._internal._discriminated_union
+    - pydantic._internal._generate_schema
+    - pydantic._internal._generics
+    - pydantic._internal._import_utils
+    - pydantic._internal._internal_dataclass
+    - pydantic._internal._mock_val_ser
+    - pydantic._internal._model_construction
+    - pydantic._internal._repr
+    - pydantic._internal._typing_extra
+    - pydantic._internal._utils
+    - pydantic._internal._validators
+    - pydantic._migration
+    - pydantic.alias_generators
+    - pydantic.color
+    - pydantic.config
+    - pydantic.dataclasses
+    - pydantic.deprecated.decorator
+    - pydantic.deprecated.json
+    - pydantic.deprecated.parse
+    - pydantic.deprecated.tools
+    - pydantic.errors
+    - pydantic.experimental.arguments_schema
+    - pydantic.experimental.pipeline
+    - pydantic.fields
+    - pydantic.functional_serializers
+    - pydantic.functional_validators
+    - pydantic.json_schema
+    - pydantic.main
+    - pydantic.networks
+    - pydantic.plugin
+    - pydantic.plugin._loader
+    - pydantic.type_adapter
+    - pydantic.types
+  requires:
+    - dirty-equals
+    - faker
+    - jsonschema
+    - pip
+    - pytest
+    - pytest-benchmark
+    - pytest-mock
+    - pytz
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('pydantic')=='2.13.2')"
+    - pytest -ra -vv --tb=short tests  --ignore=tests/test_docs.py  --deselect=tests/test_types_typeddict.py::test_readonly_qualifier_warning
+about:
+  home: https://github.com/pydantic/pydantic
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Data validation and settings management using python type hinting
+  description: 'Data validation and settings management using python type hinting.
+
+    See documentation doc_url for more details.
+
+    '
+  doc_url: https://pydantic.dev/docs
+  dev_url: https://github.com/pydantic/pydantic
+extra:
+  recipe-maintainers:
+    - dgasmith
+    - samuelcolvin
+  final: true
+  copy_test_source_files: true
+  remote_url: https://github.com/AnacondaRecipes/pydantic-feedstock
+  sha: 4cdc9e6765a4ca39c585170233b1291b277f2ce1
+  task_id: S9Z6RoY4R6m9zRUMIGmeQg
+  task_run_id: '0'
+  pbp_graph_uuid: 68efd5d5-e7cb-4921-aebc-a3ab0c2d599f

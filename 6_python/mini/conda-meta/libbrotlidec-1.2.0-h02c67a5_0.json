@@ -1,0 +1,51 @@
+{
+  "name": "libbrotlidec",
+  "version": "1.2.0",
+  "build": "h02c67a5_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "libbrotlidec-1.2.0-h02c67a5_0.conda",
+  "md5": "6571166b6a690d451fbf6500c4ffba2e",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libbrotlidec-1.2.0-h02c67a5_0.conda",
+  "sha256": "6b9147b66d9807378598c27fc5fff2e3eb3eaa807036d0c18c0d90778f612260",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "libbrotlicommon 1.2.0 h907acca_0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1762363799000,
+  "size": 40440,
+  "requested_spec": "pkgs/main/win-64::libbrotlidec==1.2.0=h02c67a5_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlidec-1.2.0-h02c67a5_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlidec-1.2.0-h02c67a5_0",
+  "files": [
+    "Library/bin/brotlidec.dll",
+    "Library/lib/brotlidec.lib",
+    "Library/lib/pkgconfig/libbrotlidec.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "Library/lib/pkgconfig/libbrotlidec.pc",
+        "prefix_placeholder": "C:/miniconda3/conda-bld/brotli-split_1762363672018/_h_env",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "58d8e47aac036ca9f06b4951a6e040fde4c7f324d83e316c41ff46f077bb6bf2",
+        "size_in_bytes": 419,
+        "sha256_in_prefix": "71952dadf691b862acceab04dfc8a52badbf2dfe2b4a47e6a991f4cc740085d9"
+      }
+    ]
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlidec-1.2.0-h02c67a5_0",
+    "type": 1
+  }
+}

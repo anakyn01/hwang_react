@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "more-itertools",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "jaraco.functools-4.4.0-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "25711ebee8c977aa282a9aa5ceea0817",
+  "name": "jaraco.functools",
+  "platform": "win32",
+  "sha256": "d6495ad19759532a27e73055a1f13de378af550ff07878543e252b76c095660c",
+  "size": 24310,
+  "subdir": "win-64",
+  "timestamp": 1768389476000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/jaraco.functools-4.4.0-py313haa95532_0.conda",
+  "version": "4.4.0"
+}

@@ -1,0 +1,51 @@
+# This file created by conda-build 25.5.0
+# meta.yaml template originally from:
+# C:\b\abs_ffj05174k5\clone\recipe, last modified Thu Jun 12 16:20:24 2025
+# ------------------------------------------------
+
+package:
+  name: anaconda_powershell_prompt
+  version: 1.1.0
+build:
+  number: '1'
+  string: haa95532_1
+requirements:
+  run_constrained:
+    - anaconda-navigator >=1.9.8
+    - menuinst >=2.1.1
+  build: []
+  run: []
+test:
+  commands:
+    - IF NOT EXIST "%PREFIX%\\Menu\\anaconda_powershell_prompt_menu.json" EXIT 1
+    - IF NOT EXIST "%PREFIX%\\Menu\\anaconda_powershell_prompt.ico" EXIT 1
+app:
+  entry: start powershell.exe -ExecutionPolicy ByPass -NoExit -Command  "& '${CONDA_ROOT_PREFIX}\\shell\\condabin\\conda-hook.ps1'
+    ; conda activate '${CONDA_PREFIX}'"
+  summary: Opens a PowerShell instance with conda activated (requires menuinst 2.1.1
+    or greater).
+  icon: anaconda_powershell_prompt.png
+  type: desk
+about:
+  description: 'Package to create shortcuts for PowerShell with an activated conda
+    environment.
+
+    '
+  license: BSD-3-Clause AND CC-BY-NC-ND-4.0
+  license_family: Other
+  license_file:
+    - LICENSE
+    - LICENSE-BSD-3-Clause
+    - LICENSE-CC-BY-NC-ND-4.0
+  summary: PowerShell shortcut creator for Anaconda
+  home: https://github.com/AnacondaRecipes/anaconda_powershell_prompt-feedstock
+  dev_url: https://github.com/AnacondaRecipes/anaconda_powershell_prompt-feedstock
+  doc_url: https://github.com/AnacondaRecipes/anaconda_powershell_prompt-feedstock/blob/main/README.md
+extra:
+  recipe-maintainers:
+    - marcoesters
+  final: true
+  copy_test_source_files: true
+  sha: 33f03047ed840b0886d54bcf367b4a24b1f89c72
+  remote_url: git@github.com:AnacondaRecipes/anaconda_powershell_prompt-feedstock.git
+  flow_run_id: ff0cd8cc-b706-4cd8-af68-10a7fb8996e9

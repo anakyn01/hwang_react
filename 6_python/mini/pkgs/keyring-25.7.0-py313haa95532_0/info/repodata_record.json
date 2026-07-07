@@ -1,0 +1,32 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "pytest-mypy >=1.0.1",
+    "pytest-checkdocs >=2.4",
+    "shtab >=1.1.0",
+    "pytest-enabler >=3.4"
+  ],
+  "depends": [
+    "jaraco.classes",
+    "jaraco.context",
+    "jaraco.functools",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "pywin32-ctypes >=0.2.0"
+  ],
+  "fn": "keyring-25.7.0-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "793935b26a9203a0e14d442c5edfe91c",
+  "name": "keyring",
+  "platform": "win32",
+  "sha256": "bea45ee837d9962996ba5bc05ed0d9e87e8d711cee9156bc2b649dadace14879",
+  "size": 108233,
+  "subdir": "win-64",
+  "timestamp": 1763637248000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/keyring-25.7.0-py313haa95532_0.conda",
+  "version": "25.7.0"
+}

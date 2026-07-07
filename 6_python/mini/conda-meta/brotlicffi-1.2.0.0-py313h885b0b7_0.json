@@ -1,0 +1,55 @@
+{
+  "name": "brotlicffi",
+  "version": "1.2.0.0",
+  "build": "py313h885b0b7_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "brotlicffi-1.2.0.0-py313h885b0b7_0.conda",
+  "md5": "964620a4cb8353969963fbb7b045b01c",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/brotlicffi-1.2.0.0-py313h885b0b7_0.conda",
+  "sha256": "3a204226b3a57b3312473f6f101bb067eb3d986e5b2373b421d1ec6c71160891",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "cffi >=1.17.0",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1764961470000,
+  "size": 355904,
+  "requested_spec": "pkgs/main/win-64::brotlicffi==1.2.0.0=py313h885b0b7_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\brotlicffi-1.2.0.0-py313h885b0b7_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\brotlicffi-1.2.0.0-py313h885b0b7_0",
+  "files": [
+    "Lib/site-packages/brotlicffi-1.2.0.0.dist-info/INSTALLER",
+    "Lib/site-packages/brotlicffi-1.2.0.0.dist-info/METADATA",
+    "Lib/site-packages/brotlicffi-1.2.0.0.dist-info/RECORD",
+    "Lib/site-packages/brotlicffi-1.2.0.0.dist-info/REQUESTED",
+    "Lib/site-packages/brotlicffi-1.2.0.0.dist-info/WHEEL",
+    "Lib/site-packages/brotlicffi-1.2.0.0.dist-info/direct_url.json",
+    "Lib/site-packages/brotlicffi-1.2.0.0.dist-info/licenses/LICENSE",
+    "Lib/site-packages/brotlicffi-1.2.0.0.dist-info/top_level.txt",
+    "Lib/site-packages/brotlicffi/__init__.py",
+    "Lib/site-packages/brotlicffi/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/brotlicffi/__pycache__/_api.cpython-313.pyc",
+    "Lib/site-packages/brotlicffi/__pycache__/_build.cpython-313.pyc",
+    "Lib/site-packages/brotlicffi/_api.py",
+    "Lib/site-packages/brotlicffi/_brotlicffi.pyd",
+    "Lib/site-packages/brotlicffi/_build.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\brotlicffi-1.2.0.0-py313h885b0b7_0",
+    "type": 1
+  }
+}

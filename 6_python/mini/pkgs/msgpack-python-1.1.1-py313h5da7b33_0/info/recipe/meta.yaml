@@ -1,0 +1,103 @@
+# This file created by conda-build 25.5.0
+# meta.yaml template originally from:
+# C:\b\abs_4b3t4uhz3r\clone\recipe, last modified Thu Jun 26 18:23:38 2025
+# ------------------------------------------------
+
+package:
+  name: msgpack-python
+  version: 1.1.1
+source:
+  url: https://pypi.io/packages/source/m/msgpack/msgpack-1.1.1.tar.gz
+  sha256: 77b79ce34a2bdab2594f490c8e80dd62a02d650b91a75159a63ec413b8d104cd
+build:
+  number: '0'
+  script: C:\\b\\abs_4b3t4uhz3r\\croot\\msgpack-python_1750958631084\\_h_env\\python.exe
+    -m pip install . -vv --no-deps --no-build-isolation
+  string: py313h5da7b33_0
+requirements:
+  build:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.2.25 haa95532_0
+    - expat 2.7.1 h8ddb27b_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - openssl 3.0.16 h3f729d1_0
+    - python 3.13.5 h286a616_100_cp313
+    - python_abi 3.13 0_cp313
+    - sqlite 3.45.3 h2bbff1b_0
+    - tk 8.6.14 h5e9d12e_1
+    - tzdata 2025b h04d1e81_0
+    - vc 14.42 haa95532_5
+    - vs2015_runtime 14.42.34433 hbfb602d_5
+    - vs2019_win-64 19.29.30154 h96f319f_8
+    - vswhere 2.8.4 haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.2.13 h8cc25b3_1
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.2.25 haa95532_0
+    - cython 3.0.11 py313h827c3e9_1
+    - expat 2.7.1 h8ddb27b_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - openssl 3.0.16 h3f729d1_0
+    - pip 25.1 pyhc872135_2
+    - python 3.13.5 h286a616_100_cp313
+    - python_abi 3.13 0_cp313
+    - setuptools 78.1.1 py313haa95532_0
+    - sqlite 3.45.3 h2bbff1b_0
+    - tk 8.6.14 h5e9d12e_1
+    - tzdata 2025b h04d1e81_0
+    - vc 14.42 haa95532_5
+    - vs2015_runtime 14.42.34433 hbfb602d_5
+    - wheel 0.45.1 py313haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.2.13 h8cc25b3_1
+  run:
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+    - vc >=14.2,<15.0a0
+    - vs2015_runtime >=14.29.30133,<15.0a0
+test:
+  source_files:
+    - test
+  imports:
+    - msgpack
+    - msgpack.exceptions
+    - msgpack.ext
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('msgpack')=='1.1.1')"
+    - pytest -v test
+about:
+  home: https://msgpack.org
+  summary: MessagePack (de)serializer
+  license: Apache-2.0
+  license_file: COPYING
+  license_family: Apache
+  description: 'MessagePack is an efficient binary serialization format.
+
+    It lets you exchange data among multiple languages like JSON.
+
+    But it''s faster and smaller. Small integers are encoded into a
+
+    single byte, and typical short strings require only one extra
+
+    byte in addition to the strings themselves.
+
+    '
+  dev_url: https://github.com/msgpack/msgpack-python
+  doc_url: https://github.com/msgpack/msgpack/blob/master/spec.md
+extra:
+  recipe-maintainers:
+    - carlodri
+    - jakirkham
+    - ocefpaf
+  final: true
+  copy_test_source_files: true
+  sha: c812520fb18a7c7565283620263fe92a0ad797a3
+  remote_url: git@github.com:AnacondaRecipes/msgpack-python-feedstock.git
+  flow_run_id: 4b57f6e1-296d-44f1-84f7-6377011bebf2

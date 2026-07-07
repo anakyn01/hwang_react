@@ -1,0 +1,9 @@
+html, html * {
+box-sizing: border-box; 
+//패딩이 들어갈때 가로나 세로 둘다 원래 디자인은 유지하도록
+//반대 content-box
+margin:0; padding:0;   
+}
+body{
+font-family: Arial;
+}

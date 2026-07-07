@@ -1,0 +1,23 @@
+{
+  "paths": [
+    {
+      "_path": "Menu/anaconda_powershell_prompt.ico",
+      "path_type": "hardlink",
+      "sha256": "799a44962cbd87de2ff0c035a4bc49dd24b71e60518171402d09f97c3abdcdde",
+      "size_in_bytes": 44747
+    },
+    {
+      "_path": "Menu/anaconda_powershell_prompt_menu.json",
+      "path_type": "hardlink",
+      "sha256": "bf3e12489493aa5afe93e28f9b540b8fd2b46f013f48b6c3b2b792b60ad47e59",
+      "size_in_bytes": 1294
+    },
+    {
+      "_path": "Scripts/.anaconda_powershell_prompt-post-link.bat",
+      "path_type": "hardlink",
+      "sha256": "082af75b856b6948d31fcf16562fcea752322d576c3f56832e7dada558990e43",
+      "size_in_bytes": 1813
+    }
+  ],
+  "paths_version": 1
+}

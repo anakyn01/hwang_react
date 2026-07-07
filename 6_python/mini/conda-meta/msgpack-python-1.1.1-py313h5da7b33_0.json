@@ -1,0 +1,55 @@
+{
+  "name": "msgpack-python",
+  "version": "1.1.1",
+  "build": "py313h5da7b33_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "msgpack-python-1.1.1-py313h5da7b33_0.conda",
+  "md5": "d471b10befe27a405de1c7d126f7aeda",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/msgpack-python-1.1.1-py313h5da7b33_0.conda",
+  "sha256": "945bea6ce19a0f2d6ae8ee2ba4ffe2d19c405de54a80fdcc5a576cd93708a067",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "vc >=14.2,<15.0a0",
+    "vs2015_runtime >=14.29.30133,<15.0a0"
+  ],
+  "constrains": [],
+  "license": "Apache-2.0",
+  "license_family": "Apache",
+  "timestamp": 1750958855000,
+  "size": 114961,
+  "requested_spec": "pkgs/main/win-64::msgpack-python==1.1.1=py313h5da7b33_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\msgpack-python-1.1.1-py313h5da7b33_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\msgpack-python-1.1.1-py313h5da7b33_0",
+  "files": [
+    "Lib/site-packages/msgpack-1.1.1.dist-info/INSTALLER",
+    "Lib/site-packages/msgpack-1.1.1.dist-info/METADATA",
+    "Lib/site-packages/msgpack-1.1.1.dist-info/RECORD",
+    "Lib/site-packages/msgpack-1.1.1.dist-info/REQUESTED",
+    "Lib/site-packages/msgpack-1.1.1.dist-info/WHEEL",
+    "Lib/site-packages/msgpack-1.1.1.dist-info/direct_url.json",
+    "Lib/site-packages/msgpack-1.1.1.dist-info/licenses/COPYING",
+    "Lib/site-packages/msgpack-1.1.1.dist-info/top_level.txt",
+    "Lib/site-packages/msgpack/__init__.py",
+    "Lib/site-packages/msgpack/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/msgpack/__pycache__/exceptions.cpython-313.pyc",
+    "Lib/site-packages/msgpack/__pycache__/ext.cpython-313.pyc",
+    "Lib/site-packages/msgpack/__pycache__/fallback.cpython-313.pyc",
+    "Lib/site-packages/msgpack/_cmsgpack.cp313-win_amd64.pyd",
+    "Lib/site-packages/msgpack/exceptions.py",
+    "Lib/site-packages/msgpack/ext.py",
+    "Lib/site-packages/msgpack/fallback.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\msgpack-python-1.1.1-py313h5da7b33_0",
+    "type": 1
+  }
+}

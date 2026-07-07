@@ -1,0 +1,11 @@
+prefix=D:/hwang_react/6_python/mini/Library 
+exec_prefix=D:/hwang_react/6_python/mini/Library 
+libdir=D:/hwang_react/6_python/mini/Library/lib 
+includedir=D:/hwang_react/6_python/mini/Library/include 
+modules=0 
+Name: libXML 
+Version: 2.13.9 
+Description: libXML library version2. 
+Requires: 
+Libs: -LD:/hwang_react/6_python/mini/Library/lib -lxml2 -liconv -lz 
+Cflags: -ID:/hwang_react/6_python/mini/Library/include/libxml2 -ID:/hwang_react/6_python/mini/Library/include 

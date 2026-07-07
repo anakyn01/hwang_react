@@ -1,0 +1,111 @@
+# This file created by conda-build 25.5.0
+# meta.yaml template originally from:
+# C:\b\abs_e2_iokhxbp\clone\recipe, last modified Tue Jul  1 16:28:47 2025
+# ------------------------------------------------
+
+package:
+  name: boltons
+  version: 25.0.0
+source:
+  fn: boltons-25.0.0.tar.gz
+  url: https://github.com/mahmoud/boltons/archive/25.0.0.tar.gz
+  sha256: 7c9e47f2ca1c1f704950e913bf518c6c599dc4a01bc5feffffce2c3bf3c878ee
+build:
+  number: '0'
+  script: C:\\b\\abs_e2_iokhxbp\\croot\\boltons_1751383740243\\_h_env\\python.exe
+    -m pip install . --no-deps -vv --no-build-isolation
+  string: py313haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.2.25 haa95532_0
+    - expat 2.7.1 h8ddb27b_0
+    - flit-core 3.9.0 py313hcda33d2_1
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - openssl 3.0.16 h3f729d1_0
+    - pip 25.1 pyhc872135_2
+    - python 3.13.5 h286a616_100_cp313
+    - python_abi 3.13 0_cp313
+    - setuptools 78.1.1 py313haa95532_0
+    - sqlite 3.45.3 h2bbff1b_0
+    - tk 8.6.14 h5e9d12e_1
+    - tzdata 2025b h04d1e81_0
+    - vc 14.42 haa95532_5
+    - vs2015_runtime 14.42.34433 hbfb602d_5
+    - wheel 0.45.1 py313haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.2.13 h8cc25b3_1
+  run:
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+test:
+  source_files:
+    - boltons
+    - tests
+    - tox.ini
+  imports:
+    - boltons
+    - boltons.cacheutils
+    - boltons.debugutils
+    - boltons.dictutils
+    - boltons.ecoutils
+    - boltons.fileutils
+    - boltons.formatutils
+    - boltons.funcutils
+    - boltons.gcutils
+    - boltons.ioutils
+    - boltons.iterutils
+    - boltons.jsonutils
+    - boltons.listutils
+    - boltons.mathutils
+    - boltons.mboxutils
+    - boltons.namedutils
+    - boltons.pathutils
+    - boltons.queueutils
+    - boltons.setutils
+    - boltons.socketutils
+    - boltons.statsutils
+    - boltons.strutils
+    - boltons.tableutils
+    - boltons.tbutils
+    - boltons.timeutils
+    - boltons.typeutils
+    - boltons.urlutils
+  requires:
+    - pip
+    - pytest
+  commands:
+    - echo [pytest] > pytest.ini
+    - echo doctest_optionflags = NORMALIZE_WHITESPACE IGNORE_EXCEPTION_DETAIL ELLIPSIS
+      ALLOW_UNICODE >> pytest.ini
+    - pytest -vv --doctest-modules boltons tests -k "not test_reverse_iter_lines"
+    - pip check
+about:
+  home: https://github.com/mahmoud/boltons
+  dev_url: https://github.com/mahmoud/boltons
+  doc_url: https://boltons.readthedocs.io/
+  license: BSD-3-Clause
+  license_file: LICENSE
+  license_family: BSD
+  summary: 'boltons should be builtins. Boltons is a set of over 160 BSD-licensed,
+    pure-Python utilities in the same spirit as--and yet conspicuously missing from--the
+    standard library.
+
+    '
+  description: "Boltons is a set of pure-Python utilities in the same spirit as \u2014\
+    \ and yet conspicuously missing from \u2014 the standard library, including:\n\
+    \n  - Atomic file saving, bolted on with fileutils\n  - A highly-optimized OrderedMultiDict,\
+    \ in dictutils\n  - Two types of PriorityQueue, in queueutils\n  - Chunked and\
+    \ windowed iteration, in iterutils\n  - A full-featured TracebackInfo type, for\
+    \ representing stack traces, in tbutils\n  - A lightweight UTC timezone available\
+    \ in timeutils.\n  - Recursive mapping for nested data transforms, with remap\n"
+extra:
+  recipe-maintainers:
+    - kalefranz
+    - nicoddemus
+  final: true
+  copy_test_source_files: true
+  sha: a3c51c03055756e96ae75c7a208ff6d04c090276
+  remote_url: git@github.com:AnacondaRecipes/boltons-feedstock.git
+  flow_run_id: e243c4f2-b89d-4827-b77a-ff140cb38b8c

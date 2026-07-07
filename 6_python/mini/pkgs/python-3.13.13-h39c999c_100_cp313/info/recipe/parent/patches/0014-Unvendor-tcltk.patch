@@ -1,0 +1,44 @@
+From 8aab75b3f8fae98b3299c65bc0f0981357e393d9 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <isuruf@gmail.com>
+Date: Fri, 20 Aug 2021 10:23:51 -0700
+Subject: [PATCH 15/22] Unvendor tcltk
+
+---
+ PCbuild/_tkinter.vcxproj | 6 ------
+ PCbuild/tcltk.props      | 6 +++---
+ 2 files changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/PCbuild/_tkinter.vcxproj b/PCbuild/_tkinter.vcxproj
+index 5ca877b5f2e..4ee4ff6d619 100644
+--- a/PCbuild/_tkinter.vcxproj
++++ b/PCbuild/_tkinter.vcxproj
+@@ -126,12 +126,6 @@
+   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+   <ImportGroup Label="ExtensionTargets">
+   </ImportGroup>
+-  <Target Name="_CopyTclTkDLL" Inputs="@(_TclTkDLL)" Outputs="@(_TclTkDLL->'$(OutDir)%(Filename)%(Extension)')" AfterTargets="Build">
+-    <Copy SourceFiles="@(_TclTkDLL)" DestinationFolder="$(OutDir)" UseHardlinksIfPossible="true" />
+-  </Target>
+-  <Target Name="_CleanTclTkDLL" BeforeTargets="Clean">
+-    <Delete Files="@(_TclTkDLL->'$(OutDir)%(Filename)%(Extension)')" />
+-  </Target>
+   <Target Name="_WriteTCL_LIBRARY" Outputs="$(OutDir)TCL_LIBRARY.env" AfterTargets="Build">
+     <WriteLinesToFile File="$(OutDir)TCL_LIBRARY.env" Lines="$(tcltkdir)\lib\tcl$(TclMajorVersion).$(TclMinorVersion)" Encoding="utf-8" Overwrite="true" />
+   </Target>
+diff --git a/PCbuild/tcltk.props b/PCbuild/tcltk.props
+index 2aa3b7a1e42..8f951c9eecd 100644
+--- a/PCbuild/tcltk.props
++++ b/PCbuild/tcltk.props
+@@ -12,9 +12,9 @@
+     <TkMinorVersion>$([System.Version]::Parse($(TkVersion)).Minor)</TkMinorVersion>
+     <TkPatchLevel>$([System.Version]::Parse($(TkVersion)).Build)</TkPatchLevel>
+     <TkRevision>$([System.Version]::Parse($(TkVersion)).Revision)</TkRevision>
+-    <tclDir Condition="$(tclDir) == ''">$(ExternalsDir)tcl-core-$(TclVersion)\</tclDir>
+-    <tkDir Condition="$(tkDir) == ''">$(ExternalsDir)tk-$(TkVersion)\</tkDir>
+-    <tcltkDir Condition="$(tcltkDir) == ''">$(ExternalsDir)tcltk-$(TclVersion)\$(ArchName)\</tcltkDir>
++    <tclDir>$(condaDir)</tclDir>
++    <tkDir>$(condaDir)</tkDir>
++    <tcltkDir>$(condaDir)</tcltkDir>
+     <tclWin32Exe Condition="$(Platform) == 'Win32'">$(tcltkDir)\bin\tclsh$(TclMajorVersion)$(TclMinorVersion)t.exe</tclWin32Exe>
+     <tclWin32Exe Condition="$(Platform) != 'Win32'">$(tcltkDir)\..\win32\bin\tclsh$(TclMajorVersion)$(TclMinorVersion)t.exe</tclWin32Exe>
+ 

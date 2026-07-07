@@ -1,0 +1,9 @@
+{
+  "c_stdlib_version": "2019.11",
+  "c_stdlib": "vs",
+  "c_compiler": "vs2019",
+  "target_platform": "win-64",
+  "libbrotlicommon": "1.0",
+  "libbrotlienc": "1.0",
+  "channel_targets": "defaults"
+}

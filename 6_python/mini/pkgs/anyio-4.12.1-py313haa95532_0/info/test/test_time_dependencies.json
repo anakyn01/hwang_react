@@ -1,0 +1,1 @@
+["psutil >=5.9", "pytest >=7.0", "trio", "exceptiongroup >=1.2.0", "pytest-timeout", "trustme", "tomli", "pip", "hypothesis >=4.0", "pytest-mock >=3.14"]

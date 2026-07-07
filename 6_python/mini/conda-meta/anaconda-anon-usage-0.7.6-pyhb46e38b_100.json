@@ -1,0 +1,96 @@
+{
+  "name": "anaconda-anon-usage",
+  "version": "0.7.6",
+  "build": "pyhb46e38b_100",
+  "build_number": 100,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "subdir": "noarch",
+  "fn": "anaconda-anon-usage-0.7.6-pyhb46e38b_100.conda",
+  "md5": "c78d47374611a8e86f7a9817f3768160",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/anaconda-anon-usage-0.7.6-pyhb46e38b_100.conda",
+  "sha256": "403ef7e93dee117ffb1dca2d0f032fc3a4449381ec88c6726e3066d57171e8ce",
+  "depends": [
+    "python >=3.8"
+  ],
+  "constrains": [
+    "conda >=23.7"
+  ],
+  "noarch": "python",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "package_type": "noarch_python",
+  "timestamp": 1774907942000,
+  "size": 19864,
+  "requested_spec": "pkgs/main/noarch::anaconda-anon-usage==0.7.6=pyhb46e38b_100",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\anaconda-anon-usage-0.7.6-pyhb46e38b_100.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\anaconda-anon-usage-0.7.6-pyhb46e38b_100",
+  "files": [
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/INSTALLER",
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/LICENSE",
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/METADATA",
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/RECORD",
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/REQUESTED",
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/WHEEL",
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/direct_url.json",
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/entry_points.txt",
+    "Lib/site-packages/anaconda_anon_usage-0.7.6.dist-info/top_level.txt",
+    "Lib/site-packages/anaconda_anon_usage/__init__.py",
+    "Lib/site-packages/anaconda_anon_usage/_version.py",
+    "Lib/site-packages/anaconda_anon_usage/heartbeat.py",
+    "Lib/site-packages/anaconda_anon_usage/patch.py",
+    "Lib/site-packages/anaconda_anon_usage/plugin.py",
+    "Lib/site-packages/anaconda_anon_usage/tokens.py",
+    "Lib/site-packages/anaconda_anon_usage/utils.py",
+    "Lib/site-packages/anaconda_anon_usage/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/anaconda_anon_usage/__pycache__/_version.cpython-313.pyc",
+    "Lib/site-packages/anaconda_anon_usage/__pycache__/heartbeat.cpython-313.pyc",
+    "Lib/site-packages/anaconda_anon_usage/__pycache__/patch.cpython-313.pyc",
+    "Lib/site-packages/anaconda_anon_usage/__pycache__/plugin.cpython-313.pyc",
+    "Lib/site-packages/anaconda_anon_usage/__pycache__/tokens.cpython-313.pyc",
+    "Lib/site-packages/anaconda_anon_usage/__pycache__/utils.cpython-313.pyc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "Lib/site-packages/anaconda_anon_usage/__pycache__/__init__.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 253
+      },
+      {
+        "_path": "Lib/site-packages/anaconda_anon_usage/__pycache__/_version.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 536
+      },
+      {
+        "_path": "Lib/site-packages/anaconda_anon_usage/__pycache__/heartbeat.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 7801
+      },
+      {
+        "_path": "Lib/site-packages/anaconda_anon_usage/__pycache__/patch.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 7046
+      },
+      {
+        "_path": "Lib/site-packages/anaconda_anon_usage/__pycache__/plugin.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 1371
+      },
+      {
+        "_path": "Lib/site-packages/anaconda_anon_usage/__pycache__/tokens.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 13585
+      },
+      {
+        "_path": "Lib/site-packages/anaconda_anon_usage/__pycache__/utils.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 10248
+      }
+    ]
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\anaconda-anon-usage-0.7.6-pyhb46e38b_100",
+    "type": 1
+  }
+}

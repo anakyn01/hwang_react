@@ -1,0 +1,178 @@
+# This file created by conda-build 26.1.0
+# meta.yaml template originally from:
+# C:\Users\task_177585125271105\conda-feedstock\recipe, last modified Fri Apr 10 20:14:56 2026
+# ------------------------------------------------
+
+package:
+  name: conda
+  version: 26.3.2
+source:
+  url: https://github.com/conda/conda/releases/download/26.3.2/conda-26.3.2.tar.gz
+  sha256: b5f5c1d4068a6582816d223733993eff354d55ec762ac555b49fdb8de07050c6
+  folder: conda-src
+build:
+  number: '0'
+  script: C:\\Users\\task_177585125271105\\croot\\conda_1775852147789\\_h_env\\python.exe
+    -m pip install conda-src/ --no-deps --no-build-isolation -vv && C:\\Users\\task_177585125271105\\croot\\conda_1775852147789\\_h_env\\python.exe
+    -m conda init --install
+  always_include_files:
+    - Scripts/activate
+    - Scripts/activate.bat
+    - Scripts/deactivate
+  string: py313haa95532_0
+requirements:
+  build:
+    - msys2-base 1.0.0 0
+    - msys2-bash 5.2.032 1000
+    - msys2-bash-completion 2.14.0 1000
+    - msys2-coreutils 8.32 5000
+    - msys2-dash 0.5.12 1000
+    - msys2-file 5.45 3000
+    - msys2-filesystem 2023.02.07 2000
+    - msys2-findutils 4.10.0 2000
+    - msys2-gawk 5.3.0 1000
+    - msys2-gcc-libs 13.3.0 1000
+    - msys2-gmp 6.3.0 1000
+    - msys2-grep 3.0 6000
+    - msys2-gzip 1.13 1000
+    - msys2-inetutils 2.5 2000
+    - msys2-info 7.1 3000
+    - msys2-less 661 1000
+    - msys2-libbz2 1.0.8 4000
+    - msys2-libiconv 1.17 1000
+    - msys2-libintl 0.22.4 1000
+    - msys2-liblzma 5.4.6 2000
+    - msys2-libpcre 8.45 4000
+    - msys2-libpcre2_8 10.44 1000
+    - msys2-libreadline 8.2.013 1000
+    - msys2-libutil-linux 2.35.2 4000
+    - msys2-libxcrypt 4.4.36 1000
+    - msys2-libxml2 2.13.3 1000
+    - msys2-libzstd 1.5.6 1000
+    - msys2-mintty 3.7.4 1000
+    - msys2-mpfr 4.2.1 1000
+    - msys2-msys-mutex 1.0 msys2
+    - msys2-msys2-launcher 1.5 1000
+    - msys2-msys2-runtime 3.5.4 1000
+    - msys2-ncurses 6.5 1000
+    - msys2-sed 4.9 1000
+    - msys2-time 1.9 3000
+    - msys2-tzcode 2024a 1000
+    - msys2-util-linux 2.35.2 4000
+    - msys2-which 2.21 4000
+    - msys2-zlib 1.3.1 1000
+  host:
+    - boltons 25.0.0 py313haa95532_0
+    - brotlicffi 1.2.0.0 py313h885b0b7_0
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2026.3.19 haa95532_0
+    - certifi 2026.01.04 py313haa95532_0
+    - cffi 2.0.0 py313h02ab6af_1
+    - charset-normalizer 3.4.4 py313haa95532_0
+    - colorama 0.4.6 py313haa95532_0
+    - frozendict 2.4.6 py313h02ab6af_0
+    - hatch-vcs 0.5.0 py313haa95532_0
+    - hatchling 1.29.0 py313haa95532_0
+    - idna 3.11 py313haa95532_0
+    - libexpat 2.7.5 hd7fb8db_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - libzlib 1.3.1 h02ab6af_0
+    - menuinst 2.4.2 py313h885b0b7_1
+    - openssl 3.5.6 hbb43b14_0
+    - packaging 26.0 py313haa95532_0
+    - pathspec 1.0.4 py313haa95532_0
+    - pip 26.0.1 pyhc872135_1
+    - platformdirs 4.9.4 py313haa95532_0
+    - pluggy 1.5.0 py313haa95532_0
+    - pycparser 3.0 py313haa95532_0
+    - pysocks 1.7.1 py313haa95532_1
+    - python 3.13.12 h39c999c_100_cp313
+    - python_abi 3.13 3_cp313
+    - requests 2.33.1 py313haa95532_0
+    - ruamel.yaml 0.18.16 py313hb9a58be_0
+    - ruamel.yaml.clib 0.2.14 py313hb9a58be_0
+    - setuptools 82.0.1 py313haa95532_0
+    - setuptools-scm 10.0.5 py313haa95532_0
+    - sqlite 3.51.2 hee5a0db_0
+    - tk 8.6.15 hf199647_0
+    - tqdm 4.67.3 py313h4442805_1
+    - trove-classifiers 2026.1.14.14 py313haa95532_0
+    - tzdata 2026a he532380_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - urllib3 2.6.3 py313haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vcs-versioning 1.1.1 py313haa95532_0
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - wheel 0.46.3 py313haa95532_0
+    - win_inet_pton 1.1.0 py313haa95532_1
+    - xz 5.8.2 h53af0af_0
+    - zlib 1.3.1 h02ab6af_0
+  run:
+    - archspec >=0.2.3
+    - boltons >=23.0.0
+    - charset-normalizer
+    - conda-libmamba-solver >=25.11.0
+    - conda-package-handling >=2.2.0
+    - distro >=1.5.0
+    - frozendict >=2.4.2
+    - jsonpatch >=1.32
+    - menuinst >=2
+    - packaging >=23.0
+    - platformdirs >=3.10.0
+    - pluggy >=1.0.0
+    - pycosat >=0.6.3
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+    - requests >=2.28.0,<3
+    - ruamel.yaml >=0.11.14,<0.19
+    - setuptools >=60.0.0
+    - tqdm >=4
+    - truststore >=0.8.0
+    - zstandard >=0.19.0
+  run_constrained:
+    - conda-build >=25.9
+    - conda-content-trust >=0.3.0
+    - conda-env >=2.6
+test:
+  requires:
+    - msys2-base
+    - msys2-bash
+    - msys2-filesystem
+  imports:
+    - conda
+  downstreams:
+    - conda-smithy
+about:
+  home: https://docs.conda.io/
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: conda-src/LICENSE
+  summary: OS-agnostic, system-level binary package and environment manager.
+  description: 'Conda is an open source package management system and environment
+
+    management system for installing multiple versions of software packages
+
+    and their dependencies and switching easily between them. It works on
+
+    Linux, OS X and Windows, and was created for Python programs but can
+
+    package and distribute any software.
+
+    '
+  doc_url: https://docs.conda.io/projects/conda/en/stable/
+  dev_url: https://github.com/conda/conda
+extra:
+  skip-lints:
+    - host_section_needs_exact_pinnings
+    - missing_pip_check
+    - python_build_tool_in_run
+    - python_build_tools_in_host
+  final: true
+  copy_test_source_files: true
+  remote_url: https://github.com/AnacondaRecipes/conda-feedstock
+  sha: 3c45aec840ff2999b1c89b78c1e393eeb3d39a96
+  task_id: cPc1J_ObRQ-smVTcoTsINw
+  task_run_id: '0'
+  pbp_graph_uuid: 6c0e08c5-97d8-4c98-bfc6-af849da56543
