@@ -3,6 +3,7 @@ import numpy as np
 #ndmin으로 숫자를 설정하면 거기에 맞는 차원에 배열을 만들수 있습니다
 five = np.array([1,2,3,4], ndmin=5)
 print(five)
+print('shape of array: ', five.shape)
 
 #Numpy Array Shape
 sha = np.array([[1,2,3,4],[4,5,6,7]])
@@ -34,4 +35,16 @@ arr = np.array([1,2,3,4,5])
 print(arr)
 print(type(arr))
 #배열인덱싱
-print(arr[0])#�
+print(arr[0])#첫번째요소
+
+
+
+
+'''
+Numerical Python
+파이선에는 배열이 존재하지 않아서 list를 사용합니다
+그런데 array를 사용하려면 numpy를 사용
+사용하는 이유 최소 list보다 50배정도가 빠름
+2005년
+설치할때는 pip install numpy
+'''
