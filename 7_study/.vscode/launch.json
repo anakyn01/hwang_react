@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Generics",
+      "request": "launch",
+      "mainClass": "Generics",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
+      "name": "Over",
+      "request": "launch",
+      "mainClass": "Over",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
+      "name": "Equals",
+      "request": "launch",
+      "mainClass": "Equals",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
       "name": "Ref",
       "request": "launch",
       "mainClass": "Ref",

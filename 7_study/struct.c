@@ -1,88 +1,63 @@
 #include <stdio.h>
-//큐 배열의 최대 크기를 3으로 지정
-#define SIZE 3
 
-typedef struct{
-    int a[SIZE];//데이터를 저장할 크기 3짜리 배열
-    int front;//데이터를 빼낼(dequeue)위치를 가리키는 화살표
-    int rear;//데이터를 집어넣을(enqueue)위치를 가리키는 화살표
-} Queue;
-//큐 FIFO 선입선출 스택 LIFO 후입선출
+//구조체 연결리스트 문제
+struct Node{
+    int value;
+    struct Node* next;
+};
 
-//원형큐의 핵심 (값 + 1) % SIZE 이렇게 하면 0 -> 1 -> 2 -> 0 -> 1 -> 2
-void enq(Queue* q, int val){
-    q -> a[q->rear] = val;
-    q -> rear = (q->rear + 1) % SIZE;
+void func(struct Node* node){
+    //node가 null이 아니고 다음 노드도 null이 아닐때만 반복
+    //노드가 2개이상 쌍으로 있을때
+    while(node != NULL && node->next != NULL){
+int t = node->value;
+//현재 노드의 값을 임시 변수 t에 잠시 복사해 둡니다. (값이 지워지는 것을 방지)
+node->value = node->next->value;
+//현재 노드의 값에 다음 노드의 값을 덮어씌웁니다.
+node->next->value = t;
+//다음 노드의 값에는 아까 보관해둔 원래 현재 노드의 값을 넣습니다. 
+//(이 3줄을 통해 인접한 두 노드의 값이 서로 바뀝니다.)
+node = node->next->next;
+//방금 두 노드의 값을 바꿨으니, 
+//다음번 스왑을 위해 포인터를 두 칸 뒤로 껑충 점프시킵니다.
+    }
 }
-/*
-큐의 맨뒤 (rear)에 새로운 데이터를 집어넣는 역활을 합니다
-q라는 큐의 주소와 새로 집어넣을 숫자  val을 전달 받습니다
 
- q -> a[q->rear] = val;
- 현재 rear(데이터가 넣을 위치 화살표)가 가르키고 있는 배열 
- a의 빈방에 가져온 값val을 쏙 집어넣는다
-  q -> rear = (q->rear + 1) % SIZE;
-  데이터를 방에  넣었으니 다음데이터를 넣기 위해
-  rear화살표를 한칸 옆으로 이동시킵니다
-*/
-
-int deq(Queue* q) {
-    int val = q -> a[q->front];
-    q->front = (q->front + 1) % SIZE;
-    return val;
-}
-/*
-
-데이터 빼기 함수
-큐의 맨앞에 있는 가장 오래된 데이터를 꺼내오는 역활을 합니다
-먼저 들어온게 먼저나가는 FIFO
-*/
 
 int main(){
+    struct Node n1 = {1, NULL};
+    struct Node n2 = {2, NULL};
+    struct Node n3 = {3, NULL};
+    /*
+    n1, n2, n3라는 노드 3개를 각각 만들고,
+     값은 1, 2, 3을 넣습니다. 다음 노드를 가리키는 
+    포인터는 일단 모두 NULL(비어있음) 상태로 둡니다.
+    */
+n1.next = &n3;//n1의 다음 노드로 n3의 메모리 주소를 연결합니다. (순서: n1 ➔ n3)
+n3.next = &n2;//n3의 다음 노드로 n2의 메모리 주소를 연결
 
-    Queue q = {{0}, 0, 0};
-    /*
-    배열 a는 [0,0,0]으로 초기화가 된다
-    데이터를 뺄위치(front)=0, 넣을위치(rear)=0
-    */
+func(&n1);//완성된 연결 리스트의 시작점인 
+//n1의 주소를 func 함수에 던져줍니다
+/*
+func 함수 내부의 변화:
+첫 번째 쌍(n1과 n3): 값 1과 3을 맞바꿉니다.
+ (현재 상태: n1(3) ➔ n3(1) ➔ n2(2))
+*/
+struct Node* current = &n1;
+/*
+결과를 화면에 찍기 위해 current라는 탐색용 화살표를 만들고,
+다시 리스트의 맨 처음(n1)을 가리키게 합니다.
+*/
+while(current != NULL) {
+    printf("%d", current->value);
+    current = current->next;
+}
+/*
+current가 NULL이 될 때까지(기차의 끝에 도달할 때까지) 반복합니다.
+현재 가리키고 있는 노드의 값을 화면에 출력합니다.
+리스트가 n1(3) ➔ n3(1) ➔ n2(2) 상태이므로, 
+차례대로 3, 1, 2가 연달아 출력됩니다.
+*/
 
-    enq(&q,1); 
-    /*
-    ② 첫 번째 데이터 넣기 enq(&q, 1)
-    q->a[0] = 1; → 배열 0번 방에 1을 넣습니다. (상태: [1, 0, 0])
-    rear = (0 + 1) % 3 → rear가 1로 이동합니다.
-    */
-    enq(&q,2); 
-    /*
-    q->a[1] = 2; → 배열 1번 방에 2를 넣습니다. (상태: [1, 2, 0])
-    rear = (1 + 1) % 3 → rear가 2로 이동합니다.
-    */
-    deq(&q); 
-    /*
-    ④ 첫 번째 데이터 빼기 deq(&q)
-    현재 front는 0입니다. 배열 0번 방에 있는 값 1을 빼냅니다
-    (이 값은 어디에도 저장하지 않고 버려집니다.)
-    front = (0 + 1) % 3 → front가 1로 이동합니다.
-    */
-    enq(&q,3);
-    /*
-    ⑤ 세 번째 데이터 넣기 enq(&q, 3)
-    현재 rear는 2입니다. 배열 2번 방에 3을 넣습니다. (상태: [1, 2, 3])
-    rear = (2 + 1) % 3 → 
-    rear가 3이 아니라 0으로 다시 돌아갑니다! (원형 큐의 핵심)
-    */
-
-    int first = deq(&q);
-    /*
-    현재 front가 1이므로, 배열 1번 방에 있는 값 2를 꺼내서 first에 저장합니다.
-    front = (1 + 1) % 3 → front가 2로 이동합니다.
-    */
-    int second = deq(&q);
-    /*
-    현재 front가 2이므로, 배열 2번 방에 있는 값 3을 꺼내서 second에 저장합니다.
-    front = (2 + 1) % 3 → front가 다시 0으로 이동합니다.
-    */
-    printf("%d 그리고 %d", first, second);
-//최종적으로 first에 들어간 2와 second에 들어간 3이 출력됩니다.
     return 0;
 }
