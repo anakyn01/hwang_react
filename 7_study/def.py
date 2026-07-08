@@ -1,15 +1,29 @@
-#입력된 데이터의 자료형 타입이 무엇인지 판별하고 그에 따른 값을 리턴
-def func(value):
-    if type(value) == type(100):
-        return 100 #입력된 값이 정수형이면 무조건 100을 리턴
-    elif type(value) == type(""):
-        return len(value)#입력되 값이 문자열이면 해당 문자열의 길이를
-    else:#정수도 아니고 문자열도 아니 그외의 모드 자료형(실수,튜플)
-        return 20
- 
- 
-a = '100.0'  #5 
-b= 100.0 #20 
-c=(100, 200) #20
+#문자열 x안에서 특정 문자열 y가 몇번 포함되어있는지 세어주는 함수
+def fnCalculation(x, y):
+    
+    result = 0;#나중 결과를 위해서  0으로 초기화
+    
+    #문자열 x의 전체 길이만큼 반복문 실행
+    for i in range(len(x)):
+# 문자열 x의 i번째 인덱스부터 'y의 길이'만큼 잘라내어(슬라이싱) temp 변수에 저장
+        temp = x[i:i+len(y)]
+ # 방금 잘라낸 부분 문자열(temp)이 
+ # 우리가 찾고자 하는 문자열(y)과 똑같은지 비교       
+        if temp == y:
+            #똑같다면 찾은 횟수를 1증가
+            result += 1
+            #전체 문자열을 다검사한후 횟수를 1증가
+            return result
+        
+#검색대상
+a = "abdcabcabca"
 
-print(func(a) + func(b) +func(c)) #45
+#첫번째로 찾을 문자열패턴
+p1 = "ab" #3
+#두번째 패턴
+p2 = "ca" #3
+
+#출력
+out = f"ab{fnCalculation(a,p1)}ca{fnCalculation(a,p2)}"
+
+print(out) #ab3ca3

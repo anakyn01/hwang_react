@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Split",
+      "request": "launch",
+      "mainClass": "Split",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
+      "name": "Oper",
+      "request": "launch",
+      "mainClass": "Oper",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
       "name": "Generics",
       "request": "launch",
       "mainClass": "Generics",

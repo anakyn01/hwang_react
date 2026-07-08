@@ -29,7 +29,11 @@ res.send('About Page');
 app.get('/contact', (req, res) =>{
 res.send('Contact Page');
 });
+
+
+
 //여기까지가 라우팅
+
 
 //아래는 라우팅 응답하는 와꾸 html을 그림
 app.get('/html', (req, res) => {
@@ -53,6 +57,11 @@ h1{color:#0066cc;} p{margin-bottom:20px;}
     </body>
     </html>
     `);
+});
+
+//404에러
+app.use((req, res) =>{
+res.status(404).send('404 - Page not found');
 });
 
 //서버실행
