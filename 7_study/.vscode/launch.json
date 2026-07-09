@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Sing",
+      "request": "launch",
+      "mainClass": "Sing",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
       "name": "Split",
       "request": "launch",
       "mainClass": "Split",
