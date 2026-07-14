@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
       "name": "Dogs",
       "request": "launch",
       "mainClass": "Dogs",
