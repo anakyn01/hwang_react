@@ -1,9 +1,27 @@
 package advanced;
 
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class BytesToString {
 	public static void main(String[] args) throws Exception{
+		String data3 = "홍길동&이수홍,박연수";
+		String[] arr = data3.split("&|,");
+		for(String token:arr) {
+			System.out.println(token);
+		}
+		System.out.println();
+		
+		String data4 = "홍길동/이수홍/박연수";
+		StringTokenizer st = new StringTokenizer(data4, "/");
+		while(st.hasMoreTokens()) {
+			String token =st.nextToken();
+			System.out.println(token);
+		}
+		
+		
+		
+		
 		String data2 = new StringBuilder()
 .append("DEF").insert(0, "ABC").delete(3, 4).toString();
 		System.out.println(data2);

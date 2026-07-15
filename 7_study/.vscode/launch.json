@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Arry",
+      "request": "launch",
+      "mainClass": "Arry",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
       "name": "Ext",
       "request": "launch",
       "mainClass": "Ext",
