@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Good",
+      "request": "launch",
+      "mainClass": "Good",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
+      "name": "Ovr1",
+      "request": "launch",
+      "mainClass": "Ovr1",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
+      "name": "Nest",
+      "request": "launch",
+      "mainClass": "Nest",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
+      "name": "TestCon",
+      "request": "launch",
+      "mainClass": "TestCon",
+      "projectName": "7_study_e980b944"
+    },
+    {
+      "type": "java",
       "name": "Th",
       "request": "launch",
       "mainClass": "Th",
