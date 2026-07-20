@@ -13,7 +13,7 @@ app.use(express.json());
 //클라이언트가 보낸 JSON형식의 데이터를 서버가 읽을수 있게 변환해 주는 설정 
 
 //글을 쓸때 아이디 패스워드 키
-const db = mysql.clearConnection({
+const db = mysql.createConnection({
     host:'localhost',
     //현재는 컴퓨터 로컬에서 사용하기에..로컬호스트지만 aws를 사용할때는 엔드포인트 사용
  user:'root', //musql사용자명 기본
