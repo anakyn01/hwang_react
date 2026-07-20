@@ -36,10 +36,10 @@ axios.get('http://localhost:5000/api/posts')//5000번 포트에 게시글 줘..
 
     <table className='table table-hover table-bordered text-center'>
         <colgroup>
-        <col style={{width:"10%"}}/>
-        <col style={{width:"50%"}}/>
-        <col style={{width:"20%"}}/>
-        <col style={{width:"20%"}}/>
+            <col style={{width:"10%"}}/>
+            <col style={{width:"50%"}}/>
+            <col style={{width:"20%"}}/>
+            <col style={{width:"20%"}}/>
         </colgroup>
         <thead className='table-light'>
             <tr>
@@ -49,6 +49,25 @@ axios.get('http://localhost:5000/api/posts')//5000번 포트에 게시글 줘..
                 <th>작성일</th>
             </tr>
         </thead>
+        <tbody>
+            {posts.map((post) => (
+                <tr key={post.id}>
+                {/*리액트가 각각의 줄을 구분할수 있게 고유한 id를 줍니다*/}
+                    <td>{post.id}</td>
+                    <td>{post.title}</td>
+                    <td>{post.author}</td>
+                    <td>{new Date(post.created_at).toLocaleDateString()}</td>
+                </tr>
+            ))}
+            {/*만약 게시글이 없다면 보여줄 화면 입니다 */}
+            {posts.length === 0 &&(
+                <tr>
+                    <td colSpan={4}>
+                        게시글이 없습니다
+                    </td>
+                </tr>
+            )}
+        </tbody>
     </table>
   
         </>
