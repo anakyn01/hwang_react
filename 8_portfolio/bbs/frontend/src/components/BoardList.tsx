@@ -119,6 +119,32 @@ axios.get('http://localhost:5000/api/posts')//5000번 포트에 게시글 줘..
         </tbody>
     </table>
   
+  {/*페이징 */}
+  <nav>
+    <ul className='pagination justify-content-center mt-4'>
+
+<li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+    <button className='page-link' onClick={() => setCurrentPage(currentPage - 1)}>
+이전
+    </button>
+</li>
+
+{Array.from({length: totalPages},(_, i) => i +1).map((page) =>(
+    <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
+     <button className='page-link' onClick={() => setCurrentPage(page)}>
+        {page}
+     </button>
+    </li>
+))}
+
+<li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+    <button className='page-link' onClick={() => setCurrentPage(currentPage + 1)}>
+다음
+    </button>
+</li>
+
+    </ul>
+  </nav>
         </>
     )
 }
