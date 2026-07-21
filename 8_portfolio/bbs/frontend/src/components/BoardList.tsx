@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react';
 //리액트의 핵심기능 상태관리 생명주기 에 훅을 가져옵니다
 import axios from 'axios';
 //서버와 통신하기 위한 배달원 역활을 하는 도구
+//수정버튼 이동용
+import { useNavigate } from 'react-router-dom';
 import * as S from '../assets/css/Board.styles';
 
 //데이터의 설계도 interface
@@ -18,12 +20,47 @@ export const BoardList = () => {
 */
 const[posts, setPosts] = useState<Post[]>([]);
 
-//화면이 처음 나타났을때 딱 한번 실행되는 구역
+//오늘 만들었던 페이징을 위한 상태추가
+const[currentPage, setCurrentPage] = useState(1);
+const[totalPages, setTotalPages] = useState(1);
+
+//이동함수
+const navigate = useNavigate();
+
+
+const fetchPosts = (page: number) => {
+    axios.get(`http://localhost:5000/api/posts?page=${page}`)
+    .then((res) => {
+        setPosts(res.data.posts);
+        setTotalPages(res.data.totalPages);
+        setCurrentPage(res.data.currentPage);
+    }).catch((err) => console.error(err));
+};
+
+useEffect(() => {
+    fetchPosts(currentPage);
+}, [currentPage]);
+
+//추가된 부분 삭제기능 함수
+const handleDelete = async(id:number) => {
+    if(window.confirm('정말 삭제 하시겠습니까')){
+        try{
+await axios.delete(`http://localhost:5000/api/posts/${id}`);
+alert('삭제되었습니다');
+fetchPosts(currentPage);//삭제후 새로곪;
+        }catch(error){
+            console.error(error);
+            alert('삭제 실패');
+        }
+    }
+}
+
+/*화면이 처음 나타났을때 딱 한번 실행되는 구역 페이징을 안넣을경우
 useEffect(() => {
 axios.get('http://localhost:5000/api/posts')//5000번 포트에 게시글 줘..
 .then((res) => setPosts(res.data))//성공하면 받아온 데이터를 바구니에 담습니다
 .catch((err) => console.error(err));
-},[]);//뒤의 []는 처음 하번만 실행하라는 뜻
+},[]);//뒤의 []는 처음 하번만 실행하라는 뜻*/
 
 {/*화면 그리기 (render) */}
     return(
@@ -37,8 +74,9 @@ axios.get('http://localhost:5000/api/posts')//5000번 포트에 게시글 줘..
     <table className='table table-hover table-bordered text-center'>
         <colgroup>
             <col style={{width:"10%"}}/>
-            <col style={{width:"50%"}}/>
-            <col style={{width:"20%"}}/>
+            <col style={{width:"40%"}}/>
+            <col style={{width:"15%"}}/>
+            <col style={{width:"15%"}}/>
             <col style={{width:"20%"}}/>
         </colgroup>
         <thead className='table-light'>
@@ -47,6 +85,7 @@ axios.get('http://localhost:5000/api/posts')//5000번 포트에 게시글 줘..
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성일</th>
+                <th>관리</th>
             </tr>
         </thead>
         <tbody>
@@ -57,6 +96,16 @@ axios.get('http://localhost:5000/api/posts')//5000번 포트에 게시글 줘..
                     <td>{post.title}</td>
                     <td>{post.author}</td>
                     <td>{new Date(post.created_at).toLocaleDateString()}</td>
+                    <td>
+                        <button
+                        className='btn btn-sm btn-outline-primary me-2'
+                        onClick={()=> navigate(`/edit/${post.id}`)}
+                        >수정</button>
+                        <button
+                        className='btn btn-sm btn-outline-danger'
+                        onClick={()=> handleDelete(post.id)}
+                        >삭제</button>
+                    </td>
                 </tr>
             ))}
             {/*만약 게시글이 없다면 보여줄 화면 입니다 */}
