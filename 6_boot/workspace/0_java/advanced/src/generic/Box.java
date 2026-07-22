@@ -1,6 +1,7 @@
 package generic;
 
-public class Box<T> {
+//T typeparameter..
+class Box<T> {
 
 	public T content;
 }
