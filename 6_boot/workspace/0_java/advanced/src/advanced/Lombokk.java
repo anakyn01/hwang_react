@@ -9,7 +9,7 @@ Getter, Setter, HashCode(), equals(),
 toString 자동으로 생성됩니다
 */
 @Data
-public class Lombok {
+public class Lombokk {
 	
 	private String id;
 	@NonNull
