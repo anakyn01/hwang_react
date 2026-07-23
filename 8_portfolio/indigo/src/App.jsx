@@ -9,6 +9,8 @@ import Home from "./Home"
 
 //admin
 import { DashBoard } from './admin/DashBoard';
+import { Join} from './admin/sub/Join';
+import { Login } from './admin/sub/Login';
 
 function App() {
   
@@ -23,6 +25,8 @@ function App() {
   <Footer/>  
     </div>}/>
     <Route path="/admin" element={<DashBoard/>} />
+    <Route path="/join" element={<Join/>} />
+    <Route path="/login" element={<Login/>} />
     </Routes>
     </BrowserRouter>
 

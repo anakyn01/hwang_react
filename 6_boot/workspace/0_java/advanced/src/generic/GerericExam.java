@@ -4,6 +4,16 @@ public class GerericExam {
 
 	public static void main(String[] args) {
 		
+		HomeAgency homeAgency = new HomeAgency();
+		Home home = homeAgency.rent();
+		home.turnOnLight();
+		
+		CarAgency carAgency = new CarAgency();
+		Car car3 = carAgency.rent();
+		car3.run();
+		
+		
+		
 		Product<Tv, String> product1 = new Product<>();
 /*
 Product 라는 객체를 생성 하는데

@@ -56,3 +56,38 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 `;
+
+//join
+export const Background = styled.div`
+background-color:#4e73df;
+background-image:linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+background-size:cover;
+min-height:100vh;
+display:flex;
+align-items:center;
+justifi-content:center;
+`;
+
+//다음 우편번호 모달 배경(어둡게 처리)
+export const ModalBackground = styled.div`
+position:fixed; top:0; left:0;
+width:100%; height:100%; 
+background:rgba(0, 0, 0, 0.5);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999;
+`;
+
+//다음 우편번호 컴포넌트를 감싸는 박스
+export const PostcodeWrapper = styled.div`
+width:400px; max-width:90%; background:white;
+padding:20px; border-radius:8px; 
+box-shadow:0 4px 12px rgba(0,0,0, .2);
+
+/*닫기 버튼을 감싸는 영역*/
+.close-btn-wrap{
+text-align:right;
+margin-bottom:10px;
+}
+`;

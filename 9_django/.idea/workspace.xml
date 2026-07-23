@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6af6d36-7d0e-46a1-9918-b348156296a3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../6_python/30_random.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../6_python/31_exam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6_boot/workspace/0_java/advanced/src/generic/GerericExam.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6_boot/workspace/0_java/advanced/src/generic/GerericExam.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,10 +12,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3GnDswHuGaxOhfkkYalErAJqlbj" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -35,6 +34,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/hwang_react/9_django",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
@@ -55,6 +55,7 @@
       <option name="presentableId" value="Default" />
       <updated>1784598649391</updated>
       <workItem from="1784598650426" duration="445000" />
+      <workItem from="1784775839517" duration="31000" />
     </task>
     <servers />
   </component>

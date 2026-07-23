@@ -2,46 +2,63 @@ package thread;
 
 import java.awt.Toolkit;
 
-public class Intro {
+public class One {
 
 	public static void main(String[] args) {
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		for(int i=0; i<5; i++) {
-			toolkit.beep();
-			try{Thread.sleep(500);}catch(Exception e) {}
-		}
-		for (int i=0; i<5; i++) {
+
+		Thread thread = new Thread(new Runnable(){
+			@Override
+			public void run(){
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				for(int i=0; i<5; i++){
+					toolkit.beep();
+					try{ Thread.sleep(500);}catch(Exception e){}
+				}
+			}
+		});
+		thread.start();
+		for(int i=0; i<5; i++){
 			System.out.println("띵");
-			try {Thread.sleep(500);}catch(Exception e) {}
+			try{ Thread.sleep(500);}catch(Exception e){}
 		}
 
 	}
 
 }
 /*
- 멀티스레드
- 멀티태스킹 : 두가지 이상에 작업을 동시 처리
- 하나의 프로그램 프로세스 내에서 
- 예를 메신저는 채팅작업을 하면서 동시에 파일 전송 작업을 수행한다 
- 하나의 프로세스가 두가지 이상의 작업을 수행할수 있는 이유는
- 멀티스레드가 있기 때문입니다
- 스레드는 코드의 실행흐름을 말하는데 프로세스내에서 스레드가 2개라면
- 두개의 코드 실행흐름이 생깁니다
- 멀티프로세스
- 프로세스1[멀티스레드 2],2[싱글 스레드],
- 3[싱글 스레드],4[멀티스레드3]
-멀티프로세스는 현재 4개가 있음
-프로세스 1,2가 망가져도 별다른 문제가 없어 보이고 작동은 됨
- 하지만 멀티스레드는 프로세스 내부에서 생성되기 때문에
- 하나의 스레드가 예외를 발생시키면 프로세스 종료
- 그렇기 때문에 예외 만전을 기해야 합니다
- 멀티스레드는 데이터를 분활하여 병렬로 처리하는곳에서도 사용하고
- 안드로이드 앱에서 네트워크 통신을 하기위해서도 사용됩니다
- 또한 다수의 클라이언트 요청을 처리하는 서버를 개발할때도 사용
- 그리고 자바 21부터는 가상스레드가 추가됨
- 제한된 운영체제에서 가상스레드를 사용하면 아주 효율적이다
- 자바에서는 메인 스레드가 main()메소드를 실행하면서 시작됩니다
- 마지막 코드를 실행하거나 리턴문을 만나면 종료
- 메인 스레드는 필요에 따라 추가 작업 스레드들을 만들어서 실행시킬수
- 있습니다
- * */
+java.lang 패키지에 있는 Thread클래스로 부터 작업 스레드 객체 직접 생성
+Runnabel 구현객체를 매개값으로 갖는 생성자를 호출
+1)  Thread thread = new Thread(Runnable target);
+
+Runnable은 스레드가 작업을 실행할때 사용하는 인터페이스
+Runnable에는 run()메소드가 정의됨..
+구현클래스는 run()을 재정의해서
+스레드가 실행할 코드를 가지고 있어야 됩니다
+
+2)
+class Task implements Runnable{
+	@Override
+	public void run(){
+	//스레드가 실행할 코드
+	}
+}
+
+Runnable구현 클래스는 작업 내용을 정의한 것으로
+스레드에 전달을 해야한다
+Runnable구현객체를 생성한후
+Thread생성자 매개값으로 Runnable객체를 아래와 같이 전달한다..
+Runnable task = new Task();
+Thread thread = new Thread(task);
+
+3)이게 좀더 권장하는 방법
+Thread thread = new Thread(new Runnable(){
+@Override
+public void run(){
+//스레드 실행할 코드
+}
+});
+
+4)함수 호출하듯이 스레드 실행
+thread.start();
+
+* */
