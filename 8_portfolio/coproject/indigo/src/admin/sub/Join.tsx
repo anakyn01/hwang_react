@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import DaumPostcode from 'react-daum-postcode';
+import axios from 'axios';
 //FontAwesome추가
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faGoogle, faFacebookF} from '@fortawesome/free-brands-svg-icons';
@@ -57,16 +58,29 @@ export const Join = () => {
     }
 
     //회원가입 전송함수
-    const handleSubmit = (e:React.FormEvent)=>{
+    const handleSubmit = async(e:React.FormEvent)=>{
 e.preventDefault();
 /*html의 폼은 원래 제출버튼을 누르면 웹페이지가 빤짝거린다
 새로고침되는 성격을 없애기 위해서
 */
-if(password !== repeatPassword) {
+if(password !== repeatPassword) {//비밀번호가 일치하는지 먼저 검사
     alert('비밀번호가 일치하지 않습니다');
-    return;
+    return;//다르면 여기서 멈춤
+} //add
+try{
+await axios.post('http://localhost:5000/api/users/register',{
+    firstName, lastName, email, password, zipCode, address, detailAddress
+});
+alert('회원가입이 완료 되었습니다! 환영합니다')
+navigate('/login');
+}catch (error: any) {
+if(error.response && error.response.data){
+alert(error.response.data.message);//    
+}else{
+alert('회원가입중 오류가 발생했습니다');
 }
-    }
+}
+}
 
     return(
         <>
@@ -156,7 +170,6 @@ if(password !== repeatPassword) {
             className='form-control form-control-user'
             placeholder='상세 주소를 입력해 주세요'
             value={detailAddress}
-            readOnly
             />
         </div>
 
@@ -176,14 +189,11 @@ if(password !== repeatPassword) {
                 className='form-control form-control-user'
                 placeholder='Repeat Password'
                 value={repeatPassword}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setRepeatPassword(e.target.value)}
                 required
                 />
             </div>
         </div>
-
-        
-
     </div>
 
 {/*버튼이 들어가는 영역 */}
