@@ -42,6 +42,33 @@ res.status(201).json({message:'회원가입이 완료되었습니다'});
 });
 });
 
+//login
+app.post('/api/users/login',(req, res) => {
+    //1)
+    const {email, password} = req.body;
+
+    //2)
+    const sql ='SELECT * FROM users WHERE email = ? AND password = ?';
+
+    //3)
+    db.query(sql,[email, password], (err, results) => {
+
+        if(err) {
+            console.error('로그인 에러:',err);
+            return res.status(500).json({message:'서버 오류가 발생했습니다'});
+        }
+        if(results.length === 0) {
+return res.status(401).json({message:'이메일 또는 비밀번호가 올바르지 않습니다'})
+        }
+const user = results[0];//검색된 첫번째 회원 정보
+res.status(200).json({
+    message:'로그인 성공!',
+    name:user.first_name
+})        
+    })
+})
+
+
 //서버실행
 app.listen(5000,()=>{
     console.log('Server running on port 5000');
