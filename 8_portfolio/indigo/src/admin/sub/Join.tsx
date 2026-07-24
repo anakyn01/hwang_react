@@ -105,9 +105,116 @@ if(password !== repeatPassword) {
             required
             />
         </div>
+        {/*이메일 입력 */}
+        <div className="form-group mb-3">
+            <input
+            type="email"
+            className='form-control form-control-user'
+            placeholder='Email Address'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            />
+        </div>
+
+        {/*주소 검색 영역 */}
+        <div className="from-group row align-items-center mb-3">
+            <div className="col-sm-8 mb-3 mb-sm-0">
+                <input type="text" 
+                className='form-control form-control-user'
+                placeholder='우편번호'
+                value={zipCode}
+                readOnly
+                onClick={()=> setIsPostcodeOpen(true)}
+                />            
+            </div>
+
+            <div className="col-sm-4">
+                <button 
+                className='btn btn-secondary btn-user btn-block'
+                onClick={() =>  setIsPostcodeOpen(true)}
+                >
+                주소찾기
+                </button>
+            </div>
+        </div>
+
+        <div className="form-group mb-3">
+            <input type="text" 
+            className='form-control form-control-user'
+            placeholder='기본 주소'
+            value={address}
+            readOnly
+            />
+        </div>
+
+        <div className="form-group mb-3">
+            <input type="text" 
+            className='form-control form-control-user'
+            placeholder='상세 주소를 입력해 주세요'
+            value={detailAddress}
+            readOnly
+            />
+        </div>
+
+        {/*비밀번호 */}
+        <div className='form-group row mb-4'>
+            <div className="col-sm-6 mb-3 mb-sm-0">
+                <input type="password"
+                className='form-control form-control-user'
+                placeholder='Password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                />
+            </div>
+            <div className="col-sm-6">
+                <input type="password"
+                className='form-control form-control-user'
+                placeholder='Repeat Password'
+                value={repeatPassword}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                />
+            </div>
+        </div>
+
+        
 
     </div>
+
+{/*버튼이 들어가는 영역 */}
+        <button type="submit" 
+        className='btn btn-primary btn-user btn-block'>
+            Register Account
+        </button>
+        <hr/>
+        {/*Oauth */}
+        <button type="button" 
+        className='btn btn-google btn-user btn-block'>
+            <i className='fab fa-google fa-fw'></i> 
+            Register with Google           
+        </button><br/>
+
+        <button type="button" 
+        className='btn btn-facebook btn-user btn-block'>
+            <i className='fab fa-facebook-f fa-fw'></i> 
+            Register with facebook          
+        </button>
+
 </form>
+<hr />
+<div className="text-center">
+    <Link className='small' to="/forgot-password">
+    Forgot Password?
+    </Link>
+</div>
+
+<div className="text-center">
+    <Link className='small' to="/login">
+    Already have an account? Login!
+    </Link>
+</div>
 
 
 </div>
@@ -117,6 +224,21 @@ if(password !== repeatPassword) {
         </div>
     </div>
 </div>
+{isPostcodeOpen && (
+    <S.ModalBackground onClick={() => setIsPostcodeOpen(false)}>
+<S.PostcodeWrapper onClick={(e) => e.stopPropagation()}>
+<div className="close-btn-wrap">
+    <button 
+    className='btn btn-sm btn-outline-secondary'
+    onClick={() => setIsPostcodeOpen(false)}
+    >
+close
+    </button>
+</div>
+<DaumPostcode onComplete={handleComplete} autoClose={false}/>
+</S.PostcodeWrapper>
+    </S.ModalBackground>
+)}
 </S.Background>       
         </>
     )
