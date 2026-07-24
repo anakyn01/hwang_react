@@ -170,6 +170,7 @@ alert('회원가입중 오류가 발생했습니다');
             className='form-control form-control-user'
             placeholder='상세 주소를 입력해 주세요'
             value={detailAddress}
+onChange={(e) => setDetailAddress(e.target.value)}            
             />
         </div>
 

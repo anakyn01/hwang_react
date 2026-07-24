@@ -24,7 +24,7 @@ app.post('/api/users/register',(req, res) => {
     const { firstName, lastName, email, password, zipCode, address, detailAddress} = req.body;
 //2)DB의 users테이블에 이정보를 넣으라는 내용
 const sql =`
-INSERT INTO users (first_name, last_name, email, password, zip_code, adress, detail_address)
+INSERT INTO users (first_name, last_name, email, password, zip_code, address, detail_address)
 VALUES (?, ?, ?, ?, ?, ?, ?)
 `;
 
