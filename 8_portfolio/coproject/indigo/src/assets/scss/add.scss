@@ -1,0 +1,32 @@
+.form-control-user{
+    font-size:.8rem !important;
+    border-radius:10rem !important;
+    padding:0.9rem 1rem !important;
+}
+.btn-user{
+font-size:.8rem !important;
+border-radius:10rem !important;
+padding:.75rem 1rem !important;
+}
+.btn-block{
+display:block; width:100%;
+}
+.btn-google{
+color:#fff !important; 
+background-color: #ea4335 !important;
+border-color:#ea4335 !important ;
+}
+.btn-facebook{
+color:#fff !important; 
+background-color: #3b5998 !important;
+border-color:#fff !important;
+}
+.small, small{
+font-size:80% !important;
+font-weight:400 !important;
+}
+.bg-register-image{
+    background-image:url("./img/joinBg.png");
+    background-position:center;
+    background-size: cover;
+}
