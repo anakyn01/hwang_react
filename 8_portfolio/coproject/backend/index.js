@@ -68,6 +68,25 @@ res.status(200).json({
     })
 })
 
+//회원목록조회 API
+app.get('/api/users', (req, res) => {
+    //비밀번호를 제외한 회원 정보들을 최근 가입순으로 가져옵니다
+    const sql=`
+SELECT id, first_name, last_name, email, zip_code, address, detail_address
+FROM users
+ORDER BY id DESC    
+    `;
+
+    db.query(sql, (err, results) => {
+        if(err) {
+            console.error('회원 목록 조회 에러:', err);
+            return res.status(500).json({message:'서버 오류가 발생했습니다'});
+        }
+        //조회된 회원 배열을 프론트엔드로 보냅니다
+        res.status(200).json(results);
+    })
+})
+
 
 //서버실행
 app.listen(5000,()=>{

@@ -29,7 +29,11 @@ const response = await axios.post('http://localhost:5000/api/users/login',{
 });
 //
 alert(`${response.data.name}님, ${response.data.message}`);
-//
+
+//로그인후 저장된 이름이 보이게 하려면 이결추가 브라우저 저장소
+localStorage.setItem('userName', response.data.name);
+
+
 navigate('/admin');
     }catch(error: any){
 if(error.response && error.response.data){
@@ -82,11 +86,11 @@ alert('로그인중 오류가 발생했습니다');
     </div>
 
     {/*기억하기 체크박스 */}
-    <div className="form-group mb-3">
+    <div className="form-group my-3 ">
         <div className="custom-control custom-checkbox small">
-<Form.Control
+<input
 type="checkbox"
-className="custom-control-input"
+className="custom-control-input form-check-input mx-2"
 id="customCheck"
 />
 <label
@@ -99,7 +103,7 @@ Remember Me
 <Button
 variant="primary"
 type="submit"
-className="btn-user btn-block w-100 mb-2"
+className="btn-user btn-block w-100 my-3"
 >
 Login
 </Button>

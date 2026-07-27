@@ -91,3 +91,51 @@ text-align:right;
 margin-bottom:10px;
 }
 `;
+
+//회원리스트
+export const PageWrapper = styled.div`
+padding:1.5rem;
+`;
+
+export const PageTitle = styled.h1`
+font-size:1.75rem; color:#5a5c69;
+margin-bottom:1.5rem;
+`;
+
+export const Card = styled.div`
+background-color:#fff;
+background-clip:border-box;
+border:1px solid #e3e6f0;
+border-radius:0.35rem;
+box-shadow:0 0.15rem 1.75rem 0 rgba(58, 69, 69, 0.15);
+margin-bottom:1.5rem;
+`;
+
+export const CardHeader = styled.div`
+padding:0.75rem 1.25rem;
+margin-bottom:0; 
+background-color:#f8f9fc;
+border-bottom:1px solid #e3e6f0;
+h6{
+margin:0; font-weight:bold;
+color:#4e73df;
+}
+`;
+
+export const StyledTable = styled.table`
+width:100%; margin-bottom:1rem;
+color:#858796; border-collapse:collapse;
+
+th, td {
+padding:0.75rem; vertical-align:top;
+border:1px solid #e3e6f0;
+}
+
+th{
+background-color:#f8f9fc; text-align:left;
+}
+
+tbody tr:hover {
+background-color:#f1f3f6;
+}
+`;
