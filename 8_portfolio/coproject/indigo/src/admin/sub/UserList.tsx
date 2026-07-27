@@ -106,6 +106,44 @@ const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 </tbody>                            
                         </S.StyledTable>
                     </div>
+{/*하단 페이징 */}
+{!loading && users.length > 0 &&(
+    <nav aria-label="Page navigation">
+        <ul className='pagination justify-content-center mt-4'>
+<li className={`page-item ${currentPage === 1 ? 'disabled':''}`}> 
+    <button
+    className='page-link'
+    onClick={()=> setCurrentPage(prev => Math.max(prev - 1, 1))}
+    disabled={currentPage === 1}
+    >
+        이전
+    </button>
+</li>  
+
+{Array.from({length:totalPages},(_,i) =>(
+<li key={i+1} className={`page-item ${currentPage===i+1 ? 'active' : ''}`}>
+    <button className='page-link' onClick={() => paginate(i+1)}>
+        {i+1}
+    </button>
+</li>
+))}
+
+<li className={`page-item ${currentPage === totalPages ? 'disabled':''}`}> 
+    <button
+    className='page-link'
+    onClick={()=> setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+    disabled={currentPage === totalPages}
+    >
+        다음
+    </button>
+</li> 
+        </ul>
+    </nav>
+)}
+
+
+
+
                 </S.CardBody>
             </S.Card>
         </S.PageWrapper>
