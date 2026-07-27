@@ -18,13 +18,26 @@ className='sidebar sidebar-dark accordion'
     </div>
     </SidebarBrand>
     <Divider className='my-0'/>
-    <NavItem className='active'>
-        <NavLink href="/">
-        <i className='fas fa-fw fa-tachometer-alt'></i>
-        </NavLink>
-    </NavItem>
 
-    <Divider/>
+    {/* 1. 대시보드 (메인) 링크 */}
+                <NavItem className='active'>
+                    <NavLink href="/admin">
+                        <i className='fas fa-fw fa-tachometer-alt'></i>
+                        {/* 메뉴 이름 추가 */}
+                        <span>Dashboard</span>
+                    </NavLink>
+                </NavItem>
+
+                <Divider/>
+
+                {/* 2. 회원 리스트 링크 추가 */}
+                <NavItem>
+  
+                    <NavLink href="/userlist">
+                        <i className='fas fa-fw fa-users'></i>
+                        <span>User List</span>
+                    </NavLink>
+                </NavItem>
 
 </SidebarContainer>
         </>
