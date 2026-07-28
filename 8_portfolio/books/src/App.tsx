@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Container, Row, Col, Navbar, Nav, FormControl, 
 Carousel, Card, Form}from 'react-bootstrap';
 import * as S from './assets/css/styles';
-import { User, Menu, MessageSquareText, BookOpen,
+import { User, Menu, MessageSquareText, BookOpen, ChevronLeft,
 ChevronRight, ChevronsRight} from 'lucide-react';
 //npm install react-icons
 //유명한 아이콘들은 폰트어썸에서만 사용됨
@@ -110,9 +110,10 @@ className="d-lg-none w-100 mt-3"
 <Carousel.Item>
   <S.BannerSlide $bg="#1a1a1a">
     <S.BannerContent className="justify-content-center">
-      <div className="">
-        <div className="">그린스터디 북스</div>
-        <p>이제 스마트 하게 공부 하세요</p>
+      <div className="" style={{color:'#fff', textAlign:'center', fontWeight:800}}>
+        <div className="" style={{fontSize:'2rem'}}>그린스터디 북스</div>
+        <p style={{ fontSize:'1.2rem', color:'#ccc', marginTop:'10px'}}>
+          이제 스마트 하게 공부 하세요</p>
       </div>
     </S.BannerContent>
   </S.BannerSlide>
@@ -187,6 +188,184 @@ className="d-lg-none w-100 mt-3"
 
   </Container>
 </section>
+
+{/*Best Seller */}
+<section style={{ padding:'60px 0', backgroundColor:'#fdfdfd'}}>
+<Container>
+  <Row className='align-items-center mb-4'>
+  <Col>
+    <S.SectionTitle>
+      베스트 셀러
+    </S.SectionTitle>
+  </Col>
+  <Col className='text-end'>
+  <S.TabNav variant="pills"
+  activeKey={bestSellerTab}
+  onSelect={(k : string | null) => setBestSellerTab(k || '초등')}
+  className="justify-content-end mb-0"
+  >
+{['초등','고등','중등','단행본'].map(tab =>(
+  <Nav.Item key={tab}>
+    <Nav.Link eventKey={tab}>
+      {tab}
+    </Nav.Link>
+  </Nav.Item>
+))}
+  </S.TabNav>
+  </Col>
+  </Row>
+  <Row>
+    {bestSellerData.map((book, idx) => (
+<Col lg={6} key={book.id}>
+<S.BestSellerItem>
+  <Col xs={2}>
+    <S.BestSellerRank>
+      {idx + 1}
+    </S.BestSellerRank>
+  </Col>
+  <Col xs={3}>
+    <img src={book.image} alt={book.title}
+    style={{width:'100%', borderRadius:'8px'}}
+    />
+  </Col>
+  <Col xs={7}>
+    <S.BestSellerBookTitle>{book.title}</S.BestSellerBookTitle>
+    <S.BestSellerTag className='mt-2'>
+      <span>{bestSellerTab}</span><span>학습</span>
+    </S.BestSellerTag>
+  </Col>
+</S.BestSellerItem>
+</Col>      
+    ))}
+  </Row>
+</Container>
+</section>
+
+{/*YouTube & Event */}
+<section style={{padding:'60px 0'}}>
+  <Container>
+    <Row className='gap-5'>
+      <Col lg={7}>
+<div className="d-flex justify-content-between align-items-center mb-4">
+        <S.SectionTitle className='mb-0'>
+          <S.YoutubeSectionNav>
+            <ChevronLeft size={24}/><ChevronRight size={24}/>
+          </S.YoutubeSectionNav>
+        </S.SectionTitle>
+      </div>
+<Row>
+   {youtubeData.slice(0,3).map(yt =>(
+    <Col md={4} key={yt.id}>
+      <S.YoutubeCard>
+        <S.YoutubeThumbnail bg={yt.image}/>
+        <S.YoutubeText>
+          <div className="yt-category">
+            {yt.category}
+          </div>
+          <div className="yt-title">
+            {yt.title}
+          </div>
+        </S.YoutubeText>
+      </S.YoutubeCard>
+    </Col>
+   ))}   
+    </Row>
+      </Col>
+
+<Col lg={4}>
+<div className="d-flex justify-content-between align-items-center mb-4">
+  <S.SectionTitle>
+    이벤트
+  </S.SectionTitle>
+  <S.EventSectionNav>
+    View more <ChevronRight size={18}/>
+  </S.EventSectionNav>
+</div>
+{eventData.map(ev => (
+  <S.EventItem key={ev.id}>
+<Col>
+<S.EventBadge type={ev.type}>
+  {ev.type} EVENT
+</S.EventBadge>
+<S.EventTitle>{ev.title}</S.EventTitle>
+<S.EventTitle>{ev.date}</S.EventTitle>
+</Col>
+  </S.EventItem>
+))}
+
+</Col>
+    </Row>    
+  </Container>
+</section>
+
+{/*커뮤니티 */}
+<section style={{padding:'60px 0', backgroundColor:'#fdfdfd', textAlign:'center'}}>
+  <Container>
+    <S.SectionTitle>
+      Community
+    </S.SectionTitle>
+    <Row>
+      {[
+{icon:FaInstagram, text:'그린스터디북스', sns:'instagram'},
+{icon:FaInstagram, text:'그린맘', sns:'instagram'},
+{icon:FaInstagram, text:'그린책방', sns:'instagram'},
+{icon:FaYoutube, text:'그린스터디북스', sns:'youtube'},
+{icon:MessageSquareText, text:'그린맘', sns:'band'},
+].map((item, idx) => (
+  <Col xs={12} md={5} lg={2} key={idx}>
+    <S.CommunityButton variant="light">
+      <div className='icon-text'>
+        <item.icon color={item.sns === 'instagram' ? 
+          '#e1306c' : item.sns === 'youtube' ? 
+          '#ff0000' : '#4caf50'}/>
+          <span>{item.text}</span>
+      </div>
+      <ChevronRight size={18} color="#aaa" />
+    </S.CommunityButton>
+  </Col>
+))}
+    </Row>
+  </Container>
+</section>
+
+<S.StyledFooter>
+  <Container>
+    <S.FooterLinkList>
+<li>회사 소개</li>
+<li>이용 역관</li>
+<li>개인정보처리방침</li>
+<li>고객센터</li>
+<li>제휴문의</li>
+<li>투고문의</li>
+<li>사이트맵</li>
+    </S.FooterLinkList>
+    <Row className='align-items-start'>
+      <Col md={8}>
+      <S.FooterCompanyInfo>
+        <div className="footer-log">그린스터디북스</div>
+        그린스터디(주) | 대표자: 구레나이 | 개인정보관리책임자: 구레나이린 | 사업자등록번호: 123-45-67890 | 통신판매업신고번호: 2026-서울서초-0000<br/>
+                서울 서초구 그린로 304 (서초동) 그린타워 10층 | 팩스: 02-0000-0000 | 고객센터: 1661-0000<br/>
+      </S.FooterCompanyInfo>
+      </Col>
+      <Col md={4} className='text-end d-flex flex-column align-items-end gap-3'>
+      <S.FooterSnsIcons>
+        <FaInstagram/><FaYoutube/><MessageSquareText/>
+      </S.FooterSnsIcons>
+      <Form.Select size="sm" style={{width:'150px'}}>
+        <option>Family site</option>
+        <option>그린스터디</option>
+        <option>그린원격평생교육원</option>
+      </Form.Select>
+      </Col>
+    </Row>
+  </Container>
+</S.StyledFooter>
+
+{/* Floating Button */}
+<S.FloatingBtn>
+  <BookOpen/>
+  <span>맟춤도서</span>
+</S.FloatingBtn>
     </>
   )
 }
