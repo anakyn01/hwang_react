@@ -194,7 +194,25 @@ margin-bottom:15px;
 `;
 
 // - Green Pick -
-export const HashTagList = styled.div``;
+export const HashTagList = styled.div`
+display:flex; gap:10px; flex-wrap:wrap;
+margin-bottom:30px;
+.hashtag{
+background-color:#333;
+color:#fff;
+padding:8px 15px;
+border-radius:20px;
+font-size:0.9rem;
+font-weight:500;
+cursor:pointer;
+transition:background-color 0.2s;
+&:hover{background-color:#555;}
+@media (max-width: 768px) {
+padding:6px 12px; 
+font-size:0.8rem;
+}
+}
+`;
 
 // - Best Seller -
 export const BestSellerItem = styled(Row)``;

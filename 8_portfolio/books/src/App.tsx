@@ -95,13 +95,13 @@ className="d-lg-none w-100 mt-3"
           </a>
         </S.BannerText>
         <S.BannerBookImages>
-          <img src="" alt=""/>
-          <img src="" alt=""/>
-          <img src="" alt=""/>
-          <img src="" alt=""/>
+<img src="https://placehold.co/100x140/fbc02d/ffffff?text=KICK" alt="Book 1" />
+  <img src="https://placehold.co/100x140/ab47bc/ffffff?text=KICK" alt="Book 2" />
+  <img src="https://placehold.co/100x140/66bb6a/ffffff?text=KICK" alt="Book 3" />
+  <img src="https://placehold.co/100x140/ef5350/ffffff?text=KICK" alt="Book 4" />
         </S.BannerBookImages>
         <S.BannerPerson>
-          <img src="" alt=""/>
+          <img src="https://placehold.co/250x350/dddddd/888888?text=PERSON" alt="Person" />
         </S.BannerPerson>
       </S.BannerContent>
     </S.BannerSlide>
@@ -159,7 +159,7 @@ className="d-lg-none w-100 mt-3"
 
     <S.TabNav variant="pills"
     activeKey={greenPickTab}
-    onSelect={(k) => setGreenPickTab (k || '전체')}
+    onSelect={(k: string | null) => setGreenPickTab (k || '전체')}
     >
 {['전체','초등','중등','고등','단행본'].map(tab =>(
   <Nav.Item key={tab}>
