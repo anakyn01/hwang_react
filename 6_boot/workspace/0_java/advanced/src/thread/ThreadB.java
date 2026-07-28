@@ -1,9 +1,9 @@
 package thread;
 
-public class ThreadA extends Thread{
+public class ThreadB extends Thread{
     private WorkObject workObject;
 
-    public ThreadA(WorkObject workObject){
+    public ThreadB(WorkObject workObject){
         //공유 작업객체를 받음
         setName("TheadA");//스레드이름변경
         this.workObject = workObject;
@@ -12,7 +12,7 @@ public class ThreadA extends Thread{
     @Override
     public void run(){
         for(int i=0; i<10; i++){
-            workObject.methodA();//동기화 메소드 호출
+            workObject.methodB();//동기화 메소드 호출
         }
     }
 }
