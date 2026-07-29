@@ -387,24 +387,267 @@ svg{width:28px; height:28px; stroke-width:1.5;}
 `;
 
 //3.Subpage Specific Styles
-export const SubPageContainer = styled(Container)``;
-export const PageTitle = styled.h2``;
-export const LargeSearchForm = styled(Form)``;
+export const SubPageContainer = styled(Container)`
+/*
+안쪽 여백(Padding): 위/아래 60px, 좌/우 0
+안쪽 여백(Padding): 위/아래 30px, 좌/우 0
+*/
 
-export const FilterBox = styled.div``;
-export const FilterRow = styled.div``;
-export const FilterLabel = styled.div``;
-export const FilterOption = styled.div``;
-export const FilterButton = styled.button<{$active?: boolean}>``;
-export const FilterToggleBtn = styled.div``;
-export const FilterActionArea = styled.div``;
-export const ListHeader = styled.div``;
-export const TotalCount = styled.div``;
-export const SortOptions = styled.div``;
-export const BookImgBox = styled.div``;
+`;
+export const PageTitle = styled.h2`
+/*
+기본 스타일:
+글자 정렬: 가운데(center)
+글자 크기: 2.2rem
+글자 굵기: 800
+바깥 여백(Margin): 아래 30px
+모바일 (768px 이하):
+글자 크기: 1.8rem
+*/
+`;
+export const LargeSearchForm = styled(Form)`
+/*
+기본 스타일:
+
+위치 기준(Position): relative
+
+최대 너비(Max-width): 600px
+
+바깥 여백(Margin): 위 0, 좌/우 auto (가운데 정렬), 아래 40px
+
+내부 .form-control 입력창 스타일:
+
+테두리 둥글기(Border-radius): 30px
+
+안쪽 여백(Padding): 위/아래 12px, 좌/우 20px (단, 우측 여백은 아이콘 자리를 위해 50px로 덮어쓰기)
+
+테두리(Border): 1px 실선(solid), 색상은 var(--border-color) 변수 사용
+
+글자 크기: 1rem
+
+그림자(Box-shadow): 0 4px 12px rgba(0,0,0,0.03)
+*/
+`;
+
+export const FilterBox = styled.div`
+/*
+기본 스타일:
+
+테두리: 1px 실선, 색상은 var(--border-color)
+
+테두리 둥글기: 12px
+
+안쪽 여백: 위 25px, 좌/우 30px, 아래 15px
+
+바깥 여백: 아래 20px
+
+배경색: 흰색(#fff)
+
+모바일 (768px 이하):
+
+안쪽 여백: 사방 모두 15px
+*/
+`;
+export const FilterRow = styled.div`
+/*
+기본 스타일:
+
+배치(Display): flex
+
+수직 정렬: 위쪽 맞춤(flex-start)
+
+바깥 여백: 아래 15px
+
+모바일 (768px 이하):
+
+정렬 방향(Flex-direction): 세로형(column)
+
+요소 간격(Gap): 10px
+
+바깥 여백: 아래 20px
+*/
+`;
+export const FilterLabel = styled.div`
+/*
+기본 스타일:
+
+너비: 80px
+
+글자 굵기: 600
+
+색상: #333
+
+바깥 여백: 위 8px
+
+축소 방지(Flex-shrink): 0 (공간이 좁아져도 80px 유지)
+
+모바일 (768px 이하):
+
+너비: 100%
+
+바깥 여백: 위 0
+*/
+`;
+export const FilterOption = styled.div`
+/*
+기본 스타일:
+
+배치: flex
+
+줄바꿈 허용(Flex-wrap): wrap
+
+버튼 간격(Gap): 8px
+
+남은 공간 채우기(Flex-grow): 1
+*/
+
+`;
+export const FilterButton = styled.button<{$active?: boolean}>`
+/*
+공통 스타일:
+
+안쪽 여백: 위/아래 6px, 좌/우 16px
+
+테두리 둥글기: 4px
+
+글자 크기: 0.9rem
+
+글자 굵기: 500
+
+애니메이션(Transition): 모든 속성 0.2s
+
+상태별 분기 (활성화 $active 여부):
+
+활성화(True) 시: 배경색 var(--primary-color), 글자색 #fff, 테두리색 var(--primary-color)
+
+비활성(False) 시: 배경색 #fff, 글자색 #555, 테두리색 var(--border-color)
+
+Hover (마우스 올렸을 때):
+
+활성화 상태면 변경 없음 (기존 테마색 유지)
+
+비활성 상태면 배경색을 #f8f9fa로 변경
+
+*/
+
+`;
+export const FilterToggleBtn = styled.div`
+/*
+기본 스타일:
+
+글자 정렬: 가운데
+
+위쪽 테두리: 1px 실선 #eee
+
+여백: 바깥 위 10px, 안쪽 위 15px
+
+색상: #666 (Hover 시 #333)
+
+글자 크기: 0.9rem / 굵기: 500
+
+마우스 커서: 손가락 모양(pointer)
+*/
+`;
+export const FilterActionArea = styled.div`
+/*
+기본 스타일:
+
+배치: flex
+
+수평 정렬: 우측 맞춤(flex-end)
+
+간격(Gap): 10px
+
+바깥 여백: 아래 50px
+*/
+`;
+export const ListHeader = styled.div`
+/*
+기본 스타일:
+
+배치: flex
+
+수평 정렬: 양끝 배치(space-between)
+
+수직 정렬: 아래쪽 맞춤(flex-end)
+
+아래 테두리: 2px 실선 #222
+
+여백: 안쪽 아래 15px, 바깥 아래 30px
+
+모바일 (576px 이하):
+
+방향: 세로형(column)
+
+수직 정렬: 왼쪽 맞춤(flex-start)
+
+요소 간격(Gap): 15px
+*/
+`;
+export const TotalCount = styled.div`
+/*
+기본 글자색 #555 / 숫자(span태그)는 var(--primary-color)에 굵기 700
+*/
+`;
+export const SortOptions = styled.div`
+/*
+부 글자에 마우스 올리면(Hover) 색상 #333.
+
+.active 클래스가 붙으면 색상 #222, 굵기 700.
+*/
+`;
+export const BookImgBox = styled.div`
+/*
+기본 스타일:
+
+배경색: var(--bg-light)
+
+테두리 둥글기: 12px
+
+안쪽 여백: 사방 30px
+
+배치: flex, 가로/세로 모두 중앙 정렬(center)
+
+애니메이션: transform과 box-shadow에 0.3s 적용
+
+여백/크기: 바깥 아래 15px, 높이 280px
+
+내부 이미지(img) 태그:
+
+최대 높이/너비: 100%
+
+이미지 비율 유지(object-fit: contain)
+
+그림자: 2px 4px 10px rgba(0,0,0,0.1)
+
+모바일 (768px 이하):
+
+높이 220px로 축소, 안쪽 여백 20px로 축소
+*/
+`;
 //-Pagination-
-export const PaginationContainer = styled.div``;
-export const PageNum = styled.button<{ $active?: boolean}>``;
+export const PaginationContainer = styled.div`
+/*
+flex 배치, 가로/세로 중앙 정렬, 간격 8px, 바깥 위 여백 40px.
+*/
+
+`;
+export const PageNum = styled.button<{ $active?: boolean}>`
+/*
+크기: 가로/세로 32px의 완벽한 원형(border-radius: 50%)
+
+정렬: 텍스트를 정중앙에 배치(flex, center)
+
+테두리: 없음
+
+글자 크기: 0.9rem
+
+상태별 분기($active): 활성화 시 굵기 700, 배경 테마색, 글자색 흰색. 비활성 시 굵기 500, 배경 투명, 글자색 #555.
+
+Hover: 비활성 버튼에 마우스 올리면 배경색 #f1f3f5로 변경.
+
+*/
+`;
 
 
 
