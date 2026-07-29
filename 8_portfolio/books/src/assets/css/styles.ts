@@ -386,6 +386,26 @@ background-color:#f0f8ff;
 svg{width:28px; height:28px; stroke-width:1.5;}
 `;
 
+//3.Subpage Specific Styles
+export const SubPageContainer = styled(Container)``;
+export const PageTitle = styled.h2``;
+export const LargeSearchForm = styled(Form)``;
+
+export const FilterBox = styled.div``;
+export const FilterRow = styled.div``;
+export const FilterLabel = styled.div``;
+export const FilterOption = styled.div``;
+export const FilterButton = styled.button<{$active?: boolean}>``;
+export const FilterToggleBtn = styled.div``;
+export const FilterActionArea = styled.div``;
+export const ListHeader = styled.div``;
+export const TotalCount = styled.div``;
+export const SortOptions = styled.div``;
+export const BookImgBox = styled.div``;
+//-Pagination-
+export const PaginationContainer = styled.div``;
+export const PageNum = styled.button<{ $active?: boolean}>``;
+
 
 
 
