@@ -123,20 +123,21 @@ sender:"ai",
 },
 ]);
         } finally {
-
+setIsLoading(false);
         }
-
-        //임시 AI응답 (나중에 백앤드 연동후 삭제)
-        setTimeout(() => {
-            setMessages((prev) =>[
+    };
+/*임시 AI응답 (나중에 백앤드 연동후 삭제)
+setTimeout(() => {
+setMessages((prev) =>[
 ...prev,
 { id: Date.now(), text:"백앤드 연결 전입니다.조금만 기다려 주세요", sender:"ai"},
-            ]);
-        }, 1000);
-    };
-
+]);
+}, 1000);
+};*/
+//사용자가 입력창에 키보드를 누를떄 마다 실행되는 함수
 const handleKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+//누른키가 'Enter'이고 현재 로딩중이 아닐때만 전송(handleSend)함수를 실행
+    if (e.key === "Enter" && !isLoading) {
         handleSend();
     }
 };
@@ -144,8 +145,11 @@ const handleKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) => {
 return(
     <MDBContainer
     className="py-5"
+    style={{maxWidth:"800px"}}
     >
-        <MDBCard>
+        <MDBCard
+style={{borderRadius:"15px", height:"80vh", display:"flex", flexDirection:"column"}}
+        >
             {/*헤더 영역 */}
             <MDBCardHeader
 className="d-flex justify-content-between align-items-center p-3 text-white"
