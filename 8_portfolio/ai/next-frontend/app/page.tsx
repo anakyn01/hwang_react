@@ -14,6 +14,7 @@ MDBCardBody,
 MDBCardFooter,
 MDBIcon,
 MDBBtn,
+MDBSpinner,
 } from "mdb-react-ui-kit";
 
 /*메세지 타입 정의
@@ -153,6 +154,9 @@ style={{borderRadius:"15px", height:"80vh", display:"flex", flexDirection:"colum
             {/*헤더 영역 */}
             <MDBCardHeader
 className="d-flex justify-content-between align-items-center p-3 text-white"
+style={{borderTopLeftRadius:"15px", borderTopRightRadius:"15px",
+    backgroundColor:"#3f51b5"
+}}
             >
 <div className="d-flex align-items-center">
     <MDBIcon fas icon="robot" size="lg" className="me-2"/>
@@ -185,7 +189,8 @@ color:msg.sender === "user" ? "white" : "black",
 maxWidth:"70%",
 }}
 >
-    <p className="small mb-0" style={{lineHeight:"1.5"}}>
+    <p className="small mb-0" style={{lineHeight:"1.5", 
+        whiteSpace:"pre-wrap"}}>
         {msg.text}
     </p>
 
@@ -193,6 +198,25 @@ maxWidth:"70%",
 
 </div>
 ))}
+
+{/*로딩상태(isLoading이 true)일때 화면에 보여주는 "생각하는중..." 애니메이션*/}
+{isLoading &&(
+<div className="d-flex flex-row justify-content-start mb-4">
+    <div style={{width:"45px", height:'100%'}} className="me-2 text-center">
+        <MDBIcon fas icon="robot" size="2x"
+        style={{color:'#3f51b5'}}
+        />
+    </div>
+    <div className="p-3" style={{borderRadius:"15px", backgroundColor:"#e0e0e0"}}>
+         <MDBSpinner size="sm" role="status" tag="span" />
+         <span className="ms-2 small">생각하는 중</span>
+    </div>
+</div>
+
+
+)}
+{/*사용자가 새메세지를 쓸때마다 화면을 이위치로 끌어내리는 기준점 */}
+<div ref={messagesEndRef}/>
 </MDBCardBody>
 
 {/*입력 영역 */}
@@ -208,12 +232,14 @@ onChange={(e) => setInputText(e.target.value)}
 onKeyPress={handleKeyPress}
 style={{borderRadius:"10px"}}
 /> 
-<MDBBtn color="primary"
+<MDBBtn 
+color="primary"
 className="ms-3"
-style={{borderRadius:"10px"}}
+style={{borderRadius:"10px", minWidth:"100px"}}
 onClick={handleSend}
+disabled={isLoading}
 >
-<MDBIcon fas icon="paper-plane"/>전송
+<MDBIcon fas icon="paper-plane" className="me-2"/>전송
 
 </MDBBtn>
 
