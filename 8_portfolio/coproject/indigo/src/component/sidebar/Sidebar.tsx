@@ -39,6 +39,14 @@ className='sidebar sidebar-dark accordion'
                     </NavLink>
                 </NavItem>
 
+                <NavItem>
+  
+                    <NavLink href="/headersetting">
+                        <i className='fas fa-fw fa-users'></i>
+                        <span>헤더/nav 설정</span>
+                    </NavLink>
+                </NavItem>
+
 </SidebarContainer>
         </>
     )
