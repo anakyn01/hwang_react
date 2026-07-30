@@ -1,0 +1,27 @@
+-- 1. 회원 정보를 저장할 users 테이블 (이미 있으시다면 건너뛰어도 됩니다)
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    zip_code VARCHAR(20),
+    address VARCHAR(255),
+    detail_address VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. 헤더의 기본 설정(로고 등)을 저장할 테이블 (데이터 1줄만 사용합니다)
+CREATE TABLE IF NOT EXISTS header_settings (
+    id INT PRIMARY KEY DEFAULT 1,
+    logo_type VARCHAR(20) DEFAULT 'text',
+    logo_text VARCHAR(100) DEFAULT 'INDIGO',
+    logo_image VARCHAR(255) DEFAULT '/assets/images/header/logo.png'
+);
+
+-- 3. 헤더의 서브메뉴 리스트를 저장할 테이블
+CREATE TABLE IF NOT EXISTS header_menus (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    link VARCHAR(255) NOT NULL
+);

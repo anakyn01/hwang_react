@@ -87,6 +87,61 @@ ORDER BY id DESC
     })
 })
 
+//관리자
+//[POST] 헤더 설정 저장 API
+app.post('/api/settings/header', (req, res) =>{
+    //보내온 데이터를 각각의 변수로 꺼낸다
+    const {logoType, logoText, logoImage, menus} = req.body;
+    //DB에 실행할 쿼리문을 미리 문자열로 만들어 둔다
+    const updateSettingsSql = `
+    INSERT INTO header_settings (id, logo_type, logo_text, logo_image)
+    VALUES (1, ?,?,?)
+    ON DUPLICATE KEY UPDATE
+    logo_type = VALUES(logo_type),
+    logo_text = VALUES(logo_text),
+    logo_image = VALUES(logo_image)
+    `;
+
+    //?자리에[LogoType, LogoText, LogoImage]순서대로 값을 넣어 쿼리를 실행
+    db.query(updateSettingsSql, [logoType, logoText, logoImage], (err) =>{
+
+        //퀴리 실행중에 에러가 발생 했다면
+        if(err) {
+            console.error('설정 저장 에러:', err);
+            return res.status(500).json({message:'설정 저장중 오류가 발생'});
+        }
+
+        //2) 기존에 등록된 메뉴를 싹 비우고 새로 입력받은 메뉴들로 체웁니다
+        db.query('DELETE FROM header_menus', (err) => {
+            if(err) return res.status(500).json({message:'메뉴 갱신중 오류가 발생'});
+            //menus배열이 존재하고 ,메뉴가 1개 이상 잇을때만 작업을 한다
+            if(menus && menus.length > 0) {
+                const menuValues = menus.map(m => [m.title, m.link]);
+
+                const insertMenuSql = 'INSERT INTO header_menus (title, link) VALUES ?';
+
+                db.query(insertMenuSql, [menuValues], (err) => {
+                    if(err) {
+                        console.error('메뉴 삽입 에러:', err);
+                        return res.status(500).json({message:'메뉴 저장 중 오류가 발생했습니다'});
+                    }
+                    res.status(200).json({message:"헤더 설정이 성공적으로 저장되었습니다."});
+                });
+            }else{
+                // 메뉴가 하나도 없는 경우: 삽입 없이 바로 성공 응답을 보낸다
+                res.status(200).json({message:'헤더 설정이 성공적으로 저장 되었습니다'});
+            }
+        });
+    });
+});
+
+
+//[get]헤더 설정 불러오기
+
+
+
+//관리자 끝
+
 
 //서버실행
 app.listen(5000,()=>{
