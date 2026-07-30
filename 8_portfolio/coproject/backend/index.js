@@ -137,6 +137,30 @@ app.post('/api/settings/header', (req, res) =>{
 
 
 //[get]헤더 설정 불러오기
+app.get('/api/settings/header', (req, res) => {
+    //로고 데이터 가져오기
+    db.query('SELECT * FROM header_settings WHERE id=1',(err, settingResult) => {
+        //조회중에 에러가 발생했다면 500에러를 응답하고 종료
+if(err) return res.status(500).json({message:'설정 불러오기 에러'});
+//header_menus 테이블에서 모든 메뉴의 id, title, link를 조회한다
+db.query('SELECT id, title, link FROM header_menus',(err, menusResult) =>{
+    //조회 중 에러가 발생했다면 500 에러를 응답하고 종료한다
+    if(err) return res.status(500).json({message: '메뉴 불러오기 에러'});
+/*
+settingsResult[0]: 조회 결과 배열의 첫 번째 행(로고 설정)을 꺼낸다
+|| { ... }: DB에 데이터가 없을 경우(처음 접속 시) 기본값을 사용한다
+*/    
+    const settings = settingsResult[0] || {logo_type:'text', logo_text:'INDIGO', logo_image:''};
+//로고 정보와 메뉴 목록을 하나의 객체로 합쳐서 클라이언트에게 응답한다
+res.status(200).json({
+logoType: settings.logo_type,
+logoText: settings.logo_text,
+logoImage: settings.logo_image,
+menus:  menusResult
+});
+});
+    });
+});
 
 
 
