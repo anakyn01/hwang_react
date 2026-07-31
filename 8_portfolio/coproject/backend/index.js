@@ -139,7 +139,7 @@ app.post('/api/settings/header', (req, res) =>{
 //[get]헤더 설정 불러오기
 app.get('/api/settings/header', (req, res) => {
     //로고 데이터 가져오기
-    db.query('SELECT * FROM header_settings WHERE id=1',(err, settingResult) => {
+    db.query('SELECT * FROM header_settings WHERE id=1',(err, settingsResult) => {
         //조회중에 에러가 발생했다면 500에러를 응답하고 종료
 if(err) return res.status(500).json({message:'설정 불러오기 에러'});
 //header_menus 테이블에서 모든 메뉴의 id, title, link를 조회한다

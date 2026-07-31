@@ -69,8 +69,8 @@ console.error('헤더설정을 불러오는 중 에러가 발생했습니다', e
 {menus && menus.length > 0 ? (
     menus.map((menu) => (
 <li key={menu.id}>
-                                    <a href={menu.link}>{menu.title}</a>
-                                </li>
+ <a href={menu.link}>{menu.title}</a>
+</li>
     ))
 ):(
 <>
