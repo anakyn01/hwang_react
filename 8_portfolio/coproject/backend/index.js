@@ -248,6 +248,64 @@ res.status(200).json({
     })
 })
 
+//we are 섹션
+//1. [POST] 관리자가 수정한 내용을 DB에 저장합니다.
+app.post('/api/settings/weare',(req, res) => {
+    // 프론트에서 보낸 3가지 데이터 꺼내기
+    const{ mainTitle, mainDescription, features}=req.body;
+    // 1단계: 상단 메인 영역 저장 (기존 데이터가 있으면 덮어쓰기)
+    const updateMainSql=`
+        INSERT INTO weare_main (id, main_title, main_description)
+        VALUES (1, ?, ?)    
+        ON DUPLICATE KEY UPDATE
+        main_title = VALUES(main_title),
+        main_description = VALUES(main_description)
+    `;
+    db.query(updateMainSql,[mainTitle. mainDescription], (err) =>{
+        //에러발생시
+        if (err) { 
+            console.error('메인 설정 저장 에러:', err);
+            return res.status(500).json({ message:'메인 설정 저장 중 오류 발생'});
+        }
+
+        //새로 넣을 아이콘 데이터가 존재한다면
+        if(features && features.length > 0) {
+            //MySQL에 한 번에 넣기 위해 형태를 변환
+const featureValues = features.map(
+    item => [item.icon, item.title, item.description]);
+const insertFeatureSql =
+'INSERT INTO weare_features (icon_class, title, description) VALUES ?';        
+
+db.query(insertFeatureSql, [featureValues],(err) => {
+    if (err) { 
+        console.error('아이콘 항목 삽입 에러:', err);
+        return res.status(500).json({message:'아이콘 저장 중 오류 발생'})
+    }
+    return res.status(200).json({message:'WE ARE 설정 저장 완료'})
+        });
+    } else {
+        return res.status(200).json({message:'WE ARE 설정 저장 완료'})
+    }
+    });
+});
+
+//2. [GET] DB에 저장된 내용을 불러옵니다.
+app.get('/api/settings/weare',(req, res) => {
+// 1단계: 메인 영역 정보 가져오기
+db.query('SELECT * FROM weare_main WHERE id=1', (err, mainResult) =>{
+    if (err) return res.status(500).json({message:'메인 설정 불러오기 에러'});
+//만약 DB가 비어있다면 쓸 기본값
+const mainData = mainResult[0] ||  { main_title: 'WE ARE', main_description:''};
+//프론트엔드로 데이터 전송
+res.status(200).json({
+    mainTitle:mainData.main_title,
+    mainDescription: mainData.main_description,
+    features: featuresResult
+})
+})
+
+})
+
 
 //관리자 끝
 

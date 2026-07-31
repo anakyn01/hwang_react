@@ -36,3 +36,16 @@ create table if not exists carousel_images(
     id int AUTO_INCREMENT primary key,
     url varchar(255) not null
 )
+
+create table if not exists weare_main(
+    id int primary key default 1,
+    main_title varchar(100) default 'we are',
+    main_description text
+);
+
+create table if not exists weare_features(
+    id int AUTO_INCREMENT PRIMARY key,
+    icon_class varchar(50) not null,
+    title varchar(100) not null,
+    description text
+);
