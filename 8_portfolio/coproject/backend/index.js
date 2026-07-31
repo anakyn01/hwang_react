@@ -162,6 +162,91 @@ menus:  menusResult
     });
 });
 
+//[관리자] 메인 배너 설정 저장 및 불러오기 API
+app.post('/api/settings/banner',(req, res) => {
+
+    // 프론트엔드에서 보낸 3가지 데이터(배너타입, 단일이미지경로, 캐러셀배열)를 꺼냅니다.
+    const { bannerType, singleBanner, carouselImages} = req.body;
+
+    const updateBannerSql = `
+    INSERT INTO banner_settings (id, banner_type, single_banner)
+    VALUES (1, ?, ?)
+    ON DUPLICATE KEY UPDATE
+    banner_type = VALUES(banner_type),
+    single_banner = VALUES(single_banner)
+    `;
+
+    // ? 자리에 [bannerType, singleBanner] 값을 넣어서 쿼리를 실행합니다.
+    db.query(updateBannerSql, [bannerType, singleBanner], (err) =>{
+        //쿼리 실행 중 에러가 났다면 백엔드가 죽지 않게 처리하고 에러 메시지를 보냅니다.
+        if (err) {
+            console.error('배너 설정 저장 에러:', err);
+            return res.status(500).json({message:'배너 기본 설정 저장 중 오류가 발생했습니다.'});
+        }
+
+        /*
+        2단계: 기존에 저장되어 있던 캐러셀 이미지들을 싹 지웁니다.
+        (수정/삭제를 복잡하게 하는 대신, 다 지우고 새로 입력받은 걸로 덮어쓰는게 훨씬 안전하고 쉽습니다.)
+        */
+        db.query('DELETE FROM carousel_images', (err) => {
+            // 삭제 중 에러 처리
+            if(err) return res.status(500).json({ 
+                message:'캐러셀 이미지 초기화 중 오류가 발생했습니다.'});
+            //만약 프론트엔드에서 넘어온 캐러셀
+            //이미지 배열(carouselImages)에 데이터가 1개라도 있다면
+            if(carouselImages && carouselImages.length > 0) {
+                //MySQL에 한꺼번에 넣기 위해, 
+                //프론트엔드 배열 데이터를 [[url1], [url2]...] 형태로 변형합니다.
+                const imageValues = carouselImages.map(img => [img.url]);
+//변형한 데이터를 DB에 한 번에 쏟아 넣는 쿼리문입니다.
+const insertImageSql =
+'INSERT INTO carousel_images (url) VALUES ? ' ;
+db.query(insertImagesSql, [imageValues], (err) =>{
+    //삽입중 에러 처리
+    if(err) {
+        console.error('캐러셀 삽입 에러:', err);
+        return res.status(500).json({message:"캐러셀 이미지 저장 중 오류가 발생했습니다."});
+    }
+    // 모든 과정이 끝났으므로 프론트엔드에 성공 응답을 보냅니다.
+    res.status(200).json({message:"배너 설정이 성공적으로 저장되었습니다."});
+});
+
+            }else{
+                 res.status(200).json({message:"배너 설정이 성공적으로 저장되었습니다."});
+            }
+
+        })
+    })
+
+
+})
+
+//2. [GET] 저장된 배너 설정을 '불러오는' API입니다.
+app.get('/api/settings/banner',(req, res) => {
+    //1단계: 기본 배너 설정(banner_settings) 데이터를 가져옵니다.
+    db.query('SELECT * FROM banner_settings WHERE id = 1', (err, settingsResult) =>{
+//조회 중 에러처리
+if (err) return res.status(500).json({message:'배너 설정 불러오기 에러'});
+//2단계: 캐러셀 슬라이드용 이미지들(carousel_images)을 가져옵니다.
+db.query('SELECT id, url FROM carousel_images',(err, imageResult) =>{
+    //조회 중 에러 처리
+if(err) return res.status(500).json({message:'캐러셀 이미지 불러오기 에러'});
+//DB에 값이 있으면 그 값을 쓰고, 처음 접속해서 DB가 텅 비어있다면 우측의 기본값을 씁니다.
+const settings = settingsResult[0] || {
+    banner_type:'single',
+    single_banner:'/assets/images/p-images/slide01.jpg'
+};
+
+//프론트 엔드로 보내기
+res.status(200).json({
+    bannerType:settings.banner_type,
+    singleBanner: settings.single_banner,
+    carouselImages:imagesResult
+})
+
+})
+    })
+})
 
 
 //관리자 끝

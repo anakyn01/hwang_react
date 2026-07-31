@@ -25,3 +25,14 @@ CREATE TABLE IF NOT EXISTS header_menus (
     title VARCHAR(100) NOT NULL,
     link VARCHAR(255) NOT NULL
 );
+
+create table if not exists banner_settings(
+id int primary key default 1,
+banner_type varchar(20) default 'single',
+single_banner varchar(255) default '/assets/images/p-images/slide01.jpg'
+);
+
+create table if not exists carousel_images(
+    id int AUTO_INCREMENT primary key,
+    url varchar(255) not null
+)
