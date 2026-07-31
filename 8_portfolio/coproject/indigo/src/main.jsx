@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import App from './App.tsx'
 import "./assets/scss/style.scss"
 import "./assets/scss/add.scss"
 //부트스트랩 기본 cdn

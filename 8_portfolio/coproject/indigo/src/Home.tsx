@@ -1,61 +1,10 @@
-const Home = () => {
+import { WeAre } from "./include/sub/WeAre"
+
+export const Home = () => {
     return(
-        <section className="content">
+         <section className="content">
 
-            <section className="display-section">
-                <div className="container">
-                    <h2 className="sec-tit">
-                        WE ARE
-                    </h2>
-                    <p className="desc">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur, quibusdam accusantium vitae neque modi ullam labore iste porro voluptates explicabo.
-                    </p>
-                </div>
-            </section>
-
-            <section className="promotion-section">
-<div className="container">
-    <ul className="promo-list">
-
-        <li>
-            <a href="">
-                <img src="src/assets/images/s-images/promo01.png" 
-                alt="house icon" />
-                <h3>HOME</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa cum deleniti nemo!</p>
-            </a>
-        </li>
-
-        <li>
-            <a href="">
-                <img src="src/assets/images/s-images/promo02.png" 
-                alt="house icon" />
-                <h3>WE ARE</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa cum deleniti nemo!</p>
-            </a>
-        </li>
-
-        <li>
-            <a href="">
-                <img src="src/assets/images/s-images/promo03.png" 
-                alt="house icon" />
-                <h3>WORK</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa cum deleniti nemo!</p>
-            </a>
-        </li>
-
-        <li>
-            <a href="">
-                <img src="src/assets/images/s-images/promo04.png" 
-                alt="house icon" />
-                <h3>BLOG</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa cum deleniti nemo!</p>
-            </a>
-        </li>
-
-    </ul>
-</div>
-            </section>
+<WeAre/>
 
             <hr className="divider"/>
 
@@ -251,4 +200,3 @@ const Home = () => {
 </section>
     )
 }
-export default Home
