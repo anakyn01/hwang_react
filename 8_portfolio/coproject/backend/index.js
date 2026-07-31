@@ -199,7 +199,7 @@ app.post('/api/settings/banner',(req, res) => {
                 //프론트엔드 배열 데이터를 [[url1], [url2]...] 형태로 변형합니다.
                 const imageValues = carouselImages.map(img => [img.url]);
 //변형한 데이터를 DB에 한 번에 쏟아 넣는 쿼리문입니다.
-const insertImageSql =
+const insertImagesSql =
 'INSERT INTO carousel_images (url) VALUES ? ' ;
 db.query(insertImagesSql, [imageValues], (err) =>{
     //삽입중 에러 처리
@@ -228,7 +228,7 @@ app.get('/api/settings/banner',(req, res) => {
 //조회 중 에러처리
 if (err) return res.status(500).json({message:'배너 설정 불러오기 에러'});
 //2단계: 캐러셀 슬라이드용 이미지들(carousel_images)을 가져옵니다.
-db.query('SELECT id, url FROM carousel_images',(err, imageResult) =>{
+db.query('SELECT id, url FROM carousel_images',(err, imagesResult) =>{
     //조회 중 에러 처리
 if(err) return res.status(500).json({message:'캐러셀 이미지 불러오기 에러'});
 //DB에 값이 있으면 그 값을 쓰고, 처음 접속해서 DB가 텅 비어있다면 우측의 기본값을 씁니다.

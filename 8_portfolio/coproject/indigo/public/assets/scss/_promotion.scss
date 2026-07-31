@@ -1,0 +1,45 @@
+@import 'variables';
+
+.promotion-section{
+    margin-top:68px; 
+    
+    @media all and (min-width: $bp-tablet) {
+    margin-top:110px;
+    }
+
+    .promo-list{
+        li{
+        margin-top:52px;
+        text-align:center;
+
+            @media all and (min-width: $bp-tablet) {
+                float:left; //이런 이유는 다 너때문에
+                width:23.046875%; //177px / 768px
+                margin-left:2.604166666666667%; //20px / 768px
+                margin-top:0;
+            }
+            @media all and (min-width: $bp-pc) {
+width:22.67491166077739%;
+margin-left:1.76678445229682%;
+            }
+
+            &:first-child{
+                margin-top:0;
+                @media all and (min-width: $bp-tablet) {
+                margin-left: 0;
+                }
+            }
+            img{
+            height:52px;
+            }
+            h3{
+            margin:29px 0 20px 0;
+            color:$primary; font-weight:normal;
+            }
+            p{
+font-size:14px; font-family:'PT Serif';
+color:#616161; line-height: 1.5;
+            }
+        }
+    }
+}

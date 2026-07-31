@@ -1,0 +1,35 @@
+@import 'variables';
+
+.display-section{
+    margin-top:59px; 
+    text-align:center;//글자를 가운데로 정렬
+
+    @media all and (min-width: $bp-tablet) {
+        margin-top:95px;
+    }
+    @media all and (min-width: $bp-pc) {
+        text-align:left;
+    }
+    .sec-tit{
+        margin-bottom:30px;
+        @media all and (min-width: $bp-pc) {
+            float:left;
+            margin-bottom:0;
+        }
+    }
+
+    .desc{
+        font-family: 'PT Serif'; color:#616161;
+        line-height: 1.9;
+
+        @media all and (min-width: $bp-pc) {
+            position: relative; float:right;
+            padding-left: 20px;
+            &:before{
+display:block; position:absolute; top:9px; left:0;
+width:2px; height: 44px; background-color: #e0e0e0; content:"";
+            }
+
+        }
+    }
+}

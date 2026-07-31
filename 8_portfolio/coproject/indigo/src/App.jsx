@@ -3,8 +3,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import Header from "./include/Header"
 //import 컨포넌트명 from "path"
-import Footer from "./include/Footer"
-import Slider from "./include/Slider"
+import {Footer} from "./include/Footer"
+import {Slider} from "./include/Slider"
 import Home from "./Home"
 
 //admin
@@ -14,6 +14,7 @@ import { Login } from './admin/sub/Login';
 import { UserList } from './admin/sub/UserList';
 import { HeaderSetting } from './admin/sub/HeaderSetting';
 import { BannerSetting } from './admin/sub/BannerSetting';
+import { WeAreSetting } from './admin/sub/WeAreSetting';
 
 function App() {
   
@@ -33,6 +34,7 @@ function App() {
     <Route path="/userlist" element={<UserList/>} />
     <Route path="/headersetting" element={<HeaderSetting/>} />
     <Route path="/bannersetting" element={<BannerSetting/>} />
+    <Route path="/wearesetting" element={<WeAreSetting/>} />
     </Routes>
     </BrowserRouter>
 

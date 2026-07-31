@@ -50,6 +50,11 @@ className='sidebar sidebar-dark accordion'
                         <i className='fas fa-fw fa-users'></i>
                         <span>배너 설정</span>
                     </NavLink>
+
+                    <NavLink href="/wearesetting">
+                        <i className='fas fa-fw fa-users'></i>
+                        <span>우리는 설정</span>
+                    </NavLink>
                 </NavItem>
 
 </SidebarContainer>
