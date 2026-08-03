@@ -52,7 +52,7 @@ features.map((item) => (
         <i
         className={item.icon}
         ></i>
-        <img src={item.icon} alt={item.title}/>
+        <i className={item.icon}></i>
         <h3>{item.title}</h3>
         <p>{item.description}</p>
         </a>

@@ -261,7 +261,7 @@ app.post('/api/settings/weare',(req, res) => {
         main_title = VALUES(main_title),
         main_description = VALUES(main_description)
     `;
-    db.query(updateMainSql,[mainTitle. mainDescription], (err) =>{
+    db.query(updateMainSql,[mainTitle, mainDescription], (err) =>{
         //에러발생시
         if (err) { 
             console.error('메인 설정 저장 에러:', err);

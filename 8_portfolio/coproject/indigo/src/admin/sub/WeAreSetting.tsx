@@ -161,7 +161,7 @@ className='mx-3'
 <div>
 <B.Input
     type="text" value={item.description}
-    onChange={(e) => setMainDescription(e.target.value)}
+    onChange={(e) => handleChangeFeature(item.id, 'description', e.target.value)}
     placeholder='하단 설명글을 입력하세요'           
 />
 </div>
