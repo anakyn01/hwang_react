@@ -150,6 +150,13 @@ align-items:center;
 justify-content:center;
 color:#999;
 `;
+export const MapPreview = styled.div`
+width:100%; height:400px; background-color:#eaeaea;
+display:flex; align-items:center; 
+justify-content:center; 
+border-radius:5px; 
+overflow:hidden;
+`;
 
 export const BlogImg = styled.img`
 width:100%; height:200px;
