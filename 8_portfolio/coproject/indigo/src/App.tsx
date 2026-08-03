@@ -15,6 +15,9 @@ import { UserList } from './admin/sub/UserList';
 import { HeaderSetting } from './admin/sub/HeaderSetting';
 import { BannerSetting } from './admin/sub/BannerSetting';
 import { WeAreSetting } from './admin/sub/WeAreSetting';
+import { WorkSetting } from "./admin/sub/WorkSetting";
+import { BlogSetting} from "./admin/sub/BlogSetting";
+import { MapSetting } from './admin/sub/MapSetting';
 
 function App() {
   
@@ -34,7 +37,10 @@ function App() {
     <Route path="/userlist" element={<UserList/>} />
     <Route path="/headersetting" element={<HeaderSetting/>} />
     <Route path="/bannersetting" element={<BannerSetting/>} />
+    <Route path="/worksetting" element={<WorkSetting/>} />
     <Route path="/wearesetting" element={<WeAreSetting/>} />
+    <Route path="/blogsetting" element={<BlogSetting/>} />
+    <Route path="/mapsetting" element={<MapSetting/>} />
     </Routes>
     </BrowserRouter>
 

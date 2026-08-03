@@ -55,6 +55,23 @@ className='sidebar sidebar-dark accordion'
                         <i className='fas fa-fw fa-users'></i>
                         <span>우리는 설정</span>
                     </NavLink>
+
+                    <NavLink href="/worksetting">
+                        <i className='fas fa-fw fa-users'></i>
+                        <span>work</span>
+                    </NavLink>
+
+                    <NavLink href="/blogsetting">
+                        <i className='fas fa-fw fa-users'></i>
+                        <span>blog</span>
+                    </NavLink>
+
+                    <NavLink href="/mapsetting">
+                        <i className='fas fa-fw fa-users'></i>
+                        <span>map</span>
+                    </NavLink>
+
+
                 </NavItem>
 
 </SidebarContainer>

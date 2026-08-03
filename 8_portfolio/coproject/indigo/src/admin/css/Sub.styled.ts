@@ -100,3 +100,43 @@ export const SaveButtonWrap = styled.div`
 text-align:right;
 margin-top:20px;
 `;
+
+export const GridWrap = styled.div`
+display:grid;
+grid-template-columns:repeat(4, 1fr);
+gap:20px;
+`;
+
+export const DivKey = styled.div`
+border:1px solid #ddd;
+padding:10px; 
+text-align:center;
+`;
+
+export const Relative = styled.div`
+position:relative;
+`;
+
+export const NoneImage = styled.div`
+width:100%; height:150px; background-color:#f5f5f5;
+display:flex; align-items:center;
+justify-content:center; 
+margin-bottom:10px;
+color:#999;
+`;
+
+export const FileUpload = styled.input`
+width:100%; font-size:12px;
+`
+export const ButtonPrimary = styled.button<{ variant?: 'primary' | 'danger' | 'success'}>`
+padding:10px 30px;
+font-size:16px;
+color:white;
+border:none;
+border-radius:10px;
+
+background-color: ${({variant}) => variant === 'danger' ? '#e74a3b' : variant === 'success' ? '#1cc88a' :'#4e73df'};
+&:hover{
+opacity:0.9;
+}
+`;
