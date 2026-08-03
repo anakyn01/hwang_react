@@ -295,6 +295,8 @@ app.get('/api/settings/weare',(req, res) => {
 db.query('SELECT * FROM weare_main WHERE id=1', (err, mainResult) =>{
     if (err) return res.status(500).json({message:'메인 설정 불러오기 에러'});
 //만약 DB가 비어있다면 쓸 기본값
+
+db.query('SELECT id, icon_class AS icon, title, description FROM weare_features', (err, featuresResult) =>{
 const mainData = mainResult[0] ||  { main_title: 'WE ARE', main_description:''};
 //프론트엔드로 데이터 전송
 res.status(200).json({
@@ -302,6 +304,8 @@ res.status(200).json({
     mainDescription: mainData.main_description,
     features: featuresResult
 })
+})
+
 })
 
 })
