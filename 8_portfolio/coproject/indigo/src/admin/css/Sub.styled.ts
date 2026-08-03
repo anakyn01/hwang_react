@@ -106,11 +106,29 @@ display:grid;
 grid-template-columns:repeat(4, 1fr);
 gap:20px;
 `;
+export const GridWrap3 = styled.div`
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:30px;
+`;
+
+export const BlogImgWrap = styled.div`
+border:1px solid #ddd;
+padding:10px; 
+text-align:center;
+position:relative;
+`;
+
 
 export const DivKey = styled.div`
 border:1px solid #ddd;
 padding:10px; 
 text-align:center;
+`;
+export const BlogKey = styled.div`
+display:flex; 
+flex-direction:column;
+gap:10px;
 `;
 
 export const Relative = styled.div`
@@ -124,12 +142,39 @@ justify-content:center;
 margin-bottom:10px;
 color:#999;
 `;
+export const BottomInfo = styled.div`
+width:100%; height:200px;
+background-color:#f5f5f5;
+display:flex; 
+align-items:center;
+justify-content:center;
+color:#999;
+`;
+
+export const BlogImg = styled.img`
+width:100%; height:200px;
+object-fit:cover;
+`;
 
 export const FileUpload = styled.input`
 width:100%; font-size:12px;
 `
 export const ButtonPrimary = styled.button<{ variant?: 'primary' | 'danger' | 'success'}>`
 padding:10px 30px;
+font-size:16px;
+color:white;
+border:none;
+border-radius:10px;
+
+background-color: ${({variant}) => variant === 'danger' ? '#e74a3b' : variant === 'success' ? '#1cc88a' :'#4e73df'};
+&:hover{
+opacity:0.9;
+}
+`;
+
+export const Exit = styled.button<{ variant?: 'primary' | 'danger' | 'success'}>`
+top:0; right:0;
+padding:5px 10px;
 font-size:16px;
 color:white;
 border:none;
