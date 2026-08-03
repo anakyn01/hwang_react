@@ -71,6 +71,10 @@ className='sidebar sidebar-dark accordion'
                         <span>map</span>
                     </NavLink>
 
+                    <NavLink href="/contactsetting">
+                        <i className='fas fa-fw fa-users'></i>
+                        <span>contact</span>
+                    </NavLink>
 
                 </NavItem>
 
