@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
+import * as S from '../../assets/css/front.styled';
 
 // 🌟 백엔드에서 받아올 데이터의 형태를 정의합니다.
 interface WorkImage {
@@ -33,6 +34,7 @@ if(response.data) {
 console.error('WORK 데이터 불러오기 실패:', error);
 }
         }
+fetchWorkData();
     },[]);
 
 // --- [3. 화면에 보여줄 이미지 계산하기] ---
@@ -44,7 +46,30 @@ const imagesToShow = workData.rowCount === 1
 
     return(
         <>
- 
+<S.WorkSection>
+<S.Container>
+    <S.SectionTitle>WORK</S.SectionTitle>
+    <S.GridWrap>
+        {imagesToShow.length > 0 ? (
+imagesToShow.map((img, index) => (
+    <S.GridItem key={img.id}>
+        <S.Workimg
+src={`http://localhost:5000${img.previewUrl}`}
+alt={`Work Portfolio ${index + 1}`}        
+        />
+    </S.GridItem>
+))
+        ):(
+            <S.EmptyState>
+                아직 등록된 포트폴리오가 없습니다.
+            </S.EmptyState>
+        )
+
+
+        }
+    </S.GridWrap>
+</S.Container>
+</S.WorkSection> 
 
         </>
     )

@@ -24,6 +24,35 @@ const [images, setImages] = useState<WorkImage[]>(
     }))
 );
 
+useEffect(() => {
+    const fetchSettings = async () => {
+        
+        try{
+const response = await axios.get('http"//localhost:5000/api/settings/work');
+if(response.data){
+    setRowCount(response.data.rowCount);
+
+    const dbImages = response.data.images;
+    const initialImages = Array.from({length:8}).map((_, index) => {
+        if(dbImages[index]){
+            return{
+                id:index,
+                previewUrl:`http://localhost:5000${dbImages[index].previewUrl}`,
+                file:null
+            }
+        }
+        return {id:index, previewUrl:'', file: null};
+    });
+    setImages(initialImages);
+}
+        }catch(error) {
+console.error('관리자 설정 불러오기 에러:', error);
+        }
+    };
+    fetchSettings();
+}, []);
+
+
 //2.조작함수 줄수를 바꾸는 라디오 버튼 핸들러
 const handleRowCountChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     // input의 value는 문자열이므로 숫자로 변환해서 상태에 넣습니다.
@@ -134,7 +163,7 @@ const visibleImages = rowCount === 1 ? images.slice(0,4):images;
 {img.previewUrl ?(
     <B.Relative>
         <img src={img.previewUrl} alt={`미리보기 ${index + 1}`}/>
-        <button onClick={() => handleRemoveImage}>X</button>
+        <button onClick={() => handleRemoveImage(index)}>X</button>
     </B.Relative>
 ):(
 <B.NoneImage>
