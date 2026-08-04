@@ -7,6 +7,12 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+const app = express();
+app.use(cors());
+app.use(express.json());
+//프론트엔드에서 보내는 JSON 데이터를 읽기 위한 설정입니다.
+
+
 //업로드할 폴더(uploads)가 없으면 자동으로 만들어주는 코드
 const uploadDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadDir)){
@@ -31,10 +37,7 @@ const upload = multer({storage: storage});
 // uploads 폴더 안의 이미지를 볼 수 있게 권한을 열어줍니다.
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-//프론트엔드에서 보내는 JSON 데이터를 읽기 위한 설정입니다.
+
 
 const db = mysql.createConnection({
     host:'localhost',
@@ -347,18 +350,16 @@ app.post('/api/settings/work', upload.array('workImages',8), (req, res) => {
     const rowCount = parseInt(req.body.rowCount) || 2;
     const files = req.files;//정보(이름, 크기 등)'를 꺼냅니다.
     //1단계: '몇 줄을 노출할 것인지(rowCount)'
-    const updateSettingsSql = `
+    const updateSettingSql = `
     INSERT INTO work_settings (id, row_count)
     VALUES (1, ?)
     ON DUPLICATE KEY UPDATE row_count = VALUES(row_count)
-    `
+    `;
     // 💡 참고: ON DUPLICATE KEY UPDATE는
     //  "id가 1인 데이터가 이미 있으면 새로 만들지 
     // 말고 값을 덮어씌워라!" 라는 아주 유용한 문법입니다.
-})
-
-//위에서 만든 SQL 명령어를 실행
-db.query(updateSettingsSql, [rowCount], (err) => {
+    //위에서 만든 SQL 명령어를 실행
+db.query(updateSettingSql, [rowCount], (err) => {
     // 만약 DB에 저장하다가 에러가 났다면?
     if(err){
         console.error('WORK 줄수 저장 에러:', err);
@@ -375,7 +376,7 @@ return res.status(500).json({ message: '설정 저장 중 오류가 발생했습
 const imageValues = files.map(file => [`/uploads/${file.filename}`]);
 const insertImagesSql = 'INSERT INTO work_images (image_url) VALUES ?';
 //명령어를 실행해서 DB에 사진 주소들을 넣습니다.
-db.querry(insertImagesSql, [imageValues], (err) => {
+db.query(insertImagesSql, [imageValues], (err) => {
     if(err) {
 console.error('WORK 이미지 저장 에러:', err);
 return res.status(500).json({ message: '이미지 저장 중 오류가 발생했습니다.' });
@@ -386,9 +387,8 @@ return res.status(500).json({ message: '이미지 저장 중 오류가 발생했
     }else{
  res.status(200).json({message: '노출 줄수가 변경되었습니다.'});      
     }
-
-
-})
+});
+});
 
 app.get('/api/settings/work', (req, res) => {
 // ① 1단계: DB에서 '몇 줄 노출할 건지(row_count)'를 가져옵니다.
