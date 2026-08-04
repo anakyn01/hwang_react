@@ -192,3 +192,29 @@ background-color: ${({variant}) => variant === 'danger' ? '#e74a3b' : variant ==
 opacity:0.9;
 }
 `;
+
+export const TList = styled.table`
+width:100%; border-collapse:collapse; margin-top:10px;
+
+thead{
+  tr{
+    background-color:#f5f5f5; 
+    border-bottom:2px solid #ddd;
+    text-align:left;
+    th{
+      padding:12px 8px;
+    }
+  }
+}
+
+tbody{
+  tr{
+   border-bottom:1px solid #eee;
+    td{
+     padding:12px 8px;
+     font-size:14px;
+     color:#888;
+    }
+  }
+}
+`;
