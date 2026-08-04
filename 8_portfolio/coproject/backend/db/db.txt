@@ -49,3 +49,14 @@ create table if not exists weare_features(
     title varchar(100) not null,
     description text
 );
+
+
+create table if not exists work_settings(
+    id int primary key default 1,
+    row_count int default 2
+);
+
+create table if not exists work_images(
+    id int AUTO_INCREMENT primary key,
+    image_url VARCHAR(255) not null
+);

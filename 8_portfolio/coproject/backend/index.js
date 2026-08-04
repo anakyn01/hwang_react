@@ -2,6 +2,35 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 
+//파일올릴경우 추가
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+//업로드할 폴더(uploads)가 없으면 자동으로 만들어주는 코드
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)){
+    fs.mkdirSync(uploadDir);
+}
+
+// multer 설정 (파일을 어디에, 어떤 이름으로 저장할지 정함)
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); //uploads 폴더에 저장
+    },
+    filename:(req, file, cb) => {
+      // 한글 이름 깨짐과 중복 방지를 위해 
+      // '현재시간.확장자' 형태로 저장 (예: 1691234567.jpg)  
+      const ext = path.extname(file.originalname);
+      cb(null, Date.now() + ext);
+    }
+});
+// 최대 8장까지 업로드 가능한 multer 미들웨어 준비
+const upload = multer({storage: storage});
+// 🌟 아주 중요! 프론트엔드에서 
+// uploads 폴더 안의 이미지를 볼 수 있게 권한을 열어줍니다.
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -310,6 +339,76 @@ res.status(200).json({
 
 })
 
+// [관리자] WORK 섹션 설정 저장 및 불러오기 API
+// 1. [POST] WORK 설정 및 이미지 저장 (upload.array를 통해 파일을 받습니다)
+app.post('/api/settings/work', upload.array('workImages',8), (req, res) => {
+    // 프론트에서 넘긴 줄 수 (문자열로 오므로 숫자로 변환)
+    // || 2 만약 값이 제대로 안 넘어왔다면 기본값인 2(줄)를 사용합니다
+    const rowCount = parseInt(req.body.rowCount) || 2;
+    const files = req.files;//정보(이름, 크기 등)'를 꺼냅니다.
+    //1단계: '몇 줄을 노출할 것인지(rowCount)'
+    const updateSettingsSql = `
+    INSERT INTO work_settings (id, row_count)
+    VALUES (1, ?)
+    ON DUPLICATE KEY UPDATE row_count = VALUES(row_count)
+    `
+    // 💡 참고: ON DUPLICATE KEY UPDATE는
+    //  "id가 1인 데이터가 이미 있으면 새로 만들지 
+    // 말고 값을 덮어씌워라!" 라는 아주 유용한 문법입니다.
+})
+
+//위에서 만든 SQL 명령어를 실행
+db.query(updateSettingsSql, [rowCount], (err) => {
+    // 만약 DB에 저장하다가 에러가 났다면?
+    if(err){
+        console.error('WORK 줄수 저장 에러:', err);
+// 프론트엔드에 500(서버 에러) 번호와 함께 실패 메시지를 보냅니다.
+return res.status(500).json({ message: '설정 저장 중 오류가 발생했습니다.' });        
+    }
+
+    //2단계: 줄 수 저장이 성공했고, 프론트에서 새로 올린 사진 파일이 1개라도 있다면?
+    if(files && files.length > 0) {
+        db.query('DELETE FROM work_images', (err) => {
+            // 삭제하다 에러가 나면 멈춥니다.
+            if (err) return res.status(500).json({ message: '이미지 초기화 에러' });
+            //새로 올린 사진들의 '경로(주소)'를 배열형태로
+const imageValues = files.map(file => [`/uploads/${file.filename}`]);
+const insertImagesSql = 'INSERT INTO work_images (image_url) VALUES ?';
+//명령어를 실행해서 DB에 사진 주소들을 넣습니다.
+db.querry(insertImagesSql, [imageValues], (err) => {
+    if(err) {
+console.error('WORK 이미지 저장 에러:', err);
+return res.status(500).json({ message: '이미지 저장 중 오류가 발생했습니다.' });
+    }
+    res.status(200).json({message: 'WORK 설정이 성공적으로 저장되었습니다.'})
+})
+        })
+    }else{
+ res.status(200).json({message: '노출 줄수가 변경되었습니다.'});      
+    }
+
+
+})
+
+app.get('/api/settings/work', (req, res) => {
+// ① 1단계: DB에서 '몇 줄 노출할 건지(row_count)'를 가져옵니다.
+db.query('SELECT * FROM work_settings WHERE id = 1',(err, settingsResult) => {
+     if (err) return res.status(500).json({ message: 'WORK 설정 불러오기 에러' });
+// ② 2단계: DB에서 저장된 '사진 주소'들을 싹 다 가져옵니다.
+db.query('SELECT id, image_url AS previewUrl FROM work_images',(err, imagesResult) => {
+    if (err) return res.status(500).json({ message: 'WORK 이미지 불러오기 에러' });
+
+    const settings = settingsResult[0] || {row_count: 2};
+
+    res.status(200).json({
+        rowCount:settings.row_count,
+        images:imagesResult
+    })
+})
+
+})
+
+})
 
 //관리자 끝
 

@@ -1,3 +1,5 @@
+//multer 패키지 설치 npm install multer
+
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Layout } from "../../component/layout/Layout"
