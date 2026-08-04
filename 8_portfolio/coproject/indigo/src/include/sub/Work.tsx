@@ -1,7 +1,57 @@
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
+
+// 🌟 백엔드에서 받아올 데이터의 형태를 정의합니다.
+interface WorkImage {
+    id:number;
+    previewUrl:string;
+}
+
+interface WorkData {
+    rowCount: number;
+    images:WorkImage[];
+}
 export const Work = () => {
+    const [workData, setWorkData] = useState<WorkData>({
+        rowCount:2,
+        images:[]
+    })
+
+    useEffect(() => {
+        const fetchWorkData = async () => {
+try{
+// 백엔드(포트 5000)에서 WORK 설정 데이터를 가져옵니다.
+const response = await axios.get('http://localhost:5000/api/settings/work');
+//성공적으로 가져왔다면 상태에 쏙
+if(response.data) {
+    setWorkData({
+        rowCount:response.data.rowCount,
+        images:response.data.images
+    });
+}
+}catch(error){
+console.error('WORK 데이터 불러오기 실패:', error);
+}
+        }
+    },[]);
+
+// --- [3. 화면에 보여줄 이미지 계산하기] ---
+// 백엔드에서 8장을 다 줬더라도, 
+// 관리자가 '1줄'로 설정했다면 4장만 잘라서 보여줍니다.
+const imagesToShow = workData.rowCount === 1
+? workData.images.slice(0, 4)
+: workData.images.slice(0, 8);
+
     return(
         <>
-        <section className="work-section cfixed">
+ 
+
+        </>
+    )
+}
+
+/*
+       <section className="work-section cfixed">
 
   <h2 className="sec-tit">WORK</h2>
 
@@ -106,6 +156,4 @@ export const Work = () => {
   </ul>
 </section>
 
-        </>
-    )
-}
+*/
