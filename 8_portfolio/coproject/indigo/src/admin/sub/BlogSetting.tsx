@@ -24,6 +24,44 @@ Array.from({length:6}).map((_, index) => ({
 }))
 );
 
+// --- [1. 데이터 불러오기] 처음에 딱 한 번 실행 ---
+useEffect(() => {
+    const fetchSettings = async ()  => {
+        try{
+const response = await axios.get('http://localhost:5000/api/settings/');
+if (response.data){
+    setRowCount(response.data.rowCount);
+
+    const dbBlogs = response.data.blogs;
+    //DB에서 가져온 데이터를 내 6칸짜리 배열에 맞춤
+    const initialBlogs = Array.from({length:6}).map((_, index) =>{
+// 만약 DB에 해당 순서(index)의 데이터가 있다면?
+if(dbBlogs[index]){
+    return{
+        id:index,
+        //사진 주소 앞에 백엔드 주소(localhost:5000)를 
+        // 붙여서 사진이 보이게 만듭니다.
+        previewUrl:`http://localhost:5000${dbBlogs[index].image_url}`,
+        //이미 서버에 있는 사진이므로 진짜 파일은 없습니다.
+    file:null,
+    date:dbBlogs[index].date_str || '', //날짜 넣기
+    text:dbBlogs[index].text_content || '',// 글 넣기
+    };
+}
+// DB에 데이터가 없으면 그냥 빈 칸으로 둡니다.
+return{id:index, previewUrl:'', file:null, date:'', text:''};
+    });
+    //완성된 6칸 배열을 내 상태에 최종 저장합니다
+    setBlogs(initialBlogs);
+}
+        }catch(error){
+console.error('블로그 설정 불러오기 에러: ', error);
+        }
+    }
+    fetchSettings();
+}, []);
+
+
 // --- [2. 날짜 자동 생성 함수] ---
 const getTodayDate = () => {
     const today = new Date();
@@ -100,7 +138,7 @@ blogsToSave.forEach((blog, index) =>{
     formData.append('blogDates', blog.date);
 });
 try{
-await axios.post('http://localhost:500-/api/settings/blog', formData,{
+await axios.post('http://localhost:5000/api/settings/blog', formData,{
     headers:{'Content-Type':'multipart/form-data'}
 });
 console.log('저장될 줄 수:', rowCount);
@@ -168,15 +206,41 @@ onChange={handleRowCountChange}
 </B.BottomInfo>
     )}
     <B.FileUpload
-    type="text" value={blog.date}
-    readOnly
-    placeholder="이미지나 글을 올리면 잘짜가 찍힙니다"
+    type="file" 
+    accept="image/*"
+onChange={(e) => handleFileChange(index, e)}    
     />
-</B.BlogImgWrap>                
+</B.BlogImgWrap>   
+
+<div className="mt-2">
+<B.FileUpload
+    type="text" 
+value={blog.date}
+readOnly
+placeholder="이미지나 글을 올리면 날짜가 자동으로 "
+    />
+</div>
+
+<div className="mt-2">
+    <B.TextArea
+value={blog.text}
+onChange={(e) => handleTextChange(index, e.target.value)}   
+placeholder="블로그 내용 입력" 
+    />
+</div>
+
             </B.BlogKey>
         ))}
     </B.GridWrap3>
 </B.Card>
+
+<B.SaveButtonWrap>
+    <B.ButtonPrimary
+    onClick={handleSave}
+    >
+설정저장하기
+    </B.ButtonPrimary>
+</B.SaveButtonWrap>
             </B.PageWrapper>
         </Layout>
         </>

@@ -60,3 +60,16 @@ create table if not exists work_images(
     id int AUTO_INCREMENT primary key,
     image_url VARCHAR(255) not null
 );
+
+- 블로그 -
+create table if not exists blog_settings(
+    id int primary key default 1,
+    row_count int default 1
+);
+
+create table if not exists blog_items(
+    id int AUTO_INCREMENT primary key,
+    image_url VARCHAR(255) not null,
+    date_str VARCHAR(50) not null,
+    text_content TEXT
+);
