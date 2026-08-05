@@ -410,6 +410,63 @@ db.query('SELECT id, image_url AS previewUrl FROM work_images',(err, imagesResul
 
 })
 
+//📝 [관리자] BLOG 섹션 설정 저장 및 불러오기 API
+
+app.post('/api/settings/blog', upload.array('blogImages', 6), (req, res) => {
+
+    const rowCount = parseInt(req.body.rowCount) || 1;
+    //multer가 서버의 'uploads' 폴더에 방금 저장한 진짜 사진 파일들
+    const files = req.files || [];
+
+    //안정장치
+
+    //sql
+    const updateSettingSql = `
+    
+    `;
+    db.query(updateSettingSql,[rowCount], (err) => {
+
+if (err) return res.status(500).json({message:'BLOG 줄 수 저장 에러'});
+
+db.query('DELETE FROM blog_items', (err) => {
+    if(err) return res.status(500).json({message:'기존 블로그 비우기 에러'});
+    const insertValues =[];
+
+    // 줄 수가 1이면 3칸, 2면 6칸만큼 반복해서 바구니에 담을 준비를 합니다.
+    const totalItems = rowCount === 1 ? 3 : 6;
+    // 새로 올린 사진 중에 몇 번째 사진을 꺼내 쓸지 기억하는 숫자입니다.
+    let fileIndex = 0;
+
+    for(let i=0; i < totalItems; i++) {
+
+    }
+
+    const insertSql = '';
+
+    db.query(insertSql, [insertValues], (err) => {
+        if(err){
+
+        }
+        res.status(200).json({message:'기존 블로그 비우기 에러'});
+    });
+});
+    });
+});
+
+app.get('/api/settings/blog', (req, res) => {
+
+    db.query('',(err, settingsResult) => {
+        if (err) return res.status(500).json({message:''});
+
+        const settings = settingsResult[0] || { row_count: 1};
+
+        res.status(200).json({
+            rowCount:settings.row_count,
+            blogs:itemsResult
+        })
+    })
+})
+
 //관리자 끝
 
 
