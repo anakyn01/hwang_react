@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import * as S from '../../css/style.styles'
 
 
@@ -20,7 +20,29 @@ const [formData, setFormData] = useState({
     nickname:'',
     password:'',
     passwordConfirm:''
-})
+});
+//add
+// 💡 [추가 1] 사진 미리보기 URL과 숨겨진 input을 조종할 Ref 생성
+const [profilePreview, setProfilePreview] = 
+useState<string | null>(null);
+const fileInputRef = useRef<HTMLInputElement>(null);
+
+//[추가 2] 사진을 선택했을 때 실행될 함수
+const handleImageChange =
+(e: React.ChangeEvent<HTMLInputElement>) => {
+const file = e.target.files?.[0];
+if (file) {
+// 파일을 브라우저에서 볼 수 있는 임시 가짜 URL로 변환
+const imageUrl = URL.createObjectURL(file);
+// 상태에 저장해서 화면에 그림
+setProfilePreview(imageUrl); 
+}
+};
+//[추가 3] 회색 박스를 클릭하면 숨겨진 
+// 파일 input을 대신 클릭해주는 함수
+const handleBoxClick = () => {
+fileInputRef.current?.click();
+};
 //폼데이터 세팅
 const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setFormData({...formData, [e.target.name]: e.target.value});
@@ -194,10 +216,28 @@ onChange={(e) => setFormData({...formData, marketingAgreed: e.target.checked})}
     <>
     <S.LayOutPadding>
     <S.TextCenter>
-        <S.PhotoUpload>📷</S.PhotoUpload>
+        <S.PhotoUpload
+        onClick={handleBoxClick}
+        >
+{profilePreview ? (
+<img src={profilePreview} alt="프로필 미리보기" />
+) : (
+<span>📷</span>
+)}        
+        </S.PhotoUpload>
         <S.PhotoUploadBottomText
         className='mt-3'
         >클릭해서 사진을 등록하세요</S.PhotoUploadBottomText>
+
+<input 
+type="file"
+accept="image/*"
+ref={fileInputRef}
+onChange={handleImageChange}
+/>
+
+
+
     </S.TextCenter>
 
     <S.AlignItemsCenter className='mt-5'>
