@@ -1,4 +1,7 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
+
+
+
 
 export const AppWrapper = styled.div`
 display:flex;
@@ -207,6 +210,14 @@ export const BasicLayout = styled.div`
 width:100%;
 padding:15px 10px;
 `;
+export const AlignItemsCenter = styled.div`
+display:flex; 
+gap:10px;
+align-items:center;
+margin-bottom:15px;
+`;
+
+
 export const MemberInfo = styled.div`
 width:100%;
 margin-top:30px;
@@ -234,6 +245,12 @@ font-weight:700;
 letter-spacing:-0.03rem;
 color:#333;
 `;
+export const PhotoUploadBottomText = styled.span`
+font-size:12px; 
+font-weight:400;
+letter-spacing:-0.03rem;
+color:#333;
+`;
 
 export const None = styled.div`
 width:40px;
@@ -246,48 +263,54 @@ margin-top:30px;
 `;
 
 //버튼
-export const KakaoBtn = styled.button`
-width:100%;
+//추가
+type ButtonVariant = 'kakao' | 'local' | 'primary';
+//컴포넌트가 받을 Props 정의
+interface BtnProps {
+$variant: ButtonVariant;
+$mainColor?: string;
+$width?:string;
+}
+// 3. Variant별 스타일 객체 매핑
+const variantStyles = {
+kakao:css`
 background-color: #fee500;
 color: #000;
-padding:15px;
-border-radius:8px;
-border:0px solid #fee500;
-font-weight:bold;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-
-cursor:pointer;
-opacity:.9;
-transition:all .3s;
-    &:hover{
-    opacity:1;
-    }
-`;
-
-export const LocalBtn = styled.button`
-width:100%;
-box-sizing:border-box;
+border: 0px solid #fee500;
+`,
+local:css`
 background-color: #fff;
 color: #333;
+border: 1px solid #ccc;
+`,
+primary:css<BtnProps>`
+background-color: ${({ $mainColor}) => $mainColor || '#28a745'};
+color:#fff;
+border:1px solid ${({ $mainColor }) => $mainColor || '#28a745'}
+`
+};
+
+export const BaseBtn = styled.button<BtnProps>`
+/* 💡 2. 전달받은 $width가 있으면 그 값을 쓰고, 
+안 넘겨주면 기본값 100%를 적용합니다. */
+width:${({ $width}) => $width || '100%'};
+box-sizing:border-box;
 padding:15px;
 border-radius:8px;
-border:1px solid #ccc;
 font-weight:bold;
 display:flex;
 justify-content:center;
 align-items:center;
 gap:10px;
-
 cursor:pointer;
 opacity:.9;
 transition:all .3s;
     &:hover{
     opacity:1;
     }
+${({ $variant }) => variantStyles[$variant]}
 `;
+
 
 export const BtnBottomWrap = styled.div`
 position:fixed;
@@ -333,3 +356,28 @@ width:460px;
 position:fixed;
 bottom:3%;
 */
+
+//photo
+export const PhotoUpload = styled.div`
+width:100px;
+height:100px;
+background-color:#eee;
+border-radius:10px;
+margin:0 auto;
+display:flex;
+align-items:center;
+justify-content:center;
+`;
+
+//패딩
+export const LayOutPadding = styled.div`
+padding:0px 20px;
+`;
+
+//input
+export const FormControl = styled.input`
+width:100%;
+padding:10px;
+border:1px solid #ccc;
+border-radius:5px;
+`;

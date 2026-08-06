@@ -34,8 +34,91 @@ const handleKakaoSignup = () => {
     alert('카카오 로그인 연동 페이지로 이동합니다. (백엔드 OAuth 세팅 필요)');
 }
 
-const handleCheckEmail = async () => {};
-const handleSubmit = async () => {};
+const handleCheckEmail = async () => {
+    // 빈칸 방어 로직
+    if (!formData.email.trim()){
+alert('이메일을 먼저 입력해 주세요.');  
+return;      
+    }try{
+const res= await 
+fetch(`http://localhost:8080/api/members/check-email?email=${formData.email}`);
+if (!res.ok) throw new Error('서버응답에러');
+const isDuplicate = await res.json();
+if(isDuplicate){
+alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력해 주세요.');    
+}else{
+alert('이미 가능한 이메일입니다!');     
+}
+}catch(error){
+console.error('이메일 중복 확인 에러:', error);
+alert('서버와 통신하는 중 문제가 발생했습니다.');
+    }
+};
+
+//3. 닉네임 중복 확인 로직
+const handleCheckNickname = async () => {
+    // 빈칸 방어 로직
+    if (!formData.nickname.trim()){
+alert('닉네임을 먼저 입력해 주세요.');  
+return;      
+}
+try{
+const res= await 
+fetch(`http://localhost:8080/api/members/check-nickname?nickname=${formData.nickname}`);
+if (!res.ok) throw new Error('서버응답에러');
+const isDuplicate = await res.json();
+if(isDuplicate){
+alert('이미 누군가 사용 중인 닉네임입니다.');    
+}else{
+alert('멋진 닉네임이네요! 사용 가능합니다.');     
+}
+}catch(error){
+console.error('닉네임 중복 확인 에러:', error);
+alert('서버와 통신하는 중 문제가 발생했습니다.');
+    }
+};
+
+const handleSubmit = async () => {
+//validation
+if (!formData.email || !formData.nickname || !formData.password) {
+alert('이메일, 닉네임, 비밀번호는 필수 입력 사항입니다.');
+return;
+}
+
+// 2단계: 비밀번호 더블 체크
+if (formData.password !== formData.passwordConfirm) {
+    alert('비밀번호가 일치하지 않습니다. 다시 확인해 주세요.');
+    return;
+}
+try {
+const res = await fetch('http://localhost:8080/api/members/signup', {
+method: 'POST',
+headers: {
+    'Content-Type': 'application/json',
+},
+body: JSON.stringify({
+email: formData.email,
+nickname: formData.nickname,
+password: formData.password,
+phone: formData.phone,
+marketingAgreed: formData.marketingAgreed,
+provider: 'LOCAL' // 명시적으로 일반 가입임을 백엔드에 알려줌
+}),
+});
+// 4단계: 결과 처리
+if (res.status === 201 || res.ok) {
+alert('어서찾아주개 회원이 되신 것을 환영합니다! 🎉');
+window.location.href = '/login';
+} else {
+// 백엔드에서 400 등 에러를 뱉었을 경우
+const errorText = await res.text();
+alert(`회원가입에 실패했습니다: ${errorText}`);    
+}
+} catch (error) {
+console.error('회원가입 API 에러:', error);
+alert('회원가입 처리 중 서버와 연결할 수 없습니다. 백엔드 서버가 켜져 있는지 확인해 주세요.');
+}
+};
 
     return(
         <>
@@ -61,16 +144,21 @@ onClick={() => step > 0 ? setStep(step -1) : window.history.back()}
           어서찾아주개에 오신 것을 환영합니다!  
         </S.H3Title>
         <S.Column>
-            <S.KakaoBtn
-           
+            <S.BtnBottomWrap>
+            <S.BaseBtn 
+            $variant='kakao' 
+            onClick={handleKakaoSignup}        
             >
              카카오로 시작하기
-            </S.KakaoBtn>
-            <S.LocalBtn
-onClick={handleGeneralSignup}          
+            </S.BaseBtn>
+            <br/>
+            <S.BaseBtn
+            $variant='local'
+            onClick={handleGeneralSignup}          
             >
              일반회원가입
-            </S.LocalBtn>
+            </S.BaseBtn>
+            </S.BtnBottomWrap>
         </S.Column>
     </S.TextCenter>
 )}
@@ -91,15 +179,95 @@ onChange={(e) => setFormData({...formData, marketingAgreed: e.target.checked})}
 />마케팅 정보 메일, SMS 수신동의 (선택)</label><br/>          
         </S.MemberInfo>
         <S.BtnBottomWrap>
-            <S.LocalBtn
-onClick={() => setStep(2)}          
+            <S.BaseBtn
+            $variant='primary'
+            onClick={() => setStep(3)}          
             >
             다음으로
-            </S.LocalBtn>
-</S.BtnBottomWrap>
+            </S.BaseBtn>
+        </S.BtnBottomWrap>
     </S.BasicLayout>
 )}
 
+{/* ================= STEP 3: 정보 입력 ================= */}
+{step === 3 && (
+    <>
+    <S.LayOutPadding>
+    <S.TextCenter>
+        <S.PhotoUpload>📷</S.PhotoUpload>
+        <S.PhotoUploadBottomText
+        className='mt-3'
+        >클릭해서 사진을 등록하세요</S.PhotoUploadBottomText>
+    </S.TextCenter>
+
+    <S.AlignItemsCenter className='mt-5'>
+        <S.FormControl
+        type="email"
+        name="email"
+        placeholder='이메일 입력'
+        value={formData.email}
+        onChange={handleChange}
+        />
+        <S.BaseBtn
+        onClick={handleCheckEmail}
+        $variant="primary"
+        $mainColor='#ccc'
+        $width="25%"
+        >
+         중복확인
+        </S.BaseBtn>
+    </S.AlignItemsCenter>
+
+    <S.AlignItemsCenter>
+        <S.FormControl
+        type="text"
+        name="nickname"
+        placeholder='닉네임 입력'
+        value={formData.nickname}
+        onChange={handleChange}
+        />
+        <S.BaseBtn
+        onClick={handleCheckNickname}
+        $variant="primary"
+        $mainColor='#ccc'
+        $width="25%"
+        >
+         중복확인
+        </S.BaseBtn>
+    </S.AlignItemsCenter>
+
+       <br/>
+        <S.FormControl
+        type="password"
+        name="password"
+        placeholder='비밀번호를 입력하세요'
+        value={formData.password}
+        onChange={handleChange}
+        />
+        <br/>
+ <br/>
+        <S.FormControl
+        type="password"
+        name="passwordConfirm"
+        placeholder='비밀번호를 입력하세요'
+        value={formData.passwordConfirm}
+        onChange={handleChange}
+        />
+
+
+
+        <S.BtnBottomWrap>
+            <S.BaseBtn
+            $variant='primary'
+            onClick={handleSubmit}          
+            >
+            회원가입
+            </S.BaseBtn>
+        </S.BtnBottomWrap>
+
+    </S.LayOutPadding>
+    </>
+)}
             </S.Container>
         </S.AppWrapper>
         </>
