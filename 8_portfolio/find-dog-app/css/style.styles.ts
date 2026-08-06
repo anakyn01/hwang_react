@@ -188,3 +188,148 @@ font-size:10px;
 margin-top:4px;
 }
 `;
+
+export const TopFlexBasic = styled.div`
+padding:15px 10px;
+display:flex; 
+justify-content:space-between;
+border-bottom:1px solid #ccc;
+margin-bottom:30px;
+`;
+//플렉스 칸을 중심으로
+export const Column = styled.div`
+display:flex; 
+flex-direction:column;
+gap:15px;
+padding:60px 20px 0px 20px;//상우하좌
+`;
+export const BasicLayout = styled.div`
+width:100%;
+padding:15px 10px;
+`;
+export const MemberInfo = styled.div`
+width:100%;
+margin-top:30px;
+`;
+
+
+export const Back = styled.span`
+cursor:pointer;
+color:#999;
+transition:all .5s;
+
+&:hover{
+color:#333;
+}
+`;
+
+//title
+export const H5Bold = styled.h5`
+font-weight:600;
+letter-spacing:-0.03rem;
+color:#333;
+`;
+export const H3Title = styled.h3`
+font-weight:700;
+letter-spacing:-0.03rem;
+color:#333;
+`;
+
+export const None = styled.div`
+width:40px;
+height:auto;
+`;
+
+export const TextCenter = styled.div`
+text-align:center;
+margin-top:30px;
+`;
+
+//버튼
+export const KakaoBtn = styled.button`
+width:100%;
+background-color: #fee500;
+color: #000;
+padding:15px;
+border-radius:8px;
+border:0px solid #fee500;
+font-weight:bold;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+
+cursor:pointer;
+opacity:.9;
+transition:all .3s;
+    &:hover{
+    opacity:1;
+    }
+`;
+
+export const LocalBtn = styled.button`
+width:100%;
+box-sizing:border-box;
+background-color: #fff;
+color: #333;
+padding:15px;
+border-radius:8px;
+border:1px solid #ccc;
+font-weight:bold;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+
+cursor:pointer;
+opacity:.9;
+transition:all .3s;
+    &:hover{
+    opacity:1;
+    }
+`;
+
+export const BtnBottomWrap = styled.div`
+position:fixed;
+bottom:3%;
+left:50%;
+transform:translateX(-50%);
+
+/* 💡 뼈대가 되는 기본 넓이와 양옆 여백 */
+  width: 100%;
+  padding: 0 20px; 
+  box-sizing: border-box;
+
+  /* 💡 PC 화면 기준 최대 크기 */
+  max-width: 480px; 
+
+  /* 💡 1. 480px 이하 기기 */
+  @media (max-width: 480px) {
+    max-width: 480px;
+  }
+  
+  /* 💡 2. 440px 이하 기기 */
+  @media (max-width: 440px) {
+    max-width: 440px;
+  }
+
+  /* 💡 3. 430px 이하 기기 (아이폰 Pro Max 급) */
+  @media (max-width: 430px) {
+    max-width: 430px;
+  }
+
+  /* 💡 4. 390px 이하 기기 (아이폰 일반 급) */
+  @media (max-width: 390px) {
+    max-width: 390px;
+  }
+
+  /* 💡 5. 280px 이하 기기 (초소형 화면, 갤럭시 폴드 커버화면 등) */
+  @media (max-width: 280px) {
+    max-width: 280px;
+  }
+`;
+/*
+width:460px;
+position:fixed;
+bottom:3%;
+*/
