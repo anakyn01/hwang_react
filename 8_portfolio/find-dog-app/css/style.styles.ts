@@ -25,6 +25,16 @@ width:100%;
 box-shadow:none;
 }
 `;
+export const ContainerColumn = styled.div`
+display:flex;
+flex-direction:column;
+height:100vh;
+background-color:white;
+width:100%;
+max-width:480px;
+`;
+
+
 export const Header = styled.header`
 
 position:fixed;

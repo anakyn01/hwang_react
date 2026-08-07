@@ -4,7 +4,7 @@ import React, {useState, useRef} from 'react';
 import * as S from '../../css/style.styles'
 //add
 import DaumPostcodeEmbed, { Address} from 'react-daum-postcode';
-
+import Header from "../components/Header";
 
 export default function SignupPage(){
 /*
@@ -231,18 +231,10 @@ alert('회원가입 처리 중 서버와 연결할 수 없습니다. 백엔드 �
         <>
         <S.AppWrapper>
             <S.Container>
-<S.TopFlexBasic>
-<S.Back
-onClick={() => step > 0 ? setStep(step -1) : window.history.back()}
->
-&lt; 뒤로
-</S.Back>
-<S.H5Bold>
-회원가입
-</S.H5Bold>
-
-<S.None/>
-</S.TopFlexBasic>
+<Header
+title="회원가입"
+onBackClick={ () => step > 0 ? setStep(step - 1) : window.history.back()}
+/>
 <S.Mt70></S.Mt70>
 {/* ================= STEP 0: 가입 방식 선택 (NEW) ================= */}
 {step === 0 && (
