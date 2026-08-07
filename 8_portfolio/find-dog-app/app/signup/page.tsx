@@ -484,12 +484,13 @@ $mainColor='#ccc' $width="25%"
 type="text"
 name="detailAddress"
 placeholder='상세 주소를 입력해 주세요'
-value={formData.detailaddress}
+value={formData.detailAddress}
 onChange={handleChange}
 
 />
 
 {isOpenPostcode && (
+    <S.ModalBg>
     <S.Modal>
         <S.Exit onClick={() => setIsOpenPostcode(false)}>
             닫기  X
@@ -498,6 +499,7 @@ onChange={handleChange}
         onComplete={handleCompletePostcode}
         />
     </S.Modal>
+    </S.ModalBg>
 )}
 
         <S.BtnBottomWrap>

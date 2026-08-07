@@ -36,6 +36,11 @@ public class MemberController {//외부에서 접근 가능한 컨트롤러 클�
     public ResponseEntity<Boolean> checkEmail(@RequestParam String email){
         return ResponseEntity.ok(memberRepository.existsByEmail(email));
     }
+    //2. 중복 체크 API 닉네임
+    @GetMapping("/check-nickname")
+    public ResponseEntity<Boolean> checkNickname(@RequestParam String nickname){
+        return ResponseEntity.ok(memberRepository.existsByNickname(nickname));
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<Member> signup(@RequestBody Member member){

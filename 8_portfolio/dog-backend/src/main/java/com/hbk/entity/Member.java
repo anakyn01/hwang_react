@@ -16,26 +16,31 @@ public class Member {
 	*/
 	@Column(unique = true)
 	private String email;
-	
-	// 카카오 회원은 비밀번호가 없으므로 null 허용으로 변경합니다.
-	private String password;
-	
+
 	@Column(unique = true, nullable = false)
-	private String nickname, phone, profileImageUrl;
-	private boolean marketingAgreed;
-	
-	//가입 경로 (LOCAL: 일반가입, KAKAO: 카카오가입)
+	private String nickname;
+
 	@Column(nullable = false)
+	private String password;
+
+	@Column(nullable = false)
+	private String name;
+
+	@Column(nullable = false)
+	private String phone;
+
+	@Column(length = 500)
+	private String address;
+	// 카카오 회원은 비밀번호가 없으므로 null 허용으로 변경합니다.
+	@Column(nullable = false)
+	private String userType;
+
+	private boolean marketingAgreed;
+
 	private String provider;
 	//카카오에서 넘겨주는 고유 회원번호
 	private String providerId;
-	
-	
-	
-	
-	
-	
-	
-	
+
+	private String profileImageUrl;
 
 }

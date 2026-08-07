@@ -287,7 +287,19 @@ export const MemberInfo = styled.div`
 width:100%;
 margin-top:30px;
 `;
+export const ModalBg= styled.div`
+position:fixed;
+top:0; left:0; right:0; bottom:0;
+background-color:rgba(0,0,0,.6);
+z-index:999;
+display:flex;
+justify-content:center;
+align-items:flex-start;
+padding:10vh;
+`;
+
 export const Modal = styled.div`
+background-color:white;
 border:1px solid #ccc; padding:10px;
 margin-top:10px; border-radius:8px;
 `;
