@@ -28,6 +28,7 @@ const [formData, setFormData] = useState({
     name:'',
     phone:'',
     address:'',
+    detailAddress:'',
     userType:'GENERAL'
 });
 
@@ -191,6 +192,10 @@ let finalImageUrl = ''; // DB에 들어갈 이미지 주소
           finalImageUrl = await uploadRes.text(); // 백엔드가 돌려준 이미지 URL (예: http://.../uploads/123.jpg)
 } else { alert('이미지 업로드에 실패했습니다. 다시 시도해 주세요.');return; }// 사진 업로드 실패 시 가입을 멈춥니다.
       }
+const fullAddressToSend = formData.detailAddress 
+? `${formData.address} ${formData.detailAddress}` 
+: formData.address;
+
 const res = await fetch('http://localhost:8080/api/members/signup', {
 method: 'POST',
 headers: {'Content-Type': 'application/json',},
@@ -203,7 +208,7 @@ provider: 'LOCAL', // 명시적으로 일반 가입임을 백엔드에 알려줌
 profileImageUrl: finalImageUrl,
 name: formData.name,
 phone: formData.phone,
-address: formData.address,
+address: fullAddressToSend,
 userType: formData.userType
 }),
 });
@@ -226,7 +231,7 @@ alert('회원가입 처리 중 서버와 연결할 수 없습니다. 백엔드 �
         <>
         <S.AppWrapper>
             <S.Container>
-                <S.TopFlexBasic>
+<S.TopFlexBasic>
 <S.Back
 onClick={() => step > 0 ? setStep(step -1) : window.history.back()}
 >
@@ -238,7 +243,7 @@ onClick={() => step > 0 ? setStep(step -1) : window.history.back()}
 
 <S.None/>
 </S.TopFlexBasic>
-
+<S.Mt70></S.Mt70>
 {/* ================= STEP 0: 가입 방식 선택 (NEW) ================= */}
 {step === 0 && (
     <S.TextCenter>
@@ -272,11 +277,60 @@ onClick={() => step > 0 ? setStep(step -1) : window.history.back()}
           약관에 동의하고 어서찾아주개 회원이 되어주세요 !
         </S.H3Title> 
         <S.MemberInfo>
-<label><input type="checkbox"/>전체동의</label><br/>
-<label><input type="checkbox"/>이용약관 동의(필수)</label><br/>
-<label><input type="checkbox"/>개인정보 수집이용 동의(필수)</label><br/>
-<label><input type="checkbox"/>만14세 이상입니다(필수) </label><br/>
-<label><input type="checkbox"
+<label>
+    <input 
+    type="checkbox"
+checked={isAllAgreed}
+onChange={handleAllAgree}  
+    />
+    전체동의
+</label><br/>
+<label>
+    <input type="checkbox"
+    checked={formData.agreeTerms}
+onChange={(e) => setFormData({ ...formData, agreeTerms: e.target.checked })}
+    />
+    이용약관 동의(필수)
+</label>
+<S.UpAndDown onClick={() => setShowTerms(!showTerms)}>
+{showTerms ? '▲ 닫기' : '▼ 보기'}
+</S.UpAndDown>
+<S.Terms>
+    <S.TermsInner>
+제 1조 (목적) <br/>
+본 약관은 어서찾아주개(이하 "회사")가 제공하는 서비스의 
+이용조건 및 절차, 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br/>
+(여기에 실제 약관 내용을 넣으시면 됩니다.)        
+    </S.TermsInner>
+</S.Terms>
+<label>
+    <input 
+type="checkbox"
+checked={formData.agreePrivacy}
+onChange={(e) => setFormData({ ...formData, agreePrivacy: e.target.checked })}
+/>개인정보 수집이용 동의(필수)
+</label>
+<S.UpAndDown onClick={() => setShowPrivacy(!showPrivacy)}>
+{showPrivacy ? '▲ 닫기' : '▼ 보기'}
+</S.UpAndDown>
+<S.Privacy>
+    <S.TermsInner>
+수집 항목: 이메일, 닉네임, 이름, 연락처, 주소 <br/>
+수집 목적: 서비스 제공 및 회원 관리 <br/>
+보유 기간: 회원 탈퇴 시까지      
+    </S.TermsInner>
+</S.Privacy>
+<label>
+    <input 
+    type="checkbox"
+    checked={formData.agreeAge}
+onChange={(e) => setFormData({ ...formData, marketingAgreed: e.target.checked })}
+    />만14세 이상입니다(필수) </label>
+
+<br/>
+<label>
+    <input 
+    type="checkbox"
 onChange={(e) => setFormData({...formData, marketingAgreed: e.target.checked})}
 />마케팅 정보 메일, SMS 수신동의 (선택)</label><br/>          
         </S.MemberInfo>
@@ -314,11 +368,47 @@ type="file"
 accept="image/*"
 ref={fileInputRef}
 onChange={handleImageChange}
+style={{ display: 'none' }}
+/>
+    </S.TextCenter>
+
+<S.AlignItemsCenter className='mt-5'>
+<S.LabelGroup>
+    <S.Label>
+        <input type="radio" 
+        name="userType" 
+        value="GENERAL"
+        checked={formData.userType === 'GENERAL'}
+        onChange={handleChange}/>일반회원
+    </S.Label>
+    <S.Label>
+        <input type="radio" 
+        name="userType" 
+        value="BUSINESS"
+        checked={formData.userType === 'BUSINESS'}
+        onChange={handleChange}/>업체 (비즈니스)
+    </S.Label>
+</S.LabelGroup>
+</S.AlignItemsCenter>
+
+<S.FormControl
+type="text" name="name"
+placeholder='이름(실명)을 입력하세요'
+value={formData.name}
+onChange={handleChange}
+/>
+<div className='mb-5'></div>
+
+<S.FormControl
+type="text" name="phone"
+placeholder='전화번호 입력 (- 제외)'
+value={formData.phone}
+onChange={handleChange}
 />
 
-
-
-    </S.TextCenter>
+<S.AlignItemsCenter className='mt-5'>
+    
+</S.AlignItemsCenter>
 
     <S.AlignItemsCenter className='mt-5'>
         <S.FormControl
@@ -374,7 +464,41 @@ onChange={handleImageChange}
         onChange={handleChange}
         />
 
+<S.AlignItemsCenter>
+    <S.FormControl
+type="text"
+name="address"
+placeholder='주소를 검색해주세요'
+value={formData.address}  
+readOnly  
+onClick={() => setIsOpenPostcode(true)}
+    />
+<S.BaseBtn
+onClick={() =>setIsOpenPostcode(true)}
+$variant="primary"
+$mainColor='#ccc' $width="25%"
+>주소검색</S.BaseBtn>    
+</S.AlignItemsCenter>
 
+<S.FormControl
+type="text"
+name="detailAddress"
+placeholder='상세 주소를 입력해 주세요'
+value={formData.detailaddress}
+onChange={handleChange}
+
+/>
+
+{isOpenPostcode && (
+    <S.Modal>
+        <S.Exit onClick={() => setIsOpenPostcode(false)}>
+            닫기  X
+        </S.Exit>
+        <DaumPostcodeEmbed
+        onComplete={handleCompletePostcode}
+        />
+    </S.Modal>
+)}
 
         <S.BtnBottomWrap>
             <S.BaseBtn

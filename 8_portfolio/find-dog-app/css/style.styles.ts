@@ -26,10 +26,40 @@ box-shadow:none;
 }
 `;
 export const Header = styled.header`
+
+position:fixed;
+z-index:99999;
+//화면 정중앙 배치공식 (내가 최대치에 크기를 정했을때)
+left:50%; 
+transform: translateX(-50%);
+width:100%;
+box-sizing:border-box;
+padding:16px 20px;
+
+top:0;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:16px;
+
+background-color:#fff;
+
+max-width:480px;
+
+@media (max-width: 480px) {
+  max-width: 480px;
+}
+@media (max-width: 440px) {
+  max-width: 440px;
+}
+@media (max-width: 430px) {
+  max-width: 430px;
+}
+@media (max-width: 390px) {
+  max-width: 390px;
+}
+@media (max-width: 280px) {
+  max-width: 280px;
+}
 `;
 export const Logo = styled.h4`
 margin:0;
@@ -193,11 +223,46 @@ margin-top:4px;
 `;
 
 export const TopFlexBasic = styled.div`
+position:fixed;
+z-index:10000;
+top:0;
+
 padding:15px 10px;
 display:flex; 
 justify-content:space-between;
 border-bottom:1px solid #ccc;
 margin-bottom:30px;
+
+left:50%; 
+transform: translateX(-50%);
+width:100%;
+box-sizing:border-box;
+
+
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+background-color:#fff;
+
+max-width:480px;
+
+@media (max-width: 480px) {
+  max-width: 480px;
+}
+@media (max-width: 440px) {
+  max-width: 440px;
+}
+@media (max-width: 430px) {
+  max-width: 430px;
+}
+@media (max-width: 390px) {
+  max-width: 390px;
+}
+@media (max-width: 280px) {
+  max-width: 280px;
+}
 `;
 //플렉스 칸을 중심으로
 export const Column = styled.div`
@@ -221,6 +286,10 @@ margin-bottom:15px;
 export const MemberInfo = styled.div`
 width:100%;
 margin-top:30px;
+`;
+export const Modal = styled.div`
+border:1px solid #ccc; padding:10px;
+margin-top:10px; border-radius:8px;
 `;
 
 
@@ -351,6 +420,13 @@ transform:translateX(-50%);
     max-width: 280px;
   }
 `;
+export const Exit = styled.div`
+text-align:right;
+cursor:pointer;
+font-weight:bold;
+margin-bottom:10px; 
+color:#666;
+`;
 /*
 width:460px;
 position:fixed;
@@ -380,4 +456,42 @@ width:100%;
 padding:10px;
 border:1px solid #ccc;
 border-radius:5px;
+`;
+export const LabelGroup = styled.div`
+display:flex; gap:20px; width:100%;
+justify-content:center; margin-bottom:15px;
+`;
+
+export const Label = styled.label`
+display:flex; gap:5px; cursor:pointer; 
+`;
+
+export const UpAndDown = styled.span`
+cursor:pointer; font-size:12px; 
+color:#888;
+`;
+export const Terms = styled.div`
+max-height: showTerms ? '150px' : '0';
+overflow:hidden;
+transition:max-height 0.3s ease-in-out;
+background-color:#f9f9f9;
+border-radius:4px;
+`;
+export const Privacy = styled.div`
+max-height: showPrivacy ? '150px' : '0';
+overflow:hidden;
+transition:max-height 0.3s ease-in-out;
+background-color:#f9f9f9;
+border-radius:4px;
+`;
+
+export const TermsInner = styled.div`
+margin:10px 0px;
+padding:10px;
+font-size:12px;
+color:#666;
+`;
+
+export const Mt70 = styled.div`
+margin-top:70px;
 `;
