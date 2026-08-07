@@ -1,7 +1,9 @@
 'use client'
 
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef} from 'react'; 
 import * as S from '../../css/style.styles'
+//add
+import DaumPostcodeEmbed, { Address} from 'react-daum-postcode';
 
 
 export default function SignupPage(){
@@ -14,30 +16,88 @@ step 3: 정보입력
 */
 const [step, setStep] = useState(0);
 const [formData, setFormData] = useState({
+    agreeTerms:false,
+    agreePrivacy:false,
+    agreeAge:false,
     marketingAgreed:false,
-    phone:'',
+
     email:'',
     nickname:'',
     password:'',
-    passwordConfirm:''
+    passwordConfirm:'',
+    name:'',
+    phone:'',
+    address:'',
+    userType:'GENERAL'
 });
+
+const [profileFile, setProfileFile] = useState<File | null>(null);
+
 //add
 // 💡 [추가 1] 사진 미리보기 URL과 숨겨진 input을 조종할 Ref 생성
-const [profilePreview, setProfilePreview] = 
-useState<string | null>(null);
+const [profilePreview, setProfilePreview] = useState<string | null>(null);
 const fileInputRef = useRef<HTMLInputElement>(null);
+//add
+const [isOpenPostcode, setIsOpenPostcode] = useState(false);
+
+//[약관 추가] 약관 내용 슬라이딩(열림/닫힘) 상태 관리
+const [showTerms, setShowTerms] = useState(false);
+const [showPrivacy, setShowPrivacy]= useState(false);
 
 //[추가 2] 사진을 선택했을 때 실행될 함수
-const handleImageChange =
-(e: React.ChangeEvent<HTMLInputElement>) => {
+const handleImageChange =(e: React.ChangeEvent<HTMLInputElement>) => {
 const file = e.target.files?.[0];
 if (file) {
+
+setProfileFile(file); 
+setProfilePreview(URL.createObjectURL(file));
 // 파일을 브라우저에서 볼 수 있는 임시 가짜 URL로 변환
-const imageUrl = URL.createObjectURL(file);
+
 // 상태에 저장해서 화면에 그림
-setProfilePreview(imageUrl); 
 }
 };
+//주소검색
+const handleCompletePostcode = (data: Address) => {
+let fullAddress = data.address;// 기본 주소
+let extraAddress = '';// 추가 주소 (건물명 등)
+
+if (data.addressType === 'R') {//도로명 주소일 경우
+if (data.bname !== '') extraAddress += data.bname;
+if (data.buildingName !== '') {
+extraAddress += extraAddress !== '' ? `,
+ ${data.buildingName}` : data.buildingName;
+}
+fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+};
+// 주소를 formData에 업데이트하고 창 닫기
+setFormData({ ...formData, address: fullAddress });
+setIsOpenPostcode(false);
+};
+
+//[약관 추가] 약관 동의 관련 로직
+const isAllAgreed =
+formData.agreeTerms && formData.agreePrivacy 
+&& formData.agreeAge && formData.marketingAgreed;
+
+const handleAllAgree =(e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setFormData(prev => ({
+        ...prev,
+            agreeTerms: isChecked,
+            agreePrivacy: isChecked,
+            agreeAge: isChecked,
+            marketingAgreed: isChecked
+    }));
+}
+const handleStep1Next = () => {
+// 필수 약관 검증
+if (!formData.agreeTerms || !formData.agreePrivacy || !formData.agreeAge) {
+alert('필수 약관에 모두 동의해 주세요.');
+return;
+}
+setStep(3); // 모두 동의했으면 다음 단계로 이동
+}
+
 //[추가 3] 회색 박스를 클릭하면 숨겨진 
 // 파일 input을 대신 클릭해주는 함수
 const handleBoxClick = () => {
@@ -102,7 +162,8 @@ alert('서버와 통신하는 중 문제가 발생했습니다.');
 
 const handleSubmit = async () => {
 //validation
-if (!formData.email || !formData.nickname || !formData.password) {
+if (!formData.email || !formData.nickname || !formData.password
+|| !formData.name || !formData.phone    ) {
 alert('이메일, 닉네임, 비밀번호는 필수 입력 사항입니다.');
 return;
 }
@@ -113,18 +174,37 @@ if (formData.password !== formData.passwordConfirm) {
     return;
 }
 try {
+let finalImageUrl = ''; // DB에 들어갈 이미지 주소
+
+      // 💡 2단계: 사용자가 올린 사진 파일이 있다면 먼저 백엔드로 쏩니다!
+      if (profileFile) {
+        // 이미지는 JSON이 아니라 FormData라는 택배 상자에 담아서 보내야 합니다.
+        const imageFormData = new FormData();
+        imageFormData.append('file', profileFile);
+
+        const uploadRes = await fetch('http://localhost:8080/api/members/upload-profile', {
+          method: 'POST',
+          body: imageFormData, // 헤더에 Content-Type을 적지 않아야 브라우저가 알아서 세팅합니다.
+        });
+
+        if (uploadRes.ok) {
+          finalImageUrl = await uploadRes.text(); // 백엔드가 돌려준 이미지 URL (예: http://.../uploads/123.jpg)
+} else { alert('이미지 업로드에 실패했습니다. 다시 시도해 주세요.');return; }// 사진 업로드 실패 시 가입을 멈춥니다.
+      }
 const res = await fetch('http://localhost:8080/api/members/signup', {
 method: 'POST',
-headers: {
-    'Content-Type': 'application/json',
-},
+headers: {'Content-Type': 'application/json',},
 body: JSON.stringify({
 email: formData.email,
 nickname: formData.nickname,
 password: formData.password,
-phone: formData.phone,
 marketingAgreed: formData.marketingAgreed,
-provider: 'LOCAL' // 명시적으로 일반 가입임을 백엔드에 알려줌
+provider: 'LOCAL', // 명시적으로 일반 가입임을 백엔드에 알려줌
+profileImageUrl: finalImageUrl,
+name: formData.name,
+phone: formData.phone,
+address: formData.address,
+userType: formData.userType
 }),
 });
 // 4단계: 결과 처리

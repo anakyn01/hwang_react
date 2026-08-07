@@ -6,7 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @RestController
@@ -75,6 +79,38 @@ isPresent() : 상자(Optional) 안에 데이터가 들어있니?"라고 묻습�
 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이메일 또는 비밀번호가 일치하지 않습니다");
 //회원이 없거나 비밀번호가 틀리면 401(인증 실패) 에러 메시지를 보냅니다.
     }
+
+    @PostMapping("/upload-profile")
+    public ResponseEntity<String> uploadProfile(
+@RequestParam("file") MultipartFile file){
+try{
+// 1. 파일 이름이 겹치지 않도록
+// 현재 시간(밀리초)을 앞에 붙여줍니다.
+    String filename =
+System.currentTimeMillis() + "_" +
+file.getOriginalFilename();
+// 2. 프로젝트 폴더 안의 'uploads'라는
+// 폴더에 저장할 경로를 잡습니다.
+String uploadDir =
+System.getProperty("user.dir") + "/uploads/";
+Path path = Paths.get(uploadDir + filename);
+// 3. 폴더가 없으면 만들고, 파일을 복사해서 씁니다.
+Files.createDirectories(path.getParent());
+Files.write(path, file.getBytes());
+// 4. 저장된 이미지에 접근할 수 있는 가짜 URL을 프론트로 반환해 줍니다.
+// (실무에서는 AWS S3 URL이 들어가는 자리입니다)
+String imageUrl =
+"http://localhost:8080/uploads/" + filename;
+return ResponseEntity.ok(imageUrl);
+
+}catch(Exception e) {
+    e.printStackTrace();
+    return ResponseEntity
+.status(HttpStatus.INTERNAL_SERVER_ERROR)
+.body("이미지 업로드 실패");
+}
+    }
+
 }
 
 
