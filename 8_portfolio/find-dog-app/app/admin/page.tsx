@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react';
-import {Sidebar} from ../sidebar/Sidebar;
-import {Topbar} from '../topbar/Topbar';
+import { Sidebar } from '../components/sidebar/Sidebar';
+import { Topbar } from '../components/topbar/Topbar';
 import {
     Wrapper, ContentWrapper, MainContent, ContainerFluid
 } from '../components/layout/layout.styled';
