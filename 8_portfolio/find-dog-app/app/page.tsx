@@ -16,6 +16,7 @@ import {
 } from '@mui/icons-material';
 
 import * as S from '../css/style.styles'
+import Footer from './components/Footer';
 
 //1. 스프링부트에서 넘어올 동물 데이터의 타입(Interface) 정의
 interface Animal {
@@ -151,7 +152,7 @@ useEffect(() => {
 
 </S.Section> 
 
-
+<Footer/>
 
 </S.Container>  
 </S.AppWrapper>  

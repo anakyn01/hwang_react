@@ -336,6 +336,12 @@ font-weight:700;
 letter-spacing:-0.03rem;
 color:#333;
 `;
+export const H2Size20 = styled.h2`
+font-size:20px; font-weight:500; 
+margin-bottom:25px;
+color:#000;
+`;
+
 export const PhotoUploadBottomText = styled.span`
 font-size:12px; 
 font-weight:400;
@@ -466,6 +472,17 @@ display:flex;
 align-items:center;
 justify-content:center;
 `;
+// 레이아웃
+export const LoginLayout = styled.div`
+padding:10px 20px 30px 20px;
+`;
+export const LayOutSpaceBetween = styled.div`
+display:flex; justify-content:space-between;
+align-items:center; gap:10px;
+`;
+
+// 레이아웃 끝
+
 
 //패딩
 export const LayOutPadding = styled.div`
@@ -517,3 +534,18 @@ color:#666;
 export const Mt70 = styled.div`
 margin-top:70px;
 `;
+
+//마이페이지 전용 스타일
+export const ListItemWrapper = styled.div`
+
+`;
+export const ListItemLeft = styled.div`
+
+`;
+export const ListItemText = styled.span`
+
+`;
+export const MenuCardBox = styled.div`
+
+`;
+export const MenuCardText = styled.span``;
