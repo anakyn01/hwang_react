@@ -535,17 +535,14 @@ app.put('/api/contacts/:id/memo', (req, res) => {
     });
 })
 // 4. [DELETE] 특정 단일 문의 내역 삭제하기
-app.put('/api/contacts/:id', (req, res) => {
+app.delete('/api/contacts/:id', (req, res) => {
     const contactId = req.params.id;
     const sql = 'DELETE FROM contacts WHERE id = ?';
-
     db.query(sql,[contactId], (err) => {
-
         if(err) return res.status(500).json({message:'삭제 에러'})
         res.status(200).json({ message:'삭제 되었습니다'});
     });
-
-})
+});
 // 5. [POST] 선택된 문의 내역 일괄 삭제 (Bulk Delete)
 app.post('/api/contacts/bulk-delete', (req, res) => {
     const { ids } = req.body;   
@@ -555,15 +552,23 @@ app.post('/api/contacts/bulk-delete', (req, res) => {
     // 배열 형태의 id들을 한 번에 지우는 쿼리 (IN 사용)
     const sql =
     'DELETE FROM contacts WHERE id IN (?)';
-
     db.query(sql,[ids], (err) => {
-
         if(err) return res.status(500).json({message:'일괄 삭제 에러'})
         res.status(200).json({message:'선택 항목이 일괄 삭제 되었습니다'});
-
     });
 
 });
+
+//프론트에서 쓰는 포스트
+app.post('/api/contacts', (req, res) => {
+    const { name, phone, email, message } =req.body;
+const sql = 'INSERT INTO contacts (name, phone, email, message) VALUES (?,?,?,?)';
+
+db.query(sql,[name, phone, email, message], (err, result) => {
+    if(err) return res.status(500).json({ message:'문의 접수 에러'});
+    res.status(200).json({message:'문의가 성공저긍로 저장되었습니다'});
+});
+})
 
 
 //관리자 끝
