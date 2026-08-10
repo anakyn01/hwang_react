@@ -1,9 +1,11 @@
+'use client'
+
 import React from 'react';
-import {Layout} from '../component/layout/Layout';
-import * as A from './DashBoard.styled';
+import { Layout } from '../components/layout/Layout';
+import * as A from "./DashBoard.styled";
 
 
-export const DashBoard = () => {
+export default function DashBoard(){
     return(
         <>
         <Layout>
@@ -17,7 +19,7 @@ export const DashBoard = () => {
             </A.PageHeader>
             <A.GridRow>
                 <A.CardColumn>
-                    <A.StatCard borderColor="#4e73df">
+                    <A.StatCard $borderColor="#4e73df">
                         <A.CardBody>
                             <div className="">
 <div 
@@ -37,7 +39,7 @@ $40,000
                 </A.CardColumn>
 
 <A.CardColumn>
-    <A.StatCard borderColor='#1cc88a'>
+    <A.StatCard $borderColor='#1cc88a'>
         <A.CardBody>
             <div className="">
 <div 
