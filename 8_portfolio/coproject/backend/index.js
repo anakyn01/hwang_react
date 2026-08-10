@@ -509,19 +509,15 @@ db.query('SELECT * FROM blog_items ORDER BY id ASC', (err, itemsResult) => {
 app.get('/api/contacts', (req, res) => {
     const sql = 'SELECT * FROM contacts ORDER BY created_at DESC';
     db.query(sql, (err, results) => {
-
-        if(err) return res.status(500).json({message:''})
+        if(err) return res.status(500).json({message:'문의 내역 조회 에러'});
         res.status(200).json(results);
-
     });
-})
+});
 // 2. [PUT] 특정 문의의 답변 상태 변경하기
 app.put('/api/contacts/:id/reply',(req, res) => {
-
     const contactId = req.params.id;
     const { is_replied } = req.body;
     const sql = 'UPDATE contacts SET is_replied = ? WEHER id = ?';
-
     db.query(sql,[is_replied, contactId], (err) => {
         if(err) return res.status(500).json({message:'상태 변경 에러'})
         res.status(200).json({message:'상태가 변경되었습니다.'});
@@ -529,7 +525,6 @@ app.put('/api/contacts/:id/reply',(req, res) => {
 });
 // 3. [PUT] 특정 문의의 조치사항(메모) 업데이트하기
 app.put('/api/contacts/:id/memo', (req, res) => {
-
     const contactId = req.params.id;
     const { action_memo } = req.body;
     const sql = 'UPDATE contacts SET action_memo = ? WHERE id = ?';
@@ -538,41 +533,37 @@ app.put('/api/contacts/:id/memo', (req, res) => {
         if(err) return res.status(500).json({message:'메모 업데이트 에러'})
         res.status(200).json({message:'메모가 저장되었습니다.'});
     });
-
 })
 // 4. [DELETE] 특정 단일 문의 내역 삭제하기
 app.put('/api/contacts/:id', (req, res) => {
-
     const contactId = req.params.id;
     const sql = 'DELETE FROM contacts WHERE id = ?';
 
     db.query(sql,[contactId], (err) => {
 
-        if(err) return res.status(500).json({message:''})
-        res.status(200).json(results);
-
+        if(err) return res.status(500).json({message:'삭제 에러'})
+        res.status(200).json({ message:'삭제 되었습니다'});
     });
 
 })
 // 5. [POST] 선택된 문의 내역 일괄 삭제 (Bulk Delete)
-app.post('', (req, res) => {
-
-    const { ids } = req.body;
-    
+app.post('/api/contacts/bulk-delete', (req, res) => {
+    const { ids } = req.body;   
     if (!ids || ids.length === 0) {
         return res.status(400).json({message:'삭제할 항목이 없습니다.'});
     }
-    
-    const sql = '';
+    // 배열 형태의 id들을 한 번에 지우는 쿼리 (IN 사용)
+    const sql =
+    'DELETE FROM contacts WHERE id IN (?)';
 
     db.query(sql,[ids], (err) => {
 
-        if(err) return res.status(500).json({message:''})
-        res.status(200).json(results);
+        if(err) return res.status(500).json({message:'일괄 삭제 에러'})
+        res.status(200).json({message:'선택 항목이 일괄 삭제 되었습니다'});
 
     });
 
-})
+});
 
 
 //관리자 끝
