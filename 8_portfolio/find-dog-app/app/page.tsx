@@ -151,34 +151,6 @@ useEffect(() => {
 
 </S.Section> 
 
-<S.BottomNav>
-
-  <S.NavItem $active>
-    <HomeIcon/>
-    <span>홈</span>
-  </S.NavItem>
-
-  <S.NavItem>
-    <PetsIcon/>
-    <span>보호소</span>
-  </S.NavItem>
-
-  <S.NavItem>
-    <CampaignIcon/>
-    <span>실종/제보</span>
-  </S.NavItem>
-
-  <S.NavItem>
-    <MenuBookIcon/>
-    <span>스토리</span>
-  </S.NavItem>
-
-  <S.NavItem>
-    <PersonOutlineIcon/>
-    <span>마이메뉴</span>
-  </S.NavItem>
-
-</S.BottomNav>
 
 
 </S.Container>  
