@@ -227,3 +227,65 @@ border:1px solid #ccc;
 border-radius:4px; 
 resize:none;
 `;
+
+//layout
+export const SpaceBetween = styled.div`
+display:flex; justify-content:space-between;
+align-items:center;  margin-bottom:15px;
+`;
+
+//버튼
+interface ColorBtnProps {
+  bgColor?: 'red' | 'yellow' | 'green' | 'purple';
+}
+// 🎨 선택된 색상에 따라 배경색(Hex 코드)을 반환하는 함수
+const getBgColor = (color?: string) => {
+  switch(color) {
+    case 'red' : return '#dc3545';
+    case 'yellow' : return '#ffc107';
+    case 'green' : return '#28a745';
+    case 'purple':return '#6f42c1';
+    default: return '#dc3545';    
+  }
+}
+
+// 🖋️ 선택된 색상에 따라 글자색을 반환하는 함수 
+// (노란색 배경에는 검정 글씨가 잘 보입니다)
+const getTextColor = (color?: string) => {
+  if(color === 'yellow') return '#212529';
+  return '#fff';
+}
+
+export const ColorButton = styled.button<ColorBtnProps>`
+padding:8px 15px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+font-weight:bold;
+background-color:${({bgColor}) => getBgColor(bgColor)};
+color:${({bgColor}) => getTextColor(bgColor)};
+transition: opacity 0.2s ease-in-out;
+&:hover{
+opacity:0.8;
+}
+`;
+
+//Typo
+interface StatusProps {
+  statusColor?:'blue'|'red'|'green'|'gray';
+}
+
+const getStatusColor = (color?: string) => {
+  switch(color) {
+    case 'red' : return '#dc3545';
+    case 'yellow' : return '#ffc107';
+    case 'green' : return '#28a745';
+    case 'purple':return '#6f42c1';
+    default: return '#dc3545';    
+  }
+}
+
+export const StatusText = styled.span<StatusProps>`
+color: ${({ statusColor}) => getStatusColor(statusColor)};
+font-weight:bold;
+`;
