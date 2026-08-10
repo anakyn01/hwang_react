@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from 'next/link'; // 💡 Next.js 전용 링크 불러오기
 
 export const Wrapper = styled.div`
 display:flex; width:100%;
@@ -32,4 +33,38 @@ export const ContainerFluid = styled.div`
 width:100%;
 padding-right:1.5rem; padding-left:1.5rem;
 margin-right:auto; margin-left:auto;
+`;
+
+// SB Admin 2 테마는 className으로 스타일이 먹기 때문에 기본 뼈대 태그만 지정해 줍니다.
+export const SidebarContainer = styled.ul`
+  /* 기본적으로 ul 태그를 사용합니다 */
+`;
+
+export const SidebarBrand = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+`;
+
+export const Divider = styled.hr`
+`;
+
+export const NavItem = styled.li`
+`;
+
+export const NavLink = styled(Link)`
+  display: block;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  i {
+    margin-right: 0.5rem; /* 아이콘과 글자 사이 간격 */
+  }
 `;

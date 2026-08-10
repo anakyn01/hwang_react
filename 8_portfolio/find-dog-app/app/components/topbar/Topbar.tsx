@@ -1,13 +1,15 @@
+'use client'
 
 //상태관리를 위해 useState와 useEffect를 추가로 불러옵니다
 import React, {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import {TopbarContainer, TopbarSearch, 
 TopbarNavbar} from './Topbar.styled';
 
 export const Topbar:React.FC = () => {
 //페이지 이동 함수를 navigate라는 이름으로 사용할수있게 준비 ..
-const navigate = useNavigate();
+//const navigate = useNavigate();
+const router = useRouter();
 
 //1.화면에 보여줄 사용자 이름 상태를 만듭니다.(기본값: Guest)
 const [userName, setUserName] = useState('Guest');
@@ -19,7 +21,11 @@ const storedName = localStorage.getItem('userName');
 
 //만약 저장된 이름이 있다면, 상태를 그이름으로 업데이트 합니다
 if(storedName){
+//💡 setTimeout으로 감싸서 
+// 리액트의 동기적 렌더링 감시망을 피해갑니다!
+    setTimeout(() => {
     setUserName(storedName);
+    },0)
 }
 },[]);
 
@@ -28,7 +34,8 @@ const handleLogout = () => {
     //1.브라우저 금고(localStorage)에서 'userName'데이터를 완전히 지웁니다
     localStorage.removeItem('userName');
     //2.로그인 페이지('/login)로 사용자를 이동시킵니다
-    navigate('/login');
+    //navigate('/login');
+   router.push('/login');
 }
 
     return(
