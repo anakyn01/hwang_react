@@ -336,6 +336,11 @@ font-weight:700;
 letter-spacing:-0.03rem;
 color:#333;
 `;
+export const H3Size16 = styled.h3`
+font-size:16px; font-weight:bold;
+margin-bottom:15px;
+`;
+
 export const H2Size20 = styled.h2`
 font-size:20px; font-weight:500; 
 margin-bottom:25px;
@@ -406,6 +411,11 @@ transition:all .3s;
     opacity:1;
     }
 ${({ $variant }) => variantStyles[$variant]}
+`;
+
+export const LogOutBtn = styled.span`
+font-size:14px; color:#888;
+cursor:pointer; text-decoration:underline;
 `;
 
 
@@ -480,6 +490,14 @@ export const LayOutSpaceBetween = styled.div`
 display:flex; justify-content:space-between;
 align-items:center; gap:10px;
 `;
+export const List = styled.div`
+padding:0 20px 20px 20px;
+`;
+export const Line = styled.div`
+width:100%;
+height:12px;
+background-color:#f5f5f5;
+`;
 
 // 레이아웃 끝
 
@@ -537,15 +555,32 @@ margin-top:70px;
 
 //마이페이지 전용 스타일
 export const ListItemWrapper = styled.div`
-
+display:flex; justify-content:space-between;
+align-items:center;
+padding:16px 0;
+cursor:pointer;
 `;
 export const ListItemLeft = styled.div`
-
+display:flex; align-items:center;
+gap:15px;
 `;
 export const ListItemText = styled.span`
-
+font-size:15px; color:#111;
 `;
 export const MenuCardBox = styled.div`
-
+flex:1; 
+display:flex; 
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background-color:#fff7ed;
+padding:20px 0;
+border-radius:12px;
+cursor:pointer;
 `;
-export const MenuCardText = styled.span``;
+export const MenuCardText = styled.span`
+font-size:14px;
+font-weight:500;
+color:#333;
+margin-top:8px;
+`;

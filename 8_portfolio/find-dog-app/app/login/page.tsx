@@ -38,6 +38,9 @@ if(res.ok) {
 // 💡 서버가 보내준 회원 정보(데이터)를 
 // JSON 형태로 뜯어서 userData에 담습니다.
 const userData = await res.json();
+//추가
+localStorage.setItem('user', JSON.stringify(userData));
+
 /*
 💡 백엔드에서 받아온 회원의 닉네임(userData.nickname)을
 환영 인사를 띄웁니다.
