@@ -3,7 +3,7 @@
 //상태관리를 위해 useState와 useEffect를 추가로 불러옵니다
 import React, {useState, useEffect} from "react";
 import { useRouter } from "next/navigation";
-import {TopbarContainer, TopbarSearch, 
+import {TopbarContainer, TopbarSearch, TopbarProfile,
 TopbarNavbar} from './Topbar.styled';
 
 export const Topbar:React.FC = () => {
@@ -76,8 +76,8 @@ className="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-searc
 >
 {userName}
 </span>
-<img className="img-profile rounded-circle"
-src="./img/profile.jpg"
+<TopbarProfile className="rounded-circle"
+src="http://localhost:3000/img/profile.jpg"
 alt="프로필이미지"
 />        
         </a>

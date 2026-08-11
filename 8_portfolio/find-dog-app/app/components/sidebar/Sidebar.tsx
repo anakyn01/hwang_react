@@ -29,6 +29,13 @@ export const Sidebar: React.FC = () => {
 
                 <S.Divider/>
 
+                <S.NavItem>
+                    <S.NavLink href="/admin/pick">
+                        <i className='fas fa-fw fa-users'></i>
+                        <span>추천동물설정</span>
+                    </S.NavLink>
+                </S.NavItem>
+
                 {/* 2. 각 메뉴별로 NavItem 하나씩 독립적으로 적용 */}
                 <S.NavItem>
                     <S.NavLink href="/userlist">

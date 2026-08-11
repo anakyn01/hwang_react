@@ -57,7 +57,7 @@ useEffect(() => {
   <S.Logo>어서찾아주개</S.Logo>
   <NotificationsNoneIcon fontSize="large"/>
 </S.Header>
-
+<S.Mt70/>
 <S.Banner>
   <S.BannerTitle>
 유기동물 입양자라면<br/>
