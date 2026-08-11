@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {Layout} from '../../components/layout/Layout';
 import * as A from "../DashBoard.styled";
 import axios from 'axios';
-import {Container, Row, Col, Card, Form} from "react-bootstrap";
+import {Container, Row, Col, Card, Form, Button} from "react-bootstrap";
 
 export default function RecommendedAnimalAdmin(){
     //등록 출처 상태 (기본값: 직접 등록)
@@ -64,7 +64,7 @@ imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=300'
  }
 
     // 입력값 변경 핸들러
-    const handleChange = (e:React.ChangeEvent<any>) => {
+  const handleChange = (e:React.ChangeEvent<any>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value}));
     }
@@ -161,16 +161,33 @@ alert('등록에 실패했습니다. 다시 시도해 주세요.');
 
 <hr/>
 
+{/* ✨ [추가/변경] SNS 주소 입력창과 '데이터 불러오기' 버튼 연동 */}
 {sourceType !== 'DIRECT' && (
     <div className="form-group mb-3">
-<label>SNS포스팅 URL주소</label> 
+<label className='font-weight-bold text-primary'>SNS포스팅 URL주소</label> 
+<div className="input-group">
 <Form.Control
+type="url"
 name="sourceUrl"
 placeholder={`${sourceType=='FACEBOOK' ? '페이스북' : '인스타그램'} 주소를 입력하세요`}
 value={formData.sourceUrl}
 onChange={handleChange}
 required
-/>       
+/>    
+<div className="input-group-append">
+<Button
+variant="outline-secondary"
+onClick={handleParseUrl}
+disabled={isParsing}
+>
+{isParsing ? '분석 중...' : '데이터 자동 불러오기 ⚡'}    
+</Button>    
+
+</div>   
+    </div>
+<small className='form-text text-muted'>
+주소를 입력하고 불러오기 버튼을 누르면 아래 정보가 자동으로 채워집니다.
+</small>
     </div>
 )}
 
