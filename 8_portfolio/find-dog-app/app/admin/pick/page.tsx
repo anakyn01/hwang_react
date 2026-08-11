@@ -261,6 +261,18 @@ disabled={isParsing}
     />
 </div>
 
+{/* 이미지 URL이 있으면 미리보기 제공 */}
+                                {formData.imageUrl && (
+                                    <div className="mb-4 text-center">
+                                        <img src={formData.imageUrl} alt="미리보기" className="img-thumbnail" style={{ maxHeight: '200px' }} />
+                                    </div>
+                                )}
+
+                                {/* ✨ 잃어버린 '최종 등록하기' 버튼이 들어갈 자리입니다! ✨ */}
+                                <button type="submit" className="btn btn-primary btn-block w-100 font-weight-bold p-3 mt-4">
+                                    최종 등록하기
+                                </button>
+
 </form>
 </Card.Body>
 </Card>
