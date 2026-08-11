@@ -35,7 +35,7 @@ const [animals, setAnimals] = useState<Animal[]>([]);
 const [isLoading, setIsLoading] = useState(true);
 
 useEffect(() => {
-  fetch('http://localhost:8080/api/animals/recommended')
+  fetch('/api/animals/recommended')
   .then((res) => {
     if(!res.ok) throw new Error('네트워크 응답이 정상이 아닙니다');
     return res.json();

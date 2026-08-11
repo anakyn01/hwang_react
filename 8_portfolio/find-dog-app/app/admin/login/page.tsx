@@ -32,7 +32,7 @@ export default function LoginPage() {
         try {
             const response = await axios.post('http://localhost:8080/api/admin/login', {
                 email, password
-            });
+            },{ withCredentials:true});
             
             alert(`${response.data.name}님, ${response.data.message}`);
 

@@ -14,9 +14,15 @@ const [mapUrl, setMapUrl] = useState('');
 useEffect(() => {
     const fetchMapData = async () => {
         try{
-
+// 백엔드에서 지도 데이터를 가져옵니다.
+const response = 
+await axios.get('http://localhost:5000/api/settings/map');
+if (response.data) {
+    setMapType(response.data.mapType || 'google');
+    setMapUrl(response.data.mapUrl || '');
+}
         } catch (error) {
-
+console.error('지도 데이터 불러오기 에러:', error);
         }
     };
     fetchMapData();
@@ -25,12 +31,31 @@ useEffect(() => {
 // --- [3. 조작 함수들] ---
 // 🔘 지도 종류(구글/다음) 라디오 버튼 변경 시 실행
 const handleMapTypeChange =(e:React.ChangeEvent<HTMLInputElement>) => {
-
-}
+const selectedType =
+e.target.value as 'google' | 'daum';
+setMapType(selectedType);
+// (선택) 서비스 종류를 바꾸면 기존 URL을 싹 지워주면 관리자가 안 헷갈립니다!
+setMapUrl('');
+};
 // --- [4. 설정 저장 함수] ---
 const handleSave = async () => {
-
+// 주소를 입력하지 않고 저장하려 할 때 방어
+if(!mapUrl.trim()) {
+    alert('지도 퍼가기 (Embed) URL을 입력해 주세요');
+    return;
 }
+try{
+// 이번엔 이미지가 없으므로 FormData 대신 일반 JSON 객체로 편하게 보냅니다.
+await axios.post('http://localhost:5000/api/settings/map',{
+    mapType: mapType, mapUrl: mapUrl
+})
+alert('지도 설정이 성공적으로 저장되었습니다!');
+} catch (error) {
+console.error('지도 설정 저장 실패:', error);
+alert('설정 저장 중 오류가 발생했습니다.');
+}
+
+};
     return(
         <>
         <Layout>

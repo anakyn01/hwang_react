@@ -5,7 +5,7 @@ import {Layout} from '../../components/layout/Layout';
 import * as A from "../DashBoard.styled";
 import axios from 'axios';
 import {Container, Row, Col, Card, Form, Button} from "react-bootstrap";
-
+axios.defaults.withCredentials = true;
 export default function RecommendedAnimalAdmin(){
     //등록 출처 상태 (기본값: 직접 등록)
     const [sourceType, setSourceType] = useState<'DIRECT' | 'FACEBOOK' | 'INSTAGRAM'>('DIRECT');
