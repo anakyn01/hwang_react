@@ -649,13 +649,13 @@ height:26px;
 color:white;
 `;
 
-export const CampainTextWrap = styled.div`
+export const CampaignTextWrap = styled.div`
 display:flex;
 flex-direction:column;
 gap:2px;
 `;
 
-export const CampainCardTitle = styled.div`
+export const CampaignCardTitle = styled.div`
 font-size:15px; font-weight:bold;
 color:#111;
 white-space:nowrap;
@@ -663,7 +663,7 @@ overflow:hidden;
 text-overflow:ellipsis; 
 `;
 
-export const CampainCardDesc = styled.div`
+export const CampaignCardDesc = styled.div`
 font-size:13px; color:#888;
 white-space:nowrap;
 overflow:hidden;

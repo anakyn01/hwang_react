@@ -155,8 +155,56 @@ useEffect(() => {
 
 </S.Section>
 
+<S.Section>
+
+  <S.SectionHeader>
+    <S.SectionTitle>입양 캠페인</S.SectionTitle>
+    <S.MoreButton>더보기 &gt;</S.MoreButton>   
+  </S.SectionHeader>
+
+  <S.HashtagScroll>
+    {campaignHashtags.map((tag, idx) => (
+<S.HashtagBtn
+key={idx}
+$active={activeHashtag === tag}
+onClick={() => setAtiveHashtag(tag)}
+>
+  {tag}
+</S.HashtagBtn>      
+    ))}
+  </S.HashtagScroll>
+
+  <S.HorizontalScroll>
+    {mockCampaigns.map((item) => (
+<S.CampaignCard key={item.id}>
+  <S.CampaignMediaWrap>
+    <S.CampaignImg src={item.imageUrl} alt={item.title}/>
+    {item.isVideo && (
+      <S.PlayIconWrap>
+        <PlayArrowIcon style={{fontSize:'18px'}}/>
+      </S.PlayIconWrap>
+    )}
+  </S.CampaignMediaWrap>
+  <S.CampaignTextWrap>
+    <S.CampaignCardTitle>
+      {item.title}
+    </S.CampaignCardTitle>
+    <S.CampaignCardDesc>
+      {item.desc}
+    </S.CampaignCardDesc>
+  </S.CampaignTextWrap>
+</S.CampaignCard>      
+    ))}
+  </S.HorizontalScroll>
+</S.Section>
+
 {/*통계 */}
 <S.Section $bgLight>
+
+
+
+
+
 
 <S.SectionHeader>
   <S.SectionTitle>
