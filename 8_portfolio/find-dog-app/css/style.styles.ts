@@ -584,3 +584,88 @@ font-weight:500;
 color:#333;
 margin-top:8px;
 `;
+
+//입양 캠페인 전용 스타일
+export const HashtagScroll = styled.div`
+display:flex;
+gap:8px;
+overflow-x:auto;
+padding-bottom:12px;
+margin-bottom:10px;
+&::-webkit-scrollbar{
+display:none;
+}
+`;
+export const HashtagBtn = styled.button<{$active?:boolean}>`
+background:${({$active}) => ($active ? '#f6931d' : '#eaecee')};
+color:${({ $active}) => ($active ? '#fff' : '#555')};
+border:none;
+border-radius:20px;
+padding:6px 14px;
+font-weight:700;
+white-space:nowrap;
+cursor:pointer;
+transition: all .2s ease-in-out;
+/*
+애니메이션이 트랜지션
+Ease In (이즈 인 - 가속) 느리게 시작해서 점점 빨라지는 효과 퇴장용으로 적합
+Ease Out (이즈 아웃 - 감속) 빠르게 시작해서 목적지에 가까워질수록 부드럽게 느려지는 효과
+등장용으로 적합
+
+느리게 시작해 중간에 가장 빨라졌다가 끝날 때 부드럽게 멈추는 형태
+*/
+`;
+
+export const CampaignCard  = styled.div`
+min-width:150px; max-width:150px;
+display:flex;
+flex-direction:column;
+gap:8px;
+`;
+
+export const CampaignMediaWrap = styled.div`
+position:relative;
+width:100%;
+aspect-ratio:1 / 1;
+border-radius:12px;
+overflow:hidden;
+background-color:#f0f0f0;
+`;
+
+export const CampaignImg = styled.img`
+width:100%; height:100%;
+object-fit:cover;
+`;
+
+export const PlayIconWrap = styled.div`
+position:absolute;
+bottom:8px; left:8px;
+background:rgba(0,0,0, .6);
+border-radius:50%;
+align-items:center;
+justify-content:center;
+width:26px;
+height:26px;
+color:white;
+`;
+
+export const CampainTextWrap = styled.div`
+display:flex;
+flex-direction:column;
+gap:2px;
+`;
+
+export const CampainCardTitle = styled.div`
+font-size:15px; font-weight:bold;
+color:#111;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis; 
+`;
+
+export const CampainCardDesc = styled.div`
+font-size:13px; color:#888;
+white-space:nowrap;
+overflow:hidden;
+etxt-overflow:ellipsis;
+`;

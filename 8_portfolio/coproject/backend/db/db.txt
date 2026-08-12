@@ -73,3 +73,11 @@ create table if not exists blog_items(
     date_str VARCHAR(50) not null,
     text_content TEXT
 );
+
+맵
+USE company;
+CREATE TABLE if NOT EXISTS map_settings(
+id INT PRIMARY KEY DEFAULT 1,
+map_type VARCHAR(20) DEFAULT 'google',
+map_url TEXT
+);

@@ -517,7 +517,7 @@ app.get('/api/contacts', (req, res) => {
 app.put('/api/contacts/:id/reply',(req, res) => {
     const contactId = req.params.id;
     const { is_replied } = req.body;
-    const sql = 'UPDATE contacts SET is_replied = ? WEHER id = ?';
+    const sql = 'UPDATE contacts SET is_replied = ? WHERE id = ?';
     db.query(sql,[is_replied, contactId], (err) => {
         if(err) return res.status(500).json({message:'상태 변경 에러'})
         res.status(200).json({message:'상태가 변경되었습니다.'});
@@ -570,6 +570,58 @@ db.query(sql,[name, phone, email, message], (err, result) => {
 });
 })
 
+//[관리자 & 사용자] MAP 지도 섹션 설정 API
+// 1. [POST] 지도 설정 저장하기
+app.post('/api/settings/map', (req, res) => {
+    const {mapType, mapUrl} = req.body;
+
+    const sql = `
+    INSERT INTO map_settings (id, map_type, map_url)
+    VALUES (1, ?, ?)  
+    ON DUPLICATE KEY UPDATE map_type = VALUES(map_type),
+    map_url = VALUES(map_url)
+    `;
+/*
+위에서 만든 SQL 명령어의 물음표(?) 자리에 
+mapType과 mapUrl을 순서대로 넣고 실행합니다.
+*/
+db.query(sql, [mapType, mapUrl], (err) => {
+    //만약 DB 저장 중에 에러가 발생했다면?
+    if(err){
+        // 서버 검은 창(터미널)에 에러 원인을 빨간 글씨로 기록하고,
+        console.error('지도 설정 저장 에러:', err);
+        //프론트엔드에게 에러 번호(500)와 실패 메세지를 보냅니다
+        return res.status(500).json({message:'지도 설정 저장 중 서버 에러가 발생했습니다.'});
+    }
+    /*
+    에러 없이 무사히 저장되었다면
+    프론트엔드에게 성공 번호(200)와 성공 메시지를 보냅니다.
+    */
+   res.status(200).json({message:'지도 설정이 성공적으로 저장되었습니다.'});
+});
+
+});
+
+//[GET] DB에 저장되어 있는 지도 설정을 프론트엔드로 '불러오는' API입니다
+app.get('/api/settings/map', (req, res) => {
+    const sql = 
+    'SELECT map_type AS mapType, map_url AS mapUrl FROM map_settings WHERE id = 1 ';
+
+//명령어를 실행합니다. 결과물은 'results'라는 바구니에 담깁니다.
+db.query(sql, (err, results) => {
+    //만약 데이터를 가져오다가 에러가 났다면 프론트에 에러(500)를 보냅니다.
+    if (err) return res.status(500).json({message:'지도 설정 불러오기 에러'});
+//바구니에 데이터가 1개라도 들어있다면? (관리자가 한 번이라도 저장을 한 상태)
+    if(results.length > 0) {
+// 바구니의 첫 번째(0번째) 데이터를 통째로 프론트에 보내줍니다.
+res.status(200).json(results[0]);
+    } else {
+//바구니가 텅 비었다면? (사이트를 처음 켜서 아직 아무것도 저장 안 한 상태)
+res.status(200).json({mapType:'google', mapUrl:''});
+    }
+})
+
+})
 
 //관리자 끝
 
