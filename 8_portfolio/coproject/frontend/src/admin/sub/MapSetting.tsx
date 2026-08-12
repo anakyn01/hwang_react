@@ -180,6 +180,7 @@ color:'#888'
     <B.Button
     variant="primary"
     style={{padding:'10px 30px'}}
+    onClick={handleSave}
     >
     지도 설정하기
     </B.Button>
