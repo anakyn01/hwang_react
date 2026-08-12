@@ -12,7 +12,8 @@ import {
   Campaign as CampaignIcon,
   MenuBook as MenuBookIcon,
   PersonOutlined as PersonOutlineIcon,
-  PetsOutlined as PetsOutlinedIcon
+  PetsOutlined as PetsOutlinedIcon,
+  PlayArrow as PlayArrowIcon
 } from '@mui/icons-material';
 
 import * as S from '../css/style.styles'
@@ -30,6 +31,10 @@ interface Animal {
 }
 
 export default function  HomePage(){
+//해시태그 상태 관리 (기본값으로 '#제주입양' 선택)
+const [activeHashtag, setAtiveHashtag] = useState('#제주입양');
+
+
 //2. 동물 리스트 상태 관리
 const [animals, setAnimals] = useState<Animal[]>([]);
 const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +52,33 @@ useEffect(() => {
     setIsLoading(false);
   })
 },[]);
+
+
+// 💡 2. 사진과 완벽히 똑같이 보일 테스트용 데이터! (나중에는 백엔드에서 받아오게 됩니다)
+  const campaignHashtags = ['#제주입양', '#외부기생충예방', '#사료건강', '#위생'];
+  const mockCampaigns = [
+    {
+      id: 1,
+      title: '제주-제주-2026-01786',
+      desc: '2026(60일미만)(년생)/암컷/0.6(Kg)',
+      imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=300', // 임시 강아지 사진
+      isVideo: true // 동영상이면 썸네일에 플레이 버튼이 뜹니다!
+    },
+    {
+      id: 2,
+      title: '제주-제주-2026-01782',
+      desc: '2026(60일미만)(년생)/암컷/1.1(Kg)',
+      imageUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=300',
+      isVideo: true
+    },
+    {
+      id: 3,
+      title: '제주-제주-2026-01789', // 사진 전용 게시물 예시
+      desc: '2026(60일미만)(년생)/수컷/0.9(Kg)',
+      imageUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=300',
+      isVideo: false // false면 사진이므로 플레이 버튼이 뜨지 않음
+    }
+  ];
 
 
   return(
