@@ -22,7 +22,7 @@ const handleSearch = async () => {
         return;
     }
     navigate(`/search?q=${searchTerm}`);
-    setSearchTerm('');
+    //setSearchTerm('');
     /*try{
         //백엔드의 /api/search 주소로 검색어(?q=검색어)를 보냅니다
 const response = 
@@ -39,6 +39,7 @@ alert('검색을 가져오는중 오류가 발생했습니다');
 //⌨️ 엔터키를 눌러도 검색이 되도록 하는 함수
 const handleKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) =>{
     if (e.key === 'Enter'){
+        e.preventDefault();
         handleSearch();
     }
 }
@@ -91,7 +92,9 @@ className="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-searc
     onKeyPress={handleKeyPress}
     />
     <div className="input-group-append">
-        <button className="btn btn-primary"
+        <button 
+        type="button"
+        className="btn btn-primary"
         onClick={handleSearch}
         >
             <i className="fas fa-search fa-sm"></i>Search

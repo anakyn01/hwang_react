@@ -15,8 +15,10 @@ export const SearchResult = () => {
 
     useEffect(() => {
 const fetchResults = async () => {
-if(!keyword) return;
-setLoading(true);
+if(!keyword) {
+    setLoading(false);
+    return;
+}
 try{
 //
 const response = await axios.get(`http://localhost:5000/api/search?q=${keyword}`);

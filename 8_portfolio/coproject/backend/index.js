@@ -637,7 +637,7 @@ app.get('/api/search',(req, res) => {
     /* 각 테이블을 뒤지는 쿼리문을 준비 유저 테이블 (이름, 성, 이메일에서 검색)*/
     const sqlUsers = 
 `SELECT id, first_name, 
-email FROM users WHERE first_name LIKE ? OR email LIKE ?`;
+email FROM users WHERE first_name LIKE ? OR last_name LIKE ? OR email LIKE ?`;
 
 const sqlBlogs = 
 `SELECT id, text_content, 
@@ -651,7 +651,7 @@ OR message LIKE ?
 
 /*쿼리 3개를 순서대로 실행하고 결과를 모읍니다.
 (콜백 지옥을 피하기 위해 단순 중첩 사용)*/
-db.query(sqlUsers, [searchKeyword, searchKeyword],
+db.query(sqlUsers, [searchKeyword, searchKeyword, searchKeyword],
 (err1, users)  => {
 if (err1) return res.status(500)
     .json({message:'유저 검색 에러'});
@@ -672,6 +672,42 @@ if (err1) return res.status(500)
     })
 })
 
+})
+
+//관리자 대시보드 통계 API
+app.get('/api/statistics', (req, res) => {
+    const sqlUsers = `
+    
+    `;
+    const sqlContacts = `
+    `;
+    db.query(sqlUsers,(err1, userStats) => {
+
+        db.query(sqlContacts, (err2, contactStats) => {
+if (err2) return res.status(500).json({message:'문의 통계 에러'});
+
+const contacts = contactStats[0];
+const resolvRate = contacts.totalInquiries > 0
+? Math.round((contacts.resolved / contacts.totalInquiries) * 100):0;
+
+res.status(200).json({
+    userSignups:userStats.reverse(),
+    claimRate:[
+        {},{}
+    ],
+    summary:{
+
+    },
+    traffic:[
+        {},{},{},{}
+    ],
+    inquiriesVsClaims:[
+        {},{},{},{}
+    ]
+
+})
+        })
+    })
 })
 
 //관리자 끝
