@@ -638,7 +638,7 @@ app.get('/api/search',(req, res) => {
     const sqlUsers = 
 `SELECT id, first_name, 
 email FROM users WHERE first_name LIKE ? OR email LIKE ?`;
-})
+
 const sqlBlogs = 
 `SELECT id, text_content, 
 date_str FROM blog_items WHERE text_content LIKE ?`;
@@ -651,7 +651,7 @@ OR message LIKE ?
 
 /*쿼리 3개를 순서대로 실행하고 결과를 모읍니다.
 (콜백 지옥을 피하기 위해 단순 중첩 사용)*/
-db.query(sqlUsers, [searchKeyword, searchKeyword, searchKeyword],
+db.query(sqlUsers, [searchKeyword, searchKeyword],
 (err1, users)  => {
 if (err1) return res.status(500)
     .json({message:'유저 검색 에러'});
@@ -670,6 +670,8 @@ if (err1) return res.status(500)
 
         })
     })
+})
+
 })
 
 //관리자 끝

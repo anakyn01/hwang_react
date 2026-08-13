@@ -19,6 +19,7 @@ import { WorkSetting } from "./admin/sub/WorkSetting";
 import { BlogSetting} from "./admin/sub/BlogSetting";
 import { MapSetting } from './admin/sub/MapSetting';
 import { ContactSetting } from './admin/sub/ContactSetting';
+import { SearchResult } from './admin/sub/SearchResult';
 
 function App() {
   
@@ -43,6 +44,7 @@ function App() {
     <Route path="/blogsetting" element={<BlogSetting/>} />
     <Route path="/mapsetting" element={<MapSetting/>} />
     <Route path="/contactsetting" element={<ContactSetting/>} />
+    <Route path="/search" element={<SearchResult/>} />
     </Routes>
     </BrowserRouter>
 
