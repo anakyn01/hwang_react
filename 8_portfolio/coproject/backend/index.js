@@ -623,6 +623,55 @@ res.status(200).json({mapType:'google', mapUrl:''});
 
 })
 
+app.get('/api/search',(req, res) => {
+    // 1. 프론트엔드에서 보낸 검색어(q)를 가져옵니다.
+    const keyword = req.query.q;
+    // 검색어가 없으면 빈 결과를 돌려보냅니다.
+    if(!keyword) {
+        return res.status(400).json({message:'검색어를 입력해 주세요'});
+    }
+
+    // 2. SQL의 LIKE 검색을 위해 앞뒤에 '%'를 붙여줍니다. (예: '%홍길동%')
+    const searchKeyword = `%${keyword}%`;
+
+    /* 각 테이블을 뒤지는 쿼리문을 준비 유저 테이블 (이름, 성, 이메일에서 검색)*/
+    const sqlUsers = 
+`SELECT id, first_name, 
+email FROM users WHERE first_name LIKE ? OR email LIKE ?`;
+})
+const sqlBlogs = 
+`SELECT id, text_content, 
+date_str FROM blog_items WHERE text_content LIKE ?`;
+
+const sqlContacts = 
+`SELECT id, name, email, message FROM contacts WHERE name LIKE ?
+OR email LIKE ?
+OR message LIKE ?
+`;
+
+/*쿼리 3개를 순서대로 실행하고 결과를 모읍니다.
+(콜백 지옥을 피하기 위해 단순 중첩 사용)*/
+db.query(sqlUsers, [searchKeyword, searchKeyword, searchKeyword],
+(err1, users)  => {
+if (err1) return res.status(500)
+    .json({message:'유저 검색 에러'});
+    
+    db.query(sqlBlogs, [searchKeyword], (err2, blogs) =>{
+        if(err2) return res.status(500).json({message:'블로그 검색에러'});
+
+        db.query(sqlContacts, [searchKeyword, searchKeyword, searchKeyword],
+             (err3, contacts) =>{
+            if(err3) return res.status(500).json({message:'문의내역 검색에러'});
+
+            //모든 검색이 끝나면 묶어서 프론트엔드로 보냅니다!
+            res.status(200).json({
+    users:users, blogs:blogs, contacts:contacts            
+            })
+
+        })
+    })
+})
+
 //관리자 끝
 
 
