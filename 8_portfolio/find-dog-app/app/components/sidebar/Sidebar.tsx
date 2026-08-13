@@ -38,9 +38,9 @@ export const Sidebar: React.FC = () => {
 
                 {/* 2. 각 메뉴별로 NavItem 하나씩 독립적으로 적용 */}
                 <S.NavItem>
-                    <S.NavLink href="/userlist">
+                    <S.NavLink href="/admin/campaign">
                         <i className='fas fa-fw fa-users'></i>
-                        <span>User List</span>
+                        <span>캠페인</span>
                     </S.NavLink>
                 </S.NavItem>
 
