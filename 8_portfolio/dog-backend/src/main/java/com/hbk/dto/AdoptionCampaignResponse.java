@@ -1,9 +1,14 @@
 package com.hbk.dto;
 
-//프론트엔드에서 캠페인을 등록할 때 서버로 전송할 데이터 구조입니다.
-public class AdoptionCampaignRequest {
+import com.hbk.entity.AdoptionCampaign;
 
-    private String hashtag, title,
-            content, thumbnailUrl,
-            mediaType, mediaUrl;
+//등록 성공/실패 여부 메시지를 프론트엔드로 전달하기 위한 응답 객체입니다.
+public class AdoptionCampaignResponse {
+
+    private String message;
+
+    //빨간 줄의 원인 해결! (글자 하나를 받아주는 생성자를 직접 만들어 줍니다)
+    public AdoptionCampaignResponse(String message){
+        this.message = message;
+    }
 }

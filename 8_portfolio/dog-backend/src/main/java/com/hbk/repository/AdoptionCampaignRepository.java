@@ -1,10 +1,10 @@
 package com.hbk.repository;
 
 
-import com.hbk.entity.RecommendedAnimal;
+import com.hbk.entity.AdoptionCampaign;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-public interface RecommendedAnimalRepository extends JpaRepository<RecommendedAnimal, Long> {
-// JpaRepository를 상속받으면 기본적인 저장(save),
-// 조회(findAll) 기능이 자동으로 생깁니다!
+public interface AdoptionCampaignRepository extends JpaRepository<AdoptionCampaign, Long> {
+List<AdoptionCampaign>findByHashtag(String hashtag);
 }
