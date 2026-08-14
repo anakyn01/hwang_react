@@ -95,7 +95,7 @@ className="text-xs font-weight-bold text-success text-uppercase mb-1">
    월별 회원 가입 추이(실제 데이터)     
     </h6>
 </Card.Header>
-<Card.Body>
+<Card.Body style={{height:'300px'}}>
     <ResponsiveContainer width="100%" height="100%">
 <LineChart data={stats.userSignups}>
  <CartesianGrid strokeDasharray="3 3"/>
@@ -118,7 +118,7 @@ className="text-xs font-weight-bold text-success text-uppercase mb-1">
             주간 접속량 (트래픽)
         </h6>
     </Card.Header>
-    <Card.Body>
+    <Card.Body style={{height:'300px'}}>
         <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={stats.traffic}>
             <CartesianGrid strokeDasharray="3 3"/>
@@ -143,7 +143,7 @@ fillOpacity={0.3}/>
         </h6>
 
     </Card.Header>
-    <Card.Body>
+    <Card.Body style={{height:'300px'}}>
         <ResponsiveContainer width="100%" height="100%">
             <BarChart data={stats.inquiriesVsClaims}>
 <CartesianGrid strokeDasharray="3 3"/>
@@ -167,7 +167,7 @@ fillOpacity={0.3}/>
         문의/클레임 해결 상태 (실제 데이터)    
         </h6>
     </Card.Header>
-    <Card.Body>
+    <Card.Body style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <ResponsiveContainer width="100%" height="100%">
             <PieChart>
                 <Pie
