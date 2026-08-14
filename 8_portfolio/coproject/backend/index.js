@@ -677,32 +677,71 @@ if (err1) return res.status(500)
 //관리자 대시보드 통계 API
 app.get('/api/statistics', (req, res) => {
     const sqlUsers = `
-    
+ SELECT
+ DATE_FORMAT(created_at, '%Y-%m') AS name,
+ COUNT(*) AS 가입자수 
+ FROM users
+ GROUP BY name
+ ORDER BY name DESC
+ LIMIT 6
     `;
     const sqlContacts = `
+SELECT
+COUNT(*) AS totalInquiries,
+SUM(CASE WHEN is_replied = 1 THEN 1 ELSE 0 END) AS resolved,    
+SUM(CASE WHEN is_replied = 0 THEN 1 ELSE 0 END) AS unresolved
+FROM contacts 
     `;
+
+//먼저 첫 번째 질문(회원가입 통계)을 데이터베이스에 보냅니다.    
     db.query(sqlUsers,(err1, userStats) => {
-
-        db.query(sqlContacts, (err2, contactStats) => {
+/*
+만약 에러(err1)가 났다면, 프론트엔드에 에러가 났다고 알려주고 
+여기서 코드를 당장 멈춥니다(return)
+*/
+if(err1) return res.status(500).json({message:'회원 통계 에러'});
+//첫 번째 질문이 성공했다면,
+//  이어서 두 번째 질문(문의 통계)을 데이터베이스에 보냅니다.
+db.query(sqlContacts, (err2, contactStats) => {
+//두 번째 질문에서 에러가 났다면 마찬가지로 에러를 알리고 멈춥니다.
 if (err2) return res.status(500).json({message:'문의 통계 에러'});
-
+//데이터베이스가 준 결과물(배열)에서 
+// 첫 번째 덩어리만 쏙 빼서 contacts 변수에 담습니다.
 const contacts = contactStats[0];
+
+//해결률(%) 계산하기 문의가 1개라도 있을 때만 계산합니다.
 const resolvRate = contacts.totalInquiries > 0
-? Math.round((contacts.resolved / contacts.totalInquiries) * 100):0;
-
+//해결된 건수 / 전체 건수 * 100을 한 뒤, 
+//Math.round()로 소수점을 반올림하여 깔끔한 % 숫자로 만듭니다.
+? Math.round((contacts.resolved / contacts.totalInquiries) * 100)
+//문의가 아예 없다면 해결률은 그냥 0%로 둡니다.
+:0;
+//5. 프론트엔드(화면)로 결과물 보내주기
+//
 res.status(200).json({
+//일반적인 리스트는 최신순..그래프를 그리기에 과거부터 최신순으로 바꿈..    
     userSignups:userStats.reverse(),
+    //파이 차트를 그리기 위해 '해결 완료' 숫자와 '미해결' 숫자를 배열로
     claimRate:[
-        {},{}
+{ name:'해결 완료', value: Number(contacts.resolved) || 0},
+{ name: '미해결(대기)', value: Number(contacts.unresolved) || 0}
     ],
+    //화면 상단에 띄워줄 전체 요약 숫자들입니다.
     summary:{
-
+totalInquiries: contacts.totalInquiries, // 총 문의량
+resolveRate: resolveRate // 위에서 계산한 해결률(%)
     },
     traffic:[
-        {},{},{},{}
+{ name: '월', 접속량: 4000 }, { name: '화', 접속량: 3000 },
+                    { name: '수', 접속량: 2000 }, { name: '목', 접속량: 2780 },
+                    { name: '금', 접속량: 1890 }, { name: '토', 접속량: 2390 },
+                    { name: '일', 접속량: 3490 },
     ],
     inquiriesVsClaims:[
-        {},{},{},{}
+{ name: '1주차', 일반문의: 400, 클레임: 240 },
+                    { name: '2주차', 일반문의: 300, 클레임: 139 },
+                    { name: '3주차', 일반문의: 200, 클레임: 980 },
+                    { name: '4주차', 일반문의: 278, 클레임: 390 },
     ]
 
 })

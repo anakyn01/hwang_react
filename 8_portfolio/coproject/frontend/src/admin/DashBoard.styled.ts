@@ -139,3 +139,16 @@ tbody tr:hover {
 background-color:#f1f3f6;
 }
 `;
+
+//padding
+export const Pd20 = styled.div`
+padding:20px;
+`;
+
+//layout
+export const AdminContainer = styled.div.attrs({
+className:'container-fluid'
+})`
+padding:20px;
+background-color:#f8f9fc;
+`
