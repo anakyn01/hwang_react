@@ -15,6 +15,9 @@ const [results, setResults] = useState({ users:[], blogs:[], contacts:[]});
 //검색을 한 번이라도 했는지 체크하는 상태
 const [hasSearched, setHasSearched] = useState(false);
 
+//드롭다운이 열려있는지 닫혀 있는지 기억하는 상태
+const[isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 // 🔍 검색 버튼을 눌렀을 때 실행되는 함수
 const handleSearch = async () => {
     if(!searchTerm.trim()) {
@@ -110,27 +113,46 @@ className="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-searc
 <S.TopbarNavbar className="ml-auto">
     {/*User Information */}
     <li className="nav-item dropdown no-arrow d-flex align-items-center">
-        <a href="#"
-        className="nav-link dropdown-toggle"
-        id="userDropdown"
-       onClick={(e) => e.preventDefault()}
-        > {/*a태그의 기본 클릭이벤트 (페이지 최상단으로 올라가는 현상을 )막기위해 */}
-<span className="mr-2 d-none d-lg-inline text-gray-600 small"
+<S.UserMenuContainer>
+<S.UserProfileToggle
+onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 >
-{userName}
-</span>
-<img className="img-profile rounded-circle"
-src="./img/profile.jpg"
-alt="프로필이미지"
-/>        
-        </a>
-        {/*로그아웃 버튼 추가 */}
-        <button 
-        onClick={handleLogout}
-        className="btn btn-sm btn-outline-secondary ml-2"
-        >
-로그아웃
-        </button>
+<span>{userName}</span>
+<img src="./img/profile.jpg" alt="프로필이미지"/>
+</S.UserProfileToggle>
+
+<S.DropdownMenu $isOpen={isDropdownOpen}>
+
+<S.DropdownItem>
+    <i className="fas fa-user fa-sm fa-fw"></i>
+    profile
+</S.DropdownItem>
+
+<S.DropdownItem>
+    <i className="fas fa-cogs fa-sm fa-fw"></i>
+    Settings
+</S.DropdownItem>
+
+<S.DropdownItem>
+    <i className="fas fa-list fa-sm fa-fw"></i>
+    Activity
+</S.DropdownItem>
+
+<S.DropdownDivider/>
+
+<S.DropdownItem
+onClick={handleLogout}
+>
+<i className="fas fa-sign-out-alt fa-sm fa-fw"></i> 
+Logout   
+</S.DropdownItem>
+
+
+</S.DropdownMenu>
+
+
+
+</S.UserMenuContainer>       
     </li>
 </S.TopbarNavbar>
 
