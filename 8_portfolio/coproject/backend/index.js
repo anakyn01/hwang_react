@@ -710,7 +710,7 @@ if (err2) return res.status(500).json({message:'문의 통계 에러'});
 const contacts = contactStats[0];
 
 //해결률(%) 계산하기 문의가 1개라도 있을 때만 계산합니다.
-const resolvRate = contacts.totalInquiries > 0
+const resolveRate = contacts.totalInquiries > 0
 //해결된 건수 / 전체 건수 * 100을 한 뒤, 
 //Math.round()로 소수점을 반올림하여 깔끔한 % 숫자로 만듭니다.
 ? Math.round((contacts.resolved / contacts.totalInquiries) * 100)

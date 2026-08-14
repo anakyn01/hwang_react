@@ -122,7 +122,71 @@ className="text-xs font-weight-bold text-success text-uppercase mb-1">
         <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={stats.traffic}>
             <CartesianGrid strokeDasharray="3 3"/>
+            <XAxis dataKey="name"/>
+            <YAxis/>
+            <Tooltip/>
+<Area type="monotone" 
+dataKey="접속량" stroke="#1cc88a" fill="#1cc88a"
+fillOpacity={0.3}/>
             </AreaChart>
+        </ResponsiveContainer>
+    </Card.Body>
+</Card>
+</Col>
+
+{/*일반문의 클레임양 (bar chart)*/}
+<Col xl={8} lg={7} className='mb-4'>
+<Card className='mb-4'>
+    <Card.Header>
+        <h6 className='m-0 font-weight-bold text-info'>
+            주차별 문의 및 클레임 접수량..
+        </h6>
+
+    </Card.Header>
+    <Card.Body>
+        <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={stats.inquiriesVsClaims}>
+<CartesianGrid strokeDasharray="3 3"/>
+            <XAxis dataKey="name"/>
+            <YAxis/>
+            <Tooltip/>
+<Legend/>
+<Bar dataKey="일반문의" fill="#36b9cc"/>
+<Bar dataKey="클레임" fill="#f6c23e"/>
+            </BarChart>
+        </ResponsiveContainer>
+    </Card.Body>
+
+</Card>
+</Col>
+
+<Col xl={4} lg={5} className='mb-4'>
+<Card className='shadow mb-4'>
+    <Card.Header className='py-3'>
+        <h6 className='m-0 font-weight-bold text-danger'>
+        문의/클레임 해결 상태 (실제 데이터)    
+        </h6>
+    </Card.Header>
+    <Card.Body>
+        <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+                <Pie
+data={stats.claimRate}
+cx="50%"
+cy="50%"
+innerRadius={60}
+outerRadius={90}
+paddingAngle={5}
+dataKey="value"
+label                
+                >
+{stats.claimRate.map((entry:any, index:number) => (
+<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/> 
+))}                    
+                </Pie>
+<Tooltip/>
+<Legend verticalAlign="bottom" height={36}/>                
+            </PieChart>
         </ResponsiveContainer>
     </Card.Body>
 </Card>
