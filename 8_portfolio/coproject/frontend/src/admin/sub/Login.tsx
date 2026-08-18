@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Temporal } from '@js-temporal/polyfill';
 import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -32,6 +33,12 @@ alert(`${response.data.name}님, ${response.data.message}`);
 
 //로그인후 저장된 이름이 보이게 하려면 이결추가 브라우저 저장소
 localStorage.setItem('userName', response.data.name);
+
+const expiryTime = Temporal.Now.instant().add({hours:1});
+//const expiryTime = now + (1000밀리초 * 60초 * 60분);
+
+//localStorage.setItem('userName', user.first_name);
+localStorage.setItem('loginExpiry', expiryTime.toString());
 
 
 navigate('/admin');

@@ -1,4 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { ProtectedRoute } from './admin/ProtectedRoute';
 
 
 import Header from "./include/Header"
@@ -33,18 +34,18 @@ function App() {
   <Home/>
   <Footer/>  
     </div>}/>
-    <Route path="/admin" element={<DashBoard/>} />
+    <Route path="/admin" element={<ProtectedRoute><DashBoard/></ProtectedRoute>} />
     <Route path="/join" element={<Join/>} />
     <Route path="/login" element={<Login/>} />
-    <Route path="/userlist" element={<UserList/>} />
+    <Route path="/userlist" element={<ProtectedRoute><UserList/></ProtectedRoute>} />
     <Route path="/headersetting" element={<HeaderSetting/>} />
     <Route path="/bannersetting" element={<BannerSetting/>} />
-    <Route path="/worksetting" element={<WorkSetting/>} />
-    <Route path="/wearesetting" element={<WeAreSetting/>} />
-    <Route path="/blogsetting" element={<BlogSetting/>} />
-    <Route path="/mapsetting" element={<MapSetting/>} />
-    <Route path="/contactsetting" element={<ContactSetting/>} />
-    <Route path="/search" element={<SearchResult/>} />
+    <Route path="/worksetting" element={<ProtectedRoute><WorkSetting/></ProtectedRoute>} />
+    <Route path="/wearesetting" element={<ProtectedRoute><WeAreSetting/></ProtectedRoute>} />
+    <Route path="/blogsetting" element={<ProtectedRoute><BlogSetting/></ProtectedRoute>} />
+    <Route path="/mapsetting" element={<ProtectedRoute><MapSetting/></ProtectedRoute>} />
+    <Route path="/contactsetting" element={<ProtectedRoute><ContactSetting/></ProtectedRoute>} />
+    <Route path="/search" element={<ProtectedRoute><SearchResult/></ProtectedRoute>} />
     </Routes>
     </BrowserRouter>
 
