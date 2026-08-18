@@ -1,19 +1,19 @@
-const oracledb = require('oracledb');
-require('dotenv').config();
+require("dotenv").config();
+require("reflect-metadata");
+const { DataSource} = require("typeorm");
+const User = require("./src/entity/User");
 
-async function initalize(){
-    try{
-await oracledb.createPool({
-    user:process.env.DB_USER,
+const AppDataSource = new DataSource({
+    type:"oracle",
+    username:process.env.DB_USER,
     password:process.env.DB_PASSWORD,
     connectString:process.env.DB_CONNECTION_STRING,
-    poolMin:10,
-    poolMax:10,
-    poolIncrement:0
-})
-console.log('Oracle 커넥션 풀이 성공적으로 생성되었습니다.');
-    }catch(err){
-console.error('Oracle DB 연결 실패:', err);
+    synchronize:true,
+    logging:true,
+    entities:[User],
+    extra:{
+        poolMin:2, poolMax:10, poolIncrement:1
     }
-}
-module.exports = {initalize};
+});
+
+module.exports = AppDataSource;
