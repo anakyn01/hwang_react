@@ -1,12 +1,21 @@
-import React from 'react';
+
+import React,{useState} from 'react';
 import { SidebarContainer,
- SidebarBrand, NavItem, NavLink, Divider, ToggleButton   
+ SidebarBrand, NavItem, NavLink, Divider, ToggleButton , SidebarWrapper  
  } from './Sidebar.styled';
 
 export const Sidebar:React.FC = () => {
+
+    const [isOpen, setIsOpen] = useState(true);
+//버튼 클릭시 상태를 반대로 바꾸는 함수
+const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+};
+
     return(
         <>
-<SidebarContainer 
+<SidebarWrapper $isOpen={isOpen}>       
+<SidebarContainer $isOpen={isOpen}
 className='sidebar sidebar-dark accordion'
 >
     <SidebarBrand href="/">
@@ -78,7 +87,15 @@ className='sidebar sidebar-dark accordion'
 
                 </NavItem>
 
+              
+
 </SidebarContainer>
+
+ <ToggleButton onClick={toggleSidebar}>
+<i className={isOpen ? 'fas fa-chevron-left' : 'fas fa-chevron-right'}></i>
+</ToggleButton> 
+
+</SidebarWrapper> 
         </>
     )
 }
