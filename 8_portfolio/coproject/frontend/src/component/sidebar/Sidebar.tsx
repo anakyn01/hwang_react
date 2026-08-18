@@ -1,6 +1,6 @@
 import React from 'react';
 import { SidebarContainer,
- SidebarBrand, NavItem, NavLink, Divider   
+ SidebarBrand, NavItem, NavLink, Divider, ToggleButton   
  } from './Sidebar.styled';
 
 export const Sidebar:React.FC = () => {
