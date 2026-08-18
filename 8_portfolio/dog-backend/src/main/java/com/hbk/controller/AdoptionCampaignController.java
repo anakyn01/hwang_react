@@ -48,18 +48,18 @@ public List<AdoptionCampaign> getCampaigns(@RequestParam(required = false) Strin
     public ResponseEntity<?> registerCampaign(
 @RequestBody AdoptionCampaignRequest request, HttpServletRequest httpRequest) {
 // 세션 검사 (신분 확인 단계)
-        HttpSession session = httpRequest.getSession(false);
+        //HttpSession session = httpRequest.getSession(false);
 /*
 접속한 사람의 주머니(세션)를 뒤져봅니다. (false)는 "주머니가 없으면
 새로 만들지 말고 그냥 없다고(null) 해라"라는 뜻입니다.
  */
-        if (session == null || session.getAttribute("adminName") == null) {
+        //if (session == null || session.getAttribute("adminName") == null) {
  /*
 주머니(세션) 자체가 없거나, 주머니 안에
  "adminName"이라는 관리자 신분증이 없다면 실행되는 조건문입니다.
  * */
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AdoptionCampaignResponse("관리자 로그인이 필요한 서비스 입니다"));
-        }
+            //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AdoptionCampaignResponse("관리자 로그인이 필요한 서비스 입니다"));
+        //}
         try {
 // 서비스에 요청(request) 데이터를 넘겨서 DB에 저장하라고 시킵니다.
             adoptionCampaignService.registerCampaign(request);

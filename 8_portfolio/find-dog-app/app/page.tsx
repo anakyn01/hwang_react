@@ -29,15 +29,28 @@ interface Animal {
   weight:number;
   imageUrl:string;
 }
+//[추가] 2. 백엔드에서 넘어올 캠페인 데이터 타입 정의
+interface Campaign{
+  id:number; hashtag:string; content:string;
+  thumbnailUrl:string; mediaType:string;
+  mediaUrl:string;
+}
+
+//탭에 보여줄 해시태그 목록(배열관리)
+const campaignHashtags = ['#제주입양','#임시보호','#치료지원'];
+
 
 export default function  HomePage(){
 //해시태그 상태 관리 (기본값으로 '#제주입양' 선택)
 const [activeHashtag, setAtiveHashtag] = useState('#제주입양');
 
-
 //2. 동물 리스트 상태 관리
 const [animals, setAnimals] = useState<Animal[]>([]);
 const [isLoading, setIsLoading] = useState(true);
+
+//✨ [추가] 캠페인 리스트 상태 관리
+const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+const [isCampaignLoading, setIsCampaignLoading] = useState(true);
 
 useEffect(() => {
   fetch('/api/animals/recommended')
@@ -53,9 +66,27 @@ useEffect(() => {
   })
 },[]);
 
+//✨ [추가] 캠페인 데이터 불러오기 (activeHashtag가 바뀔 때마다 실행!)
+useEffect(() => {
+setIsCampaignLoading(true);
+
+const url =`/api/campaigns?hashtag=${encodeURIComponent(activeHashtag)}`;
+fetch(url).then((res) => {
+  if(!res.ok) throw new Error('캠페인 네트워크 응답이 정상이 아닙니다');
+  return res.json();
+}).then((data) => {
+  setCampaigns(data);
+  setIsCampaignLoading(false);
+}).catch((error) => {
+  console.error('캠페인 API 호출에러: ', error);
+  setIsCampaignLoading(false);
+})
+
+},[activeHashtag]);
+
 
 // 💡 2. 사진과 완벽히 똑같이 보일 테스트용 데이터! (나중에는 백엔드에서 받아오게 됩니다)
-  const campaignHashtags = ['#제주입양', '#외부기생충예방', '#사료건강', '#위생'];
+  //const campaignHashtags = ['#제주입양', '#외부기생충예방', '#사료건강', '#위생'];
   const mockCampaigns = [
     {
       id: 1,
@@ -175,11 +206,17 @@ onClick={() => setAtiveHashtag(tag)}
   </S.HashtagScroll>
 
   <S.HorizontalScroll>
-    {mockCampaigns.map((item) => (
+    {/* {mockCampaigns.map((item) => ( */}
+    {isCampaignLoading ? (
+      <S.StatusText>캠페인을 불러오는 중입니다..</S.StatusText>
+    ): campaigns.length === 0 ? (
+      <S.StatusText>해당 해시태그의 캠페인이 없습니다</S.StatusText>
+    ):(
+      campaigns.map((item) => (
 <S.CampaignCard key={item.id}>
   <S.CampaignMediaWrap>
-    <S.CampaignImg src={item.imageUrl} alt={item.title}/>
-    {item.isVideo && (
+    <S.CampaignImg src={item.thumbnailUrl} alt={item.title}/>
+    {item.mediaType !== 'IMAGE' && (
       <S.PlayIconWrap>
         <PlayArrowIcon style={{fontSize:'18px'}}/>
       </S.PlayIconWrap>
@@ -190,11 +227,11 @@ onClick={() => setAtiveHashtag(tag)}
       {item.title}
     </S.CampaignCardTitle>
     <S.CampaignCardDesc>
-      {item.desc}
+      {item.content}
     </S.CampaignCardDesc>
   </S.CampaignTextWrap>
 </S.CampaignCard>      
-    ))}
+    )))}
   </S.HorizontalScroll>
 </S.Section>
 

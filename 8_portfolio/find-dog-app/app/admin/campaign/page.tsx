@@ -19,11 +19,50 @@ export default function AdoptionCampaignAdmin(){
         mediaType:'IMAGE',
         mediaUrl:'',
     });
+/*
+유튜브 영상은 고유의 ID(11자리)만 뽑아내면, 
+유튜브 서버에서 제공하는 공식 썸네일 이미지 주소를 조합해서 
+자동으로 가져올 수 있습니다
+*/
+//url이라는 문자열(string)을 입력받는 함수를 선언
+const extractYoutubeId = (url: string) => {
+/*유튜브 URL의 다양한 패턴을 모두 잡아내는 '정규식(규칙)'을 만듭니다.
+^.* : 주소의 맨 처음(^)부터 시작해서 아무 글자(.*)나 있어도 일단 통과시킵니다.
+(youtu.be\/ | v\/  | embed\/ | whatch\?v= | \&v=) :[그룹 1]
+유튜브 주소는 형태가 아주 다양합니다. (모바일용, 공유용, 퍼가기용 등)
+이 부분은 "이런저런 글자 뒤에 요런 패턴들이 나오면 집중해!"라는 뜻입니다. (| 기호는 '또는(OR)'을 의미합니다)
+[^#\&\?]* 비디오 아이디가 담기는곳
+^... 제외하고 라는 뜻
+, 해시태그(#)나 앰퍼샌드(&), 물음표(?)가 나오기 전까지의 모든 
+글자를 캡처해서 '그룹 2'에 저장하라는 뜻입니다
+왜냐하면 유튜브 주소 뒤에 &t=30s (시간재생) 같은 
+꼬리표가 붙을 수 있는데, 
+이걸 잘라내고 순수 ID만 얻기 위해서
+*/
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+//입력받은 url을 방금 만든 규칙에 맞춰서 검사합니다
+    const match = url.match(regExp);
+//검사 결과가 유효한지 최종확인하고 값을 돌려 줍니다    
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
 
     //일반 입력값 변경 핸들러
     const handleChange = (e:React.ChangeEvent<any>) => {
         const {name, value} =e.target;
-        setFormData(prev => ({...prev, [name]: value}));
+        setFormData(prev => {
+            const newData = {...prev, [name]: value};
+//만약 방금 입력한 게 'mediaUrl(영상 주소)'이고, 현재 모드가 'YOUTUBE'라면?
+if(name === 'mediaUrl' && newData.mediaType === 'YOUTUBE'){
+    const videoId = extractYoutubeId(value);
+    // 유튜브 ID 추출에 성공했다면 썸네일 주소를 자동으로 완성해 줍니다!
+    if(videoId){
+newData.thumbnailUrl=`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    }
+}
+return newData;
+
+           });
     }
 
     //미디어 타입(라디오버튼)변경 핸들러
