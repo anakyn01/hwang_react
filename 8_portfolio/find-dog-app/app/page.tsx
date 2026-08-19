@@ -84,31 +84,39 @@ fetch(url).then((res) => {
 
 },[activeHashtag]);
 
+// ==========================================
+  // ✨ [추가] 3개의 신규 섹션을 위한 테스트용(Mock) 데이터
+  // 향후 백엔드 API가 완성되면 useState와 useEffect로 교체될 데이터들입니다.
+  // ==========================================
 
-// 💡 2. 사진과 완벽히 똑같이 보일 테스트용 데이터! (나중에는 백엔드에서 받아오게 됩니다)
-  //const campaignHashtags = ['#제주입양', '#외부기생충예방', '#사료건강', '#위생'];
-  const mockCampaigns = [
-    {
-      id: 1,
-      title: '제주-제주-2026-01786',
-      desc: '2026(60일미만)(년생)/암컷/0.6(Kg)',
-      imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=300', // 임시 강아지 사진
-      isVideo: true // 동영상이면 썸네일에 플레이 버튼이 뜹니다!
-    },
-    {
-      id: 2,
-      title: '제주-제주-2026-01782',
-      desc: '2026(60일미만)(년생)/암컷/1.1(Kg)',
-      imageUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=300',
-      isVideo: true
-    },
-    {
-      id: 3,
-      title: '제주-제주-2026-01789', // 사진 전용 게시물 예시
-      desc: '2026(60일미만)(년생)/수컷/0.9(Kg)',
-      imageUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=300',
-      isVideo: false // false면 사진이므로 플레이 버튼이 뜨지 않음
-    }
+  // 1. 유튜브 섹션 (2단 그리드용)
+  const mockYoutubes = [
+    { id: 1, title: '가족을 만난 제주 유기견 오름이, 아직 마음이 무거운 이유', thumbnailUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=400' },
+    { id: 2, title: '좁은 뜬장에서 따뜻한 집으로, 멈춰버린 유기견의 시간을 다시 돌립니다', thumbnailUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=400' },
+    { id: 3, title: '"세상이 무서운 아이"와 "세상이 늘 즐거운 아이"', thumbnailUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=400' },
+    { id: 4, title: '"나는 세상이 너무 무서워요.." 입질하던 유기견, 용기를 냈어요', thumbnailUrl: 'https://images.unsplash.com/photo-1537151608804-ea9d178a12c4?q=80&w=400' },
+  ];
+
+  // 2. 펠로우 소식 (3단 그리드용 - 글, 이미지, 첨부파일 등 포함 가능)
+  const mockFellowNews = [
+    { id: 1, title: '완두의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=300' },
+    { id: 2, title: '꼬꼬의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1534361960057-19889db9621e?q=80&w=300' },
+    { id: 3, title: '간장이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=300' },
+    { id: 4, title: '아깽이들이 왔습니다!', imageUrl: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=300' },
+    { id: 5, title: '게장이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1588152528731-89382f6e5e8e?q=80&w=300' },
+    { id: 6, title: '공원이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1529429617124-95b109e86bb8?q=80&w=300' },
+  ];
+
+  // 3. 도움이 필요해요 (4단 정사각형 그리드용)
+  const mockNeedsHelp = [
+    { id: 1, imageUrl: 'https://images.unsplash.com/photo-1593134257782-e89567b7718a?q=80&w=200' },
+    { id: 2, imageUrl: 'https://images.unsplash.com/photo-1544568100-847a948585b9?q=80&w=200' },
+    { id: 3, imageUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?q=80&w=200' },
+    { id: 4, imageUrl: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?q=80&w=200' },
+    { id: 5, imageUrl: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=200' },
+    { id: 6, imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=200' },
+    { id: 7, imageUrl: 'https://images.unsplash.com/photo-1560743641-3914f2c45636?q=80&w=200' },
+    { id: 8, imageUrl: 'https://images.unsplash.com/photo-1598133894008-61f4fbc72c20?q=80&w=200' },
   ];
 
 
@@ -235,6 +243,8 @@ onClick={() => setAtiveHashtag(tag)}
   </S.HorizontalScroll>
 </S.Section>
 
+
+
 {/*통계 */}
 <S.Section $bgLight>
 
@@ -276,3 +286,32 @@ onClick={() => setAtiveHashtag(tag)}
     </>
   );
 }
+
+/*
+// 💡 2. 사진과 완벽히 똑같이 보일 테스트용 데이터! (나중에는 백엔드에서 받아오게 됩니다)
+  //const campaignHashtags = ['#제주입양', '#외부기생충예방', '#사료건강', '#위생'];
+  const mockCampaigns = [
+    {
+      id: 1,
+      title: '제주-제주-2026-01786',
+      desc: '2026(60일미만)(년생)/암컷/0.6(Kg)',
+      imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=300', // 임시 강아지 사진
+      isVideo: true // 동영상이면 썸네일에 플레이 버튼이 뜹니다!
+    },
+    {
+      id: 2,
+      title: '제주-제주-2026-01782',
+      desc: '2026(60일미만)(년생)/암컷/1.1(Kg)',
+      imageUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=300',
+      isVideo: true
+    },
+    {
+      id: 3,
+      title: '제주-제주-2026-01789', // 사진 전용 게시물 예시
+      desc: '2026(60일미만)(년생)/수컷/0.9(Kg)',
+      imageUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=300',
+      isVideo: false // false면 사진이므로 플레이 버튼이 뜨지 않음
+    }
+  ];
+
+*/
