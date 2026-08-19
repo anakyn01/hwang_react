@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components';
-
+import { PlayArrow as PlayArrowIcon } from '@mui/icons-material';
 
 
 
@@ -346,6 +346,12 @@ font-size:20px; font-weight:500;
 margin-bottom:25px;
 color:#000;
 `;
+export const NewsTitle = styled.p`
+margin-top:6px; font-size:.8rem;
+text-align:center;
+white-space:no-wrap; 
+overflow:hidden;
+`;
 
 export const PhotoUploadBottomText = styled.span`
 font-size:12px; 
@@ -669,3 +675,28 @@ white-space:nowrap;
 overflow:hidden;
 etxt-overflow:ellipsis;
 `;
+
+//Thumb
+export const Thumb = styled.div`
+position:relative;
+border-radius:8px;
+overflow:hidden;
+aspect-ratio:16/9;
+`;
+export const VideoThumb = styled.img`
+width:100%; height:100%;
+object-fit:cover;
+`;
+
+//icon
+export const YoutubePlayIcon = styled(PlayArrowIcon)`
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%. -50%);
+color:white;
+font-size:2.5rem;
+opacity:0.9;
+`;
+
+//motion

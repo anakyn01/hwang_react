@@ -243,7 +243,70 @@ onClick={() => setAtiveHashtag(tag)}
   </S.HorizontalScroll>
 </S.Section>
 
+{/* ✨ [신규 추가] 1. 어서찾아주개 유튜브 (2단 그리드) */}
+<S.Section>
+  <S.SectionHeader>
+    <S.SectionTitle>
+      어서찾아주개 유튜브
+    </S.SectionTitle>
+  </S.SectionHeader>
 
+  <MDBRow className='g-2'>
+{mockYoutubes.map((video) => (
+  <MDBCol size="6" key={video.id} className='mb-3'>
+    <S.Thumb>
+      <S.VideoThumb
+src={video.thumbnailUrl}
+alt={video.title}      
+      />
+      <S.YoutubePlayIcon/>
+    </S.Thumb>
+  </MDBCol>
+))}    
+  </MDBRow>
+</S.Section>
+
+{/*펠로우 소식 3단 그리드 */}
+<S.Section>
+  <S.SectionHeader>
+    <S.SectionTitle>
+      펠로우 소식
+    </S.SectionTitle>
+    <S.MoreButton>더보기 &gt</S.MoreButton>
+  </S.SectionHeader>
+  <MDBRow className='g-2'>
+    {mockFellowNews.map((news) => (
+<MDBCol size="4" key={news.id} className="mb-2">
+    <S.Thumb>
+      <S.VideoThumb
+      src={news.imageUrl} alt={news.title}
+      />
+    </S.Thumb>
+    <S.NewsTitle>
+      {news.title}
+    </S.NewsTitle>
+</MDBCol>
+    ))}
+  </MDBRow>
+</S.Section>
+
+<S.Section>
+  <S.SectionHeader>
+    <S.SectionTitle>도움이 필요해요</S.SectionTitle>
+    <S.MoreButton>더보기 &gt;</S.MoreButton>
+  </S.SectionHeader>
+  <MDBRow className='g-1'>
+    {mockNeedsHelp.map((help) => (
+      <MDBCol size="3" key={help.id} className='mb-1'>
+<S.Thumb>
+<S.VideoThumb
+src={help.imageUrl}
+alt="도움이 필요해요"/>
+</S.Thumb>        
+      </MDBCol>
+    ))}
+  </MDBRow>
+</S.Section>
 
 {/*통계 */}
 <S.Section $bgLight>
