@@ -9,11 +9,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="fellow_news")
+@Table(name="need_help")
 @Getter
 @Setter
 @NoArgsConstructor
-public class FellowNews {
+public class NeedHelp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

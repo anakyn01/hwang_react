@@ -9,11 +9,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="youtube_post")
+@Table(name="fellow_news")
 @Getter
 @Setter
 @NoArgsConstructor
-public class YoutubePost {
+public class FellowNews {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +22,18 @@ public class YoutubePost {
     @Column(nullable = false, length=256)
     private String title;
 
-    @Column(name="youtube_url", length=1000, nullable = false)
-    private String youtubeUrl;
+    @Lob
+    @Column(nullable = false)
+    private String content;
 
-    @Column(name="thumbnail_url", length=1000)
-    private String thumbnailUrl;
+    @Column(name="image_url", length=1000)
+    private String imageUrl;
+
+    @Column(name="video_url", length=1000)
+    private String videoUrl;
+
+    @Column(name="attachment_url", length=1000)
+    private String attachmentUrl;
 
     @CreationTimestamp
     @Column(name = "insert_dt", updatable = false)
