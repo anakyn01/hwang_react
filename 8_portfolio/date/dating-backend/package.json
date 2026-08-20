@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "start":"node server.js"
   },
   "keywords": [],
   "type": "commonjs",
@@ -13,5 +14,8 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mysql2": "^3.23.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
