@@ -21,12 +21,13 @@ export default function Intergrate(){
         videoUrl:'',
         attachmentUrl:'',
     });
-
-    const extractYoutubeId = (url: string) => {
-const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+//유튜브에는 숏도 있음
+const extractYoutubeId = (url: string) => {
+const regExp = 
+/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
 const match = url.match(regExp);
 return (match && match[2].length === 11) ? match[2] : null;
-    }
+}
 
     const handleChange = (e:React.ChangeEvent<any>) => {
 const {name, value} =e.target;
@@ -38,7 +39,7 @@ setFormData(prev =>{
         const videoId = extractYoutubeId(value);
         if(videoId){
             newData.thumbnailUrl = 
-            `https://img.youtube.com/vi/${videoId}/hpdefault.jpg`;
+            `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
         }
     }
 return newData;
@@ -86,7 +87,14 @@ if(boardType === 'YOUTUBE'){
     };
 }
 try{
-
+const response = 
+await axios.post(endpoint, payload);
+alert(response.data || '성공적으로 등록되었습니다');
+// 등록 완료 후 폼 비우기
+setFormData({
+ title:'', content:'', youtubeUrl:'', thumbnailUrl:'', 
+ imageUrl:'', videoUrl:'', attachmentUrl:''   
+})
 }catch(error: any){
 console.error('등록에러 :', error);
 alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');

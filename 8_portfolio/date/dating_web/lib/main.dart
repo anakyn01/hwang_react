@@ -6,6 +6,9 @@ import 'dart:convert';
 //JSON 데이터를 다루기 위한 변환 도구 가져오기
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
+//추가 앞으로 여기에 업뎃
+import 'screens/signup_profile_screen.dart';
+
 // 앱이 처음 시작될 때 실행되는 메인 함수
 void main(){
   runApp(const DatingApp());
@@ -20,11 +23,12 @@ const DatingApp({super.key});
 @override
 Widget build(BuildContext context){//UI를 그리는 함수
 return MaterialApp(//구글의 머티리얼 디자인 기준 앱 시작
-title:'Dating Web',
+title:'SPARK Dating Web',
 debugShowCheckedModeBanner: false,// 오른쪽 위 'DEBUG' 띠 숨기기
 theme:ThemeData(//앱 전체의 기본 디자인(테마) 설정
-primarySwatch: Colors.pink,
-scaffoldBackgroundColor: const Color(0xFFF5F5F7),
+//primarySwatch: Colors.pink,
+brightness:Brightness.dark,
+scaffoldBackgroundColor: const Color(0xFF12121A),// 배경색 (다크 네이비)
 ),
 home:const DatingHomeScreen(),
 );
@@ -83,6 +87,9 @@ class _DatingHomeScreenState extends State<DatingHomeScreen>{
   List<Profile> profiles =[];
   //지금 서버에서 데이터를 '가져오는 중'인지 표시하는
   bool isLoading= true;
+
+  //add
+  int _selectedIndex = 0;
 
   @override
   //이 화면이 사용자에게 딱 처음 보여지기 직전에 단 한 번만 실행되는 준비 운동 같은 함수
@@ -144,9 +151,34 @@ body:json.encode({
 Widget build(BuildContext context){
   return Scaffold(//앱의 뼈대(지붕, 바닥, 몸통)를 만들어주는 위젯
 appBar: AppBar(//화면 맨 위에 달리는 상단바
-title: const Text('💘 Dating Match'),
-backgroundColor: Colors.pinkAccent,
-centerTitle: true,
+//add
+backgroundColor:Colors.transparent,
+elevation:0,
+title: const Row(
+  children:[
+Icon(Icons.auto_awesome, color:Color(0xFFFF4B93), size:24),
+SizedBox(width:4),
+Text('SPARK',
+style:TextStyle(color:Color(0xFFFF4B93), fontSize:22,
+fontWeight:FontWeight.w900, letterSpacing:1.2),
+),   
+],
+),
+actions:[
+// 알림 아이콘
+_buildTopIcon(Icons.notifications_none),
+const SizedBox(width:8),
+/*[기능 추가] 설정 아이콘 누르면 프로필
+(회원가입) 화면으로 이동!*/
+GestureDetector(
+  onTap:(){
+Navigator.push(context, MaterialPageRoute(
+  builder: (context) => const SignupProfileScreen()));    
+  },
+  child: _buildTopIcon(Icons.settings_outlined),
+),
+const SizedBox(width: 16),
+],
 ),
 body:isLoading
 ? const Center(child: CircularProgressIndicator())
