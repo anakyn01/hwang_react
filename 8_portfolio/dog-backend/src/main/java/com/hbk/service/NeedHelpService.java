@@ -1,8 +1,10 @@
 package com.hbk.service;
 
-import com.hbk.entity.FellowNews;
-import com.hbk.repository.FellowNewsRepository;
 
+import com.hbk.entity.NeedHelp;
+
+
+import com.hbk.repository.NeedHelpRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,24 +12,24 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly=true)// 기본적으로 읽기 전용으로 설정하여 조회 성능 최적화
-public class FellowNewsService {
+public class NeedHelpService {
 
-    private final FellowNewsRepository fellowNewsRepository;
+    private final NeedHelpRepository needHelpRepository;
 
-    public FellowNewsService(FellowNewsRepository fellowNewsRepository){
-        this.fellowNewsRepository =fellowNewsRepository;
+    public NeedHelpService(NeedHelpRepository needHelpRepository){
+        this.needHelpRepository = needHelpRepository;
     }
     //1. 유튜브 목록 조회 (최신순)
-    public List<FellowNews> getAllFellowNews(){
+    public List<NeedHelp> getAllNeedHelp(){
 
-        return fellowNewsRepository.findAllByOrderByInsertDtDesc();
+        return needHelpRepository.findAllByOrderByInsertDtDesc();
     }
 
     //유튜브 등록
     @Transactional
-    public FellowNews registerFellowNews(FellowNews fellowNews){
+    public NeedHelp registerNeedHelp(NeedHelp needHelp){
 
-        return fellowNewsRepository.save(fellowNews);
+        return needHelpRepository.save(needHelp);
     }
 
 }

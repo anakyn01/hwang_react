@@ -35,6 +35,19 @@ interface Campaign{
   thumbnailUrl:string; mediaType:string;
   mediaUrl:string;
 }
+//add
+interface YoutubePost {
+  id:number; 
+  title:string; 
+  youtubeUrl:string; 
+  thumbnailUrl:string;
+}
+interface FellowNews{
+  id:number; title:string; imageUrl:string;
+}
+interface NeedHelp{
+  id:number; imageUrl:string;
+}
 
 //탭에 보여줄 해시태그 목록(배열관리)
 const campaignHashtags = ['#제주입양','#임시보호','#치료지원'];
@@ -51,6 +64,11 @@ const [isLoading, setIsLoading] = useState(true);
 //✨ [추가] 캠페인 리스트 상태 관리
 const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 const [isCampaignLoading, setIsCampaignLoading] = useState(true);
+//3개 상태관리 추가
+const [youtubePosts, setYoutubePosts] = useState<YoutubePost[]>([]);
+const [fellowNews, setFellowNews] = useState<FellowNews[]>([]);
+const [needHelps, setNeedHelps] = useState<NeedHelp[]>([]);
+
 
 useEffect(() => {
   fetch('/api/animals/recommended')
@@ -63,7 +81,24 @@ useEffect(() => {
   }).catch((error) => {
     console.error('API 호출 에러 :', error);
     setIsLoading(false);
-  })
+  });
+
+  //add
+  fetch('/api/youtube')
+  .then((res) => res.json())
+  .then((data) => setYoutubePosts(data))
+  .catch((error) => console.error('유튜브 데이터 호출에러:',error));
+
+  fetch('/api/fellow-news')
+  .then((res) => res.json())
+  .then((data) => setFellowNews(data))
+  .catch((error) => console.error('펠로우 소식 데이터 호출에러:',error));
+
+  fetch('/api/need-help')
+  .then((res) => res.json())
+  .then((data) => setNeedHelps(data))
+  .catch((error) => console.error('도움이 필요해요 데이터 호출에러:',error));
+
 },[]);
 
 //✨ [추가] 캠페인 데이터 불러오기 (activeHashtag가 바뀔 때마다 실행!)
@@ -84,40 +119,6 @@ fetch(url).then((res) => {
 
 },[activeHashtag]);
 
-// ==========================================
-  // ✨ [추가] 3개의 신규 섹션을 위한 테스트용(Mock) 데이터
-  // 향후 백엔드 API가 완성되면 useState와 useEffect로 교체될 데이터들입니다.
-  // ==========================================
-
-  // 1. 유튜브 섹션 (2단 그리드용)
-  const mockYoutubes = [
-    { id: 1, title: '가족을 만난 제주 유기견 오름이, 아직 마음이 무거운 이유', thumbnailUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=400' },
-    { id: 2, title: '좁은 뜬장에서 따뜻한 집으로, 멈춰버린 유기견의 시간을 다시 돌립니다', thumbnailUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=400' },
-    { id: 3, title: '"세상이 무서운 아이"와 "세상이 늘 즐거운 아이"', thumbnailUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=400' },
-    { id: 4, title: '"나는 세상이 너무 무서워요.." 입질하던 유기견, 용기를 냈어요', thumbnailUrl: 'https://images.unsplash.com/photo-1537151608804-ea9d178a12c4?q=80&w=400' },
-  ];
-
-  // 2. 펠로우 소식 (3단 그리드용 - 글, 이미지, 첨부파일 등 포함 가능)
-  const mockFellowNews = [
-    { id: 1, title: '완두의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=300' },
-    { id: 2, title: '꼬꼬의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1534361960057-19889db9621e?q=80&w=300' },
-    { id: 3, title: '간장이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=300' },
-    { id: 4, title: '아깽이들이 왔습니다!', imageUrl: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=300' },
-    { id: 5, title: '게장이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1588152528731-89382f6e5e8e?q=80&w=300' },
-    { id: 6, title: '공원이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1529429617124-95b109e86bb8?q=80&w=300' },
-  ];
-
-  // 3. 도움이 필요해요 (4단 정사각형 그리드용)
-  const mockNeedsHelp = [
-    { id: 1, imageUrl: 'https://images.unsplash.com/photo-1593134257782-e89567b7718a?q=80&w=200' },
-    { id: 2, imageUrl: 'https://images.unsplash.com/photo-1544568100-847a948585b9?q=80&w=200' },
-    { id: 3, imageUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?q=80&w=200' },
-    { id: 4, imageUrl: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?q=80&w=200' },
-    { id: 5, imageUrl: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=200' },
-    { id: 6, imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=200' },
-    { id: 7, imageUrl: 'https://images.unsplash.com/photo-1560743641-3914f2c45636?q=80&w=200' },
-    { id: 8, imageUrl: 'https://images.unsplash.com/photo-1598133894008-61f4fbc72c20?q=80&w=200' },
-  ];
 
 
   return(
@@ -252,7 +253,7 @@ onClick={() => setAtiveHashtag(tag)}
   </S.SectionHeader>
 
   <MDBRow className='g-2'>
-{mockYoutubes.map((video) => (
+{youtubePosts.map((video) => (//수정
   <MDBCol size="6" key={video.id} className='mb-3'>
     <S.Thumb>
       <S.VideoThumb
@@ -261,6 +262,7 @@ alt={video.title}
       />
       <S.YoutubePlayIcon/>
     </S.Thumb>
+    <p>{video.title}</p>
   </MDBCol>
 ))}    
   </MDBRow>
@@ -275,7 +277,7 @@ alt={video.title}
     <S.MoreButton>더보기 &gt</S.MoreButton>
   </S.SectionHeader>
   <MDBRow className='g-2'>
-    {mockFellowNews.map((news) => (
+    {fellowNews.map((news) => (
 <MDBCol size="4" key={news.id} className="mb-2">
     <S.Thumb>
       <S.VideoThumb
@@ -296,7 +298,7 @@ alt={video.title}
     <S.MoreButton>더보기 &gt;</S.MoreButton>
   </S.SectionHeader>
   <MDBRow className='g-1'>
-    {mockNeedsHelp.map((help) => (
+    {needHelps.map((help) => (
       <MDBCol size="3" key={help.id} className='mb-1'>
 <S.Thumb>
 <S.VideoThumb
@@ -377,4 +379,41 @@ alt="도움이 필요해요"/>
     }
   ];
 
-*/
+// ==========================================
+  // ✨ [추가] 3개의 신규 섹션을 위한 테스트용(Mock) 데이터
+  // 향후 백엔드 API가 완성되면 useState와 useEffect로 교체될 데이터들입니다.
+  // ==========================================
+
+  // 1. 유튜브 섹션 (2단 그리드용)
+  const mockYoutubes = [
+    { id: 1, title: '가족을 만난 제주 유기견 오름이, 아직 마음이 무거운 이유', thumbnailUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=400' },
+    { id: 2, title: '좁은 뜬장에서 따뜻한 집으로, 멈춰버린 유기견의 시간을 다시 돌립니다', thumbnailUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=400' },
+    { id: 3, title: '"세상이 무서운 아이"와 "세상이 늘 즐거운 아이"', thumbnailUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=400' },
+    { id: 4, title: '"나는 세상이 너무 무서워요.." 입질하던 유기견, 용기를 냈어요', thumbnailUrl: 'https://images.unsplash.com/photo-1537151608804-ea9d178a12c4?q=80&w=400' },
+  ];
+
+  // 2. 펠로우 소식 (3단 그리드용 - 글, 이미지, 첨부파일 등 포함 가능)
+  const mockFellowNews = [
+    { id: 1, title: '완두의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=300' },
+    { id: 2, title: '꼬꼬의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1534361960057-19889db9621e?q=80&w=300' },
+    { id: 3, title: '간장이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=300' },
+    { id: 4, title: '아깽이들이 왔습니다!', imageUrl: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=300' },
+    { id: 5, title: '게장이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1588152528731-89382f6e5e8e?q=80&w=300' },
+    { id: 6, title: '공원이의 가족 찾아요♡', imageUrl: 'https://images.unsplash.com/photo-1529429617124-95b109e86bb8?q=80&w=300' },
+  ];
+
+  // 3. 도움이 필요해요 (4단 정사각형 그리드용)
+  const mockNeedsHelp = [
+    { id: 1, imageUrl: 'https://images.unsplash.com/photo-1593134257782-e89567b7718a?q=80&w=200' },
+    { id: 2, imageUrl: 'https://images.unsplash.com/photo-1544568100-847a948585b9?q=80&w=200' },
+    { id: 3, imageUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?q=80&w=200' },
+    { id: 4, imageUrl: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?q=80&w=200' },
+    { id: 5, imageUrl: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=200' },
+    { id: 6, imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=200' },
+    { id: 7, imageUrl: 'https://images.unsplash.com/photo-1560743641-3914f2c45636?q=80&w=200' },
+    { id: 8, imageUrl: 'https://images.unsplash.com/photo-1598133894008-61f4fbc72c20?q=80&w=200' },
+  ];
+
+
+
+  */

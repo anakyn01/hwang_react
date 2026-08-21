@@ -45,9 +45,9 @@ export const Sidebar: React.FC = () => {
                 </S.NavItem>
 
                 <S.NavItem>
-                    <S.NavLink href="/headersetting">
+                    <S.NavLink href="/admin/intergrate">
                         <i className='fas fa-fw fa-cogs'></i>
-                        <span>헤더/nav 설정</span>
+                        <span>통합게시물설정</span>
                     </S.NavLink>
                 </S.NavItem>
 

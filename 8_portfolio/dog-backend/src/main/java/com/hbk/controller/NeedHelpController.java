@@ -1,10 +1,9 @@
 package com.hbk.controller;
 
 import com.hbk.entity.FellowNews;
-import com.hbk.entity.YoutubePost;
+import com.hbk.entity.NeedHelp;
 import com.hbk.service.FellowNewsService;
-import com.hbk.service.YoutubePostService;
-import lombok.RequiredArgsConstructor;
+import com.hbk.service.NeedHelpService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,32 +13,33 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
-@RequestMapping("/api/fellow-news")
-public class FellowNewsController {
+@RequestMapping("/api/need-help")
+public class NeedHelpController {
 
 
-    private final FellowNewsService fellowNewsService;
+    private final NeedHelpService needHelpService;
 
     //생성자
-    public FellowNewsController(FellowNewsService fellowNewsService){
-        this.fellowNewsService = fellowNewsService;
+    public NeedHelpController(NeedHelpService needHelpService){
+
+        this.needHelpService = needHelpService;
     }
 
     //목록 조회 API
     @GetMapping
-    public List<FellowNews> getFellowNews(){
+    public List<NeedHelp> getNeedHelp(){
 
-        return fellowNewsService.getAllFellowNews();
+        return needHelpService.getAllNeedHelp();
     }
 
     @PostMapping
-    public ResponseEntity<?> registerFellowNews(@RequestBody FellowNews fellowNews){
+    public ResponseEntity<?> registerNeedHelp(@RequestBody NeedHelp needHelp){
 try{
-FellowNews savedNews = fellowNewsService.registerFellowNews(fellowNews);
-return ResponseEntity.ok("펠로우 소식이 성공적으로 등록되었습니다.");
+NeedHelp savedHelp = needHelpService.registerNeedHelp(needHelp);
+return ResponseEntity.ok("도움요청글이  성공적으로 등록되었습니다.");
 }catch(Exception e){
  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-         .body("펠로우 소식 등록 중 서버 오류가 발생했습니다.");
+         .body("도움 요청글 등록중 서버 오류가 발생했습니다.");
 }
 
     }
