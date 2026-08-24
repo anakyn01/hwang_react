@@ -20,15 +20,15 @@ export default function Footer(){
 
     <S.ScheduleBlock>
         <S.ScheduleTitle>성형외과</S.ScheduleTitle>
-        <S.ScheduleText>평일:</S.ScheduleText>
-        <S.ScheduleText>야간:</S.ScheduleText>
-        <S.ScheduleText>토요일:</S.ScheduleText>
+        <S.ScheduleText>평일 : AM 09:00 - PM 06:00</S.ScheduleText>
+        <S.ScheduleText>야간 : </S.ScheduleText>
+        <S.ScheduleText>토요일 : PM 09:00 - PM 03:00</S.ScheduleText>
     </S.ScheduleBlock>
 
     <S.ScheduleBlock>
         <S.ScheduleTitle>스킨케어</S.ScheduleTitle>
-        <S.ScheduleText>평일:</S.ScheduleText>
-        <S.ScheduleText>토요일:</S.ScheduleText>
+        <S.ScheduleText>평일 : AM 09:00 - PM 06:00</S.ScheduleText>
+        <S.ScheduleText>토요일 : PM 09:00 - PM 03:00</S.ScheduleText>
     </S.ScheduleBlock>
 
     
@@ -41,27 +41,27 @@ export default function Footer(){
     <S.CompanyInfo>
     <S.CompanyName>안효범 안스성형외과</S.CompanyName>
     <S.InfoText>
-    서울 노원구..
+    서울 노원구 노해로 460 (상계동) 2층 201호
     <br/>
-    (도로명주소 : )
+    (안호범안스성형외과 건물 추차장 이용)
     </S.InfoText>    
 
 <S.InfoText>
-    의료기관 명칭 :
+    의료기관 명칭 : 안호범안스성형외과
     <br/>
     대표번호 02. 932. 2222
     <br/>
-    E-mail : 
+    E-mail : test@test.com
 </S.InfoText>
 </S.CompanyInfo>
 
 <S.BottomRight>
     <S.PolicyButtons>
         <S.PolicyBtn>
-            실비
+            실비보험 안내
         </S.PolicyBtn>
         <S.PolicyBtn>
-            비급여
+            비급여 진료비용 안내
         </S.PolicyBtn>
     </S.PolicyButtons>
 
@@ -69,15 +69,13 @@ export default function Footer(){
         <S.FamilySiteTitle>
             Family
         </S.FamilySiteTitle>
+
         <S.FamilySiteLogos>
-            lorem
+<div className="logo-placeholder">Breast Surgery Center</div>
+<div className="logo-placeholder">Derm</div>
+<div className="logo-placeholder">Lifting Center</div>
         </S.FamilySiteLogos>
-                <S.FamilySiteLogos>
-            lorem
-        </S.FamilySiteLogos>
-                <S.FamilySiteLogos>
-            lorem
-        </S.FamilySiteLogos>
+        
     </div>
 </S.BottomRight>
 

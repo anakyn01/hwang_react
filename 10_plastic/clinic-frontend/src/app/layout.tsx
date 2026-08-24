@@ -1,5 +1,6 @@
 import Header from "@/component/Header";
 import Footer from "@/component/Footer";
+import QuickConsultBar from "@/component/QuickConsultBar";
 
 /*import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }:{children:React.ReactNode}) {
       {children}
       </main>
       <Footer/>
+      <QuickConsultBar/>
       </body>
     </html>
   );
