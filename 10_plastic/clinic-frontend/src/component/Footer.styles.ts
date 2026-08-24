@@ -158,7 +158,7 @@ border-radius:15px;
 
 //floating
 export const FlaotingMenu = styled.div`
-position:fixed; right:30px; bottom:50px;
+position:fixed; right:30px; bottom:90px;
 display:flex; flex-direction:column;
 gap:15px; z-index:100;
 @media (max-width: 768px) {

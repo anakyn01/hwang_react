@@ -1,6 +1,8 @@
 import Header from "@/component/Header";
 import Footer from "@/component/Footer";
 import QuickConsultBar from "@/component/QuickConsultBar";
+import EventModal from "@/component/EventPopup";
+import EventPopup from "@/component/EventPopup";
 
 /*import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -31,6 +33,7 @@ export default function RootLayout({ children }:{children:React.ReactNode}) {
       </main>
       <Footer/>
       <QuickConsultBar/>
+      <EventPopup/>
       </body>
     </html>
   );

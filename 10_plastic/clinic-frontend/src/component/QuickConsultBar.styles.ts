@@ -6,7 +6,7 @@ width:100%;
 background-color:rgba(17,17,17,0.95);
 border-top:1px solid #333;
 backdrop-filter:blur(5px);
-z-index:90;
+z-index:99999;
 
 @media (max-width: 1024px) {
 display:none;
@@ -64,9 +64,55 @@ margin:0 10px;
 `;
 export const CheckboxLabel = styled.label`
 display:flex; align-items:center;
-margin:0 10px;
+gap:6px;
+cursor:pointer;
 `;
-export const Checkbox = styled.input``;
-export const AgreeText = styled.span``;
-export const DetailLink = styled.span``;
-export const SubmitBtn = styled.button``;
+export const Checkbox = styled.input`
+appearance:none;
+width:16px; height:16px;
+background-color:#333;
+border:1px solid #555;
+position:relative;
+cursor:pointer;
+
+&:checked {
+background-color:#6a6446;
+border-color:#6a6446;
+}
+
+/*체크 마크 생성*/
+&:checked::after{
+content:'✔';
+position:absolute;
+top:50%; left:50%;
+transform: translate(-50%, -50%);
+color:#111;
+font-size:10px;
+}
+`;
+export const AgreeText = styled.span`
+color:#aaa;
+font-size:13px;
+`;
+export const DetailLink = styled.span`
+color:#888;
+font-size:12px;
+text-decoration:underline;
+margin-left:6px;
+cursor:pointer;
+&:hover{color:#fff;}
+`;
+export const SubmitBtn = styled.button`
+height:44px;
+background-color:#6a6446;
+color:#1d1d1d;
+border:none;
+padding:0 24px;
+font-size:15px;
+font-weight:900;
+cursor:pointer;
+transition:background-color 0.2s;
+&:hover{
+background-color:#85805e;
+}
+`;
