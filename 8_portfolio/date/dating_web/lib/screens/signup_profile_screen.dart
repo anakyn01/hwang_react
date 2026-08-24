@@ -187,27 +187,142 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
 
   // 메인 사진 등록 박스 디자인
   Widget _buildMainPhotoBox() {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    return Container(
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: borderColor, width: 1.5),
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.camera_alt, color: subTextColor, size: 32),
+              const SizedBox(height: 8),
+              Text(
+                '대표 사진',
+                style: TextStyle(color: subTextColor, fontSize: 12),
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 12,
+            left: 12,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [pinkAccent, purpleAccent]),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text(
+                '메인',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ); // (👈 에러 방지용 임시 빈 칸)
   }
 
   //서브 사진 등록 박스 디자인 (간단한 + 모양)
   Widget _buildSubPhotoBox() {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    return Container(
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: borderColor, width: 1.5),
+      ),
+      child: Center(child: Icon(Icons.add, color: subTextColor, size: 28)),
+    ); // (👈 에러 방지용 임시 빈 칸)
   }
 
   // 🧱 부품 4: 닉네임 입력 칸
   Widget _buildNicknameSection() {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('닉네임'),
+        const SizedBox(height: 8),
+        _buildTextField(hint: '별빛소나타'),
+      ],
+    );
   }
 
   // 🧱 부품 5: 나이와 성별 입력 칸 (한 줄에 나란히 배치)
   Widget _buildAgeAndGenderSection() {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    return Row(
+      children: [
+        //나이 입력창 (화면 비율 4 차지)
+        Expanded(
+          flex: 4,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSectionTitle('나이'),
+              const SizedBox(height: 8),
+              _buildTextField(hint: '27', isNumber: true),
+            ],
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          flex: 6,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSectionTitle('성별'),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(child: _buildGenderButton('여성')),
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildGenderButton('남성')),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    ); // (👈 에러 방지용 임시 빈 칸)
   }
 
   // 성별 버튼 디자인 및 클릭 시 색상 변경 로직
   Widget _buildGenderButton(String gender) {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    bool isSelected = _selectedGender == gender;
+    //현재 내가 선택한 성별인지 확인합니다.
+    return GestureDetector(
+      // 터치 이벤트를 감지하는 위젯입니다.
+      onTap: () {
+        setState(() => _selectedGender = gender);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: isSelected ? pinkAccent.withOpacity(0.1) : cardColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected ? pinkAccent : Colors.transparent,
+            width: 1.5,
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          gender,
+          style: TextStyle(
+            color: isSelected ? pinkAccent : subTextColor,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    ); // (👈 에러 방지용 임시 빈 칸)
   }
 
   // 🧱 부품 6: 자기소개 입력 칸
