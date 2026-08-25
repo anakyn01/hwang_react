@@ -100,6 +100,10 @@ onChange={(e) => setTermsAgreed(e.target.checked)}
             checked={privacyAgreed}
             onChange={(e) => setPrivacyAgreed(e.target.checked)}
             />
+
+{/* 👇 이 부분이 통째로 빠져 있었습니다! 추가해 주세요. */}
+<S.TermTitle>개인정보 수집 및 이용 (필수)</S.TermTitle>
+
         </S.CheckboxLabel>
 
 <S.ToggleButton onClick={() => setIsPrivacyOpen(!isPrivacyOpen)}>

@@ -1,21 +1,49 @@
 const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-    name:"User",
-    tableName:"USERS",
+    name:"Member",
+    tableName:"MEMBER_TB",
     columns:{
-        id:{
-primary:true, type:"number",
+        USER_IDX:{
+primary:true, 
+type:"number",
 generated:"increment",             
-        },
-        username:{
-type:"varchar2", length:50, unique:true,            
-        },
-        password:{
-type:"varchar2", length:100,            
-        },
-        phone:{
-type:"varchar2", length:100, nullable:false,             
-        }
-    },
+},
+USER_NAME:{
+type:"varchar2", 
+length:50, 
+nullable:false,            
+},
+USER_ID:{
+type:"varchar2", 
+length:50, 
+unique:true,
+nullable:false,            
+},
+USER_PW:{
+type:"varchar2", 
+length:100,
+nullable:false,            
+},
+EMAIL:{
+type:"varchar2",length:100,nullable:false,         
+},
+PHONE:{
+type:"varchar2", 
+length:20, 
+nullable:false,             
+},
+IS_SNS_AGREED:{
+type:"char", length:1, default:"N", nullable:false,       
+},
+GENDER:{
+type:"varchar2",
+length:10,
+nullable:true,        
+},
+REG_DATE:{
+type:"date",
+createDate:true,        
+}
+},
 });

@@ -147,17 +147,87 @@ width:100%;
 `;
 
 //회원가입 폼(step 2)
-export const PageTitle= styled.h2``;
-export const FormContainer = styled.div``;
-export const FormGroup = styled.div``;
-export const Label = styled.label``;
-export const Input = styled.input``;
-export const EmailWrapper = styled.div``;
-export const Select = styled.select``;
-export const SubCheckboxLabel = styled.label``;
-export const RadioWrapper = styled.div``;
-export const RadioLabel = styled.label``;
-export const RadioInput = styled.input``;
+export const PageTitle= styled.h2`
+text-align:center; font-size:28px;
+font-weight:900; margin-bottom:40px;
+`;
+export const FormContainer = styled.div`
+width:100%; display:flex; flex-direction:column;
+gap:24px; margin-top:20px;
+`;
+export const FormGroup = styled.div`
+display:flex; flex-direction:column;
+gap:10px;
+`;
+export const Label = styled.label`
+font-size:15px; font-weight:bold;
+color:#111;
+`;
+export const Input = styled.input`
+width:100%; height:50px;  padding:0 15px;
+border:1px solid #e5e5e5;
+font-size:15px;
+outline:none;
+
+&::placeholder{color:#aaa;}
+&:focus{border-color:#111;}
+`;
+export const EmailWrapper = styled.div`
+display:flex; gap:10px;
+@media(max-width: 480px) {
+flex-direction:column;
+}
+`;
+export const Select = styled.select`
+width:100%; height:50px; padding:0 15px;
+border:1px solid #e5e5e5;
+font-size:15px;
+color:#555;
+outline:none;
+background-color:#fff;
+`;
+export const SubCheckboxLabel = styled.label`
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 14px;
+color: #333333;
+cursor: pointer;
+margin-top: 5px;
+`;
+export const RadioWrapper = styled.div`
+display: flex;
+align-items: center;
+gap: 30px;
+height:50px;
+`;
+export const RadioLabel = styled.label`
+display: flex;
+align-items: center;
+gap: 8px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+`;
+export const RadioInput = styled.input`
+appearance:none;
+width:20px; height:20px;
+border:1px solid #ccc;
+border-radius:50%;
+outline:none;
+cursor:pointer;
+position:relative;
+&:checked{border-color:#111;}
+&:checked::after{
+content:'';
+position:absolute;
+top:50%; left:50%;
+transform:translate(-50%, -50%);
+width:15px; height:15px;
+border-radius:50%;
+background-color:#111;
+}
+`;
 
 export const Container = styled.div``;
 export const Title = styled.h2``;
