@@ -42,7 +42,9 @@ export default function Header(){
     </S.IconButton>
 
     <S.IconButton aria-label='My page'>
+        <Link href="http://localhost:3000/register/terms">
         <UserIcon/>
+        </Link>
     </S.IconButton>
 </S.DesktopOnly>
 

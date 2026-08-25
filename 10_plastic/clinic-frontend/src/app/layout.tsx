@@ -1,8 +1,16 @@
+"use client";
+import styled from 'styled-components';
 import Header from "@/component/Header";
 import Footer from "@/component/Footer";
 import QuickConsultBar from "@/component/QuickConsultBar";
-import EventModal from "@/component/EventPopup";
 import EventPopup from "@/component/EventPopup";
+import { GlobalStyle} from "@/style/GlobalStyle";
+
+//헤더에 크기때문에 픽스했을때 잘리는 크기만큼..패딩 or 마진
+const MainWrapper = styled.main`
+padding-top:91px;
+min-height:100vh;
+`;
 
 /*import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -26,11 +34,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }:{children:React.ReactNode}) {
   return (
     <html lang="ko">
-      <Header/>
+   
       <body className="min-h-full flex flex-col">
-      <main>
+      <GlobalStyle />  
+           <Header/>
+      <MainWrapper>
       {children}
-      </main>
+      </MainWrapper>
       <Footer/>
       <QuickConsultBar/>
       <EventPopup/>

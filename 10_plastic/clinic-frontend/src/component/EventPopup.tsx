@@ -1,5 +1,7 @@
 "use client";
 import React, {useState} from 'react';
+//현재 url경로를 가져오는 후크추가
+import {usePathname} from 'next/navigation';
 import * as S from './EventPopup.styles';
 
 const POPUP_LIST = [
@@ -18,6 +20,9 @@ const POPUP_LIST = [
 ];
 
 export default function EventPopup () {
+//현재경로 확인
+const pathname = usePathname();
+
 // 현재 켜져 있는 팝업들의 ID를 배열로 관리 (초기값은 모든 팝업 ID)
 const [visiblePopups, setVisiblePopups] = useState<number[]>(
 POPUP_LIST.map((popup) => popup.id)
@@ -27,6 +32,12 @@ const handleClose = (id:number) => {
 setVisiblePopups((prev) => prev.filter((popupId) => popupId !== id));
 };
 
+//중요한 곳에서는 popup이 보이지 않게
+//if (pathname.includes('/register')) return null; 단일일 경우
+//여러 페이지에서 숨기고 싶을때 응용법
+const hidePopupRoutes = ['/register', '/login', '/mypage'];
+const shouldHide = hidePopupRoutes.some(route => pathname.includes(route));
+if (shouldHide) return null;
 //활성화된 팝업이 없으면 아무것도 렌더링하지 않음
 if(visiblePopups.length === 0) return null;
 

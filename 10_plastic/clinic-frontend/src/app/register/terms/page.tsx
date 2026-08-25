@@ -3,6 +3,10 @@ import React,{useState, useEffect} from 'react';
 import * as S from '../../../style/Sub.styles';
 
 export default function TermsPage(){
+
+    //add
+    const [step, setStep] = useState(1);
+
     const [allAgreed, setAllAgreed] = useState(false);
     const [termsAgreed, setTermsAgreed] =useState(false);
     const [privacyAgreed, setPrivacyAgreed] = useState(false);
@@ -30,24 +34,28 @@ setAllAgreed(true);
     return(
         <>
 <S.Wrapper>
-<S.StepContainer>
+        {/*2.회원가입 폼일때 보여줄 상단 타이틀 추가*/}
+{step === 2 && <S.PageTitle>회원가입</S.PageTitle>}
 
-    <S.Step $active={true}>
-        <S.StepNumber $active={true}>1</S.StepNumber>
-        <S.StepText $active={true}>약관동의</S.StepText>
+<S.StepContainer>
+    <S.Step $active={step === 1}>
+        <S.StepNumber $active={step === 1}>1</S.StepNumber>
+        <S.StepText $active={step === 1}>약관동의</S.StepText>
     </S.Step>
 
     <S.StepDivider/>
 
-    <S.Step $active={false}>
-        <S.StepNumber $active={false}>2</S.StepNumber>
-        <S.StepText $active={false}>회원가입</S.StepText>
+    <S.Step $active={step === 2}>
+        <S.StepNumber $active={step === 2}>2</S.StepNumber>
+        <S.StepText $active={step === 2}>회원가입</S.StepText>
     </S.Step>
 
 
 </S.StepContainer>
 
 {/* 전체 동의 영역 */}
+{step === 1 ? (
+    <>
 <S.CheckAllWrapper>
     <S.CheckboxLabel>
 <S.CheckboxInput
@@ -108,11 +116,96 @@ onChange={(e) => setTermsAgreed(e.target.checked)}
 </S.TermSection>
 
 <S.ButtonGroup>
-    <S.Button $variant='outline'>이전단계</S.Button>
-    <S.Button $variant='solid'>다음단계</S.Button>
+<S.Button $variant='outline'>이전단계</S.Button>
+<S.Button $variant='solid'
+onClick={() => {
+    if (!termsAgreed || !privacyAgreed){
+        return alert('필수 약관에 모두 동의해 주세요');
+    }
+    setStep(2);    
+}}
+>다음단계</S.Button>
+</S.ButtonGroup>
+</>
+) : (
+   <>
+<S.FormContainer>
+
+<S.FormGroup>
+    <S.Label>이름 (필수)</S.Label>
+    <S.Input type="text" placeholder='이름을 입력해주세요'/>
+</S.FormGroup>
+
+<S.FormGroup>
+    <S.Label>아이디 (필수)</S.Label>
+    <S.Input type="text" placeholder='아이디를 입력해주세요'/>
+</S.FormGroup>
+
+<S.FormGroup>
+    <S.Label>비밀번호 (필수)</S.Label>
+    <S.Input type="password" placeholder='비밀번호를 입력해주세요'/>
+</S.FormGroup>
+
+<S.FormGroup>
+    <S.Label>비밀번호 확인(필수)</S.Label>
+    <S.Input type="password" placeholder='비밀번호를 한번더 입력해주세요'/>
+</S.FormGroup>
+
+<S.FormGroup>
+    <S.Label>이메일 (필수)</S.Label>
+    <S.EmailWrapper>
+    <S.Input type="password" placeholder='이메일 주소를 입력해주세요'/>
+    <S.Select>
+        <option>직접입력</option>
+        <option>naver.com</option>
+        <option>gmail.com</option>
+        <option>daum.net</option>
+    </S.Select>
+    </S.EmailWrapper>
+
+    <S.SubCheckboxLabel>
+        <input type="checkbox" /> 
+        정보/이벤트 메일 수신에 동의합니다.
+    </S.SubCheckboxLabel>
+</S.FormGroup>
+
+<S.FormGroup>
+    <S.Label>휴대폰번호</S.Label>
+    <S.Input type="tel" placeholder='-없이 입력하세요'/>
+    <S.SubCheckboxLabel>
+        <input type="checkbox" /> 
+        정보/이벤트 SNS 수신에 동의합니다.
+    </S.SubCheckboxLabel>
+</S.FormGroup>
+
+<S.FormGroup>
+    <S.Label>성별</S.Label>
+    <S.RadioWrapper>
+        <S.RadioLabel>
+            <S.RadioInput type="radio" 
+            name="gender" value="male"
+            />남자
+        </S.RadioLabel>
+        <S.RadioLabel>
+            <S.RadioInput type="radio" 
+            name="gender" value="female"
+            />여자
+        </S.RadioLabel>
+    </S.RadioWrapper>
+</S.FormGroup>
+</S.FormContainer> 
+
+<S.ButtonGroup>
+<S.Button $variant='outline'
+onClick={() => setStep(1)}
+>취소</S.Button>
+<S.Button $variant='solid'
+onClick={() => alert('회원가입이 완료되었습니다')}
+>회원가입</S.Button>
 </S.ButtonGroup>
 
-
+   </> 
+)}
 </S.Wrapper>        
         </>
     )

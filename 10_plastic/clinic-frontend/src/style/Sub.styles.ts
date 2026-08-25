@@ -146,7 +146,18 @@ width:100%;
 }
 `;
 
-
+//회원가입 폼(step 2)
+export const PageTitle= styled.h2``;
+export const FormContainer = styled.div``;
+export const FormGroup = styled.div``;
+export const Label = styled.label``;
+export const Input = styled.input``;
+export const EmailWrapper = styled.div``;
+export const Select = styled.select``;
+export const SubCheckboxLabel = styled.label``;
+export const RadioWrapper = styled.div``;
+export const RadioLabel = styled.label``;
+export const RadioInput = styled.input``;
 
 export const Container = styled.div``;
 export const Title = styled.h2``;
