@@ -327,12 +327,95 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
 
   // 🧱 부품 6: 자기소개 입력 칸
   Widget _buildBioSection() {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('자기소개'),
+        const SizedBox(height: 8),
+        _buildTextField(hint: '커피 한 잔과 함께 영화 이야기 나눌 사람을 찾아요 ☕', maxLines: 3),
+      ],
+    ); // (👈 에러 방지용 임시 빈 칸)
   }
 
   // 🧱 부품 7: 관심사 선택 칸 (Wrap 사용)
   Widget _buildInterestsSection() {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle('관심사'),
+        const SizedBox(height: 12),
+        //제목과 관심사 버튼들 사이에 12만큼 빈 공간(여백)을 줍니다.
+        Wrap(
+          //rap은 가로로 버튼을 채우다가 화면 끝에 닿으면 알아서 다음 줄로 넘어가는(자동 줄바꿈)
+          spacing: 10, // 가로로 나열될 버튼과 버튼 사이의 틈(간격)을 10으로 줍니다.
+          runSpacing: 10, // 줄이 바뀌었을 때 윗줄과 아랫줄 사이의 세로 틈(간격)을 10으로 줍니다.
+          children: _interestsData.map((interest) {
+            //_interestsData(카페, 영화 등 8개 데이터)를 하나씩 꺼내서 아래 모양의 버튼으로 만듭니다
+            bool isSelected = _selectedInterests.contains(interest['label']);
+            //이 관심사가 현재 내가 선택한 목록(_selectedInterests) 안에 들어있는지 확인합니다. (선택됐으면 true)
+            return GestureDetector(
+              //터치(클릭)를 감지하는 투명한 버튼 역할
+              onTap: () {
+                //사용자가 이 관심사를 손가락으로 탭(터치)했을 때 실행됩니다.
+                setState(() {
+                  // 화면을 다시 그려달라고 플러터에게 요청
+                  if (isSelected) {
+                    _selectedInterests.remove(interest['label']);
+                    //이미 선택된 걸 눌렀다면? 선택 목록에서 뺍니다.
+                  } else {
+                    _selectedInterests.add(interest['label']!);
+                    //// 아직 선택 안 된 걸 눌렀다면? 선택 목록에 넣습니다
+                  }
+                });
+              },
+              child: Container(
+                // 실제 눈에 보이는 알약 모양의 박스
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
+                //박스 안쪽으로 좌우 16, 상하 10만큼 쿠션(여백)을 줍니다.
+                decoration: BoxDecoration(
+                  // 박스의 배경색과 테두리를 꾸밉니다.
+                  color: isSelected ? pinkAccent.withOpacity(0.15) : cardColor,
+                  //선택됐다면 연한 핑크색 바탕, 아니면 원래 어두운색을 칠합니다.
+                  border: Border.all(
+                    color: isSelected ? pinkAccent : Colors.transparent,
+                    width: 1.5,
+                  ),
+                  //// 선택됐다면 핑크색 선을 긋고, 아니면 테두리를 투명하게 숨깁니다.
+                ),
+                child: Row(
+                  // 박스 안에서 아이콘과 글씨를 가로(Row)로 나란히 둡니다.
+                  mainAxisSize: MainAxisSize.min,
+                  // 박스 크기를 내용물(글씨 길이)에 딱 맞게 꽉 조여줍니다.
+                  children: [
+                    Text(
+                      interest['icon']!,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    //데이터에서 아이콘(☕ 등)을 꺼내서 그립니다.
+                    const SizedBox(width: 6),
+                    //아이콘과 글씨 사이에 6만큼 아주 좁은 틈을 줍니다
+                    Text(
+                      interest['label']!,
+                      style: TextStyle(
+                        color: isSelected ? pinkAccent : subTextColor,
+                        //선택됐으면 핑크색 글씨, 아니면 회색 글씨로 보여줍니다.
+                        fontWeight: isSelected
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
 
   // 🧱 부품 8: 하단 '다음 단계' 버튼
