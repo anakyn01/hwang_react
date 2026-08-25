@@ -1,8 +1,11 @@
 "use client"
 import React,{useState, useEffect} from 'react';
+//이동하기 위해서 
+import {useRouter} from 'next/navigation';
 import * as S from '../../../style/Sub.styles';
 
 export default function TermsPage(){
+    const router =useRouter();
 
     //add
     const [step, setStep] = useState(1);
@@ -14,6 +17,70 @@ export default function TermsPage(){
     //약관 박스 열림/닫힘 토글 상태 (디자인 시안에 맞춰 기본값 true)
     const [isTermsOpen, setIsTermsOpen] = useState(true);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(true);
+
+    //폼입력값 관리할 객체 상태추가
+    const [formData, setFormData] = useState({
+userName:'', userId:'', userPw:'', userPwConfirm:'',
+email:'', emailDomain:'', isMailAgreed:false,
+phone:'', isSnsAgreed:false,
+gender:''
+    });
+
+// 사용자가 키보드로 입력할 때마다 상태를 업데이트하는 핸들러
+const handleChange = (e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+
+    const {name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+
+ setFormData(prev => ({
+    ...prev,
+    [name]:type === 'checkbox' ? checked : value
+ }));   
+};  
+
+//[회원가입] 버튼을 눌렀을 때 Node.js 서버로 쏴주는 함수
+const handleSubmit = async () => {
+    //필수 입력값 체크
+ if(!formData.userName || !formData.userId || !formData.userPw) {
+    return alert('필수 항목을 모두 입력해 주세요');
+ }
+ if(formData.userPw !== formData.userPwConfirm){
+    return alert('필수 항목을 모두 입력해 주세요');
+ }
+ //이메일 주소 조합
+ const fullEmail = formData.emailDomain === '직접입력' || formData.emailDomain ===""
+? formData.email
+: `${formData.email}@${formData.emailDomain}`;
+try{
+const response = await fetch('http://localhost:5000/api/register',{
+method:'POST',
+headers:{'Content-type':'application/json'},
+body  :JSON.stringify({
+userName:formData.userName,
+userId:formData.userId,
+userPw:formData.userPw,
+email:fullEmail,
+isMailAgreed:formData.isMailAgreed,
+phone:formData.phone,
+isSnsAgreed:formData.isSnsAgreed,
+gender: formData.gender   
+})  
+});
+
+const result = await response.json();
+
+if(response.ok) {
+    alert('회원가입이 완료되었습니다');
+    router.push('/');
+}else{
+    alert(result.message);
+}
+
+}catch(error){
+   console.error(error);
+   alert('서버와 통신중에 오류가 발생했습니다') 
+}
+}
 
     useEffect(() => {
         if(termsAgreed && privacyAgreed){
@@ -137,47 +204,74 @@ onClick={() => {
 
 <S.FormGroup>
     <S.Label>이름 (필수)</S.Label>
-    <S.Input type="text" placeholder='이름을 입력해주세요'/>
+    <S.Input type="text" placeholder='이름을 입력해주세요'
+    name="userName" value={formData.userName}
+    onChange={handleChange}
+    />
 </S.FormGroup>
 
 <S.FormGroup>
     <S.Label>아이디 (필수)</S.Label>
-    <S.Input type="text" placeholder='아이디를 입력해주세요'/>
+    <S.Input type="text" placeholder='아이디를 입력해주세요'
+        name="userId" value={formData.userId}
+    onChange={handleChange}
+    />
 </S.FormGroup>
 
 <S.FormGroup>
     <S.Label>비밀번호 (필수)</S.Label>
-    <S.Input type="password" placeholder='비밀번호를 입력해주세요'/>
+    <S.Input type="password" placeholder='비밀번호를 입력해주세요'
+    name="userPw" value={formData.userPw}
+    onChange={handleChange}
+    />
 </S.FormGroup>
 
 <S.FormGroup>
     <S.Label>비밀번호 확인(필수)</S.Label>
-    <S.Input type="password" placeholder='비밀번호를 한번더 입력해주세요'/>
+    <S.Input type="password" placeholder='비밀번호를 한번더 입력해주세요'
+    name="userPwConfirm" value={formData.userPwConfirm}
+    onChange={handleChange}
+    />
 </S.FormGroup>
 
 <S.FormGroup>
     <S.Label>이메일 (필수)</S.Label>
     <S.EmailWrapper>
-    <S.Input type="password" placeholder='이메일 주소를 입력해주세요'/>
-    <S.Select>
+    <S.Input type="text" placeholder='이메일 주소를 입력해주세요'
+    name="email" value={formData.email}
+    onChange={handleChange}
+    />
+    <S.Select 
+    name="emailDomain" value={formData.email}
+    onChange={handleChange}
+    >
         <option>직접입력</option>
-        <option>naver.com</option>
-        <option>gmail.com</option>
-        <option>daum.net</option>
+        <option value="naver.com">naver.com</option>
+        <option value="gmail.com">gmail.com</option>
+        <option value="daum.net">daum.net</option>
     </S.Select>
     </S.EmailWrapper>
 
     <S.SubCheckboxLabel>
-        <input type="checkbox" /> 
+        <input type="checkbox" 
+name="isMailAgreed" checked={formData.isMailAgreed}  
+onChange={handleChange}      
+        /> 
         정보/이벤트 메일 수신에 동의합니다.
     </S.SubCheckboxLabel>
 </S.FormGroup>
 
 <S.FormGroup>
     <S.Label>휴대폰번호</S.Label>
-    <S.Input type="tel" placeholder='-없이 입력하세요'/>
+    <S.Input type="tel" placeholder='-없이 입력하세요'
+    name="phone" value={formData.phone}  
+    onChange={handleChange} 
+    />
     <S.SubCheckboxLabel>
-        <input type="checkbox" /> 
+        <input type="checkbox" 
+name="isSnsAgreed" checked={formData.isSnsAgreed}  
+onChange={handleChange} 
+        /> 
         정보/이벤트 SNS 수신에 동의합니다.
     </S.SubCheckboxLabel>
 </S.FormGroup>
@@ -188,11 +282,15 @@ onClick={() => {
         <S.RadioLabel>
             <S.RadioInput type="radio" 
             name="gender" value="male"
+            checked={formData.gender === 'male'}  
+            onChange={handleChange} 
             />남자
         </S.RadioLabel>
         <S.RadioLabel>
             <S.RadioInput type="radio" 
             name="gender" value="female"
+            checked={formData.gender === 'female'}  
+            onChange={handleChange} 
             />여자
         </S.RadioLabel>
     </S.RadioWrapper>
@@ -204,7 +302,7 @@ onClick={() => {
 onClick={() => setStep(1)}
 >취소</S.Button>
 <S.Button $variant='solid'
-onClick={() => alert('회원가입이 완료되었습니다')}
+onClick={handleSubmit}
 >회원가입</S.Button>
 </S.ButtonGroup>
 

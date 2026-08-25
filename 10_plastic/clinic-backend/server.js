@@ -8,7 +8,7 @@ const cors = require('cors');
 //환경변수(DB 비밀번호, 포트 번호 등)를 읽어서 프로그램에 적용
 const bcrypt = require('bcrypt');
 const AppDataSource = require("./db");
-const MemberEntity = require("./src/entity/Member");
+const Member = require("./src/entity/Member");
 /*
 주소가 다르면 다르면 브라우저가 
 보안상 요청을 막는데, 이를 허용해 줍니다
@@ -32,7 +32,7 @@ app.get('/api/health', (req, res) => {
 app.post('/api/register', async(req, res) => {
     try{
 const {
-    username,
+    userName,
     userId, 
     userPw,
     email,

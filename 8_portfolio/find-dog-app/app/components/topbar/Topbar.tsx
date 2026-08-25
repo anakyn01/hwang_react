@@ -5,6 +5,7 @@ import React, {useState, useEffect} from "react";
 import { useRouter } from "next/navigation";
 import {TopbarContainer, TopbarSearch, TopbarProfile,
 TopbarNavbar} from './Topbar.styled';
+import { AddIcCall } from "@mui/icons-material";
 
 export const Topbar:React.FC = () => {
 //페이지 이동 함수를 navigate라는 이름으로 사용할수있게 준비 ..
@@ -13,6 +14,9 @@ const router = useRouter();
 
 //1.화면에 보여줄 사용자 이름 상태를 만듭니다.(기본값: Guest)
 const [userName, setUserName] = useState('Guest');
+
+//add
+const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 //2.화면이 처름 켜질때 딱 한번만 실행
 useEffect(() => {
@@ -66,11 +70,14 @@ className="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-searc
 {/*Topbar Navbar */}
 <TopbarNavbar className="ml-auto">
     {/*User Information */}
-    <li className="nav-item dropdown no-arrow d-flex align-items-center">
+    <li className="nav-item dropdown no-arrow">
         <a href="#"
         className="nav-link dropdown-toggle"
         id="userDropdown"
-       onClick={(e) => e.preventDefault()}
+       onClick={(e) => {
+        e.preventDefault();
+    setIsDropdownOpen(!isDropdownOpen);
+    }}
         > {/*a태그의 기본 클릭이벤트 (페이지 최상단으로 올라가는 현상을 )막기위해 */}
 <span className="mr-2 d-none d-lg-inline text-gray-600 small"
 >
@@ -80,14 +87,36 @@ className="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-searc
 src="http://localhost:3000/img/profile.jpg"
 alt="프로필이미지"
 />        
-        </a>
-        {/*로그아웃 버튼 추가 */}
-        <button 
-        onClick={handleLogout}
-        className="btn btn-sm btn-outline-secondary ml-2"
-        >
+</a>
+
+{isDropdownOpen &&(
+<div 
+className="dropdown-menu dropdown-menu-right animated--grow-in show"
+aria-labelledby="userDropdown"
+>
+<a className="dropdown-item"
+href="#"
+onClick={(e) => e.preventDefault()}>
+<i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>   
+</a>
+
+<div className="dropdown-divider"/>
+
+<a
+className="dropdown-item"
+href="#"
+onClick={(e) => {
+    e.preventDefault();
+    handleLogout();
+}}
+>
+<i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 로그아웃
-        </button>
+</a>
+
+</div>
+)}
+    
     </li>
 </TopbarNavbar>
 
