@@ -420,17 +420,91 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
 
   // 🧱 부품 8: 하단 '다음 단계' 버튼
   Widget _buildNextButton() {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    return Container(
+      // 커다란 버튼의 몸통을 만듭니다.
+      width: double.infinity, //가로 길이를 화면 양쪽 끝까지 꽉~ 차게 늘립니다.
+      height: 56, //버튼의 세로 높이를 56
+      decoration: BoxDecoration(
+        // 버튼 몸통을 예쁘게 꾸밉니다.
+        gradient: LinearGradient(colors: [pinkAccent, purpleAccent]),
+        borderRadius: BorderRadius.circular(16),
+        //모서리를 16만큼 둥글게 깎습니다.
+      ),
+      child: Material(
+        // 잉크가 톡! 퍼지는 애니메이션(리플 효과)을
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () {
+            //사용자가 버튼을 꾹! 눌렀을 때 실행될 행동입니다.
+            print("다음 단계 진행");
+          },
+          child: const Center(
+            child: Text(
+              '다음단계',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ); // (👈 에러 방지용 임시 빈 칸)
   }
 
-  //공용도구
+  //공용도구1: 타이틀 (파라미터로 title을 받습니다)
   Widget _buildSectionTitle(String title) {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+    return Text(
+      title,
+      style: TextStyle(
+        color: textColor,
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
+    ); // (👈 에러 방지용 임시 빈 칸)
   }
 
   //공용도구2
-  Widget _buildTextField() {
-    return const SizedBox(); // (👈 에러 방지용 임시 빈 칸)
+  Widget _buildTextField({
+    required String hint,
+    int maxLines = 1,
+    bool isNumber = false,
+  }) {
+    return TextField(
+      // 사용자가 화면의 키보드를 통해 글씨를 입력할 수 있는 필드(칸)
+      maxLines: maxLines,
+      /*위에서 넘겨받은 줄 수만큼 높이를 잡습니다.
+(자기소개는 3줄, 나이는 1줄)*/
+      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+      //숫자를 적을 칸이면 '숫자 전용 키보드'를 띄우고, 아니면 '일반 문자 키보드'를 띄웁니다.
+      style: TextStyle(color: textColor, fontSize: 15),
+      decoration: InputDecoration(
+        //텍스트 입력창의 겉모양을 꾸며
+        hintText: hint,
+        hintStyle: TextStyle(color: subTextColor),
+        filled: true,
+        fillColor: cardColor,
+        contentPadding: const EdgeInsets.all(16),
+        //1. 가만히 있을 때 기본 테두리
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        //모서리는 둥글게 하되, 겉에 선은 없앱니다.
+        // 2. 입력 가능할 때(화면에 보일 때) 테두리
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: borderColor, width: 1),
+        ),
+        // 3. 사용자가 입력하려고 터치했을 때(포커스) 테두리
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: pinkAccent, width: 1.5),
+        ),
+      ),
+    );
   }
 
   // (👈 중간에 닫혀있던 클래스 종료 괄호 `}` 를 맨 마지막으로 옮겼습니다.)
