@@ -11,7 +11,7 @@ const AppDataSource = new DataSource({
     password:process.env.DB_PASSWORD,
     connectString:process.env.DB_CONNECTION_STRING,
     database:"XEPDB1",
-    synchronize:false,
+    synchronize:true,
     //로깅 최적화 (운영환경이 아닐때만 true)
     logging:process.env.NODE_ENV !== 'production',
     entities:[Member],

@@ -1,8 +1,10 @@
+//npm install react-daum-postcode
 "use client"
 import React,{useState, useEffect} from 'react';
 //이동하기 위해서 
 import {useRouter} from 'next/navigation';
 import * as S from '../../../style/Sub.styles';
+import DaumPostcode from 'react-daum-postcode';
 
 export default function TermsPage(){
     const router =useRouter();
@@ -18,12 +20,16 @@ export default function TermsPage(){
     const [isTermsOpen, setIsTermsOpen] = useState(true);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(true);
 
+//주소검색 팝업 열림 / 닫힘
+const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);    
+
     //폼입력값 관리할 객체 상태추가
-    const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
 userName:'', userId:'', userPw:'', userPwConfirm:'',
 email:'', emailDomain:'', isMailAgreed:false,
-phone:'', isSnsAgreed:false,
-gender:''
+phone:'', isSnsAgreed:false, gender:'',
+residentNumFront:'', residentNumBack:'',
+zipcode:'', address1:'', address2:''
     });
 
 // 사용자가 키보드로 입력할 때마다 상태를 업데이트하는 핸들러
@@ -32,11 +38,41 @@ const handleChange = (e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)
     const {name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
 
+//주민번호 입력시 숫자만 입력되도록 처리(선택사항)
+if ((name === 'residentNumFront' || name === 'residentNumBack') 
+    && !/^[0-9]*$/.test(value)) {
+return;
+}
+
+
  setFormData(prev => ({
     ...prev,
     [name]:type === 'checkbox' ? checked : value
  }));   
 };  
+
+//다음 주소 API완료 핸들러..
+const handleCompletePostcode = (data: any) => {
+    let fullAddress = data.address;
+    let extraAddress = '';
+
+    if(data.addressType === 'R'){
+        if(data.bname !== '') {
+            extraAddress += data.bname;
+        }
+        if (data.buildingName !== '') {
+extraAddress += extraAddress !== '' ? `,${data.buildingName}` : data.buildingName;           
+        }
+fullAddress += extraAddress !== '' ? `(${extraAddress})`:'';
+    }
+//주소 및 우편번호 상태 업데이트 후 팝업 닫기
+setFormData(prev => ({
+...prev,
+zipcode:data.zonecode,
+address1:fullAddress
+}));
+setIsPostcodeOpen(false);    
+};
 
 //[회원가입] 버튼을 눌렀을 때 Node.js 서버로 쏴주는 함수
 const handleSubmit = async () => {
