@@ -39,7 +39,11 @@ const {
     isMailAgreed,
     phone,
 isSnsAgreed,
-gender
+gender,
+residentNum,
+zipcode,
+address1,
+address2,
 } = req.body;
 
 //add 1.비밀번호 암호화
@@ -69,6 +73,10 @@ const newMember = {
     PHONE:phone,
     IS_SNS_AGREED:isSnsAgreed ? 'Y' : 'N',
     GENDER:gender,
+    RESIDENT_NUM:residentNum,
+    ZIPCODE:zipcode,
+    ADDRESS1:address1,
+    ADDRESS2:address2,
 };
 
 await memberRepository.save(newMember);
