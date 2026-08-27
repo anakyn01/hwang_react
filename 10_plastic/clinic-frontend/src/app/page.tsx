@@ -2,6 +2,7 @@ import Image from "next/image";
 import MainCarousel from '@/component/MainCarousel';
 import RollingBanner from "@/component/RollingBanner";
 import CategoryNav from "@/component/CategoryNav";
+import Selfies from '@/component/main/Selfies';
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
     <MainCarousel/>
     <RollingBanner/>
     <CategoryNav/>
+    <Selfies/>
     </>
   );
 }

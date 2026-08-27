@@ -44,11 +44,11 @@ onClick={()=> scroll('right')}
 </S.SliderHeader>
 
 {/*🎯 사진 슬라이더 영역 */}
-<S.SelfiesliderWrapper ref={sliderRef}>
+<S.SelfieSliderWrapper ref={sliderRef}>
     {SELFIE_DATA.map((item) =>(
  <S.SelfieCard key={item.id}>
 <img src={item.img} alt={`selfie${item.id}`}/>
-<S.SelfieCardOveray>
+<S.SelfieCardOverlay>
     <S.SelfieLikeBadge>
         <span>♥</span>{item.likes}
     </S.SelfieLikeBadge>
@@ -57,10 +57,10 @@ onClick={()=> scroll('right')}
         {item.views}명이 보고 있어요
         <span>SELFIES</span>
     </S.SelfieViewCount>
-</S.SelfieCardOveray>
+</S.SelfieCardOverlay>
  </S.SelfieCard>       
     ))}
-</S.SelfiesliderWrapper>
+</S.SelfieSliderWrapper>
 
     </S.SliderInner>
 </S.SliderSection>    
