@@ -198,9 +198,120 @@ child:Material(
 print("이메일:${_emailController.text}, 비번:${_passwordController.text}");
     },
     child: const Center(child: Text(
-      
-    ),),
-  )
-)   
-)
+'로그인', style:TextStyle(color:Colors.white, fontSize:18,
+fontWeight:FontWeight.bold)),
+),
+),
+),  
+);
+}
+
+Widget _buildDivider(){
+  return Row(
+    children: [
+Expanded(child: Divider(color: cardColor, thickness:1.5)),
+Padding(
+padding: const EdgeInsets.symmetric(horizontal: 16),
+child:Text('또는', style:TextStyle(color:subTextColor, fontSize:14)),
+),
+Expanded(child: Divider(color:cardColor, thickness: 1.5)),
+],
+);
+}
+
+//카카오 로그인 버튼
+Widget _buildKakaoButton(){
+  return _buildSocialButton(
+text:'카카오로 로그인',
+color:const Color(0xFFFEE500),
+textColor:Colors.black87,
+icon:Icons.chat_bubble,
+    );
+}
+
+//애플 로그인 버튼
+Widget _buildAppleButton(){
+  return _buildSocialButton(
+text:'Apple로 로그인',
+color:cardColor,
+textColor:Colors.white,
+icon:Icons.apple,
+    );
+}
+
+//소셜 로그인 버튼 팩토리
+Widget _buildSocialButton({required String text, 
+required Color color, required Color textColor, required IconData icon}){
+  return Container(
+    width:double.infinity,
+    height:56,
+    decoration: BoxDecoration(color:color, borderRadius: BorderRadius.circular(16)),
+    child:Material(
+      color:Colors.transparent,
+      child:InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap:(){
+          print("$text 클릭됨");
+        },
+        child:Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color:textColor, size:20),
+            const SizedBox(width:8),
+  Text(text, style:TextStyle(color:textColor, fontSize:16, fontWeight:FontWeight.bold)),          
+],
+),
+),
+),
+);
+}
+
+//하단 회원가입 링크 텍스트
+Widget _buildSignupLink(){
+  return Center(
+    child:GestureDetector(
+      onTap:(){
+Navigator.push(context, MaterialPageRoute(builder: (context) => 
+const SignupProfileScreen()));        
+},
+child:RichText(
+  text: TextSpan(
+text:'계정이 없으신가요?',
+style:TextStyle(color:subTextColor, fontSize:14),    
+children: [
+  TextSpan(
+    text:'회원가입',
+style:TextStyle(color:pinkAccent, fontWeight:FontWeight.bold),
+),
+],
+),
+),
+),
+);
+}
+
+Widget _buildTextField({
+required TextEditingController controller,
+required String hint,
+required IconData icon,
+bool isPassword = false,
+TextInputType keyboardType = TextInputType.text,
+}){
+return TextField(
+controller:controller,
+obscureText: isPassword,
+keyboardType: keyboardType,
+style:TextStyle(color:textColor, fontSize:16),
+decoration:InputDecoration(
+hintText:hint,
+hintStyle:TextStyle(color:subTextColor),
+prefixIcon:Icon(icon, color:subTextColor, size:20),  
+filled:true,
+fillColor: cardColor,
+contentPadding:const EdgeInsets.symmetric(vertical: 20),
+border:OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide:BorderSide.none),
+focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide:BorderSide(color:pinkAccent, width:1.5)),
+),
+);
+}
 }
