@@ -11,6 +11,9 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 //추가 앞으로 여기에 업뎃
 import 'screens/signup_profile_screen.dart';
 
+//로그인
+import 'screens/login_screen.dart';
+
 // 앱이 처음 시작될 때 실행되는 메인 함수
 void main() {
   runApp(const DatingApp());
@@ -35,7 +38,8 @@ class DatingApp extends StatelessWidget {
         brightness: Brightness.dark,
         scaffoldBackgroundColor: const Color(0xFF12121A), // 배경색 (다크 네이비)
       ),
-      home: const DatingHomeScreen(),
+      //첫 화면을 변경 할때는 아래를 바꿈
+      home: const LoginScreen(),
     );
   }
 }
