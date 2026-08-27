@@ -271,3 +271,19 @@ background-color:transparent;
 border:none;
 }
 `;
+
+//슬라이더
+export const SliderSection = styled.section``;
+export const SliderInner = styled.div``;
+export const SliderHeader = styled.div``;
+export const SliderTitleGroup = styled.div``;
+export const SliderMainTitle = styled.h2``;
+export const SliderSubTitle = styled.p``;
+export const SliderControls = styled.div``;
+export const SliderViewMoreBtn = styled.button``;
+export const SliderArrowBtn = styled.button``;
+export const SelfieSliderWrapper = styled.div``;
+export const SelfieCard = styled.div``;
+export const SelfieCardOverlay = styled.div``;
+export const SelfieLikeBadge = styled.div``;
+export const SelfieViewCount = styled.div``;
