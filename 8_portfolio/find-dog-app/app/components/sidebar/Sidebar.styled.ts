@@ -36,35 +36,109 @@ margin-right:auto; margin-left:auto;
 `;
 
 // SB Admin 2 테마는 className으로 스타일이 먹기 때문에 기본 뼈대 태그만 지정해 줍니다.
-export const SidebarContainer = styled.ul`
-  /* 기본적으로 ul 태그를 사용합니다 */
+export const SidebarContainer = styled.ul<{$isCollapsed ?:boolean}>`
+  background-color:#4e73df;
+  min-height:100vh;
+  width:${({ $isCollapsed}) => ($isCollapsed ? '90px':'224px')} !important;
+  transition:width .3s ease-in-out;
+  overflow-x:hidden;/* 접혔을 때 텍스트가 삐져나오지 않도록 방어 */
 `;
 
-export const SidebarBrand = styled(Link)`
+export const BrandText = styled.div<{$isCollapsed?:boolean}>`
+display:${({$isCollapsed }) => ($isCollapsed ? 'none':'block')};
+margin-right:1rem;
+`;
+
+export const SidebarBrand = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
+
+flex-direction:${({$isCollapsed}) => ($isCollapsed ? 'column' : 'row')};  
+  height:4.5rem;
+
+  text-decoration: none !important;
+  color:#fff !important;
+  font-size:${({ $isCollapsed }) => ($isCollapsed ? '0.7rem' : '1.2rem')};
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.05rem;
+  white-space:nowrap;
+  overflow:hidden;
+
+  &:hover{
+  color:#fff;
+  text-decoration:none;
+  }
+
+  .sidebar-brand-icon{
+  font-size:2rem;
+  }
 `;
 
 export const Divider = styled.hr`
 `;
 
 export const NavItem = styled.li`
+width:100%;
 `;
 
-export const NavLink = styled(Link)`
-  display: block;
+export const NavLink = styled.a<{$isCollapsed?:boolean}>`
+  display: flex;
+  align-items:center;
+  width:100%;
   padding: 1rem;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
 
+  /* 사이드 바가 접히면 아이콘 가운데만 정렬되도록 조정*/
+  justify-content:${({$isCollapsed }) => ($isCollapsed ? 'center' : 'flex-start')};
+  //add
+  padding:${({ $isCollapsed }) => ($isCollapsed ? '1rem 0' : '1rem 1.5rem')};
+
+  span{
+  display:${({ $isCollapsed }) => 
+    ($isCollapsed ? 'none' : 'inline')};
+  margin-left:10px;
+  }
+  
   &:hover {
     color: #fff;
     text-decoration: none;
   }
   
   i {
-    margin-right: 0.5rem; /* 아이콘과 글자 사이 간격 */
+    margin-right: ${({$isCollapsed}) => ($isCollapsed ? '0' :'10px')}; /* 아이콘과 글자 사이 간격 */
   }
 `;
+
+export const ToggleButtonWrapper=styled.div`
+display:flex;
+justify-content:center;
+padding:1rem 0;
+`;
+export const ToggleButton=styled.button<{$isCollapsed?:boolean}>`
+width:40px; height:40px;
+border-radius:50%;
+justify-content:center;
+background-color:rgba(255,255,255,.2);
+border:none;
+color:white;
+cursor:pointer;
+display:flex;
+align-items:center;
+transition:background-color .2s ease;
+
+&:hover{
+background:rgba(255,255,255,0.3);
+}
+`;
+
+/*
+old style
+text-align:center;
+vertical-align:middle;
+
+항상 어디든 가로세로 가운데 정렬은
+display:flex;
+*/
