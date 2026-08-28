@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 import 'signup_profile_screen.dart';
 
 // 사용자가 글씨를 입력하고 체크박스를 누를 때 화면이 변해야 하므로 StatefulWidget을 씁니다.

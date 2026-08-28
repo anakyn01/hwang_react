@@ -7,10 +7,10 @@ import 'login_screen.dart';
 
 // 화면에 로딩 바가 차오르는 '애니메이션(상태 변화)'이 있으므로 
 //StatefulWidget을 사용합니다.
-class SplashScreen extends Statefulwidget{
+class SplashScreen extends StatefulWidget{
   const SplashScreen({super.key});
   @override
-  Stste<SplashScreen> createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 
 }
 
@@ -33,7 +33,7 @@ super.initState();
       if(mounted){
         setState((){
           _loadingProgress = 1.0;
-        })
+        });//오타
       }
     });
 
@@ -70,7 +70,7 @@ PageRouteBuilder(
     return Scaffold(
       backgroundColor:bgColor,
       body: Stack(
-        fit: Stackfit.expand,
+        fit: StackFit.expand,//오타
         children:[
           _buildBackgroundGlow(),
           SafeArea(
@@ -79,8 +79,8 @@ PageRouteBuilder(
  children:[
   _buildIconBox(), const SizedBox(height: 24),
   _buildLogoText(), const SizedBox(height: 16),
-  _buildSubtext(), const Sizedbox(height: 48),
-  _buildLoadingBar(),
+  _buildSubtext(), const SizedBox(height: 48),//오타
+  _buildProgressBar(),//오타
  ],           
   ),
 ),
@@ -118,7 +118,7 @@ Widget _buildIconBox(){
     decoration:BoxDecoration(
       color:Colors.white.withOpacity(0.03),
       borderRadius:BorderRadius.circular(28),
-      border:Border.all(color:Colors.withOpacity(0.08),width:1.5),
+      border:Border.all(color:Colors.white.withOpacity(0.08),width:1.5),
     ),
     child:Center(
       // 아이콘에 그라데이션 색상을 입히기 위해 ShaderMask
@@ -160,12 +160,46 @@ Widget _buildLogoText(){
 
 // 🧱 부품: 로고 밑의 안내 문구
 Widget _buildSubtext(){
-  return Text();
+  return Text(
+    '당신의 특별한 인연을 찾아드립니다',
+    style:TextStyle(
+      color:subTextColor,
+      fontSize:15,
+      fontWeight:FontWeight.w500,
+      letterSpacing:0.5,
+    ),
+  );
 }
 
 // 🧱 부품: 스르륵 차오르는 로딩 바 애니메이션
 Widget _buildProgressBar(){
-  return Container();
+  return Container(
+    width:200, height:4,
+    decoration:BoxDecoration(
+      color:Colors.white.withOpacity(0.1),
+      borderRadius:BorderRadius.circular(2),
+    ),
+    child:Align(
+      alignment:Alignment.centerLeft,
+      child:AnimatedContainer(
+        duration:const Duration(milliseconds:2000),
+        width:200 * _loadingProgress,
+        decoration:BoxDecoration(
+          gradient:LinearGradient(
+            colors:[pinkAccent, purpleAccent],
+          ),
+          borderRadius:BorderRadius.circular(2),
+          boxShadow:[
+            BoxShadow(
+              color:pinkAccent.withOpacity(0.5),
+              blurRadius:6,
+              offset:const Offset(0,0),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 
