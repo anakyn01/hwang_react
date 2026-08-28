@@ -5,14 +5,18 @@ import Link from 'next/link';
 import * as S from './Shelter.styled';
 import * as A from '../../css/style.styles';
 
+import Footer from '../components/Footer';
+
 //MUI
 import {
+NotificationsNone as NotificationsNoneIcon,
 NotificationsOutlined as NotificationsIcon,
 TuneOutlined as FilterIcon,
 FmdGood as LocationIcon,
 PlayCircleFilled as PlayIcon,
 ChevronRight as ChevronRightIcon
 } from '@mui/icons-material';
+import { Topbar } from '../components/topbar/Topbar';
 
 export default function Shelter(){
 const[activeTab, setActiveTab] = useState('보호동물');
@@ -20,9 +24,15 @@ const[isAlertOn, setIsAlertOn] = useState(false);
 
 return(
     <>
+    
 <A.AppWrapper>
+<A.Header>
+      <A.Logo>어서찾아주개</A.Logo>
+      <NotificationsNoneIcon fontSize="large"/>
+</A.Header>
 
 <A.Container>
+ 
     <S.TabContainer>
         {['보호동물', '보호소 찾기', '추천 입양 동물'].map((tab) =>(
             <S.TabBtn
@@ -125,7 +135,7 @@ return(
 </S.ListSection>
 
 </A.Container>
-
+<Footer/>
 
 </A.AppWrapper>    
     </>
