@@ -140,7 +140,22 @@ Widget _buildIconBox(){
 
 // 🧱 부품: SPARK 그라데이션 로고 텍스트
 Widget _buildLogoText(){
-  return ShaderMask();
+  return ShaderMask(
+    shaderCallback:(bounds) => LinearGradient(
+      colors:[pinkAccent, purpleAccent],
+      begin:Alignment.centerLeft,
+      end:Alignment.centerRight,
+    ).createShader(bounds),
+    child:const Text(
+      'SPARK',
+      style:TextStyle(
+        color:Colors.white,
+        fontSize:48,
+        fontWeight:FontWeight.w900,
+        letterSpacing:2.0,
+      ),
+    ),
+  );
 }
 
 // 🧱 부품: 로고 밑의 안내 문구
