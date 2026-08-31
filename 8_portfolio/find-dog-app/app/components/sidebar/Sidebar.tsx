@@ -60,9 +60,9 @@ const handleToggle = () => {
                 </S.NavItem>
 
                 <S.NavItem>
-                    <S.NavLink href="/bannersetting" $isCollapsed={isCollapsed}>
+                    <S.NavLink href="/admin/sheltersetting" $isCollapsed={isCollapsed}>
                         <i className='fas fa-fw fa-image'></i>
-                        <span>배너 설정</span>
+                        <span>보호소 설정</span>
                     </S.NavLink>
                 </S.NavItem>
 

@@ -119,20 +119,122 @@ transition:left 0.3s;
 box-shadow: 0 2px 4px rgba(0,0,0,.2);
 }
 `;
-export const Divider=styled.div``;
-export const RecommendSection = styled.section``;
-export const SectionHeader = styled.div``;
-export const RecommendScroll = styled.div``;
-export const RecommendCard = styled.div``;
-export const RecommendImgBox = styled.div``;
-export const LocationText = styled.div``;
-export const ListSection = styled.section``;
-export const AnimalCard = styled.div``;
-export const AnimalImgBox = styled.div``;
-export const AnimalInfo = styled.div``;
-export const BadgeGroup = styled.div``;
-export const Badge = styled.span<{ $type?: 'status'|'female' | 'male' | 'unknown' }>`
-
+export const Divider=styled.div`
+height:8px; background-color:#f4f5f7;
+width:100%;
 `;
-export const InfoGrid = styled.div``;
+export const RecommendSection = styled.section`
+background-color:#fff;
+padding:25px 0 25px 20px;
+`;
+export const SectionHeader = styled.div`
+display:flex; justify-content:space-between;
+align-items:center;
+padding-right:20px;
+margin-bottom:15px;
+.more-link{
+display:flex;
+align-items:center;
+font-size:0.85rem;
+color:#888;
+text-decoration:none;
+}
+`;
+export const RecommendScroll = styled.div`
+display:flex;
+gap:15px;
+overflow-x:auto;
+padding-right:20px;
+&::-webkit-scrollbar{display:none;}
+`;
+export const RecommendCard = styled.div`
+width:140px;
+flex-shrink:0;
+`;
+export const RecommendImgBox = styled.div`
+width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background-color: #eee;
+  img { width: 100%; height: 100%; 
+  object-fit: cover; }
+  .play-icon {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    color: rgba(255,255,255,0.9);
+  }
+`;
+export const LocationText = styled.div`
+font-size:.85rem;
+color:#111;
+margin-top:10px;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:2px;
+`;
+export const ListSection = styled.section`
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:15px;
+background-color:#f4f5f7;
+`;
+export const AnimalCard = styled.div`
+padding:20px;
+display:flex;
+flex-direction:column;5
+gap:15px;
+`;
+export const AnimalImgBox = styled.div`
+width:110px;
+height:110px;
+border-radius:8px;
+overflow:hidden;
+background-color:#eee;
+flex-shrink:0;
+img{width:100%; height:100%; object-fit:cover;}
+`;
+export const AnimalInfo = styled.div`
+display:flex;
+flex-direction:column;
+width:100%;
+`;
+export const BadgeGroup = styled.div`
+display:flex;
+gap:6px;
+margin-bottom:10px;
+`;
+export const Badge = styled.span<{ $type?: 'status'|'female' | 'male' | 'unknown' }>`
+font-size:0.75rem;
+padding:3px 8px;
+border-radius:4px;
+border:1px solid;
+${({ $type}) => {
+    switch($type){
+case 'status':return 'color:#555; border-color:#ccc;';
+case 'female':return 'color:#ff6b6b; border-color:#ff6b6b;';  
+case 'male':return 'color:#4a90e2; border-color:#4a90e2;';  
+case 'unknown':return 'color:#555; border-color:#ccc;';  
+default:return 'color: #555; boder-color:#ccc;';        
+    }
+}}
+`;
+export const InfoGrid = styled.div`
+display:grid;
+grid-template-columns:60px 1fr;
+row-gap:60px;
+font-size:0.85rem;
+.label{color:#888;}
+.value{
+color:#111;
+font-weight:500;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+`;
 
