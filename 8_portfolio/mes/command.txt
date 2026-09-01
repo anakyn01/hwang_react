@@ -13,3 +13,7 @@ alter user MES_USR default tablespace users quota unlimited on users;
 
 오라클 통신용 공식 드라이버
 npm install express cors dotenv reflect-metadata typeorm oracledb
+
+npm install -D nodemon ts-node
+
+npm install -D tsx
