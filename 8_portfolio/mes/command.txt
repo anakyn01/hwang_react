@@ -1,0 +1,15 @@
+mkdir mes-backend
+cd mes-backend
+npm init -y
+npm install -D typescript ts-node-dev @types/node @types/express @types/cors
+npx tsc --init
+
+
+ALTER SESSION SET "_ORACLE_SCRIPT"=true;
+CREATE USER "MES_USR" IDENTIFIED BY "1234"
+GRANT CONNECT TO "MES_USR";
+GRANT RESOURCE TO "MES_USR";
+alter user MES_USR default tablespace users quota unlimited on users;
+
+오라클 통신용 공식 드라이버
+npm install express cors dotenv reflect-metadata typeorm oracledb
