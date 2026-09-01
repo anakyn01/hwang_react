@@ -1,11 +1,13 @@
 package com.hbk.entity;
 
 import com.hbk.domain.Gender;
+import com.hbk.domain.ShelterStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,6 +25,10 @@ public class ShelterAnimal {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    private ShelterStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Gender gender;
 
     @Column(nullable = false)
@@ -30,6 +36,9 @@ public class ShelterAnimal {
 
     @Column(name="notice_no", nullable = false)
     private String noticeNo;
+
+    @Column(name="reg_date", nullable = false)
+    private LocalDate regDate;
 
     @Column(name="rescue_location", nullable = false)
     private String rescueLocation;
