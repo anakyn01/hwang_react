@@ -213,8 +213,7 @@ child:Stack(
 border:Border.all(color:pinkAccent, width:2),
 color:Colors.pink[100],      
 ),
-child:const Center(child:Text('🌸',
-style:TextStyle(fontSize:40))),
+child:const Center(child:Text('🌸',style:TextStyle(fontSize:40))),
 ),
 Positioned(
   bottom:0, right:0,
@@ -229,7 +228,7 @@ border:Border.all(color:cardColor, width:3)
 ],
 ),
 ),        
-],],
+],
 ),
 const SizedBox(height:16),
 const Row(
@@ -293,7 +292,7 @@ Expanded(
   child: Column(
 crossAxisAlignment: CrossAxisAlignment.start,    
 children: [
-const Text('SPARK Premium', style:TextStyle(color:goldColor, fontSize:16, fontWeight:FontWeight.bold)),
+Text('SPARK Premium', style:TextStyle(color:goldColor, fontSize:16, fontWeight:FontWeight.bold)),
 const SizedBox(height:4),
 Text('무제한 좋아요 슈퍼 좋아요 누가 나를 좋아했는지 확인', style:TextStyle(color:subTextColor, fontSize:12)),
 ],
@@ -410,7 +409,9 @@ _buildBottomNavItem('MY', Icons.person_outline, 4),
 );
 }
 
-BottomNavigationBarItem _buildBottomNavItem(String lable, IconData icon, int index){
+BottomNavigationBarItem _buildBottomNavItem(String label, IconData icon, int index){
+  bool isSelected = _selectedIndex == index;
+
   return BottomNavigationBarItem(
     icon: Container(
       padding:const EdgeInsets.all(8),
