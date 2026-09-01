@@ -1,7 +1,8 @@
 'use client'
 
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import Link from 'next/link';
+import axios from 'axios';
 import * as S from './Shelter.styled';
 import * as A from '../../css/style.styles';
 
@@ -18,10 +19,47 @@ ChevronRight as ChevronRightIcon
 } from '@mui/icons-material';
 import { Topbar } from '../components/topbar/Topbar';
 
+//백앤드에서 받아올 데이터 타입정의
+interface Animal{
+id:number;
+status:'ACTIVE' | 'COMPLETED';
+gender:'MALE' | 'FEMALE' | 'UNKNOWN';
+breed:string;
+noticeNo:string;
+regDate:string;
+rescueLocation:string;
+imageUrl:string;    
+}
+
 export default function Shelter(){
 const[activeTab, setActiveTab] = useState('보호동물');
 const[isAlertOn, setIsAlertOn] = useState(false);
 
+//백엔드에서 가져온 동물 리스트를 담을 상태
+const [animals,setAnimals] = useState<Animal[]>([]);
+
+//생명주기
+ useEffect(() => {
+    const fetchAnimals = async () => {
+
+        try{
+const response = await axios.get('http://localhost:8080/api/shelter-animals');
+setAnimals(response.data);
+        }catch(error){
+console.error('동물 데이터를 불러오는데 실패했습니다', error);
+        }
+    };
+    fetchAnimals();
+ }, []);
+
+//이미지 주소 변환함수
+const getFullImageUrl = (url: string) => {
+if (!url) return 'http://via.placeholder.com/110';
+if (url.startsWith('/uploads/')){
+return `http://localhost:8080${url}`;
+}
+return url;
+} 
 return(
     <>
     
@@ -97,7 +135,8 @@ return(
     <S.RecommendScroll>
         <S.RecommendCard>
             <S.RecommendImgBox>
-                <img src="" alt="" />
+<img src="https://via.placeholder.com/140" 
+alt="추천동물" />
                 <PlayIcon className='play-icon' sx={{}}/>
             </S.RecommendImgBox>
             <S.LocationText>
@@ -111,27 +150,43 @@ return(
 <S.Divider/>
 
 <S.ListSection>
-    <S.AnimalCard>
+    {animals.length === 0 ? (
+        <div className="">
+            등록된 보호 동물이 없습니다
+        </div>
+    ):(
+animals.map((animal) => (        
+    <S.AnimalCard key={animal.id}>
         <S.AnimalImgBox>
-            <img src="" alt="" />
+<img 
+src={getFullImageUrl(animal.imageUrl)} 
+alt={animal.breed}
+/>
         </S.AnimalImgBox>
         <S.AnimalInfo>
             <S.BadgeGroup>
-                <S.Badge $type="status">완료</S.Badge>
-                <S.Badge $type="female">암컷</S.Badge>
+<S.Badge $type="status">
+{animal.status === 'COMPLETED' ? '완료' : '공고중'}
+</S.Badge>
+<S.Badge $type={animal.gender === 'FEMALE' ? 'female' : animal.gender === 'MALE' ? 'male' : 'unknown'}>
+{animal.gender === 'MALE' ? '수컷' : animal.gender === 'FEMALE' ? '암컷' : '미상'}
+</S.Badge>
             </S.BadgeGroup>
             <S.InfoGrid>
      <span className="label">품종</span>
-                  <span className="value">[개] 푸들</span>
-                  <span className="label">공고번호</span>
-                  <span className="value">충북-청주-2026...</span>
-                  <span className="label">등록날짜</span>
-                  <span className="value">2026-08-06</span>
-                  <span className="label">구조장소</span>
-                  <span className="value">용암삼일무지개아파트</span>           
+     <span className="label">품종</span>
+                                        <span className="value">{animal.breed}</span>
+                                        <span className="label">공고번호</span>
+                                        <span className="value">{animal.noticeNo}</span>
+                                        <span className="label">등록날짜</span>
+                                        <span className="value">{animal.regDate}</span>
+                                        <span className="label">구조장소</span>
+                                        <span className="value">{animal.rescueLocation}</span>
             </S.InfoGrid>
         </S.AnimalInfo>
     </S.AnimalCard>
+))
+    )}
 </S.ListSection>
 
 </A.Container>

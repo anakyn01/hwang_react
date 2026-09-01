@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.List;
 import java.util.UUID;
 
 // 스프링에게 이 클래스가 비즈니스 로직을 처리하는 '서비스'
@@ -81,6 +82,10 @@ throw new RuntimeException("파일 업로드중 오류가 발생했습니다", e
             .build();
 
     repository.save(animal);
+}
+
+public List<ShelterAnimal> getAllAnimals(){
+    return repository.findAll();
 }
 
 

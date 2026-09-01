@@ -95,7 +95,7 @@ onChange={handleChange}>
 성별
 </label>        
 <Form.Select name="gender" 
-value={formData.status} 
+value={formData.gender} 
 onChange={handleChange}>
 <option value="UNKNOWN">성별 미상</option>
 <option value="MALE">수컷</option>
@@ -178,7 +178,7 @@ onChange={() => setImageInputType('LINK')}
 <Form.Check
 type="radio"
 id="imgUpload"
-name="imageinputType"
+name="imageInputType"
 label="직접 업로드"
 checked={imageInputType === 'UPLOAD'}
 onChange={() => setImageInputType('UPLOAD')}
@@ -219,9 +219,9 @@ className='img-thumbnail shadow-sm'
 
 
 <div className="form-group mb-4">
-<lable className="font-weight-bold">
+<label className="font-weight-bold">
 특이사항 및 상세 설명    
-</lable>
+</label>
 <Form.Control
 as="textarea" rows={5}
 name="content"

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/shelter-animals")
 @RequiredArgsConstructor
@@ -20,5 +22,11 @@ public class ShelterAnimalController {
             @ModelAttribute ShelterAnimalRequestDto dto){
         shelterAnimalService.registerAnimal(dto);
         return ResponseEntity.ok("보호 동물이 성공적으로 등록되었습니다");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ShelterAnimal>> getAllAnimals(){
+List<ShelterAnimal> animals = shelterAnimalService.getAllAnimals();
+return ResponseEntity.ok(animals);
     }
 }
