@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./lib/registy";
-import { GlobalStyle } from "@/assets/css/GlobalStyle";
+import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
 import {Header} from "@/components/Header";
 import {Footer} from "@/components/Footer";
 import * as S from "@/assets/css/LayoutWrapper.style";
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: Readonly<{children:React.ReactN
     <html lang="ko">
       <body>
         <StyledComponentsRegistry>
-          <GlobalStyle/>
+          <ThemeProviderWrapper>
           <S.PageWrapper>
             <Header/>
             <S.MainContent>
@@ -27,6 +27,7 @@ export default function RootLayout({ children }: Readonly<{children:React.ReactN
           </S.MainContent>
           <Footer/>
           </S.PageWrapper>
+          </ThemeProviderWrapper>
         </StyledComponentsRegistry>
         </body>
     </html>

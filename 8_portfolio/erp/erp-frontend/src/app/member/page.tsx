@@ -72,6 +72,7 @@ strategy="lazyOnload"
 />
 <S.Card>
 <S.ImageColumn/>
+<S.FormColumn>
 <S.Title>
     Create an Account!
 </S.Title>
@@ -102,7 +103,7 @@ value={formData.email}
 onChange={handleChange}
 />
 
- <S.Row>
+<S.Row>
 <S.Col>
     <S.Input
 type="password" placeholder="비밀번호" name="password" 
@@ -123,15 +124,111 @@ onChange={handleChange}
 
 <S.RadioGroup>
     <span>성별 :</span>
+
     <S.RadioLabel>
 <input type="radio"
 name="gender" value="male"
-checked={formData.gender === "mala"}
-onChange={handleChange}/>        
+checked={formData.gender === "male"}
+onChange={handleChange}/> 남자       
     </S.RadioLabel>
+
+        <S.RadioLabel>
+<input type="radio"
+name="gender" value="female"
+checked={formData.gender === "female"}
+onChange={handleChange}/> 여자      
+    </S.RadioLabel>
+
+        <S.RadioLabel>
+<input type="radio"
+name="gender" value="other"
+checked={formData.gender === "other"}
+onChange={handleChange}/>the other one       
+    </S.RadioLabel>
+
 </S.RadioGroup>
 
+<S.Row>
+<S.Col>
+    <S.Input
+type="text" placeholder="회사명" 
+name="companyName" 
+value={formData.companyName}
+onChange={handleChange}   
+    />
+</S.Col> 
+
+<S.Col>
+<S.Input
+type="text" placeholder="직급" 
+name="position" 
+value={formData.position}
+onChange={handleChange}   
+/>
+</S.Col>
+
+<S.Col>
+<S.Input
+type="text" placeholder="전화번호" 
+name="tel" 
+value={formData.tel}
+onChange={handleChange}   
+/>
+</S.Col>
+    </S.Row>
+
+<S.AddressWrapper>
+<S.Input
+type="text"
+placeholder="주소"
+name="address"
+value={formData.address}
+readOnly
+/>  
+<S.SearchButton
+type="button"
+onClick={handleAddressSearch}
+>
+주소검색</S.SearchButton>  
+</S.AddressWrapper>
+
+<S.Input 
+type="text"
+placeholder="상세주소"
+name="detailAddress"
+value={formData.detailAddress}
+onChange={handleChange}
+/>
+<S.Button type="submit">
+Register Account
+</S.Button>
+
+<S.Divider/>
+
+<S.SocialButton 
+$provider="insta"
+onClick={handleInstargramLogin}>
+Register with Instargram    
+</S.SocialButton>
+
+<S.SocialButton 
+$provider="kakao"
+onClick={handleKakaoLogin}>
+Register with Instargram    
+</S.SocialButton>
 </S.Form>
+
+<S.Divider/>
+
+<S.StyledLink href="/forgot">
+Forgot password?
+</S.StyledLink>
+
+<S.StyledLink href="/login">
+Already have an account? Login!
+</S.StyledLink>
+
+</S.FormColumn>
 </S.Card>        
     </S.Container>
 )
