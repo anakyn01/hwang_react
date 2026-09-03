@@ -224,7 +224,7 @@ Register with Instargram
 Forgot password?
 </S.StyledLink>
 
-<S.StyledLink href="/login">
+<S.StyledLink href="/">
 Already have an account? Login!
 </S.StyledLink>
 

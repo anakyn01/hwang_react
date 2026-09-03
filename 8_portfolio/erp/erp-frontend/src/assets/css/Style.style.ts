@@ -150,3 +150,11 @@ export const CheckboxLabel = styled.label`
   cursor: pointer;
 `;
 
+export const Description = styled.p`
+text-align:center;
+font-size:0.875rem;
+color:#6e707e;
+margin-bottom:1.5rem;
+line-height:1.5;
+`;
+
