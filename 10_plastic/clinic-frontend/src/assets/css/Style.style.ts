@@ -82,10 +82,83 @@ display:none;
 -ms-overflow-style:none;
 scrollbar-width:none;
 `;
-export const HoverSvg = styled.svg``;
-export const EventCard = styled.div``;
-export const EventImageWrapper = styled.div``;
-export const RankBadge=styled.div<{$bgColor:string; $radius?:string}>``;
-export const EventInfo = styled.div<{$bgColor:string}>``;
-export const SurgeryLabel = styled.div``;
-export const EventPrice = styled.div``;     
+export const HoverSvg = styled.svg`
+position:absolute;
+top:50%; left:50%;
+width:85%;
+height:85%;
+margin-top:-42.5%;
+margin-left:-42.5%;
+opacity:0;
+pointer-events:none;
+transition:opacity 0.3s ease-in-out;
+transform-origin:center center;
+`;
+export const EventCard = styled.div`
+min-width:280px; width:280px;
+position:relative;
+flex-shink:0;
+cursor:pointer;
+
+&:hover ${HoverSvg}{
+opacity:1; 
+animation:${spin} 15s linear infinite;
+}
+&:hover img{
+transform:scale(1.05);
+}
+`;
+export const EventImageWrapper = styled.div`
+width:100%; height:320px;
+position:relative;
+overflow:hidden;
+
+img{
+width:100%; height:100%; object-fit:cover;
+transition:transform 0.4s ease;
+}
+`;
+export const RankBadge=
+styled.div<{$bgColor:string; $radius?:string}>`
+position:absolute;
+top:-15px;
+left:-15px;
+width:54px;
+height:54px;
+background-color:${(props) => props.$bgColor};
+z-index:10; color:#000;
+font-size:26px; font-weight:900;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:${(props) => props.$radius || '50%'};
+box-shadow:2px 2px 10px rgba(0,0,0,0.3);
+`;
+export const EventInfo = 
+styled.div<{$bgColor:string}>`
+background-color:${(props) => props.$bgColor};
+padding:16px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+`;
+export const SurgeryLabel = styled.div`
+background-color:#000;
+color:#fff;
+padding:6px 12px;
+font-size:14px;
+font-weight:700;
+`;
+export const EventPrice = styled.div`
+color:#000;
+font-size:32px;
+font-weight:900;
+letter-spacing:-1px;
+
+span{
+font-size:16px;
+font-weight:700;
+margin-left:2px;
+color:#666;
+}
+`;     
