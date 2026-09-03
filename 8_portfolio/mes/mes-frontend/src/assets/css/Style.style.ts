@@ -7,7 +7,7 @@ justify-content:center;
 align-items:center;
 min-height:100vh;
 padding:2rem;
-background-color: ${(props) => props.theme.colors.background};
+background-color: ${(props) => props.theme?.colors?.background || "#536692"};
 `;
 export const Card = styled.div`
 display:flex;
@@ -135,4 +135,20 @@ text-decoration:underline;
 color:#224abe;
 }
 `;
+
+
+
+export const CheckboxWrapper = styled.div`
+display:flex;
+align-items:center;
+gap:0.5rem;
+padding-left:0.5rem;
+margin-bottom:0.5rem;
+`;
+export const CheckboxLabel = styled.label`
+font-size:0.8rem;
+color:#6e707e;
+cursor:pointer;
+`;
+
 

@@ -3,9 +3,9 @@
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./lib/registry";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+
 import * as S from '@/assets/css/LayoutWrapper.style';
+import ConditionalLayout from "@/components/ConditionalLayout";
 
 export const metadata: Metadata = {
   title: {
@@ -24,13 +24,13 @@ export default function RootLayout({ children,
       <body>
         <StyledComponentsRegistry>
           <ThemeProviderWrapper>
-          <S.PageWrapper>
-            <Header/>
-            <S.MainContent>
+          
+          
+            <ConditionalLayout>
             {children}
-            </S.MainContent>
-            <Footer/>
-          </S.PageWrapper>
+            </ConditionalLayout>
+           
+        
           </ThemeProviderWrapper>
         </StyledComponentsRegistry>
         
