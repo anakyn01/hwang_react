@@ -106,7 +106,7 @@ background-color:#858796;
 background-color:#717384;
 }
 `;
-export const SocialButton = styled.button<{$provider:"insta"|"kakao"}>`
+export const SocialButton = styled.button<{$provider:"google" |"insta"|"kakao"}>`
 width:100%;
 padding:0.8rem;
 margin-bottom:0.5rem;
@@ -150,5 +150,11 @@ font-size:0.8rem;
 color:#6e707e;
 cursor:pointer;
 `;
-
+export const Description = styled.p`
+text-align: center;
+font-size: 0.875rem;
+color: #6e707e;
+margin-bottom: 1.5rem;
+line-height: 1.5;
+`;
 
