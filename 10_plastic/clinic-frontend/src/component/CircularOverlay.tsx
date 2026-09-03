@@ -60,10 +60,52 @@ return(
 <S.EventHeader>
     <S.EventTitleGroup>
         <S.EventMainTitle>
-            
+            Event Ranking
         </S.EventMainTitle>
+        <S.EventSubTitle>
+            원진 이벤트 랭킹
+        </S.EventSubTitle>
     </S.EventTitleGroup>
-</S.EventHeader>        
+    <S.EventControls>
+        <S.EventViewMoreBtn>
+            view more
+        </S.EventViewMoreBtn>
+<S.EventArrowBtn
+onClick={() => scroll('left')}
+>&lt;
+</S.EventArrowBtn>  
+<S.EventArrowBtn
+onClick={() => scroll('right')}
+>&gt;
+</S.EventArrowBtn>      
+    </S.EventControls>
+</S.EventHeader> 
+
+<S.EventSliderWrapper ref={sliderRef}>
+{EVENT_DATA.map((item) => (
+<S.EventCard key={item.id}>
+    {/*왼쪽위로 튀어나온 랭크 뱃지 */}
+<S.RankBadge $bgColor={item.color} 
+$radius={item.radius}>
+{item.rank}
+</S.RankBadge>
+
+<S.EventImageWrapper>
+<img src={item.img} alt={item.name}/>
+<CircularOverlay/>
+</S.EventImageWrapper>
+{/*하단 가격 정보 영역 */}
+<S.EventInfo $bgColor={item.color}>
+<S.SurgeryLabel>{item.name}</S.SurgeryLabel>
+<S.EventPrice>{item.price}
+<span>만원</span>    
+</S.EventPrice>
+</S.EventInfo>
+</S.EventCard>    
+))}    
+</S.EventSliderWrapper>
+
+
     </S.EventInner>
 </S.EventSection>   
 )
