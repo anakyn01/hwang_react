@@ -40,7 +40,7 @@ export default function ForgotPassword() {
           <S.StyledLink href="/member">
             Create an Account!
           </S.StyledLink>
-          <S.StyledLink href="/login"> {/* 메인(로그인) 경로가 "/" 라면 "/"로 수정하세요 */}
+          <S.StyledLink href="/"> {/* 메인(로그인) 경로가 "/" 라면 "/"로 수정하세요 */}
             Already have an account? Login!
           </S.StyledLink>
           
