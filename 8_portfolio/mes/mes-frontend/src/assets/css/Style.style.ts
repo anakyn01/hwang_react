@@ -7,7 +7,7 @@ justify-content:center;
 align-items:center;
 min-height:100vh;
 padding:2rem;
-background-color: ${(props) => props.theme?.colors?.background || "#536692"};
+background-color: ${(props: any) => props.theme?.colors?.background || "#536692"};
 `;
 export const Card = styled.div`
 display:flex;
