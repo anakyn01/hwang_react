@@ -4,7 +4,7 @@ import {useState} from "react";
 import axios from "axios";
 import { useRouter} from "next/navigation";
 import Script from "next/script";
-import * as S from "@/assets/css/Member.style";
+import * as S from "@/assets/css/Style.style";
 
 const handleInstargramLogin = () => {
 

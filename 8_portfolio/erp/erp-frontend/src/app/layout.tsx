@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./lib/registy";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
-import {Header} from "@/components/Header";
-import {Footer} from "@/components/Footer";
-import * as S from "@/assets/css/LayoutWrapper.style";
+// 💡 방금 만든 조건부 레이아웃 컴포넌트를 불러옵니다
+import ConditionalLayout from "@/components/ConditionalLayout";
 
 export const metadata: Metadata = {
 title: {
@@ -20,13 +19,11 @@ export default function RootLayout({ children }: Readonly<{children:React.ReactN
       <body>
         <StyledComponentsRegistry>
           <ThemeProviderWrapper>
-          <S.PageWrapper>
-            <Header/>
-            <S.MainContent>
+     
+            <ConditionalLayout>
           {children}
-          </S.MainContent>
-          <Footer/>
-          </S.PageWrapper>
+          </ConditionalLayout>
+     
           </ThemeProviderWrapper>
         </StyledComponentsRegistry>
         </body>
