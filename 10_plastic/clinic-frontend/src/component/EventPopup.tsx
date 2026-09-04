@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 //현재 url경로를 가져오는 후크추가
 import {usePathname} from 'next/navigation';
-import * as S from './EventPopup.styles';
+import * as S from '@/assets/css/Style.style';
 
 const POPUP_LIST = [
     {

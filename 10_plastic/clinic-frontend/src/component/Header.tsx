@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import Link from 'next/link';
-import * as S from './Header.styles';
+import * as S from '@/assets/css/Style.style';
 import GlobeIcon from './icons/GlobeIcon';
 import UserIcon from './icons/UserIcon';
 

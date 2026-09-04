@@ -21,6 +21,37 @@ color:'#ffffcc', radius:'50%'
 },
 ]
 
+// 🎯 사진의 변한 테두리 모양을 완벽하게 따라가는 텍스트 컴포넌트
+const ArchTextOverlay = () => (
+  <S.HoverSvg viewBox="0 0 280 340">
+    {/* 
+      🎯 핵심 4: 사진의 둥글어진 돔 형태를 정확히 추적하는 선
+      M 15,330 (왼쪽 아래) -> L 15,140 (왼쪽 직선) -> A 125,125 (위쪽 반원) -> L 265,330 (오른쪽 직선)
+    */}
+    <path 
+      id="archPath" 
+      d="M 15,330 L 15,140 A 125,125 0 0,1 265,140 L 265,330" 
+      fill="none" 
+    />
+    <text>
+      <textPath 
+        href="#archPath" 
+        startOffset="50%" 
+        textAnchor="middle" 
+        fill="rgba(255, 255, 255, 0.9)" 
+        fontSize="14" 
+        fontWeight="bold"
+        letterSpacing="2.5"
+      >
+        DA PLASTIC SURGERY DA PLASTIC SURGERY DA PLASTIC SURGERY DA PLASTIC
+      </textPath>
+    </text>
+  </S.HoverSvg>
+);
+
+
+
+
 // 🎯 마우스 오버 시 나타날 원형 텍스트 컴포넌트
 const CircularOverlay = () => (
   <S.HoverSvg viewBox="0 0 100 100">
@@ -92,7 +123,7 @@ $radius={item.radius}>
 
 <S.EventImageWrapper>
 <img src={item.img} alt={item.name}/>
-<CircularOverlay/>
+<ArchTextOverlay />
 </S.EventImageWrapper>
 {/*하단 가격 정보 영역 */}
 <S.EventInfo $bgColor={item.color}>

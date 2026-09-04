@@ -1,6 +1,6 @@
 "use client";
 import React, {useState} from 'react';
-import * as S from '../style/CategoryNav.styles';
+import * as S from '@/assets/css/Style.style';
 
 const CATEGORY_LIST = [
   { id: 'all', name: '전체', img: './images/main/cate/cat_all.png' },

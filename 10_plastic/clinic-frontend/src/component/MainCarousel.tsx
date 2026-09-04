@@ -1,7 +1,7 @@
 "use client";
 import React, {useCallback, useEffect, useState} from 'react';
 import useEmblaCarousel from "embla-carousel-react";
-import * as S from './MainCarousel.styles';
+import * as S from '@/assets/css/Style.style';
 
 const MAIN_SLIDES = [
 {id:1, imageUrl:'/images/main-banner1.jpg', title:'예쁘면 다야!'},

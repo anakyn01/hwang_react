@@ -73,8 +73,7 @@ background-color:#444;
 export const EventSliderWrapper = styled.div`
 display:flex; gap:24px;
 overflow-x:auto; scroll-behavior:smooth;
-padding-bottom:20px;
-padding-top:20px;
+padding:30px 10px 20px 20px;
 
 &::-webkit-scrollbar{
 display:none;
@@ -94,30 +93,49 @@ pointer-events:none;
 transition:opacity 0.3s ease-in-out;
 transform-origin:center center;
 `;
-export const EventCard = styled.div`
-min-width:280px; width:280px;
-position:relative;
-flex-shink:0;
-cursor:pointer;
 
-&:hover ${HoverSvg}{
-opacity:1; 
-animation:${spin} 15s linear infinite;
-}
-&:hover img{
-transform:scale(1.05);
-}
-`;
+// 🎯 평상시엔 직사각형이다가, 마우스를 올리면 위가 둥글게 변하는 애니메이션 추가
 export const EventImageWrapper = styled.div`
-width:100%; height:320px;
-position:relative;
-overflow:hidden;
-
-img{
-width:100%; height:100%; object-fit:cover;
-transition:transform 0.4s ease;
-}
+  width: 100%;
+  height: 340px;
+  position: relative;
+  overflow: hidden;
+  
+  /* 🎯 핵심 1: 평상시엔 모서리가 뾰족한 직사각형 */
+  border-radius: 0px; 
+  /* 🎯 핵심 2: 모양이 부드럽게 변하도록 트랜지션 추가 */
+  transition: border-radius 0.3s ease-in-out;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
 `;
+
+export const EventCard = styled.div`
+  min-width: 280px;
+  width: 280px;
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  /* 🎯 핵심 3: 마우스 오버 시 이미지 윗부분 양쪽 모서리를 둥글게 깎음 (가로 280px의 절반인 140px로 완벽한 반원 생성) */
+  &:hover ${EventImageWrapper} {
+    border-top-left-radius: 140px;
+    border-top-right-radius: 140px;
+  }
+
+  &:hover ${HoverSvg} {
+    opacity: 1;
+  }
+  
+  &:hover img {
+    transform: scale(1.05);
+  }
+`;
+
 export const RankBadge=
 styled.div<{$bgColor:string; $radius?:string}>`
 position:absolute;
@@ -162,3 +180,1164 @@ margin-left:2px;
 color:#666;
 }
 `;     
+
+//카테고리나브
+export const NavContainer = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+gap:30px;
+padding-bottom:15px;
+margin-top:40px;
+
+border-bottom:2px solid #ffd1df;
+width:100%;
+
+@media (max-width: 768px) {
+justify-content:flex-start;
+overflow-x:auto;
+padding-left:20px;
+padding-right:20px;
+
+&::-webkit-scrollbar{
+display:none;
+}
+}
+
+`;
+export const CategoryItem = 
+styled.div<{$active:boolean}>`
+display:flex;
+flex-direction:column;
+align-items:center;
+cursor:pointer;
+position:relative;
+min-width:70px;
+
+//선택된 상태일때 하단에서 올라오는 핑크색 삼각형 생성
+${({ $active}) => $active &&`
+&::after{
+content:'';
+position:absolute;
+bottom:-17px;
+left:50%;
+transform:translateX(-50%);
+border-width:0 10px 10px 10px;
+border-style:solid;
+border-color:transparent transparent #ffd1df transparent;
+}
+`}
+`;
+export const ImageBox = styled.div<{$active:boolean}>`
+width:76px; height:76px;
+border-radius:50%;
+position:relative;
+overflow:hidden;
+margin-bottom:10px;
+
+border:${({ $active }) => ($active ? '4px solid #ffdidf' : '4px solid transparent')};
+box-sizing:border-box;
+transition:all .2s ease-in-out;
+
+img{
+width:100%; 
+height:100%; 
+object-fit:cover;
+}
+`;
+export const ActiveOverlay = styled.div`
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-color:rgba(255, 209, 223, 0.4);
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:50%;
+`;
+export const CategoryText=
+styled.span<{$active:boolean}>`
+font-size:15px;
+color:${({ $active }) => ($active ? '#111' : '#666')};
+font-weight:${({ $active }) => ($active ? '700' : '400')};
+transition: all 0.2s ease-in-out;
+`;
+
+//이벤트팝업
+export const PopupContainer = styled.div<{ $top:number; $left:number}>`
+position:fixed;
+top:${(props) => props.$top}px;
+left:${(props) => props.$left}px;
+width:380px;
+background-color:rgba(0,0,0,.8);
+box-shadow:0 10px 30px rgba(0, 0, 0, .5);
+z-index:99999;
+display:flex;
+flex-direction:column;
+`;
+export const ImageWrapper = styled.div`
+width:100%;
+position:relative;
+
+img{
+width:100%; height:auto; display:block;
+}
+`;
+export const FormWrapper = styled.div`
+background-color:#000;
+padding:15px 15px 20px 15px;
+
+`;
+export const InputGroup = styled.div`
+display:flex; 
+gap:5px; 
+margin-bottom:12px;
+width:100%; //부모너비에 딱 맟추기
+`;
+export const Input = styled.input`
+flex:1; 
+min-width:0;
+//인풋에 고집을 꺽고 부모크기에 맞춰 줄어들수 있도록 강제 허용
+height:36px; padding:0 8px;
+font-size:13px;
+border:1px solid #ccc;
+outline:none;
+background-color:#fff;
+
+&::placeholder{color:#999;}
+&:focus{border-color:#000;}
+`;
+export const SubmitBtn = styled.button`
+flex-shrink:0;
+//버튼이 다른 애들이 밀어도 절대 크기가 줄어들거나 찌그려 트리지 않게
+width:80px;
+height:36px;
+background-color:#fff176;
+color:#000;
+font-weight:bold;
+font-size:13px;
+border:none;
+cursor:pointer;
+transition:background-color .2s;
+&:hover{
+background-color:#fce83a;
+}
+`;
+export const PrivacyLabel = styled.label`
+display:flex;
+align-items:center;
+gap:6px;
+cursor:pointer;
+`;
+export const PrivacyCheckbox = styled.input`
+appearance:none;
+width:14px;
+height:14px;
+background-color:#fff;
+border:1px solid #ddd;
+cursor:pointer;
+position:relative;
+&:checked::after{
+content:'✔';
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+color:#000;
+font-size:10px;
+}
+`;
+export const PrivacyText = styled.span`
+color:#fff;
+font-size:11px;
+letter-spacing:-0.5px;
+span{
+color:#aaa;
+text-decoration:underline;
+margin-left:4px;
+cursor:pointer;
+}
+`;
+export const FooterWrapper = styled.div`
+background-color:#fff;
+padding:10px 15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+`;
+export const CloseLabel = styled.label`
+display:flex;
+align-items:center;
+gap:6px;
+cursor:pointer;
+font-size:13px;
+color:#000;
+`;
+export const CloseCheckbox = styled.input`
+appearance:none;
+width:14px;
+height:14px;
+border:1px solid #ccc;
+background-color:#fff;
+cursor:pointer;
+position:relative;
+
+&:checked::after{
+content:'✔';
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+color:#000;
+font-size:10px;
+}
+`;
+export const CloseBtn = styled.button`
+background:none;
+border:none;
+font-size:18px;
+font-weight:300;
+cursor:pointer;
+color:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:0;
+`;
+
+
+export const FooterInner = styled.div`
+max-width:1860px;
+margin:0 auto;
+padding:0 40px;
+@media (max-width:1024px) {
+padding:0 20px;
+}
+`;
+export const TopSection = styled.div`
+display:flex; justify-content:space-between;
+align-items:flex-start;
+padding-bottom:40px;
+border-bottom:1px solid #333;
+margin-bottom:40px;
+
+@media (max-width: 1024) {
+flex-direction:column;
+gap:30px;
+}
+`;
+export const CsInfo = styled.div`
+flex:1;
+`;
+export const PhoneNumber = styled.div`
+font-size:32px;
+font-weight:900;
+letter-spacing:1px;
+margin-bottom:5px;
+`;
+export const CsTitle = styled.div`
+font-size:14px;
+color:#999;
+font-weight:bold;
+`;
+export const ScheduleWrapper = styled.div`
+flex:2;
+display:flex;
+gap:60px;
+@media (max-width:768px) {
+flex-direction:column; gap:20px;
+}
+`;
+export const ScheduleBlock = styled.div`
+display:flex; flex-direction:column;
+gap:8px;
+`;
+export const ScheduleTitle = styled.div`
+font-size:14px; font-weight:bold;
+color:#fff; margin-bottom:4px;
+`;
+export const ScheduleText = styled.div`
+font-size:13px; color:#aaa;
+letter-spacing:-0.5px;
+`;
+export const LocationButton = styled.button`
+flex:0.5; height:48px; padding:0 30px;
+border:1px solid #fff;
+background-color:transparent;
+color:#fff;
+font-size:14px;
+font-weight:bold;
+cursor:pointer;
+transition:all 0.3s;
+white-space:nowrap;
+border-radius:5px;
+&:hover{
+background-color:#fff;
+color:#000;
+}
+@media(max-width:1024px){
+width:100%;
+}
+`;
+
+export const BottomSection = styled.div`
+display:flex; justify-content:space-between;
+align-items:flex-end;
+@media (max-width: 1024px) {
+flex-direction:column;
+align-items:flex-start;
+gap:40px;
+}
+`;
+export const CompanyInfo = styled.div`
+display:flex; flex-direction:column;
+gap:10px;
+`;
+export const CompanyName = styled.h2`
+font-size:24px; font-weight:900;
+margin:0 0 15px 0;
+`;
+export const InfoText = styled.p`
+margin:0; font-size:13px; color:#888;
+line-height:1.6;
+letter-spacing:-0.3px;
+
+span{
+margin:0 8px;
+color:#555;
+}
+`;
+export const BottomRight = styled.div`
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+gap:20px;
+@media (max-width: 1024px) {
+align-items: flex-start;
+width:100%;
+}
+`;
+export const PolicyButtons = styled.div`
+display:flex; gap:10px;
+`;
+export const PolicyBtn = styled.button`
+background-color:#222;
+color:#aaa;
+border:none;
+padding:8px 16px;
+font-size:12px;
+cursor:pointer;
+border-radius:2px;
+
+&:hover{
+background-color:#333;
+color:#fff;
+}
+`;
+export const FamilySiteTitle = styled.div`
+font-size:13px;
+font-weight:bold;
+color:#fff;
+margin-bottom:10px;
+`;
+export const FamilySiteLogos = styled.div`
+display:flex; gap:15px;
+align-items:center;
+.logo-placeholder{
+font-size:11px;
+color:#777;
+border:1px solid #444;
+padding:4px 8px;
+border-radius:15px;
+}
+`;
+
+//floating
+export const FlaotingMenu = styled.div`
+position:fixed; right:30px; bottom:90px;
+display:flex; flex-direction:column;
+gap:15px; z-index:100;
+@media (max-width: 768px) {
+right:15px; bottom:20px;
+transform:scale(0.85);
+}
+`;
+export const FabItem = styled.div`
+display:flex; flex-direction:column;
+align-items:center;
+gap:5px;
+cursor:pointer;
+`;
+export const FabIcon = styled.div<{$bgColor:string}>`
+width:60px; height:60px;
+border-radius:50%;
+background-color:${(props) => props.$bgColor};
+display:flex; align-items:center;
+justify-content:center;
+color:#000;
+font-weight:900;
+font-size:16px;
+box-shadow:0 4px 10px rgba(0,0,0, 0.3);
+transition:transform 0.2s;
+
+&:hover{
+transform: translateY(-5px);
+}
+
+svg{
+width:30px; height:30px; color:#fff;
+}
+`;
+export const FabText = styled.span`
+background-color: #111;
+color:#fff;
+font-size:11px;
+font-weight:bold;
+padding:4px 8px;
+border-radius:10px;
+letter-spacing:-0.5px;
+`;
+
+//헤더
+export const HeaderWraper = styled.header`
+width:100%; background-color:#fff;
+border-bottom:1px solid #f0f0f0;
+position:fixed;
+z-index:9999;
+`;
+
+export const HeaderInner = styled.div`
+max-width:1860px;
+margin:0 auto;
+height:90px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+
+@media (max-width: 1024px) {
+height:60px; padding:0 20px;
+}
+`;
+
+//로고그룹
+export const LogoGroup = styled.div`
+display:flex;
+align-items:center;
+flex:1;
+`;
+
+export const Logo = styled.h1`
+font-family:'Times New Roman',serif;
+font-size:34px;
+color:#3e2723;
+margin:0;
+cursor:pointer;
+`;
+
+//중앙 네비게이션 그룹
+export const NavGroup = styled.nav`
+display:flex;
+align-items:center;
+justify-content:center;
+gap:40px;
+flex:2;
+
+@media (max-width: 1024px) {
+ display:none;
+}
+`;
+export const NavItem = styled.span<{$active?:boolean}>`
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+color:${(props) => (props.$active ? '#0056b3':'#111111')};
+border-bottom:${(props) => (props.$active ? '2px solid #0056b3' :'2px solid transparent')}
+padding-bottom:5px;
+transition:all 0.2s ease-in-out;
+
+&:hover{ color:#0056b3;}
+`;
+export const UtilGroup = styled.div`
+display:flex;
+align-items:center;
+justify-content:flex-end;
+gap:12px;
+flex:1;
+
+@media (max-width: 1024px) {
+gap:8px;
+}
+`;
+export const PhoneButton = styled.a`
+display:flex;
+align-items:center;
+height:40px;
+border:1px solid #d1d5db;
+border-radius:20px;
+padding: 0 16px;
+font-size:14px;
+font-weight:bold;
+color:#111111;
+text-decoration:none;
+background-color:#fff;
+span{
+color:#0056b3;
+margin-left:6px;
+}
+`;
+export const CtaButton = styled.button`
+height:40px; background-color:#111;
+color:#fff;
+border:none;
+border-radius:20px;
+padding:0 20px;
+font-size:14px;
+font-weight:bold;
+cursor:pointer;
+`;
+export const IconButton = styled.button`
+width:40px;
+height:40px;
+border-radius:50%;
+border:1px solid #d1d5db;
+background-color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+color:#333;
+transition:background-color .2s;
+
+&:hover{
+background-color:#f9fafb;
+}
+
+svg{
+width:20px; height:20px;
+}
+
+`;
+
+//add
+export const DesktopOnly = styled.div`
+display:flex;
+align-items:center;
+gap:12px;
+@media (max-width: 1024px) {
+display:none;
+}
+`;
+
+//모바일 전용 둥근 라인버튼
+export const MobilePillButton = styled.button`
+display:none;
+
+@media (max-width: 1024px) {
+display:inline-block;
+height:32px;
+border:1px solid #111;
+border-radius:16px;
+padding:0 12px;
+font-size:13px;
+font-weight:bold;
+color:#111;
+background-color:#fff;
+cursor:pointer;
+}
+`;
+
+//아디다스버튼
+export const HamburgerButton = styled.button`
+display:none;
+@media (max-width:1024px) {
+display:flex;
+flex-direction:column;
+justify-content:center;
+gap:5px;
+width:32px;
+height:32px;
+border:none;
+background:none;
+cursor:pointer;
+padding:0;
+margin-left:8px;
+}
+
+span{
+display:block; width:22px; height:2px;
+background-color:#111;
+border-radius:1px;
+}
+`;
+//캐러셀
+export const CarouselSection = styled.section`
+margin-top:99px;
+position:relative;
+width:100%;
+max-width:2440px;
+margin:0 auto;
+overflow:hidden;
+`;
+export const EmblaViewport = styled.div`
+width:100%;
+overflow:hidden;
+`;
+export const EmblaContainer = styled.div`
+display:flex;
+flex-direction:row;
+width:100%;
+`;
+export const EmblaSlide = styled.div`
+flex: 0 0 100%; /*flex-grow, flex-shrink  부모너비의 100%*/
+min-width:0;
+width:100%;
+position:relative;
+`;
+export const SlideImage = styled.img`
+width:100%;
+height:600px;
+object-fit:cover;
+display:block;
+
+@media (max-width: 768px) {
+height:400px;
+}
+`;
+
+
+
+export const NavButton = styled.button<{ $direction: 'left' | 'right'}>`
+position:absolute;
+top:50%;
+transform: translateY(-50%);
+${(props) => (props.$direction === 'left' ? 'left:20px;' : 'right:20px;')}
+width:50px;
+height:50px;
+border-radius:50%;
+background-color:rgba(255, 255, 255, .3);
+color:#fff;
+border:none;
+font-size:24px;
+cursor:pointer;
+z-index:20;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:background-color .2s;
+
+&:hover{
+background-color:rgba(255, 255, 255, .7);
+color:#000;
+}
+
+@media (max-width:768px) {
+width:40px; height:40px;
+font-size:18px;
+${(props) => (props.$direction === 'left' ?'left:10px' : 'right:10px')}
+}
+`;
+
+//퀵바
+export const BarWrapper = styled.div`
+position:fixed; bottom:0; left:0;
+width:100%;
+background-color:rgba(17,17,17,0.95);
+border-top:1px solid #333;
+backdrop-filter:blur(5px);
+z-index:99999;
+
+@media (max-width: 1024px) {
+display:none;
+}
+`;
+export const BarInner = styled.div`
+max-width:1860px;
+margin:0 auto;
+height:80px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+padding:0 20px;
+`;
+export const Title = styled.div`
+font-size:16px; font-weight:bold;
+color:#fff;
+margin-right:10px;
+`;
+
+export const Select = styled.select`
+width:200px; height:44px; background-color:#333;
+border:1px solid #444;
+color:#888;
+padding:0 15px;
+font-size:14px;
+outline: none;
+appearance: none; /* 브라우저 기본 화살표 숨김 */
+
+/* 커스텀 화살표 아이콘 삽입 */
+background-image: url('data:image/svg+xml;utf8,<svg fill="%23888888" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+background-repeat: no-repeat;
+background-position-x:95%;
+background-position-y:50%;
+
+&:focus {
+border-color:#6a6446;
+}
+`;
+export const CheckboxGroup = styled.div`
+display:flex; align-items:center;
+margin:0 10px;
+`;
+export const CheckboxLabel = styled.label`
+display:flex; align-items:center;
+gap:6px;
+cursor:pointer;
+`;
+export const Checkbox = styled.input`
+appearance:none;
+width:16px; height:16px;
+background-color:#333;
+border:1px solid #555;
+position:relative;
+cursor:pointer;
+
+&:checked {
+background-color:#6a6446;
+border-color:#6a6446;
+}
+
+/*체크 마크 생성*/
+&:checked::after{
+content:'✔';
+position:absolute;
+top:50%; left:50%;
+transform: translate(-50%, -50%);
+color:#111;
+font-size:10px;
+}
+`;
+export const AgreeText = styled.span`
+color:#aaa;
+font-size:13px;
+`;
+export const DetailLink = styled.span`
+color:#888;
+font-size:12px;
+text-decoration:underline;
+margin-left:6px;
+cursor:pointer;
+&:hover{color:#fff;}
+`;
+
+//롤링배너
+//무한 롤링 애니메이션 (0%에서 시작해서 -100%까지 이동)
+const rolling = keyframes`
+0%{
+transform: translateX(0);
+}
+100%{
+transform: translateX(-100%);
+}
+`;
+
+export const BannerWrapper = styled.div`
+width:100%;
+overflow:hidden;
+background:linear-gradient(90deg, #ffe5f1 0%, #ebd4ff 100%);
+padding:14px 0;
+display:flex;
+`;
+
+export const Track = styled.div`
+display:flex;
+white-space:nowrap;
+`;
+
+//똑같은 텍스트 그룹2개를 교대로 보여주기 위해 애니메이션 적용
+export const TextGroup = styled.div`
+display:flex;
+animation:${rolling} 23s linear infinite;
+`;
+
+export const TextItem = styled.span`
+font-size:20px;
+font-weight:800;
+color:#fff;
+text-shadow:2px 2px 10px gray;
+letter-spacing:1px;
+margin-right:30px;
+`;
+
+//서브
+export const Wrapper = styled.div`
+width:100%; max-width:800px;
+margin:0 auto; padding:40px 20px;
+`;
+
+export const StepContainer = styled.div`
+display:flex; align-items:center;
+justify-content:center; margin-bottom:50px;
+`;
+
+export const Step = styled.div<{ $active:boolean}>`
+display:flex; align-items:center; gap:8px;
+`;
+export const StepNumber = styled.div<{ $active?: boolean}>`
+width:24px; height:24px; border-radius:50%;
+background-color:${(props) => (props.$active ? '#000' :'#f0f0f0')};
+color: ${(props) => (props.$active ? '#fff' :'#999')};
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:13px;
+font-weight:bold;
+`;
+
+export const StepText = styled.span<{$active:boolean}>`
+font-size:16px; font-weight:${(props) => (props.$active ? 'bold' :'normal')};
+color:${(props) => (props.$active ? '#000' :'#999')};
+text-decoration: ${(props) => (props.$active ? 'underline' : 'none')};
+text-underline-offset:4px;
+`;
+export const StepDivider = styled.div`
+width:40px; height:1px; 
+border-bottom:1px dashed #ccc;
+margin:0 15px;
+`;
+export const CheckAllWrapper = styled.div`
+border-top:1px solid #e5e5e5;
+border-bottom:1px solid #e5e5e5;
+padding:20px 0;
+margin-bottom:30px;
+`;
+
+
+
+/* 커스텀 사각 체크박스 디자인 */
+export const CheckboxInput = styled.input`
+appearance: none;
+width:20px; 
+height:20px;
+border:1px solid #d1d5db;
+border-radius:2px;
+background-color:#fff;
+cursor:pointer;
+position:relative;
+&:checked{
+border-color:#000;
+}
+/*체크시 나타나는 v마크*/
+&:checked::after{
+content:'✔';
+position:absolute;
+top:50%; left:50%;
+transform:translate(-50%, -50%);
+color:#000;
+font-size:14px;
+}
+`;
+export const CheckAllText = styled.span`
+font-size:16px; font-weight:bold;
+color:#000;
+`;
+
+export const TermSection = styled.div`
+margin-bottom:30px;
+`;
+export const TermHeader = styled.div`
+display:flex; justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+`;
+export const TermTitle = styled.span`
+font-size:15px; color:#444;
+`;
+export const ToggleButton = styled.button`
+background:none;
+border:none;
+color:#666;
+font-size:14px;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:4px;
+`;
+
+export const TermContentBox = styled.div<{$isOpen:boolean}>`
+display:${(props) => (props.$isOpen ? 'block':'none')};
+width:100%;
+height:140px;
+overflow-y:auto;
+border:1px solid #e5e5e5;
+padding:20px;
+font-size:13px;
+color:#666;
+background-color:#fff;
+line-height:1.6;
+white-space: pre-wrap;
+/*
+페이지에서 글자의 띄어쓰기, 들여쓰기, 줄바꿈을 코드에 적은 
+그대로 유지하면서, 글쓴 내용이 화면 상자 크기를 넘어가면 
+자동으로 다음 줄로 넘겨주는 CSS 속성입니다
+*/
+`;
+
+export const ButtonGroup = styled.div`
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:60px;
+`;
+export const Button = styled.button<{$variant:'outline' | 'solid'}>`
+width:180px;
+height:54px;
+font-size:16px;
+font-weight:bold;
+border-radius:4px;
+cursor:pointer;
+transition:all .2s;
+
+background-color:${(props) => (props.$variant === 'outline' ? '#fff':'#000')};
+border: 1px solid;
+color:${(props) => (props.$variant === 'outline' ? '#000' : '#fff')};
+
+&:hover{
+background-color:${(props) => (props.$variant === 'outline' ? '#f9f9f9' : '#333')};
+}
+
+@media (max-width:480px) {
+width:100%;
+}
+`;
+
+//회원가입 폼(step 2)
+export const PageTitle= styled.h2`
+text-align:center; font-size:28px;
+font-weight:900; margin-bottom:40px;
+`;
+export const FormContainer = styled.div`
+width:100%; display:flex; flex-direction:column;
+gap:24px; margin-top:20px;
+`;
+export const FormGroup = styled.div`
+display:flex; flex-direction:column;
+gap:10px;
+`;
+export const Label = styled.label`
+font-size:15px; font-weight:bold;
+color:#111;
+`;
+
+export const EmailWrapper = styled.div`
+display:flex; gap:10px;
+@media(max-width: 480px) {
+flex-direction:column;
+}
+`;
+
+export const SubCheckboxLabel = styled.label`
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 14px;
+color: #333333;
+cursor: pointer;
+margin-top: 5px;
+`;
+export const RadioWrapper = styled.div`
+display: flex;
+align-items: center;
+gap: 30px;
+height:50px;
+`;
+export const RadioLabel = styled.label`
+display: flex;
+align-items: center;
+gap: 8px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+`;
+export const RadioInput = styled.input`
+appearance:none;
+width:20px; height:20px;
+border:1px solid #ccc;
+border-radius:50%;
+outline:none;
+cursor:pointer;
+position:relative;
+&:checked{border-color:#111;}
+&:checked::after{
+content:'';
+position:absolute;
+top:50%; left:50%;
+transform:translate(-50%, -50%);
+width:15px; height:15px;
+border-radius:50%;
+background-color:#111;
+}
+`;
+
+
+//다음 팝업
+export const Dflex = styled.div`
+display:flex; gap:10px; 
+margin-bottom:10px;
+`;
+export const ModalBG = styled.div`
+position:fixed;
+background-color:rgba(0, 0, 0, .3);
+z-index:999999;
+left:0; top:0;
+width:100%;
+height:100%;
+`;
+export const ModalContent = styled.div`
+position:fixed; top:50%; left:50%;
+transform:translate(-50%, -50%);
+width:400px; height:500px; z-index:9999999;
+background-color:#fff;
+`;
+
+export const RightBtn = styled.div`
+display:flex; 
+justify-content:flex-end;
+padding:5px;
+
+button{
+background-color:transparent;
+border:none;
+}
+`;
+
+//슬라이더
+export const SliderSection = styled.section`
+background-color:#ffe6f0;
+padiing:60px 20px;
+overflow:hidden;
+`;
+export const SliderInner = styled.div`
+max-width:1200px;
+margin:0 auto;
+`;
+export const SliderHeader = styled.div`
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+margin-bottom:30px;
+`;
+export const SliderTitleGroup = styled.div`
+display:flex;
+flex-direction:column;
+`;
+export const SliderMainTitle = styled.h2`
+font-size:32px;
+font-weight:900;
+color:#111;
+margin:0;
+`;
+export const SliderSubTitle = styled.p`
+font-size:18px;
+color:#888;
+margin:5px 0 0 0;`;
+export const SliderControls = styled.div`
+display:flex;
+align-items:center;
+gap:10px;
+`;
+export const SliderViewMoreBtn = styled.button`
+border:1px solid #111;
+background:transparent;
+border-radius:20px;
+padding:8px 16px;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+&:hover{
+background-color:#111;
+color:#fff;
+}
+`;
+export const SliderArrowBtn = styled.button`
+width:36px; height:36px; border-radius:50%;
+background-color:#111;
+color:#fff;
+border:none;
+font-size:16px;
+cursor:pointer;
+display:flex;
+justify-content:center;
+align-items:center;
+&:hover{
+background-color:#333;}
+`;
+export const SelfieSliderWrapper = styled.div`
+display:flex; gap:20px;
+overflow-x:auto;
+scroll-behavior:smooth;
+padding-bottom:20px;
+
+&::-webkit-scrollbar{
+display:none;
+}
+-ms-overflow-style:none;
+scrollbar-width:none;
+`;
+export const SelfieCard = styled.div`
+min-width:240px;
+height:340px;
+border-radius:20px;
+position:relative;
+overflow:hidden;
+flex-shrink:0;
+cursor:pointer;
+img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+`;
+export const SelfieCardOverlay = styled.div`
+position:absolute;
+top:0; left:0; right:0; bottom:0;
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,0.3) 0%,
+rgba(0,0,0,0) 30%,
+rgba(0,0,0,0) 60%,
+rgba(0,0,0,0.6) 100%;
+);
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:20px;
+`;
+export const SelfieLikeBadge = styled.div`
+color:#fff;
+font-size:14px;
+font-weight:700;
+display:flex;
+align-items:center;
+gap:5px;
+
+span{
+color:#fff1493;
+font-size:18px;
+}
+`;
+export const SelfieViewCount = styled.div`
+color:#fff;
+font-size:15px;
+font-weight:700;
+span{
+display:block;
+font-size:12px;
+font-weight:400;
+color:#ccc;
+margin-top:4px;
+}
+`;

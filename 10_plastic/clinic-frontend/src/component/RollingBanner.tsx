@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import * as S from './RollingBanner.styles';
+import * as S from '@/assets/css/Style.style';
 
 export default function RollingBanner(){
     //반복할 문구 설정

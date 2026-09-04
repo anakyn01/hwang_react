@@ -3,7 +3,7 @@
 import React,{useState, useEffect} from 'react';
 //이동하기 위해서 
 import {useRouter} from 'next/navigation';
-import * as S from '../../../style/Sub.styles';
+import * as S from '@/assets/css/Style.style';
 import DaumPostcode from 'react-daum-postcode';
 
 export default function TermsPage(){

@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import * as S from './Footer.styles';
+import * as S from '@/assets/css/Style.style';
 import Link from 'next/link';
 
 export default function Footer(){
