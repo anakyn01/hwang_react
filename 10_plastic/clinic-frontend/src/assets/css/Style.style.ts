@@ -1341,3 +1341,26 @@ color:#ccc;
 margin-top:4px;
 }
 `;
+//footer
+export const SiteFooterWrapper = styled.footer``;
+export const SiteFooterInner = styled.div``;
+export const SiteFooterTop = styled.div``;
+export const SiteFooterCs = styled.div``;
+export const SiteFooterPhone = styled.div``;
+export const SiteFooterCsTitle = styled.div``;
+export const SiteFooterScheduleWrap = styled.div``;
+export const SiteFooterScheduleTitle = styled.div``;
+export const SiteFooterScheduleText = styled.div``;
+export const SiteFooterLocationBtn = styled.button``;
+export const SiteFooterBottom = styled.div``;
+export const SiteFooterCompany= styled.div``;
+export const SiteFooterCompanyName = styled.h2``;
+export const SiteFooterInfoText = styled.p``;
+export const SiteFooterBottomRight = styled.div``;
+export const SiteFooterPolicyWrap = styled.div``;
+export const SiteFooterPolicyBtn = styled.button``;
+export const SiteFooterFamilyTitle = styled.div``;
+export const SiteFooterFamilyLogos = styled.div``;
+
+
+
