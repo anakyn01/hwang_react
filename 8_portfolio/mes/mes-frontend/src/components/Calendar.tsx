@@ -5,6 +5,15 @@ import { Temporal } from "@js-temporal/polyfill";
 import { Holiday } from "../app/type/holiday";
 import { fetchHolidays } from "../app/api/holidays";
 import * as S from "@/assets/css/Style.style";
+import ScheduleModal from "./modal/ScheduleModal";
+
+//1. 일정 타입 정의 추가
+interface Schedule {
+  id:string; date:number;
+  content:string; 
+  status:"대기"|"진행"|"완료";
+  createdAt:string;
+}
  
 export const Calendar = ({year = Temporal.Now.plainDateTimeISO().year,
 month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으로 가져오도록 추가    
@@ -20,6 +29,11 @@ month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으
 
   const [holidays, setHolidays] = useState<Holiday[]>([]);
 
+  //모달에 관련된 추가
+  const [schedules, setSchedules] = useState<Schedule[]>([]);
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     fetchHolidays(year).then(setHolidays);
   }, [year, month]);
@@ -28,6 +42,11 @@ month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으
   const isThisMonth = today.year === year && today.month === month;
 
   const getHoliday = (day: number) => holidays.find((h) => h.date === day);
+
+const hanldleDayClick = (day: number) => {
+  setSelectedDate(day);
+  setIsModalOpen(true);
+};
 
   const days = [];
 
@@ -39,10 +58,12 @@ month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으
   // 실제 날짜 채우기
   for (let d = 1; d <= daysInMonth; d++) {
     const holiday = getHoliday(d);
-
     const currentDayOfWeek = (firstDayIndex + d - 1) % 7;
     const isSunday = currentDayOfWeek === 0;
     const isSaturday = currentDayOfWeek === 6;
+
+  // 해당 날짜에 등록된 일정이 있는지 확인 (파란 점 표시용)
+  const hasSchedule = schedules.some((sch) => sch.date === d);  
 
     days.push(
       <S.DayCell
@@ -51,11 +72,14 @@ month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으
         $isHoliday={!!holiday}
         $isSunday={isSunday}     // 일요일 여부 전달
         $isSaturday={isSaturday} // 토요일 여부 전달
+        onClick={() => hanldleDayClick(d)}
+
       >
         <span>{d}</span> {/* flex 구조에서 텍스트가 씹히지 않도록 span으로 감쌈 */}
         {holiday && <S.Tooltip>{holiday.name}</S.Tooltip>}
         {holiday?.name === "성탄절" && <span style={{ marginTop: "4px" }}>🎄</span>}
       {holiday?.name.includes("추석") && <span>🌕</span>}
+      {hasSchedule && <S.ScheduleDot/>}
       </S.DayCell>
     );
   }
@@ -73,7 +97,18 @@ month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으
         </S.Grid>
         
       </S.CalendarWrapper>  
-      </S.CalTopMargin>  
+      </S.CalTopMargin> 
+
+      {/* 분리한 스케줄 모달 컴포넌트 렌더링 */} 
+      <ScheduleModal
+isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        month={month}
+        selectedDate={selectedDate}
+        schedules={schedules}
+        setSchedules={setSchedules}      
+      
+      />
         </>
     )
 }
