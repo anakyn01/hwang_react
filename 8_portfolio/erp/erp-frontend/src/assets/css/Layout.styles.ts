@@ -21,4 +21,10 @@ flex-shrink:0;
 display:none;
 }
 `;
-export const ContentArea = styled.main``;
+export const ContentArea = styled.main`
+flex:1;
+padding:32px;
+background-color:#f8fafc;
+overflow-y:auto;
+min-width:0;
+`;

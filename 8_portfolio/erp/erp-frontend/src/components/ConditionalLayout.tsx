@@ -19,15 +19,13 @@ export default function ConditionalLayout({ children }: { children: React.ReactN
   return (
     <S.PageWrapper>
       
-      {/* isHidden이 false일 때만 Header를 보여줍니다 */}
-      {!isHidden && <Header />}
+  
       
       <S.MainContent>
         {children}
       </S.MainContent>
       
-      {/* isHidden이 false일 때만 Footer를 보여줍니다 */}
-      {!isHidden && <Footer />}
+  
       
     </S.PageWrapper>
   );
