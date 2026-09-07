@@ -19,14 +19,13 @@ const isHidden = hiddenPaths.includes(pathname);
 
 return(
     <S.PageWrapper>
-        {/*isHidden이 false일때만 Header를 보여줍니다 */}
-        {!isHidden && <Header/>}
+  
         
         <S.MainContent>
             {children}
         </S.MainContent>
 
-        {!isHidden && <Footer/>}
+    
     </S.PageWrapper>
 );
 

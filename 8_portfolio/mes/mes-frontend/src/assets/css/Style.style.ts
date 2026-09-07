@@ -158,3 +158,176 @@ margin-bottom: 1.5rem;
 line-height: 1.5;
 `;
 
+export const CalTopMargin = styled.div`
+  margin-top: 2rem;
+`;
+
+export const CalendarWrapper = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+`;
+
+export const CalHeader = styled.h2`
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #333;
+`;
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+`;
+
+
+
+export const Tooltip = styled.div`
+  visibility: hidden;
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+`;
+
+// $ 기호(Transient Props)를 사용하여 DOM으로 속성이 전달되는 것을 방지합니다.
+interface DayCellProps {
+  $isEmpty?: boolean;
+  $isToday?: boolean;
+  $isHoliday?: boolean;
+  $isSunday?: boolean;   // 추가됨
+  $isSaturday?: boolean; // 추가됨
+}
+
+
+
+export const CalendarLayout = styled.div`
+  display: flex;
+  gap: 24px;
+  
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+`;
+
+export const LeftPanel = styled.div`
+  width: 320px;
+  flex-shrink: 0;
+  
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+`;
+
+export const RightPanel = styled.div`
+  flex: 1;
+  min-width: 0;
+`;
+
+export const AsideContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+`;
+
+export const MenuSection = styled.div`
+  margin-bottom: 24px;
+`;
+
+export const SectionTitle = styled.h3`
+  padding: 0 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+`;
+
+export const MenuList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+export const MenuItem = styled(Link)`
+  display: block;
+  padding: 10px 24px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: #f1f5f9;
+    color: #2563eb;
+    border-right: 3px solid #2563eb;
+  }
+`;
+
+export const DayName = styled.div`
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding-bottom: 10px;
+  color: #666;
+
+  &:nth-child(1) { color: #ff4d4f; } /* 1번째 자식인 일요일 빨간색 */
+  &:nth-child(7) { color: #1890ff; } /* 7번째 자식인 토요일 파란색 */
+`;
+
+// 주말 색상 처리를 위한 타입 추가
+interface DayCellProps {
+  $isEmpty?: boolean;
+  $isToday?: boolean;
+  $isHoliday?: boolean;
+  $isSunday?: boolean;   // 추가됨
+  $isSaturday?: boolean; // 추가됨
+}
+
+export const DayCell = styled.div<DayCellProps>`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: ${({ $isEmpty }) => ($isEmpty ? "transparent" : "#fafafa")};
+  pointer-events: ${({ $isEmpty }) => ($isEmpty ? "none" : "auto")};
+  
+  /* 색상 우선순위: 1. 공휴일/일요일(빨강) -> 2. 토요일(파랑) -> 3. 평일(검정) */
+  color: ${({ $isHoliday, $isSunday, $isSaturday }) => {
+    if ($isHoliday || $isSunday) return "#ff4d4f"; 
+    if ($isSaturday) return "#1890ff";
+    return "#333";
+  }};
+  
+  font-weight: ${({ $isToday }) => ($isToday ? "bold" : "normal")};
+  border: ${({ $isToday }) => ($isToday ? "2px solid #1890ff" : "1px solid transparent")};
+
+  &:hover {
+    background-color: ${({ $isEmpty }) => ($isEmpty ? "transparent" : "#f0f0f0")};
+  }
+`;
+
