@@ -1,3 +1,4 @@
+import 'package:dating_web/screens/map_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -9,6 +10,7 @@ import 'screens/my_page_screen.dart';
 import 'screens/chat_list_screen.dart';
 import 'screens/diary_screen.dart';
 import 'screens/community_screen.dart';
+import 'screens/map_search_screen.dart';
 
 void main() {
   runApp(const DatingApp());
@@ -49,7 +51,7 @@ class _RootScreenState extends State<RootScreen> {
 
   // 💡 하단 탭을 눌렀을 때 교체될 알맹이 화면들 (순서 중요!)
   final List<Widget> _pages = [
-    const DatingHomeScreen(), // 0: 매칭 (홈 화면)
+    const MapSearchScreen(), // 0: 매칭 (홈 화면)
     const CommunityScreen(), // 1: 커뮤니티
     const DiaryScreen(), // 2: 일기
     const ChatListScreen(), // 3: 채팅
