@@ -7,6 +7,8 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'screens/splash_screen.dart'; // (현재 오타난 파일명 기준)
 import 'screens/my_page_screen.dart';
 import 'screens/chat_list_screen.dart';
+import 'screens/diary_screen.dart';
+import 'screens/community_screen.dart';
 
 void main() {
   runApp(const DatingApp());
@@ -48,8 +50,8 @@ class _RootScreenState extends State<RootScreen> {
   // 💡 하단 탭을 눌렀을 때 교체될 알맹이 화면들 (순서 중요!)
   final List<Widget> _pages = [
     const DatingHomeScreen(), // 0: 매칭 (홈 화면)
-    const Center(child: Text('커뮤니티 화면 (준비중)')), // 1: 커뮤니티
-    const Center(child: Text('일기 화면 (준비중)')), // 2: 일기
+    const CommunityScreen(), // 1: 커뮤니티
+    const DiaryScreen(), // 2: 일기
     const ChatListScreen(), // 3: 채팅
     const MyPageScreen(), // 4: 마이페이지
   ];
