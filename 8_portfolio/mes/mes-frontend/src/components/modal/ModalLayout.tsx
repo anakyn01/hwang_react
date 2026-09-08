@@ -20,7 +20,7 @@ export default function ModalLayout({isOpen, onClose, title, children} : ModalLa
 <S.ModalHeader>
 <S.ModalTitle>{title}</S.ModalTitle>  
 <S.CloseButton onClick={onClose}>
-X
++
 </S.CloseButton>  
 </S.ModalHeader>
 <S.ModalBody>
