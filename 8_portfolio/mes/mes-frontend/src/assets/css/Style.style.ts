@@ -463,6 +463,7 @@ margin-top:4px;
 // 커스텀 셀렉트 박스 컨테이너
 export const CustomSelectContainer = styled.div`
 position:relative; width:100%;
+z-index:100;
 `;
 
 export const SelectTrigger = styled.div`
@@ -497,9 +498,12 @@ box-shadow:0 4px 12px rgba(0,0, 0, 0.1);
 z-index:50;
 overflow:hidden;
 `;
+interface SelectItemprops {
+  $isSelected?: boolean;
+}
 
 //드롭다운 개별 항목
-export const SelectItem = styled.li<{ $isSelected? : boolean}>`
+export const SelectItem = styled.li<SelectItemprops>`
 padding:10px 12px;
 font-size:0.9rem;
 cursor:pointer;

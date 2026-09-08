@@ -32,12 +32,16 @@ export default function ScheduleModal({
     const [editingId, setEditingId] = 
     useState<string | null>(null);
 
+    //커스텀 셀렉트 박스 열림 / 닫힘 상태
+    const [isSelectOpen, setIsSelectOpen] = useState(false);
+
     //모달이 열리거나 날짜가 바뀔대 입력창 초기화
     useEffect(() => {
         if(isOpen) {
             setFormContent("");
             setFormStatus("대기");
             setEditingId(null);
+            setIsSelectOpen(false); //모달 열릴때 드롭다운 닫기
         }
     }, [isOpen, selectedDate]);
 
@@ -92,20 +96,45 @@ onClose={onClose}
 title={`${month}월 ${selectedDate}일 업무 일정`}
 >
     <S.FormGroup>
-<S.Select
-value={formStatus}
-onChange={(e) => setFormStatus(e.target.value as "대기" | "진행" | "완료")}
->
-<option value="대기">대기</option>
-<option value="진행">진행</option>
-<option value="완료">완료</option>    
-    </S.Select> 
+<S.CustomSelectContainer>
+    <S.SelectTrigger
+    onClick={() => setIsSelectOpen(!isSelectOpen)}
+    >
+   {formStatus}
+<span style={{ fontSize:"0.7rem", color:"#94a3b8"}}>
+{isSelectOpen ? "▲" : "▼"}
+</span>        
+    </S.SelectTrigger>
+{isSelectOpen && (
+    <S.SelectList>
+      {["대기", "진행", "완료"].map((status) => (
+        <S.SelectItem
+          key={status}
+          $isSelected={formStatus === status}
+          onClick={() => {
+            setFormStatus(status as "대기" | "진행" | "완료");
+            setIsSelectOpen(false);    
+          }}
+        >
+          {status}
+        </S.SelectItem>
+      ))}
+    </S.SelectList>                
+  )}
+
+
+</S.CustomSelectContainer>
+
 <S.TextArea
 placeholder="일정 내용을 입력하세요..."
 value={formContent}
 onChange={(e) => setFormContent(e.target.value)}
 />    
 </S.FormGroup>
+
+
+
+
 
 <S.ButtonGroup>
     <S.Button
@@ -145,3 +174,15 @@ onClick={() => handleDelete(sch.id)}
 </ModalLayout>        
     )
 }
+
+/*
+<S.Select
+value={formStatus}
+onChange={(e) => setFormStatus(e.target.value as "대기" | "진행" | "완료")}
+>
+<option value="대기">대기</option>
+<option value="진행">진행</option>
+<option value="완료">완료</option>    
+    </S.Select> 
+
+*/
