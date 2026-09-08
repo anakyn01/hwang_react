@@ -15,7 +15,7 @@ interface Schedule {
   createdAt:string;
 }
  
-export const Calendar = ({year = Temporal.Now.plainDateTimeISO().year,
+export const Calender = ({year = Temporal.Now.plainDateTimeISO().year,
 month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으로 가져오도록 추가    
 }:{year?:number, month?: number;}) => {
   // 1. 해당 연/월의 1일을 명시적으로 직접 생성 (가장 안전한 방식)
