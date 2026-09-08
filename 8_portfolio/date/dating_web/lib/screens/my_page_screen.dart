@@ -65,7 +65,7 @@ final Color goldColor = const Color(0xFFFFD700);
 /*하단 네비게이션 바(푸터)에서 현재 선택된 탭의 번호를 기억하는 변수입니다.
 0: 매칭, 1: 커뮤니티, 2: 일기, 3: 채팅, 4: MY (마이페이지는 4번)
 */
-int _selectedIndex = 4;
+//int _selectedIndex = 4;
 
 //화면에 사용자에게 딱 처음 보여질때 단 한번만 실행되는 초기화 함수
 @override
@@ -168,7 +168,7 @@ _buildMenuList(), const SizedBox(height:40),
  ],
  ),
 ),
-bottomNavigationBar: _buildBottomNav(),
+//bottomNavigationBar: _buildBottomNav(),
 );
 }
 
@@ -381,48 +381,6 @@ Widget _buildMenuTile({required String icon, required String title, required Voi
 
 Widget _buildMenuDivider(){
   return Divider(color:bgColor, thickness: 2, height: 2);
-}
-
-Widget _buildBottomNav(){
-  return Theme(
-    data:Theme.of(context).copyWith(splashColor: Colors.transparent, 
- highlightColor: Colors.transparent),
- child:BottomNavigationBar(
-  backgroundColor: const Color(0xFF1A1A24),
-  type:BottomNavigationBarType.fixed,
-  currentIndex:_selectedIndex,
-  selectedItemColor: pinkAccent,
-  unselectedItemColor: Colors.grey,
-  selectedFontSize:12,
-  unselectedFontSize: 12,
-  onTap:(index){
-    setState(() => _selectedIndex =index);
-  },
-  items:[
-_buildBottomNavItem('매칭', Icons.local_fire_department, 0),
-_buildBottomNavItem('커뮤니티', Icons.language, 1),   
-_buildBottomNavItem('일기', Icons.menu_book, 2),   
-_buildBottomNavItem('채팅', Icons.chat_bubble_outline, 3),   
-_buildBottomNavItem('MY', Icons.person_outline, 4),       
-  ],
- ),
-);
-}
-
-BottomNavigationBarItem _buildBottomNavItem(String label, IconData icon, int index){
-  bool isSelected = _selectedIndex == index;
-
-  return BottomNavigationBarItem(
-    icon: Container(
-      padding:const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-color:isSelected ? pinkAccent.withOpacity(0.15) : Colors.transparent,
-borderRadius: BorderRadius.circular(12),        
-),
-child:Icon(icon),
-),
-label:label,
-);
 }
 
 }

@@ -6,6 +6,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 // 📂 쪼개놓은 스크린 파일들 불러오기
 import 'screens/splash_screen.dart'; // (현재 오타난 파일명 기준)
 import 'screens/my_page_screen.dart';
+import 'screens/chat_list_screen.dart';
 
 void main() {
   runApp(const DatingApp());
@@ -49,7 +50,7 @@ class _RootScreenState extends State<RootScreen> {
     const DatingHomeScreen(), // 0: 매칭 (홈 화면)
     const Center(child: Text('커뮤니티 화면 (준비중)')), // 1: 커뮤니티
     const Center(child: Text('일기 화면 (준비중)')), // 2: 일기
-    const Center(child: Text('채팅 화면 (준비중)')), // 3: 채팅
+    const ChatListScreen(), // 3: 채팅
     const MyPageScreen(), // 4: 마이페이지
   ];
 
