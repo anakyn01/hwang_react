@@ -9,6 +9,23 @@ require('sequelize');
 
 //express 도구를 실행해서 'app'이라는 이름의 서버 객체를 만듭니다.
 const app = express();
+
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+//업로드 폴더가 없으면 자동 생성
+if(!fs.existsSync('uploads')) fs.mkdirSync('uploads');
+//외부(플러터)에서 업로드된 사진을 URL로 볼 수 있게 허용
+app.use('/uploads', express.static('uploads'));
+//사진 저장 규칙 설정
+const storage = multer.diskStorage({
+destination:(req, file, cb) => cb(null, 'uploads/'), 
+filename:(req, file, cb) => cb(null, Date.now() + path.extname(
+ file.originalname))  
+});
+const upload = multer({storage});
+
 /*
 서버 역할을 할 핵심 객체를 만듭니다
 express 도구를 실행해서 'app'이라는 
@@ -28,7 +45,7 @@ const sequelize = new Sequelize('dating_db','root','1234',{
 //🚀 3. 실제 영업 시작 (API 엔드포인트)
 //회원가입..
 //새로운 유저를 맞이할 준비! (회원가입)
-app.post('/api/signup', async (req, res) => {
+app.post('/api/signup', upload.array('photos', 3),async (req, res) => {
 //1. 프론트엔드(사용자)가 보낸 가입 정보들을 꺼냅니다.
 const {email, password, nickname,age,
     gender,photos, bio} =req.body;
@@ -37,30 +54,19 @@ if (!email || !password || !nickname
     || !age || !gender ) {
     return res.status(400).json({
         success:false,
-        mesaage:'필수 정보를 모두 입력 사항입니다.'
+        message:'필수 정보를 모두 입력 사항입니다.'
     });
 }
 //트랜잭션을 엽니다
 const t = await sequelize.transaction();
 try{
 //사진처리
-let profile_image_main = null;
-let profile_image_sub1 = null;
-let profile_image_sub2 = null;
-
-//user_photos 테이블에 사진 저장
-if(photos && photos.length > 0) {
-    //첫번째 사진
-profile_image_main = photos[0]?.url || null;
-//두번째 사진
-if(photos.length > 1) profile_image_sub1 =
-photos[1]?.url || null;
-
-//두번째 사진
-if(photos.length > 2) profile_image_sub2 =
-photos[2]?.url || null;
-}
-
+let profile_image_main = 
+req.files[0] ? `/uploads/${req.files[0].filename}` :null;
+let profile_image_sub1 = 
+req.files[1] ? `/uploads/${req.files[1].filename}` :null;
+let profile_image_sub2 = 
+req.files[2] ? `/uploads/${req.files[2].filename}` :null;
 const newUser = await User.create({
     email, 
     password, 

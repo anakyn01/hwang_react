@@ -4,3 +4,10 @@ create database dating_db;
 use dating_db;
 
 npm install sequelize mysql2
+
+HTTP패키지 설치
+flutter pub add http
+
+백엔드(Node.js) 파일 업로드 세팅
+npm install multer
+mkdir uploads
