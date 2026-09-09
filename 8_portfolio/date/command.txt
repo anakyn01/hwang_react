@@ -11,3 +11,6 @@ flutter pub add http
 백엔드(Node.js) 파일 업로드 세팅
 npm install multer
 mkdir uploads
+
+플러터(Flutter) 사진첩 도구 설치
+flutter pub add image_picker

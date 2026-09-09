@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //JSON 변환용 도구 추가
 import 'dart:convert';
+// 👈 File 객체 사용
+import 'dart:io';
+//이미지 피커
+import 'package:image_picker/image_picker.dart';
 
 // 화면에 글씨를 치거나 버튼을 눌렀을 때 '모양이 변하는'
 // 화면을 만들기 위해 StatefulWidget을 사용합니다. (👈 주석 기호 // 추가)
@@ -27,6 +31,12 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
   final Color subTextColor = const Color(0xFFA0A0B0);
 
   //add 사용자가 입력한 글씨를 빼오기 위한 콘트롤러
+  final TextEditingController _emailController = 
+  TextEditingController();
+
+    final TextEditingController _passwordController = 
+  TextEditingController();
+
   final TextEditingController _nicknameController = 
   TextEditingController();
 
@@ -40,6 +50,11 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
   String _selectedGender = '여성';
   final List<String> _selectedInterests = ['카페', '영화', '독서'];
 
+//add 📸 선택한 사진을 담을 변수 (최대 3장)
+final List<File?> _selectedImages = [null, null, null];
+final ImagePicker _picker = ImagePicker();
+
+
   // 📋 [3] 화면에 뿌려줄 관심사 버튼 데이터 목록
   final List<Map<String, String>> _interestsData = [
     {'icon': '☕', 'label': '카페'},
@@ -51,33 +66,76 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
     {'icon': '🍳', 'label': '요리'},
     {'icon': '🎮', 'label': '게임'},
   ];
+//📸 갤러리 열어서 사진 고르기 함수
+Future<void> _pickImage(int index) async{
+  final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+if (pickedFile != null) {
+  setState(() {
+    _selectedImages[index] = File(pickedFile.path);
+    //고른 사진 화면에 표시
+  });
+}
+}
+
+
   //add 🚀 [추가됨] 백엔드로 회원가입 데이터를 쏘는 핵심 함수!
   Future<void> _signUpToBackend() async {
     //1. 컨트롤러에서 글씨를 꺼냅니다.
+    final email = _nicknameController.text;
+    final password = _nicknameController.text;
     final nickname = _nicknameController.text;
     final ageText = _ageController.text;
     final bio = _bioController.text;
 
     //2.필수값 검사 (빈칸 방지)
-    if(nickname.isEmpty || ageText.isEmpty) {
+    if(email.isEmpty || password.isEmpty || nickname.isEmpty || ageText.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
        const SnackBar(content:Text('닉네임과 나이를 입력해 주세요')),
         );
         return;
     }
 
-    //3. 백엔드 DB 타입에 맞게 데이터 가공
-    final int age = int.parse(ageText);
-    final String genderEnum = _selectedGender == '남성' ? 'M' :'F';
+    //3.사진 null 검사 (빈칸 방지)
+    if(_selectedImages[0] == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+       const SnackBar(content:Text('대표 사진은 필수로 등록해야 합니다!')),
+        );
+        return;
+    }
+// 파일(사진)을 전송할 때는 일반 http.post 대신 MultipartRequest를 사용합니다.
+var request = http.MultipartRequest('POST', Uri.parse('http://10.0.2.2:3000/api/signup'));
 
-    final dummyEmail = 'user_${DateTime.now().millisecondsSinceEpoch}@test.com';
-    final dummyPassword = 'password123!';
+    //4. 텍스트 데이터 포장
+    request.fields['email'] = email;
+    request.fields['password'] = password;
+    request.fields['nickname'] = nickname;
+    request.fields['age'] = ageText;
+    request.fields['gender'] = _selectedGender == '남성' ? 'M' :'F';
+    request.fields['bio'] = bio;
 
-    //4. 백엔드 서버 주소 (안드로이드 에뮬레이터에서는 localhost 대신 10.0.2.2를 씁니다)
-final url = Uri.parse('http://10.0.2.2:3000/api/signup');
-
-
-  }
+    //5 이미지 파일 포장
+    for(int i =0; i < _selectedImages.length; i++){
+      if(_selectedImages[i] != null) {
+request.files.add(
+await http.MultipartFile.fromPath('photos', _selectedImages[i]!.path)
+);
+      }
+}try{
+var streamedResponse = await request.send();
+var response = await http.Response.fromStream(streamedResponse);
+final data = jsonDecode(response.body);
+if (response.statusCode == 200 && data['success'] == true){
+ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(content: Text(data['message'])));
+}else{
+ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(content: Text(data['message'] ?? '가입실패')));
+}
+} catch (e) {
+ScaffoldMessenger.of(context).showSnackBar(
+const SnackBar(content: Text('서버 통신 에러')));
+}
+}
 
 
   //// 📱 [4] 실제로 화면을 그리는 build 함수
