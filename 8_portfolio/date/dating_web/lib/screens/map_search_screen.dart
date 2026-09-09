@@ -69,7 +69,7 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
                   topRight: Radius.circular(24),
                 ),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 10, offset: const Offset(0, -5))
+                  BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 10, offset: const Offset(0, -5))
                 ],
               ),
               child: Column(
@@ -142,8 +142,8 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
             height: 150,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: pinkAccent.withOpacity(0.2),
-              border: Border.all(color: pinkAccent.withOpacity(0.5), width: 1),
+              color: pinkAccent.withValues(alpha: 0.2),
+              border: Border.all(color: pinkAccent.withValues(alpha: 0.5), width: 1),
             ),
           ),
           const Icon(Icons.my_location, color: Colors.white, size: 32),
@@ -211,7 +211,7 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
           decoration: BoxDecoration(
             color: cardColor,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: subTextColor.withOpacity(0.3)),
+            border: Border.all(color: subTextColor.withValues(alpha: 0.3)),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(

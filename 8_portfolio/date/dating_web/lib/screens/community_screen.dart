@@ -158,7 +158,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                 color: isSelected ? null : cardColor,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: isSelected ? Colors.transparent : subTextColor.withOpacity(0.2),
+                  color: isSelected ? Colors.transparent : subTextColor.withValues(alpha: 0.2),
                 ),
               ),
               child: Text(

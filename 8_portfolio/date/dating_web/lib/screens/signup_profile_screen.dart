@@ -305,7 +305,7 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: isSelected ? pinkAccent.withOpacity(0.1) : cardColor,
+          color: isSelected ? pinkAccent.withValues(alpha: 0.1) : cardColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected ? pinkAccent : Colors.transparent,
@@ -377,7 +377,7 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
                 //박스 안쪽으로 좌우 16, 상하 10만큼 쿠션(여백)을 줍니다.
                 decoration: BoxDecoration(
                   // 박스의 배경색과 테두리를 꾸밉니다.
-                  color: isSelected ? pinkAccent.withOpacity(0.15) : cardColor,
+                  color: isSelected ? pinkAccent.withValues(alpha: 0.15) : cardColor,
                   //선택됐다면 연한 핑크색 바탕, 아니면 원래 어두운색을 칠합니다.
                   border: Border.all(
                     color: isSelected ? pinkAccent : Colors.transparent,

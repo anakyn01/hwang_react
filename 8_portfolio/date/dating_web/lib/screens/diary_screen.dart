@@ -17,7 +17,7 @@
 
   //상태관리 변수
   int _selectedMoodIndex = 2;//기본 선택된 기분 (😊)
-  int _selectedDateIndex = 3;//기본 선택된 날짜
+  final int _selectedDateIndex = 3;//기본 선택된 날짜
 
   //이모지 리스트
   final List<String> moods = ['😢', '😐', '😊', '😄', '🥰'];
@@ -124,7 +124,7 @@ const SizedBox(height: 40),
                       width: 2,
                     ),
                     color: isSelected
-                        ? pinkAccent.withOpacity(0.1)
+                        ? pinkAccent.withValues(alpha: 0.1)
                         : Colors.transparent,
                   ),
                   child: Text(

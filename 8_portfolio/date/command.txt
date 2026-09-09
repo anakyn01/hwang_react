@@ -1,1 +1,6 @@
 flutter run -d chrome
+
+create database dating_db;
+use dating_db;
+
+npm install sequelize mysql2

@@ -99,9 +99,9 @@ Widget _buildBackgroundGlow(){
         shape: BoxShape.circle,
         gradient: RadialGradient(
           colors:[
-            purpleAccent.withOpacity(0.15),
+            purpleAccent.withValues(alpha: 0.15),
             // 중앙은 보라색 빛 (투명도 15%)
-            bgColor.withOpacity(0.0),
+            bgColor.withValues(alpha: 0.0),
           ],
           stops:const [0.2, 1.0],
           // 빛이 퍼지는 영역 설정
@@ -116,9 +116,9 @@ Widget _buildIconBox(){
   return Container(
     width:90, height:90,
     decoration:BoxDecoration(
-      color:Colors.white.withOpacity(0.03),
+      color:Colors.white.withValues(alpha: 0.03),
       borderRadius:BorderRadius.circular(28),
-      border:Border.all(color:Colors.white.withOpacity(0.08),width:1.5),
+      border:Border.all(color:Colors.white.withValues(alpha: 0.08),width:1.5),
     ),
     child:Center(
       // 아이콘에 그라데이션 색상을 입히기 위해 ShaderMask
@@ -176,7 +176,7 @@ Widget _buildProgressBar(){
   return Container(
     width:200, height:4,
     decoration:BoxDecoration(
-      color:Colors.white.withOpacity(0.1),
+      color:Colors.white.withValues(alpha: 0.1),
       borderRadius:BorderRadius.circular(2),
     ),
     child:Align(
@@ -191,7 +191,7 @@ Widget _buildProgressBar(){
           borderRadius:BorderRadius.circular(2),
           boxShadow:[
             BoxShadow(
-              color:pinkAccent.withOpacity(0.5),
+              color:pinkAccent.withValues(alpha: 0.5),
               blurRadius:6,
               offset:const Offset(0,0),
             ),

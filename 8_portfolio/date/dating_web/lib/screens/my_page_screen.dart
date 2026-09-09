@@ -178,7 +178,7 @@ decoration: BoxDecoration(
 color:cardColor,
 borderRadius: BorderRadius.circular(24),
 boxShadow: [BoxShadow(
-  color:Colors.black.withOpacity(0.2),
+  color:Colors.black.withValues(alpha: 0.2),
   blurRadius: 10,
   offset: const Offset(0, 5)
 )],  
@@ -192,7 +192,7 @@ Stack(
       height: 100,
       decoration: BoxDecoration(
 gradient: LinearGradient(colors: [
-purpleAccent.withOpacity(.4), cardColor  
+purpleAccent.withValues(alpha: .4), cardColor  
 ], begin: Alignment.topCenter,
 end:Alignment.bottomCenter
 ), 
@@ -258,7 +258,7 @@ _buildStatItem('8', '일기'),
 const SizedBox(height:24),
 OutlinedButton(
  style:OutlinedButton.styleFrom(
-  side:BorderSide(color:subTextColor.withOpacity(.3)),
+  side:BorderSide(color:subTextColor.withValues(alpha: .3)),
 shape:RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(20)),
 padding:const EdgeInsets.symmetric(
@@ -282,7 +282,7 @@ Widget _buildPremiumBanner(){
     decoration: BoxDecoration(
       color:cardColor,
 borderRadius: BorderRadius.circular(16),
-border:Border.all(color:goldColor.withOpacity(.3), width:1),      
+border:Border.all(color:goldColor.withValues(alpha: .3), width:1),      
 ),
 child:Row(
   children: [
@@ -368,7 +368,7 @@ Widget _buildStatItem(String number, String label){
 
 Widget _buildVerticalDivider(){
   return Container(
-    height: 30, width:1, color:subTextColor.withOpacity(0.2));
+    height: 30, width:1, color:subTextColor.withValues(alpha: 0.2));
 }
 Widget _buildMenuTile({required String icon, required String title, required VoidCallback onTap}){
   return ListTile(

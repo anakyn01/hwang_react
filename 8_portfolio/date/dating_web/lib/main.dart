@@ -107,7 +107,7 @@ class _RootScreenState extends State<RootScreen> {
       icon: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isSelected ? pinkAccent.withOpacity(0.15) : Colors.transparent,
+          color: isSelected ? pinkAccent.withValues(alpha: 0.15) : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Icon(icon),
@@ -272,7 +272,7 @@ class _DatingHomeScreenState extends State<DatingHomeScreen> {
           Positioned(
             bottom: 0, left: 0, right: 0, height: 250,
             child: Container(
-              decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.transparent, Colors.black.withOpacity(0.9)], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+              decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.transparent, Colors.black.withValues(alpha: 0.9)], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
             ),
           ),
           Positioned(
@@ -316,7 +316,7 @@ class _DatingHomeScreenState extends State<DatingHomeScreen> {
   Widget _buildInterestChip(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(20)),
       child: Text(text, style: const TextStyle(color: Colors.white, fontSize: 13)),
     );
   }
