@@ -69,23 +69,30 @@ PageRouteBuilder(
   Widget build(BuildContext context){
     return Scaffold(
       backgroundColor:bgColor,
-      body: Stack(
-        fit: StackFit.expand,//오타
-        children:[
-          _buildBackgroundGlow(),
-          SafeArea(
-            child:Column(
- mainAxisAlignment: MainAxisAlignment.center,  
- children:[
-  _buildIconBox(), const SizedBox(height: 24),
-  _buildLogoText(), const SizedBox(height: 16),
-  _buildSubtext(), const SizedBox(height: 48),//오타
-  _buildProgressBar(),//오타
- ],           
-  ),
-),
-],
-),
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth:480),
+            child:Stack(
+            fit: StackFit.expand,//오타
+            children:[
+              _buildBackgroundGlow(),
+              SafeArea(
+                child:Column(
+           mainAxisAlignment: MainAxisAlignment.center,  
+           children:[
+            _buildIconBox(), const SizedBox(height: 24),
+            _buildLogoText(), const SizedBox(height: 16),
+            _buildSubtext(), const SizedBox(height: 48),//오타
+            _buildProgressBar(),//오타
+           ],           
+            ),
+          ),
+          ],
+          ),
+        ),
+      ),
+      ),
 );
 }
 

@@ -141,35 +141,43 @@ void _askPhotoPermission(VoidCallback onSuccess){
 
 @override
 Widget build(BuildContext context){
-  return Scaffold(
-    backgroundColor: bgColor,
-    appBar:AppBar(// 화면 맨 위 상단바 (지붕)
-backgroundColor: bgColor,
-elevation: 0,
-title:const Text('마이페이지', style:TextStyle(
-fontSize:22, fontWeight:FontWeight.bold, 
-color:Colors.white)),
-actions:[
-  IconButton(
-  icon:const Icon(Icons.settings, color:Colors.white70),
-  onPressed:(){
-    print("설정클릭");
-  },
-),
-],
-), 
-body:SingleChildScrollView(
-  padding:const EdgeInsets.all(20.0),
-  child:Column(
- children: [
-_buildProfileCard(), const SizedBox(height:24),
-_buildPremiumBanner(), const SizedBox(height:24),
-_buildMenuList(), const SizedBox(height:40),
- ],
- ),
-),
-//bottomNavigationBar: _buildBottomNav(),
-);
+  return Container(
+    color:Colors.black,
+    child: Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 480),
+        child: Scaffold(
+          backgroundColor: bgColor,          
+          appBar:AppBar(// 화면 맨 위 상단바 (지붕)
+        backgroundColor: bgColor,
+        elevation: 0,
+        title:const Text('마이페이지', style:TextStyle(
+        fontSize:22, fontWeight:FontWeight.bold, 
+        color:Colors.white)),
+        actions:[
+        IconButton(
+        icon:const Icon(Icons.settings, color:Colors.white70),
+        onPressed:(){
+          print("설정클릭");
+        },
+        ),
+        ],
+        ), 
+        body:SingleChildScrollView(
+        padding:const EdgeInsets.all(20.0),
+        child:Column(
+         children: [
+        _buildProfileCard(), const SizedBox(height:24),
+        _buildPremiumBanner(), const SizedBox(height:24),
+        _buildMenuList(), const SizedBox(height:40),
+         ],
+         ),
+        ),
+        //bottomNavigationBar: _buildBottomNav(),
+        ),
+      ),
+    ),
+  );
 }
 
 Widget _buildProfileCard(){

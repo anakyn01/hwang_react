@@ -166,7 +166,10 @@ const SnackBar(content: Text('서버 통신 에러')));
       backgroundColor: bgColor,
       body: SafeArea(
         // 핸드폰의 노치(카메라 파인 부분)나 하단 바에 UI가 가려지지 않게 보호해줍니다.
-        child: Column(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth:480),
+            child:Column(
           // 위에서 아래로 위젯(화면 조각)들을 차곡차곡 쌓습니다
           children: [
             _buildTopBar(), // 맨 위에 뒤로가기 버튼과 분홍색 진행률 바를 그립니다.
@@ -212,6 +215,8 @@ const SnackBar(content: Text('서버 통신 에러')));
               ),
             ),
           ],
+        ),
+      ),
         ),
       ),
     ); // (👈 }; 로 잘못 닫혀있던 Scaffold 괄호를 ); 로 수정)

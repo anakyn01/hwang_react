@@ -34,89 +34,97 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: bgColor,
-      // 상단바를 투명하게 만들고 지도 위에 겹치게 합니다.
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Row(
-          children: [
-            Icon(Icons.location_on, color: Color(0xFFFF4B93), size: 24),
-            SizedBox(width: 8),
-            Text('서울 마포구 연남동', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          // 🗺️ 상단 지도 영역 (유저 화면의 40% 차지)
-          Expanded(
-            flex: 4,
-            child: _buildMapPlaceholder(),
-          ),
-          
-          // 🎛️ 하단 필터 및 검색 영역 (유저 화면의 60% 차지)
-          Expanded(
-            flex: 6,
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: bgColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-                boxShadow: [
-                  BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 10, offset: const Offset(0, -5))
-                ],
-              ),
-              child: Column(
+    return Container(
+      color:Colors.black,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 480),
+          child: Scaffold(
+            backgroundColor: bgColor,
+            // 상단바를 투명하게 만들고 지도 위에 겹치게 합니다.
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Row(
                 children: [
-                  _buildCategoryTabs(),
-                  const Divider(color: Color(0xFF22222E), thickness: 1),
-                  
-                  // 필터 드롭다운 영역
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        _buildDropdownRow('원하는 나이', _selectedAge, ageOptions, (val) => setState(() => _selectedAge = val!)),
-                        const SizedBox(height: 16),
-                        _buildDropdownRow('탐색 반경', _selectedRadius, radiusOptions, (val) => setState(() => _selectedRadius = val!)),
-                        const SizedBox(height: 24),
-                        
-                        // 🚀 검색(매칭) 시작 버튼
-                        SizedBox(
-                          width: double.infinity,
-                          height: 56,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: pinkAccent,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                            ),
-                            onPressed: () {
-                              // 검색하기 누르면 기존의 '스와이프 매칭 화면(DatingHomeScreen)'으로 이동합니다.
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const DatingHomeScreen()), 
-                              );
-                            },
-                            child: const Text('주변 인연 찾기', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  // 주변 대기 유저 리스트
-                  Expanded(child: _buildNearbyUsersList()),
+                  Icon(Icons.location_on, color: Color(0xFFFF4B93), size: 24),
+                  SizedBox(width: 8),
+                  Text('서울 마포구 연남동', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                 ],
               ),
             ),
+            body: Column(
+              children: [
+                // 🗺️ 상단 지도 영역 (유저 화면의 40% 차지)
+                Expanded(
+                  flex: 4,
+                  child: _buildMapPlaceholder(),
+                ),
+                
+                // 🎛️ 하단 필터 및 검색 영역 (유저 화면의 60% 차지)
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: bgColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      ),
+                      boxShadow: [
+                        BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 10, offset: const Offset(0, -5))
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        _buildCategoryTabs(),
+                        const Divider(color: Color(0xFF22222E), thickness: 1),
+                        
+                        // 필터 드롭다운 영역
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              _buildDropdownRow('원하는 나이', _selectedAge, ageOptions, (val) => setState(() => _selectedAge = val!)),
+                              const SizedBox(height: 16),
+                              _buildDropdownRow('탐색 반경', _selectedRadius, radiusOptions, (val) => setState(() => _selectedRadius = val!)),
+                              const SizedBox(height: 24),
+                              
+                              // 🚀 검색(매칭) 시작 버튼
+                              SizedBox(
+                                width: double.infinity,
+                                height: 56,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: pinkAccent,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                  ),
+                                  onPressed: () {
+                                    // 검색하기 누르면 기존의 '스와이프 매칭 화면(DatingHomeScreen)'으로 이동합니다.
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const DatingHomeScreen()), 
+                                    );
+                                  },
+                                  child: const Text('주변 인연 찾기', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        
+                        // 주변 대기 유저 리스트
+                        Expanded(child: _buildNearbyUsersList()),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
