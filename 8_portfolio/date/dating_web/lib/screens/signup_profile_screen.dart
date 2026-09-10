@@ -8,6 +8,8 @@ import 'dart:convert';
 import 'dart:io';
 //이미지 피커
 import 'package:image_picker/image_picker.dart';
+//🚀 웹(kIsWeb) 및 플랫폼 자동 감지 도구
+import 'package:flutter/foundation.dart';
 
 // 화면에 글씨를 치거나 버튼을 눌렀을 때 '모양이 변하는'
 // 화면을 만들기 위해 StatefulWidget을 사용합니다. (👈 주석 기호 // 추가)
@@ -51,7 +53,7 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
   final List<String> _selectedInterests = ['카페', '영화', '독서'];
 
 //add 📸 선택한 사진을 담을 변수 (최대 3장)
-final List<File?> _selectedImages = [null, null, null];
+final List<XFile?> _selectedImages = [null, null, null];//여기수정
 final ImagePicker _picker = ImagePicker();
 
 
@@ -66,12 +68,24 @@ final ImagePicker _picker = ImagePicker();
     {'icon': '🍳', 'label': '요리'},
     {'icon': '🎮', 'label': '게임'},
   ];
+//🌐 [핵심] 현재 접속한 기기가 무엇인지 파악해서 알아서 서버 주소를 맞춰줍니다!
+String get _apiUrl {
+  if (kIsWeb) {
+    return 'http://localhost:3000/api/signup';//크롬용 주소
+  } else if (defaultTargetPlatform == TargetPlatform.android){
+return 'http://10.0.2.2:3000/api/signup';//🤖 안드로이드 에뮬레이터용 주소
+  } else {
+    return 'http://localhost:3000/api/signup';
+    //🍎 아이폰 시뮬레이터용 주소
+  }
+}
+
 //📸 갤러리 열어서 사진 고르기 함수
 Future<void> _pickImage(int index) async{
   final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 if (pickedFile != null) {
   setState(() {
-    _selectedImages[index] = File(pickedFile.path);
+    _selectedImages[index] = pickedFile;
     //고른 사진 화면에 표시
   });
 }
@@ -81,8 +95,8 @@ if (pickedFile != null) {
   //add 🚀 [추가됨] 백엔드로 회원가입 데이터를 쏘는 핵심 함수!
   Future<void> _signUpToBackend() async {
     //1. 컨트롤러에서 글씨를 꺼냅니다.
-    final email = _nicknameController.text;
-    final password = _nicknameController.text;
+    final email = _emailController.text;//
+    final password = _passwordController.text;
     final nickname = _nicknameController.text;
     final ageText = _ageController.text;
     final bio = _bioController.text;
@@ -103,7 +117,7 @@ if (pickedFile != null) {
         return;
     }
 // 파일(사진)을 전송할 때는 일반 http.post 대신 MultipartRequest를 사용합니다.
-var request = http.MultipartRequest('POST', Uri.parse('http://10.0.2.2:3000/api/signup'));
+var request = http.MultipartRequest('POST', Uri.parse(_apiUrl));
 
     //4. 텍스트 데이터 포장
     request.fields['email'] = email;
@@ -113,11 +127,18 @@ var request = http.MultipartRequest('POST', Uri.parse('http://10.0.2.2:3000/api/
     request.fields['gender'] = _selectedGender == '남성' ? 'M' :'F';
     request.fields['bio'] = bio;
 
-    //5 이미지 파일 포장
+    //5 이미지 파일 포장 웹/모바일 겸용을 위해 바이트 단위(fromBytes)로 파일 전송
     for(int i =0; i < _selectedImages.length; i++){
       if(_selectedImages[i] != null) {
+//여기에 추가
+final bytes = await _selectedImages[i]!.readAsBytes();       
 request.files.add(
-await http.MultipartFile.fromPath('photos', _selectedImages[i]!.path)
+http.MultipartFile.fromBytes(
+  'photos',
+  bytes,
+  filename:_selectedImages[i]!.name.isNotEmpty ? 
+  _selectedImages[i]!.name : 'photo_$i.jpg',
+  ),
 );
       }
 }try{
@@ -166,6 +187,16 @@ const SnackBar(content: Text('서버 통신 에러')));
                     const SizedBox(height: 32),
                     _buildPhotoSection(),
                     const SizedBox(height: 24),
+//추가
+                    _buildSectionTitle('이메일'),
+                    const SizedBox(height: 8),
+                    _buildTextField(controller: _emailController, hint: 'example@test.com'),
+                    const SizedBox(height: 16),
+                    _buildSectionTitle('비밀번호'),
+                    const SizedBox(height: 8),
+                    _buildTextField(controller: _passwordController, hint: '비밀번호 입력', obscureText: true),
+                    const SizedBox(height: 24),
+//추가 끝
                     _buildNicknameSection(),
                     const SizedBox(height: 24),
                     _buildAgeAndGenderSection(),
@@ -273,13 +304,13 @@ const SnackBar(content: Text('서버 통신 에러')));
       height: 150,
       child: Row(
         children: [
-          Expanded(flex: 2, child: _buildMainPhotoBox()),
+          Expanded(flex: 2, child: _buildPhotoBox(index:0, isMain:true)),
           // 가장 큰 메인 사진 칸 (비율 2)
           const SizedBox(width: 12),
-          Expanded(flex: 1, child: _buildSubPhotoBox()),
+          Expanded(flex: 1, child: _buildPhotoBox(index:1, isMain:false)),
           // 서브 사진 칸 1 (비율 1)
           const SizedBox(width: 12),
-          Expanded(flex: 1, child: _buildSubPhotoBox()),
+          Expanded(flex: 1, child: _buildPhotoBox(index:2, isMain:false)),
           // 서브 사진 칸 2 (비율 1)
         ],
       ),
@@ -287,17 +318,27 @@ const SnackBar(content: Text('서버 통신 에러')));
   }
 
   // 메인 사진 등록 박스 디자인
-  Widget _buildMainPhotoBox() {
-    return Container(
+  Widget _buildPhotoBox({required int index, required bool isMain}) {
+    return GestureDetector(
+      onTap:() => _pickImage(index),
+      child:Container(
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: borderColor, width: 1.5),
+        //add
+        image: _selectedImages[index] != null
+        ? DecorationImage(
+          image: kIsWeb
+? NetworkImage(_selectedImages[index]!.path) as ImageProvider
+: FileImage(File(_selectedImages[index]!.path)),
+fit:BoxFit.cover,          
+          ) : null,
       ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
+      child: _selectedImages[index] == null
+      ? Center(
+        child: isMain
+          ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.camera_alt, color: subTextColor, size: 32),
@@ -307,29 +348,10 @@ const SnackBar(content: Text('서버 통신 에러')));
                 style: TextStyle(color: subTextColor, fontSize: 12),
               ),
             ],
-          ),
-          Positioned(
-            bottom: 12,
-            left: 12,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [pinkAccent, purpleAccent]),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Text(
-                '메인',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ); // (👈 에러 방지용 임시 빈 칸)
+          ) : Icon(Icons.add, color:subTextColor, size:28),
+      ):null,
+   ),
+    );
   }
 
   //서브 사진 등록 박스 디자인 (간단한 + 모양)
@@ -351,7 +373,7 @@ const SnackBar(content: Text('서버 통신 에러')));
       children: [
         _buildSectionTitle('닉네임'),
         const SizedBox(height: 8),
-        _buildTextField(hint: '별빛소나타'),
+ _buildTextField(controller:_nicknameController, hint: '별빛소나타'),
       ],
     );
   }
@@ -368,7 +390,8 @@ const SnackBar(content: Text('서버 통신 에러')));
             children: [
               _buildSectionTitle('나이'),
               const SizedBox(height: 8),
-              _buildTextField(hint: '27', isNumber: true),
+              _buildTextField(
+ controller: _ageController, hint: '27', isNumber: true),
             ],
           ),
         ),
@@ -433,7 +456,7 @@ const SnackBar(content: Text('서버 통신 에러')));
       children: [
         _buildSectionTitle('자기소개'),
         const SizedBox(height: 8),
-        _buildTextField(hint: '커피 한 잔과 함께 영화 이야기 나눌 사람을 찾아요 ☕', maxLines: 3),
+        _buildTextField(controller: _bioController, hint: '커피 한 잔과 함께 영화 이야기 나눌 사람을 찾아요 ☕', maxLines: 3),
       ],
     ); // (👈 에러 방지용 임시 빈 칸)
   }
@@ -536,13 +559,10 @@ const SnackBar(content: Text('서버 통신 에러')));
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () {
-            //사용자가 버튼을 꾹! 눌렀을 때 실행될 행동입니다.
-            print("다음 단계 진행");
-          },
+          onTap: _signUpToBackend,
           child: const Center(
             child: Text(
-              '다음단계',
+              '가입 완료 (다음단계)',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -567,17 +587,22 @@ const SnackBar(content: Text('서버 통신 에러')));
     ); // (👈 에러 방지용 임시 빈 칸)
   }
 
-  //공용도구2
+  //공용도구2 컨트롤러 및 비밀번호 숨김(obscureText) 속성 연동
   Widget _buildTextField({
+    //add
+    required TextEditingController controller,
     required String hint,
     int maxLines = 1,
     bool isNumber = false,
+    bool obscureText = false,
   }) {
     return TextField(
+      controller: controller,
       // 사용자가 화면의 키보드를 통해 글씨를 입력할 수 있는 필드(칸)
       maxLines: maxLines,
       /*위에서 넘겨받은 줄 수만큼 높이를 잡습니다.
 (자기소개는 3줄, 나이는 1줄)*/
+obscureText: obscureText,
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       //숫자를 적을 칸이면 '숫자 전용 키보드'를 띄우고, 아니면 '일반 문자 키보드'를 띄웁니다.
       style: TextStyle(color: textColor, fontSize: 15),
