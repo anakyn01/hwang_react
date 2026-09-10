@@ -15,7 +15,7 @@ const sequelize = require('./config/database');
 const User = require('./models/User');
 const Match = require('./models/Match');
 const Diary = require('./models/Diary');
-
+const Admin = require('./models/Admin');
 //express 도구를 실행해서 'app'이라는 이름의 서버 객체를 만듭니다.
 const app = express();
 
@@ -292,6 +292,66 @@ res.json({
 
 });
 
+//admin start
+app.post('/api/admin/login', async(req, res) => {
+    const { email, password } = req.body;
+
+    try {
+const admin = await Admin.findOne({where:{email}});
+
+if(!admin) {
+    return res.status(401).json({
+success:false, message:'Nop 관리자 이메일'        
+    });
+}
+
+const isMatch = 
+await bcrypt.compare(password, admin.password);
+
+if(!isMatch) {
+    return res.status(401).json({
+success:false, message:'nop password'        
+    });
+}
+
+res.json({
+    success:true, name:admin.name,
+    message:'관리자 대시보드에 로그인하셨습니다'
+});
+    } catch(error) {
+console.error("어드민 로그인 에러", error);
+res.status(500).json({
+success:false, message:'서버 통시 에러'
+});
+    }
+});
+
+//유저 목록 조회
+app.get('/api/admin/users', async (req, res) => {
+    try{
+const users = await User.findAll({ order:[['createdAt','DESC']]});
+res.json({success:true, users});
+    }catch(error){
+res.status(500).json({ 
+    success:false, message:'유저 목록 로딩 실패'});
+    }
+});
+
+app.patch('/api/admin/users/:id/approve', async(req, res) => {
+    try {
+const user = await User.findByPk(req.params.id);
+if(!user) return res.status(404).json({
+    success:false, message:'유저를 찾을수 없습니다'
+});
+await user.update({status:'ACTIVE'});
+res.json({success:true, message:'승인 완료'});
+    }catch(error) {
+res.status(500).json({
+    success:false, message:'승인처리실패'
+});
+    }
+})
+//admin end
 
 
 const PORT = 3000;
@@ -305,6 +365,19 @@ app.listen(PORT, async () => {
 
     // 👉 3. 테이블이 예쁘게 만들어졌으니 '관계 보호 장치'를 다시 켭니다.
     await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
+
+//add 관리자 계정이 DB에 하나도 없으면 자동생성
+const Admin = require('./models/Admin');
+const adminCount = await Admin.count();
+if (adminCount === 0){
+const hashedAdminPassword = await bcrypt.hash('1234', 10);
+await Admin.create({
+email:'test@test.com',
+password:hashedAdminPassword,
+name:'최고관리자'    
+})
+console.log('기본 관리자 계정 생성완료(test@test.com / 1234)');
+}
 
     console.log("데이터베이스 연결확인 완료");
     console.log(`백앤드 서버가 http://localhost:${PORT} 에서 열심히 돌아가고 있습니다`)
