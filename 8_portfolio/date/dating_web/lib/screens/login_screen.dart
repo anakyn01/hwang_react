@@ -30,50 +30,58 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     //키보드가 올라왔을 때 밖을 누르면 키보드가 내려가도록 GestureDetector로 감싸줍니다.
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        backgroundColor: bgColor,
-        body: Stack(
-          //배경 그라데이션 위에 내용물들을 겹쳐서 올리기 위해 Stack을 씁니다.
-          children: [
-            _buildBackgroundGlow(), //밑에 정의 되지 않음
-            // 화면 우측 상단의 은은한 빛 효과
-            SafeArea(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 40.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, //왼쪽정렬
-                  children: [
-                    _buildLogo(),
-                    const SizedBox(height: 32),
-                    _buildHeader(),
-                    const SizedBox(height: 48),
-                    _buildEmailField(),
-                    const SizedBox(height: 24),
-                    _buildPasswordField(),
-                    const SizedBox(height: 16),
-                    _buildOptionsRow(),
-                    const SizedBox(height: 32),
-                    _buildLoginButton(),
-                    const SizedBox(height: 32),
-                    _buildDivider(),
-                    const SizedBox(height: 32),
-                    _buildKakaoButton(),
-                    const SizedBox(height: 16),
-                    _buildAppleButton(),
-                    const SizedBox(height: 48),
-                    _buildSignupLink(),
-                  ],
-                ),
+    return Container(
+      color:Colors.black,
+       child: Center(
+         child: ConstrainedBox(
+          constraints:const BoxConstraints(maxWidth:480),
+           child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Scaffold(
+              backgroundColor: bgColor,
+              body: Stack(
+                //배경 그라데이션 위에 내용물들을 겹쳐서 올리기 위해 Stack을 씁니다.
+                children: [
+                  _buildBackgroundGlow(), //밑에 정의 되지 않음
+                  // 화면 우측 상단의 은은한 빛 효과
+                  SafeArea(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0,
+                        vertical: 40.0,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, //왼쪽정렬
+                        children: [
+                          _buildLogo(),
+                          const SizedBox(height: 32),
+                          _buildHeader(),
+                          const SizedBox(height: 48),
+                          _buildEmailField(),
+                          const SizedBox(height: 24),
+                          _buildPasswordField(),
+                          const SizedBox(height: 16),
+                          _buildOptionsRow(),
+                          const SizedBox(height: 32),
+                          _buildLoginButton(),
+                          const SizedBox(height: 32),
+                          _buildDivider(),
+                          const SizedBox(height: 32),
+                          _buildKakaoButton(),
+                          const SizedBox(height: 16),
+                          _buildAppleButton(),
+                          const SizedBox(height: 48),
+                          _buildSignupLink(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+                 ),
+         ),
+       ),
     );
   }
 

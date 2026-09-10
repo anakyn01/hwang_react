@@ -5,6 +5,8 @@ use dating_db;
 
 npm install sequelize mysql2
 
+
+
 HTTP패키지 설치
 flutter pub add http
 
@@ -14,3 +16,6 @@ mkdir uploads
 
 플러터(Flutter) 사진첩 도구 설치
 flutter pub add image_picker
+
+
+npm install mysql2 bcrypt

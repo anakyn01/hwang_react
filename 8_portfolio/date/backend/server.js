@@ -7,6 +7,13 @@ const cors = require('cors');
 const {Sequelize, DataTypes, Op} = 
 require('sequelize');
 
+//bcrypt
+const bcrypt = require('bcrypt');
+
+//모델 임포트
+const sequelize = require('./config/database');
+const User = require('./models/User');
+
 //express 도구를 실행해서 'app'이라는 이름의 서버 객체를 만듭니다.
 const app = express();
 
@@ -36,11 +43,11 @@ app.use(cors());
 app.use(express.json());
 
 //MariaDB(주방)와 연결할 통로(커넥션 풀)를 만듭니다.
-const sequelize = new Sequelize('dating_db','root','1234',{
-    host:'localhost',
-    dialect:'mysql',
-    logging:false,
-});
+// const sequelize = new Sequelize('dating_db','root','1234',{
+//     host:'localhost',
+//     dialect:'mysql',
+//     logging:false,
+// });
 
 //🚀 3. 실제 영업 시작 (API 엔드포인트)
 //회원가입..
