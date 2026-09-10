@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'signup_profile_screen.dart';
 
+//백엔드 서버와 통신하기 위한 패키지
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+
+import 'signup_profile_screen.dart';
 import '../main.dart';
+
+//수질검사
+import 'pending_approval_screen.dart';
 
 // 사용자가 글씨를 입력하고 체크박스를 누를 때 화면이 변해야 하므로 StatefulWidget을 씁니다.
 class LoginScreen extends StatefulWidget {
@@ -26,6 +34,81 @@ class _LoginScreenState extends State<LoginScreen> {
   //사용자가 입력한 이메일과 비밀번호를 읽어오기 위한
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  
+  //접속 기기에 맞취 로그인 API 주소 자동세팅
+  String get _apiUrl {
+    if (kIsWeb) {
+      return 'http://localhost:3000/api/login';
+    } else if (defaultTargetPlatform == TargetPlatform.android) {
+      return 'http://10.0.2.2:3000/api/login';
+    } else {
+      return 'http://localhost:3000/api/login';
+    }
+  }
+
+//추가 서버로 로그인 요청을 보내고 상태(승인대기, 정지 등)를 
+//판별하는 핵심 함수
+Future<void> _loginToBackend() async {
+  final email = _emailController.text.trim();
+  final password = _passwordController.text.trim();
+
+  //플루터에 특성상 스낵바가 나옴
+  if(email.isEmpty || password.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('이메일과 비밀번호를 모두 입력해주세요.')),
+    );
+    return;
+  } try{
+    final response = await http.post(
+      Uri.parse(_apiUrl),
+      headers: {'Content-Type':'application/json'},
+body:jsonEncode({'email':email, 'password':password}),
+    );
+    final data = jsonDecode(response.body);
+//로그인 성공 시 (상태가 ACTIVE)
+if(response.statusCode == 200 && data['success'] == true){
+  //if nest
+  if (mounted) {
+    Navigator.pushReplacement(
+context, MaterialPageRoute(builder: (context) => const RootScreen()),
+      );
+  }
+  //403 에러 (관리자 승인 대기 또는 영구정지)
+}else if(response.statusCode == 403) {
+//백엔드에서 보낸 메시지에 '수질 검사'가 포함되어 있다면 
+//애니메이션 화면으로 이동!
+if (data['message'] != null && data['message'].contains('수질 검사')){
+  if(mounted) {
+    Navigator.push(
+      context,
+MaterialPageRoute(builder: (context) => 
+const PendingApprovalScreen()),      
+    );
+  }
+}else{
+  //노쇼 3번으로 영구 정지(BANNED)된 경우 등은 빨간색 에러창 출력
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+content: Text(data['message'] ?? '접근할수 없는 계정 입니다'),
+backgroundColor: Colors.redAccent,
+duration: const Duration(seconds: 3),
+),
+);
+}
+}else{//401(비밀번호 틀림) 등 기타 실패 
+ScaffoldMessenger.of(context).showSnackBar(
+SnackBar(content:Text(data['message'] ?? '이메일이나 비밀번호가 틀렸습니다')),
+);
+}
+}catch (e) {
+  print('로그인 통신 에러: $e');
+  ScaffoldMessenger.of(context).showSnackBar(
+const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 상태를 확인해주세요.'))
+  );
+}
+}
+  
+  
   //[3] 화면을 그리는 메인 함수
   @override
   Widget build(BuildContext context) {
@@ -170,9 +253,9 @@ class _LoginScreenState extends State<LoginScreen> {
   //비밀번호 입력칸
   Widget _buildPasswordField() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
+crossAxisAlignment: CrossAxisAlignment.start,
+children: [
+const Text(
           '비밀번호',
           style: TextStyle(
             color: Colors.white,
@@ -260,12 +343,7 @@ class _LoginScreenState extends State<LoginScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () {
-Navigator.pushReplacement(
-  context, 
-  MaterialPageRoute(builder: (context) => const RootScreen()),
-);
-          },
+          onTap: _loginToBackend,
           child: const Center(
             child: Text(
               '로그인',

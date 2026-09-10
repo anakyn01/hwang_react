@@ -13,6 +13,8 @@ const bcrypt = require('bcrypt');
 //모델 임포트
 const sequelize = require('./config/database');
 const User = require('./models/User');
+const Match = require('./models/Match');
+const Diary = require('./models/Diary');
 
 //express 도구를 실행해서 'app'이라는 이름의 서버 객체를 만듭니다.
 const app = express();
@@ -74,9 +76,13 @@ let profile_image_sub1 =
 req.files[1] ? `/uploads/${req.files[1].filename}` :null;
 let profile_image_sub2 = 
 req.files[2] ? `/uploads/${req.files[2].filename}` :null;
+
+//add
+const hashedPassword = await bcrypt.hash(password, 10);
+
 const newUser = await User.create({
     email, 
-    password, 
+    password:hashedPassword,//무언가 새로 바꾸면 적용을 필히.. 
     nickname, 
     age, 
     gender, 
@@ -123,14 +129,24 @@ app.post('/api/login', async (req, res) => {
 DB의 User 테이블에서 이메일과 비번이 똑같은 사람 1명
 (findOne)을 찾습니다.
 */
+try{
 const user = 
-await User.findOne({where:{ email, password}});
+await User.findOne({where:{ email}});
 //// 만약 못 찾았다면? (null)
 if(!user){
  // 401(권한없음) 에러를 앱으로 돌려보냅니다.
  return res.status(401).json({
     success:false, message:'이메일이나 비밀번호가 틀렸습니다'
  });
+}
+
+//add bcrypt
+const isMatch = 
+await bcrypt.compare(password, user.password);
+if(!isMatch){
+return res.status(401).json({
+success:false, message:'이메일이나 비밀번호가 틀렸습니다'    
+});   
 }
  
  //상태 검사 1: 관리자가 아직 승인 안 한 대기 상태라면?
@@ -151,7 +167,12 @@ if(!user){
 //모든 관문을 통과했다면 정상 로그인 성공!
 res.json({ success:true, message:'로그인 성공', user});
 
-})
+} catch (error) {
+    console.error("로그인 에러:", error);
+res.status(500).json({
+success:false, message:'서버 에러가 발생 했습니다'});   
+}
+});
 
 //💘 매칭 수락 및 포인트 차감 (트랜잭션)
 
@@ -276,6 +297,15 @@ res.json({
 const PORT = 3000;
 app.listen(PORT, async () => {
     await sequelize.authenticate();
+// 👉 1. 기존에 꼬여있는 테이블들을 밀어버리기 위해 '관계 보호 장치'를 잠시 끕니다.
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
+
+    //add
+    await sequelize.sync({force:true});
+
+    // 👉 3. 테이블이 예쁘게 만들어졌으니 '관계 보호 장치'를 다시 켭니다.
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
+
     console.log("데이터베이스 연결확인 완료");
     console.log(`백앤드 서버가 http://localhost:${PORT} 에서 열심히 돌아가고 있습니다`)
 })
