@@ -19,6 +19,10 @@ const Admin = require('./models/Admin');
 //express 도구를 실행해서 'app'이라는 이름의 서버 객체를 만듭니다.
 const app = express();
 
+//서버의 기본 규칙(미들웨어)을 설정합니다.
+app.use(cors());
+app.use(express.json());
+
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -40,9 +44,7 @@ const upload = multer({storage});
 express 도구를 실행해서 'app'이라는 
 이름의 서버 준비를 마칩니다
 */
-//서버의 기본 규칙(미들웨어)을 설정합니다.
-app.use(cors());
-app.use(express.json());
+
 
 //MariaDB(주방)와 연결할 통로(커넥션 풀)를 만듭니다.
 // const sequelize = new Sequelize('dating_db','root','1234',{
@@ -329,7 +331,7 @@ success:false, message:'서버 통시 에러'
 //유저 목록 조회
 app.get('/api/admin/users', async (req, res) => {
     try{
-const users = await User.findAll({ order:[['createdAt','DESC']]});
+const users = await User.findAll({ order:[['id','DESC']]});
 res.json({success:true, users});
     }catch(error){
 res.status(500).json({ 
@@ -361,7 +363,7 @@ app.listen(PORT, async () => {
     await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
 
     //add
-    await sequelize.sync({force:true});
+    await sequelize.sync({alter:true});
 
     // 👉 3. 테이블이 예쁘게 만들어졌으니 '관계 보호 장치'를 다시 켭니다.
     await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');

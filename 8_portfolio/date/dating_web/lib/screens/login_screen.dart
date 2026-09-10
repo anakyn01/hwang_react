@@ -11,6 +11,9 @@ import '../main.dart';
 //수질검사
 import 'pending_approval_screen.dart';
 
+//어드민
+import 'admin_login_screen.dart';
+
 // 사용자가 글씨를 입력하고 체크박스를 누를 때 화면이 변해야 하므로 StatefulWidget을 씁니다.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -187,20 +190,28 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
   }
 
   Widget _buildLogo() {
-    return Row(
-      children: [
-        Icon(Icons.auto_awesome, color: pinkAccent, size: 24),
-        const SizedBox(width: 8),
-        Text(
-          'SPARK',
-          style: TextStyle(
-            color: pinkAccent,
-            fontSize: 20,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 1.2,
+    return GestureDetector(
+      onLongPress: (){
+        Navigator.push(
+          context,
+MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
+);
+      },
+      child: Row(
+        children: [
+          Icon(Icons.auto_awesome, color: pinkAccent, size: 24),
+          const SizedBox(width: 8),
+          Text(
+            'SPARK',
+            style: TextStyle(
+              color: pinkAccent,
+              fontSize: 20,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 1.2,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

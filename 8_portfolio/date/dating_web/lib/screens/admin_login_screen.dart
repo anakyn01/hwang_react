@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 // 관리자 대시보드 화면이 있다고 가정 (나중에 생성 필요)
-// import 'admin_dashboard_screen.dart';
+import 'admin_dashboard_screen.dart';
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({super.key});
@@ -61,12 +61,12 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
 
         // 플러터 웹/앱 환경의 로컬 저장소에 이름 저장 필요 시 SharedPreferences 사용 권장
         // 일단은 바로 어드민 대시보드 화면으로 이동시킵니다 (React의 router.push 대체)[cite: 1]
-        /*
+       
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const AdminDashboardScreen()),
         );
-        */
+      
       } else {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
