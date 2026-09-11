@@ -41,8 +41,60 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
   @override
   void initState(){
     super.initState();
-    _getCurrentLocation();
+    //화면이 그려진 직후에 예쁜 스낵바를 띄우기 위해 addPostFrameCallback 사용
+    //_getCurrentLocation();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+_checkAndRequestPermissionWithSnackbar();
+    });
   }
+  //새로 추가되면서 1단계..스낵바를 먼저 띄워서 유저 설득
+Future<void> _checkAndRequestPermissionWithSnackbar() async {
+bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+if (!serviceEnabled) {
+  _showErrorSnackbar('휴대폰의 GPS(위치 서비스)가 꺼져 있습니다');
+  return;
+}
+LocationPermission permission = await Geolocator.checkPermission();
+
+if(permission == LocationPermission.denied) {
+  if(mounted){
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:const Text(
+ '원활한 주변 인연 매칭을 위해 위치 권한이 필요해요 💘',
+ style:TextStyle(fontWeight:FontWeight.bold)       
+),
+backgroundColor: pinkAccent,
+duration:const Duration(days:365),
+behavior: SnackBarBehavior.floating,
+shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+margin: const EdgeInsets.all(16),
+action: SnackBarAction(
+label:'권한 허용하기',
+textColor:Colors.white,
+onPressed: () async {
+  permission = await Geolocator.requestPermission();
+  if(permission == LocationPermission.whileInUse || 
+  permission == LocationPermission.always){
+_getActualLocation(); //허용되면 위치 가져오기
+  }else{
+_showErrorSnackbar('위치 권한이 거부 되었습니다');
+  }
+},  
+),
+),
+);
+}
+}else if(permission == LocationPermission.deniedForever){
+_showErrorSnackbar('위치 권한이 영구 차단되었습니다. 브라우저 설정에서 허용해 주세요');  
+}else{
+  _getActualLocation();
+}
+
+
+
+}
+
 
 //gps위치권한 요청및 현재 위치 가져오기
 Future<void> _getCurrentLocation() async {
@@ -68,6 +120,31 @@ setState((){
   _currentPosition = position;
   _isLoadingLocation = false;
 });
+}
+
+Future<void> _getActualLocation() async {
+  try{
+Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+setState((){
+_currentPosition = position;
+_isLoadingLocation = false;
+});
+  } catch (e) {
+_showErrorSnackbar('위치를 가져오는데 실패했습니다.');
+  }
+}
+
+void _showErrorSnackbar(String message){
+  if(mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:Text(message),
+        backgroundColor: Colors.redAccent,
+        behavior: SnackBarBehavior.floating,
+      ),
+     );
+     setState(() => _isLoadingLocation = false);//로딩끄기
+  }
 }
 
   //하단 대기 유저 더미 데이터
@@ -171,7 +248,7 @@ initialData:InAppWebViewInitialData(data: """
 <meta charset="utf-8"/>
 <title>Kakao Map</title>
 <script type="text/javascript"
-src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=">
+src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a0bf46b6f85adb1c911c864cba503e22">
 </script>
 <style>
 body, html{margin:0; padding:0; height:100%;}
