@@ -70,12 +70,13 @@ setState((){
 });
 }
 
-  /* 하단 대기 유저 더미 데이터
+  //하단 대기 유저 더미 데이터
   final List<Map<String, dynamic>> nearbyUsers = [
     {'distance': '800m', 'gender': '여', 'name': '지은', 'interest': '카페 탐방'},
     {'distance': '1.2km', 'gender': '남', 'name': '민준', 'interest': '한강 산책'},
     {'distance': '2.5km', 'gender': '여', 'name': '수연', 'interest': '영화 보기'},
-  ];*/
+  ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -91,12 +92,11 @@ setState((){
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Row(
+              title: Row(
                 children: [
                   Icon(Icons.location_on, color: Color(0xFFFF4B93), size: 24),
                   SizedBox(width: 8),
-                  Text(
-        _isLoadingLocation ? '위치 찾는 중...' : '내 위치 확인완료',            
+                  Text(_isLoadingLocation ? '위치 찾는 중...' : '내 위치 확인완료',            
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                 ],
               ),
@@ -192,7 +192,124 @@ var map = new kakao.maps.Map(container, options);
 </html>
 """),          
         ),
-      ]
+Center(
+  child:Icon(Icons.location_history, color:pinkAccent, size:40), 
+  ), 
+],
+    );
+  }
+
+ // 👉 [복구됨] 카테고리 가로 스크롤 탭
+  Widget _buildCategoryTabs() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Row(
+        children: List.generate(categories.length, (index) {
+          bool isSelected = _selectedCategoryIndex == index;
+          return GestureDetector(
+            onTap: () => setState(() => _selectedCategoryIndex = index),
+            child: Container(
+              margin: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: isSelected ? pinkAccent : Colors.transparent,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                categories[index],
+                style: TextStyle(
+                  color: isSelected ? Colors.white : subTextColor,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  // 👉 [복구됨] 드롭다운 행 조립기
+  Widget _buildDropdownRow(String title, String value, List<String> items, ValueChanged<String?> onChanged) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        Container(
+          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: subTextColor.withOpacity(0.3)),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: value,
+              dropdownColor: cardColor,
+              icon: Icon(Icons.expand_more, color: subTextColor),
+              style: const TextStyle(color: Colors.white, fontSize: 14),
+              items: items.map((String item) {
+                return DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(item),
+                );
+              }).toList(),
+              onChanged: onChanged,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // 👉 [복구됨] 주변 대기 유저 리스트 UI
+  Widget _buildNearbyUsersList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 8),
+          child: Text(
+            '근처 접속 중인 유저 $_selectedRadius',
+            style: TextStyle(color: subTextColor, fontSize: 13),
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+            itemCount: nearbyUsers.length,
+            separatorBuilder: (context, index) => Divider(color: cardColor, thickness: 1),
+            itemBuilder: (context, index) {
+              final user = nearbyUsers[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 60, 
+                      child: Text(user['distance'], style: TextStyle(color: pinkAccent, fontWeight: FontWeight.bold, fontSize: 14))
+                    ),
+                    SizedBox(
+                      width: 40, 
+                      child: Text(user['gender'], style: const TextStyle(color: Colors.white, fontSize: 14))
+                    ),
+                    Expanded(
+                      child: Text(user['name'], style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold))
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(8)),
+                      child: Text(user['interest'], style: TextStyle(color: subTextColor, fontSize: 12)),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
