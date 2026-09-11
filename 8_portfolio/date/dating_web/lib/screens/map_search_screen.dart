@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-// 💡 [경로 수정 완료] main.dart에 있는 DatingHomeScreen으로 넘어가기 위해 불러옵니다.
-// GPS위치권한 패키지
-import 'package:geolocator/geolocator.dart';//gps 위치권한
-//카카오 지도웹뷰
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-
+// 💡 main.dart에 있는 DatingHomeScreen으로 넘어가기 위해 불러옵니다.
 import '../main.dart'; 
+
+// GPS 위치권한 패키지
+import 'package:geolocator/geolocator.dart';
+// 카카오 지도 웹뷰 패키지
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class MapSearchScreen extends StatefulWidget {
   const MapSearchScreen({super.key});
@@ -20,165 +20,133 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
   final Color pinkAccent = const Color(0xFFFF4B93);
   final Color subTextColor = const Color(0xFFA0A0B0);
 
-  // 필터 상태 관리 추후 관리자 페이지에서 db로 받아와서 세팅되도록..바꿈
+  // 필터 상태 관리
   int _selectedCategoryIndex = 0;
-  final List<String> categories = 
-  ['동네 친구', '커피 한잔', '술 한잔', '영화/문화'];
+  final List<String> categories = ['동네 친구', '커피 한잔', '술 한잔', '영화/문화'];
   
-  //관리자에서 키로수를 변경하거나..할수 있게 개발
   String _selectedRadius = '반경 1km';
-  final List<String> radiusOptions = 
-  ['반경 1km', '반경 3km', '반경 5km'];
+  final List<String> radiusOptions = ['반경 1km', '반경 3km', '반경 5km'];
   
   String _selectedAge = '20대 초중반';
-  final List<String> ageOptions = 
-  ['20대 초중반', '20대 후반', '30대 초반', '상관없음'];
+  final List<String> ageOptions = ['20대 초중반', '20대 후반', '30대 초반', '상관없음'];
 
   Position? _currentPosition;
   bool _isLoadingLocation = true;
 
-  //화면진입시  위치기반 권한 확인 및 가져오기
+  // 화면 진입 시 위치기반 권한 스낵바 띄우기
   @override
   void initState(){
     super.initState();
-    //화면이 그려진 직후에 예쁜 스낵바를 띄우기 위해 addPostFrameCallback 사용
-    //_getCurrentLocation();
     WidgetsBinding.instance.addPostFrameCallback((_){
-_checkAndRequestPermissionWithSnackbar();
+      _checkAndRequestPermissionWithSnackbar();
     });
   }
-  //새로 추가되면서 1단계..스낵바를 먼저 띄워서 유저 설득
-Future<void> _checkAndRequestPermissionWithSnackbar() async {
-bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-if (!serviceEnabled) {
-  _showErrorSnackbar('휴대폰의 GPS(위치 서비스)가 꺼져 있습니다');
-  return;
-}
-LocationPermission permission = await Geolocator.checkPermission();
 
-if(permission == LocationPermission.denied) {
-  if(mounted){
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content:const Text(
- '원활한 주변 인연 매칭을 위해 위치 권한이 필요해요 💘',
- style:TextStyle(fontWeight:FontWeight.bold)       
-),
-backgroundColor: pinkAccent,
-duration:const Duration(days:365),
-behavior: SnackBarBehavior.floating,
-shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-margin: const EdgeInsets.all(16),
-action: SnackBarAction(
-label:'권한 허용하기',
-textColor:Colors.white,
-onPressed: () async {
-  permission = await Geolocator.requestPermission();
-  if(permission == LocationPermission.whileInUse || 
-  permission == LocationPermission.always){
-_getActualLocation(); //허용되면 위치 가져오기
-  }else{
-_showErrorSnackbar('위치 권한이 거부 되었습니다');
-  }
-},  
-),
-),
-);
-}
-}else if(permission == LocationPermission.deniedForever){
-_showErrorSnackbar('위치 권한이 영구 차단되었습니다. 브라우저 설정에서 허용해 주세요');  
-}else{
-  _getActualLocation();
-}
+  // 1단계: 스낵바를 먼저 띄워서 유저 설득
+  Future<void> _checkAndRequestPermissionWithSnackbar() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      _showErrorSnackbar('휴대폰의 GPS(위치 서비스)가 꺼져 있습니다');
+      return;
+    }
+    
+    LocationPermission permission = await Geolocator.checkPermission();
 
-
-
-}
-
-
-//gps위치권한 요청및 현재 위치 가져오기
-Future<void> _getCurrentLocation() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if(!serviceEnabled) {
-    return Future.error('위치 서비스가 비활성화되어 있습니다');
+    if(permission == LocationPermission.denied) {
+      if(mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              '원활한 주변 인연 매칭을 위해 위치 권한이 필요해요 💘',
+              style: TextStyle(fontWeight: FontWeight.bold)       
+            ),
+            backgroundColor: pinkAccent,
+            duration: const Duration(days: 365),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            margin: const EdgeInsets.all(16),
+            action: SnackBarAction(
+              label: '권한 허용하기',
+              textColor: Colors.white,
+              onPressed: () async {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar(); // 스낵바 닫기
+                permission = await Geolocator.requestPermission();
+                if(permission == LocationPermission.whileInUse || permission == LocationPermission.always){
+                  _getActualLocation(); // 허용되면 위치 가져오기
+                } else {
+                  _showErrorSnackbar('위치 권한이 거부 되었습니다');
+                }
+              },  
+            ),
+          ),
+        );
+      }
+    } else if(permission == LocationPermission.deniedForever){
+      _showErrorSnackbar('위치 권한이 영구 차단되었습니다. 브라우저 설정에서 허용해 주세요');  
+    } else {
+      _getActualLocation();
+    }
   }
 
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied){
-permission = await Geolocator.requestPermission();
-return Future.error('위치 권한이 거부되었습니다');
+  // 2단계: 실제 위치 가져오기
+  Future<void> _getActualLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      setState((){
+        _currentPosition = position;
+        _isLoadingLocation = false;
+      });
+    } catch (e) {
+      _showErrorSnackbar('위치를 가져오는데 실패했습니다.');
+    }
   }
 
-  if (permission == LocationPermission.deniedForever){
-return Future.error('위치 권한이 영구적으로 거부되었습니다. 설정에서 변경해주세요.');  
+  // 에러 스낵바
+  void _showErrorSnackbar(String message){
+    if(mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.redAccent,
+          behavior: SnackBarBehavior.floating,
+        ),
+       );
+       setState(() => _isLoadingLocation = false); // 로딩 끄기
+    }
   }
-  Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-setState((){
-  _currentPosition = position;
-  _isLoadingLocation = false;
-});
-}
 
-Future<void> _getActualLocation() async {
-  try{
-Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-setState((){
-_currentPosition = position;
-_isLoadingLocation = false;
-});
-  } catch (e) {
-_showErrorSnackbar('위치를 가져오는데 실패했습니다.');
-  }
-}
-
-void _showErrorSnackbar(String message){
-  if(mounted) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content:Text(message),
-        backgroundColor: Colors.redAccent,
-        behavior: SnackBarBehavior.floating,
-      ),
-     );
-     setState(() => _isLoadingLocation = false);//로딩끄기
-  }
-}
-
-  //하단 대기 유저 더미 데이터
+  // 하단 대기 유저 더미 데이터
   final List<Map<String, dynamic>> nearbyUsers = [
     {'distance': '800m', 'gender': '여', 'name': '지은', 'interest': '카페 탐방'},
     {'distance': '1.2km', 'gender': '남', 'name': '민준', 'interest': '한강 산책'},
     {'distance': '2.5km', 'gender': '여', 'name': '수연', 'interest': '영화 보기'},
   ];
-  
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color:Colors.black,
+      color: Colors.black,
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 480),
           child: Scaffold(
             backgroundColor: bgColor,
-            // 상단바를 투명하게 만들고 지도 위에 겹치게 합니다.
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: Row(
                 children: [
-                  Icon(Icons.location_on, color: Color(0xFFFF4B93), size: 24),
-                  SizedBox(width: 8),
-                  Text(_isLoadingLocation ? '위치 찾는 중...' : '내 위치 확인완료',            
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                  const Icon(Icons.location_on, color: Color(0xFFFF4B93), size: 24),
+                  const SizedBox(width: 8),
+                  Text(
+                    _isLoadingLocation ? '위치 찾는 중...' : '내 위치 확인완료',            
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)
+                  ),
                 ],
               ),
             ),
-body: Column(
+            body: Column(
               children: [
                 Expanded(
                   flex: 4,
@@ -191,7 +159,9 @@ body: Column(
                     decoration: BoxDecoration(
                       color: bgColor,
                       borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
-                      boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 10, offset: const Offset(0, -5))],
+                      boxShadow: [
+                        BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 10, offset: const Offset(0, -5))
+                      ],
                     ),
                     child: Column(
                       children: [
@@ -212,7 +182,11 @@ body: Column(
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                                   ),
                                   onPressed: () {
-                                    // 👉 백엔드로 내 위치와 반경을 보내어 근처 유저를 검색합니다.
+                                    // 기존 스와이프 매칭 화면으로 넘어가기
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const DatingHomeScreen()), 
+                                    );
                                   },
                                   child: const Text('주변 인연 찾기', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                                 ),
@@ -233,50 +207,51 @@ body: Column(
     );            
   }
 
-  //카카오 지도 렌더링 영역
+  // 카카오 지도 렌더링 영역
   Widget _buildKakaoMap(){
-    if (_isLoadingLocation) {
-return const Center(child:CircularProgressIndicator(color:Color(0xFFFF4B93)));      
+    if (_isLoadingLocation || _currentPosition == null) {
+      return const Center(child: CircularProgressIndicator(color: Color(0xFFFF4B93)));      
     }
-    return Stack(
-      children:[
-        InAppWebView(
-initialData:InAppWebViewInitialData(data: """
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8"/>
-<title>Kakao Map</title>
-<script type="text/javascript"
-src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a0bf46b6f85adb1c911c864cba503e22">
-</script>
-<style>
-body, html{margin:0; padding:0; height:100%;}
-#map{ width:100%; height:100%;}
-</style>
-</head>
-<body>
-<div id="map"></div>
-<script>
-var container = document.getElementById('map');
-var options = {
-center:new kakao.maps.LatLng(${_currentPosition!.latitude}, ${_currentPosition!.longitude}),
-level:3
-};
-var map = new kakao.maps.Map(container, options);
-</script>
-</body>
-</html>
-"""),          
-        ),
-Center(
-  child:Icon(Icons.location_history, color:pinkAccent, size:40), 
-  ), 
-],
-    );
-  }
+    return InAppWebView(
+      initialData: InAppWebViewInitialData(data: """
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Kakao Map</title>
+        <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a0bf46b6f85adb1c911c864cba503e22"></script>
+        <style>
+        body, html{margin:0; padding:0; height:100%;}
+        #map{ width:100%; height:100%;}
+        </style>
+        </head>
+        <body>
+        <div id="map"></div>
+        <script>
+        var container = document.getElementById('map');
+        
+        var myPosition = new kakao.maps.LatLng(${_currentPosition!.latitude}, ${_currentPosition!.longitude});
+        
+        var options = {
+          center: myPosition,
+          level: 3
+        };
+        var map = new kakao.maps.Map(container, options);
 
- // 👉 [복구됨] 카테고리 가로 스크롤 탭
+        // 핵심추가: 마커 렌더링
+        var marker = new kakao.maps.Marker({
+          position: myPosition
+        });
+        marker.setMap(map);
+        </script>
+        </body>
+        </html>
+      """),
+    );
+  }          
+
+  // 카테고리 가로 스크롤 탭
   Widget _buildCategoryTabs() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -307,7 +282,7 @@ Center(
     );
   }
 
-  // 👉 [복구됨] 드롭다운 행 조립기
+  // 드롭다운 행 조립기
   Widget _buildDropdownRow(String title, String value, List<String> items, ValueChanged<String?> onChanged) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -341,7 +316,7 @@ Center(
     );
   }
 
-  // 👉 [복구됨] 주변 대기 유저 리스트 UI
+  // 주변 대기 유저 리스트 UI
   Widget _buildNearbyUsersList() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
