@@ -19,3 +19,8 @@ flutter pub add image_picker
 
 
 npm install mysql2 bcrypt
+
+use dating_db;
+ALTER TABLE users
+ADD COLUMN phone_number VARCHAR(20) NULL AFTER address,
+ADD COLUMN occupation VARCHAR(50) NULL AFTER phone_number;
