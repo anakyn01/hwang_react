@@ -37,6 +37,9 @@ dependencies:
   http: ^1.6.0
   flutter_card_swiper: ^7.2.0
   image_picker: ^1.2.3
+  daum_postcode_search: ^1.1.0
+  flutter_inappwebview: ^6.1.5
+  kpostal: ^2.0.0
 
 dev_dependencies:
   flutter_test:

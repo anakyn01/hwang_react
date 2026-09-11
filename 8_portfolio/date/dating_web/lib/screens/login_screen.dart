@@ -10,6 +10,7 @@ import '../main.dart';
 
 //수질검사
 import 'pending_approval_screen.dart';
+import 'secondary_signup_screen.dart';
 
 //어드민
 import 'admin_login_screen.dart';
@@ -72,9 +73,17 @@ body:jsonEncode({'email':email, 'password':password}),
 if(response.statusCode == 200 && data['success'] == true){
   //if nest
   if (mounted) {
-    Navigator.pushReplacement(
+    final user = data['user'];
+if (user['phone_number'] == null || user['occupation'] == null){
+      Navigator.pushReplacement(
+context, 
+MaterialPageRoute(builder: (context) => SecondarySignupScreen(userId: user['id'])),
+      );
+}else{
+      Navigator.pushReplacement(
 context, MaterialPageRoute(builder: (context) => const RootScreen()),
       );
+}
   }
   //403 에러 (관리자 승인 대기 또는 영구정지)
 }else if(response.statusCode == 403) {
