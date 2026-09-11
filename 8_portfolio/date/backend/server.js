@@ -123,6 +123,27 @@ res.status(500).json({
 }
 });
 
+//2차 회원가입
+app.patch('/api/users/:id/secondary-signup', async(req, res) =>{
+const userId = req.params.id;
+const { phone_number, occupation, address} = req.body; 
+try{
+const user = await User.findByPk(userId);
+if(!user) {
+return res.status(404).json({
+success:false, message:'유저를 찾을수 없습니다'    
+});
+}
+await user.update({phone_number, occupation, address});
+res.json({success:true, message:'추가 정보 입력이 완료되었습니다'});
+}catch(error){
+console.error("2차 회원가입 에러:", error);
+res.status(500).json({
+success:false, message:'정보 저장중 에러가 발생했습니다'
+});    
+}   
+})
+
 //로그인
 app.post('/api/login', async (req, res) => {
     // req.body에서 사용자가 앱에 입력한 이메일과 비밀번호를 꺼냅니다.

@@ -35,6 +35,14 @@ const User = sequelize.define('User', {
   address: { 
     type: DataTypes.STRING(255) 
 },
+phone_number:{
+  type:DataTypes.STRING(20), 
+  allowNull:true
+},
+occupation:{
+type:DataTypes.STRING(50),
+allowNull:true
+},
   latitude: { 
     type: DataTypes.DECIMAL(10, 8) 
 },
