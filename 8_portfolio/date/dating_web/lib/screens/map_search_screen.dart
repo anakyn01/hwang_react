@@ -35,16 +35,16 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
 
   // 👥 [핵심 추가] 거리별 가짜 회원 리스트 (필터링을 위해 distanceValue 추가)
   final List<Map<String, dynamic>> _allDummyUsers = [
-    {'distanceValue': 0.3, 'distance': '300m', 'gender': '여', 'name': '지은', 'interest': '카페 탐방'},
-    {'distanceValue': 0.8, 'distance': '800m', 'gender': '남', 'name': '민준', 'interest': '한강 산책'},
-    {'distanceValue': 1.2, 'distance': '1.2km', 'gender': '여', 'name': '수연', 'interest': '영화 보기'},
-    {'distanceValue': 2.5, 'distance': '2.5km', 'gender': '남', 'name': '동현', 'interest': '술 한잔'},
-    {'distanceValue': 2.8, 'distance': '2.8km', 'gender': '여', 'name': '서연', 'interest': '맛집 탐방'},
-    {'distanceValue': 3.5, 'distance': '3.5km', 'gender': '남', 'name': '지훈', 'interest': '코딩 스터디'},
-    {'distanceValue': 4.1, 'distance': '4.1km', 'gender': '여', 'name': '유진', 'interest': '드라이브'},
-    {'distanceValue': 4.9, 'distance': '4.9km', 'gender': '남', 'name': '현우', 'interest': '동네 산책'},
+    {'distanceValue': 0.3, 'distance': '300m', 'gender': '여', 'name': '지은', 'interest': '카페 탐방', 'status':'NONE'},
+    {'distanceValue': 0.8, 'distance': '800m', 'gender': '남', 'name': '민준', 'interest': '한강 산책', 'status':'NONE'},
+    {'distanceValue': 1.2, 'distance': '1.2km', 'gender': '여', 'name': '수연', 'interest': '영화 보기', 'status':'SENT'},
+    {'distanceValue': 2.5, 'distance': '2.5km', 'gender': '남', 'name': '동현', 'interest': '술 한잔','status':'NONE'},
+    {'distanceValue': 2.8, 'distance': '2.8km', 'gender': '여', 'name': '서연', 'interest': '맛집 탐방','status':'NONE'},
+    {'distanceValue': 3.5, 'distance': '3.5km', 'gender': '남', 'name': '지훈', 'interest': '코딩 스터디','status':'RECEIVED'},
+    {'distanceValue': 4.1, 'distance': '4.1km', 'gender': '여', 'name': '유진', 'interest': '드라이브','status':'SENT'},
+    {'distanceValue': 4.9, 'distance': '4.9km', 'gender': '남', 'name': '현우', 'interest': '동네 산책','status':'SENT'},
     // 반경 5km 밖의 유저 (필터링 테스트용 - 평소엔 안 보여야 함)
-    {'distanceValue': 6.5, 'distance': '6.5km', 'gender': '여', 'name': '보영', 'interest': '자전거 타기'}, 
+    {'distanceValue': 6.5, 'distance': '6.5km', 'gender': '여', 'name': '보영', 'interest': '자전거 타기', 'status':'SENT'}, 
   ];
   //반경에 맞춰 리스트를 걸러주는 함수..
   List<Map<String, dynamic>> get _filteredUsers{
@@ -54,6 +54,47 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
     //distanceValue가 선택된 반경보다 작거나 같은 유저만 리스트로 반환
 return _allDummyUsers.where((user) => user['distanceValue'] <= maxDistance).toList();
   }
+
+  //유저 상태 변경 및 스낵바 알림 함수
+  // 누구를(userId), 어떤 상태로(newStatus), 이름이 뭔지(userName) 전달받습니다.
+void _updateUserStatus(int userId, String newStatus, String userName){
+  //1️⃣ [데이터 변경 구역] setState를 써서 데이터가 바뀌면 화면도 다시 그리도록 합니다.
+  setState(() {
+//전체 유저리스트()안에서 방금 버튼을 누른 유저의 id와 똑같은 사람을 찾아 그 줄번호를 기억합니다
+  final userIndex = _allDummyUsers.indexWhere((u) => u['id'] == userId);
+
+  //만약 일치하는 유저를 찾앗다면 (-1은 못 찾앗다는 뜻)
+  if(userIndex != -1){
+    //해당 유저의 기존 상태('status)를 지우고 새로운 상태(sent, matched, none)로 덮어 싀웁니다
+    _allDummyUsers[userIndex]['status']=newStatus;
+  }
+  });// 여기까지 실행되면 버튼 모양이 즉각적으로(요청됨, 수락 등) 바뀝니다!
+
+  //2️⃣ [알림창 문구 준비 구역] 화면 아래 띄울 알림 메시지를 담을 빈 상자를 만듭니다.
+  String message = '';
+  //전달받은 상태값에 따라 알맞은 멘트를 상자에 채워 넣습니다.
+  if (newStatus == 'SENT') message = '$userName님에게 매칭을 요청했습니다';
+  if (newStatus == 'MATCHED') message = '$userName님과 매칭 성사';
+  if (newStatus == 'NONE') message = '$userName님 요청을 거절했습니다';
+
+  //메세지 상자가 비어있지 않고 화면이 정상적으로 켜져 잇다면(mounted)
+  if(message.isNotEmpty && mounted) {
+    //혹시 방금 전 띄운 알림창이 아직 안 사라졌다면 겹치지 않게 강제로 숨겨줍니다
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    //새로운 알림창 (스낵바)을 화면에 띄웁니다.
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+content: Text(message, style:const TextStyle(fontWeight:FontWeight.bold)),
+// 배경색 설정: 매칭 성사(MATCHED)일 때만 파란색, 나머지는 전부 핑크색으로 설정
+backgroundColor: newStatus == 'MATCHED' ? Colors.blueAccent : pinkAccent,        
+//알림창이 바닥에 딱 붙지 않고 살짝 위로
+behavior: SnackBarBehavior.floating,
+//알림창이 딱 2초 동안만 보였다가 스르르 사라지도록 설정
+duration: const Duration(seconds:2),
+        )
+    );
+  }
+}
 
   // 화면 진입 시 위치기반 권한 스낵바 띄우기
   @override
@@ -195,7 +236,7 @@ final displayedUsers = _filteredUsers;
                           padding: const EdgeInsets.all(20.0),
                           child: Column(
                             children: [
-                              _buildDropdownRow('탐색 반경', _selectedRadius, radiusOptions, (val) => setState(() => _selectedRadius, radiusOptions, (val){
+                              _buildDropdownRow('탐색 반경', _selectedRadius, radiusOptions, (val) {
                                 setState(() => _selectedRadius = val!);
                               }),
                               const SizedBox(height: 24),
@@ -360,7 +401,7 @@ final displayedUsers = _filteredUsers;
             itemCount: users.length,
             separatorBuilder: (context, index) => Divider(color: cardColor, thickness: 1),
             itemBuilder: (context, index) {
-              final user = nearbyUsers[index];
+              final user = users[index];//변경
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
