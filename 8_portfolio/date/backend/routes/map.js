@@ -11,7 +11,7 @@ require('../models');
 */
 const{Op} = require('sequelize');
 
-router.get('/naerby', async(req, res) => {
+router.get('/nearby', async(req, res) => {
     try{
 /*
 플러터(URL)에서 보낸 위도(lat), 경도(lng), 반경(radius),
