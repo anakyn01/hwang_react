@@ -1,14 +1,10 @@
-const {Sequelize} = require('sequelize');
+// 회원님의 DB 설정 파일을 불러옵니다.
+const sequelize = require('../config/database');
 
-const sequelize = new Sequelize('dating_db','root','1234',{
-host:'localhost',
-dialect:'mysql',
-logging:false
-});
+// 1. 모델들을 단순히 불러오기만 합니다. (뒤에 괄호를 붙이지 않습니다!)
+const User = require('./User');
+const MatchRequest = require('./MatchRequest');
+const PointHistory = require('./PointHistory');
 
-//모델들을 불러와서 sequelize 객체와 연결해 줍니다.
-const User = require('./User')(sequelize);
-const MatchRequest = require('./MatchRequest')(sequelize);
-const PointHistory = require('./PointHistory')(sequelize);
-
-module.exports = {sequelize, User, MatchRequest, PointHistory};
+// 2. 다른 파일(seed.js나 라우터 등)에서 한 번에 꺼내 쓸 수 있도록 묶어서 내보냅니다.
+module.exports = { sequelize, User, MatchRequest, PointHistory };

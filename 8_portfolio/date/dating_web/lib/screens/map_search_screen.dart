@@ -34,17 +34,18 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
   bool _isLoadingLocation = true;
 
   // 👥 [핵심 추가] 거리별 가짜 회원 리스트 (필터링을 위해 distanceValue 추가)
+  //_updateUserStatus 함수가 작동하려면 'id'가 필수 이므로 각각 교유 id번호를 달아줌..
   final List<Map<String, dynamic>> _allDummyUsers = [
-    {'distanceValue': 0.3, 'distance': '300m', 'gender': '여', 'name': '지은', 'interest': '카페 탐방', 'status':'NONE'},
-    {'distanceValue': 0.8, 'distance': '800m', 'gender': '남', 'name': '민준', 'interest': '한강 산책', 'status':'NONE'},
-    {'distanceValue': 1.2, 'distance': '1.2km', 'gender': '여', 'name': '수연', 'interest': '영화 보기', 'status':'SENT'},
-    {'distanceValue': 2.5, 'distance': '2.5km', 'gender': '남', 'name': '동현', 'interest': '술 한잔','status':'NONE'},
-    {'distanceValue': 2.8, 'distance': '2.8km', 'gender': '여', 'name': '서연', 'interest': '맛집 탐방','status':'NONE'},
-    {'distanceValue': 3.5, 'distance': '3.5km', 'gender': '남', 'name': '지훈', 'interest': '코딩 스터디','status':'RECEIVED'},
-    {'distanceValue': 4.1, 'distance': '4.1km', 'gender': '여', 'name': '유진', 'interest': '드라이브','status':'SENT'},
-    {'distanceValue': 4.9, 'distance': '4.9km', 'gender': '남', 'name': '현우', 'interest': '동네 산책','status':'SENT'},
+    {'id':1, 'distanceValue': 0.3, 'distance': '300m', 'gender': '여', 'name': '지은', 'interest': '카페 탐방', 'status':'NONE'},
+    {'id':2, 'distanceValue': 0.8, 'distance': '800m', 'gender': '남', 'name': '민준', 'interest': '한강 산책', 'status':'NONE'},
+    {'id':3, 'distanceValue': 1.2, 'distance': '1.2km', 'gender': '여', 'name': '수연', 'interest': '영화 보기', 'status':'SENT'},
+    {'id':4, 'distanceValue': 2.5, 'distance': '2.5km', 'gender': '남', 'name': '동현', 'interest': '술 한잔','status':'NONE'},
+    {'id':5, 'distanceValue': 2.8, 'distance': '2.8km', 'gender': '여', 'name': '서연', 'interest': '맛집 탐방','status':'NONE'},
+    {'id':6, 'distanceValue': 3.5, 'distance': '3.5km', 'gender': '남', 'name': '지훈', 'interest': '코딩 스터디','status':'RECEIVED'},
+    {'id':7, 'distanceValue': 4.1, 'distance': '4.1km', 'gender': '여', 'name': '유진', 'interest': '드라이브','status':'SENT'},
+    {'id':8, 'distanceValue': 4.9, 'distance': '4.9km', 'gender': '남', 'name': '현우', 'interest': '동네 산책','status':'SENT'},
     // 반경 5km 밖의 유저 (필터링 테스트용 - 평소엔 안 보여야 함)
-    {'distanceValue': 6.5, 'distance': '6.5km', 'gender': '여', 'name': '보영', 'interest': '자전거 타기', 'status':'SENT'}, 
+    {'id':9, 'distanceValue': 6.5, 'distance': '6.5km', 'gender': '여', 'name': '보영', 'interest': '자전거 타기', 'status':'SENT'}, 
   ];
   //반경에 맞춰 리스트를 걸러주는 함수..
   List<Map<String, dynamic>> get _filteredUsers{
@@ -513,27 +514,31 @@ final displayedUsers = _filteredUsers;
             itemCount: users.length,
             separatorBuilder: (context, index) => Divider(color: cardColor, thickness: 1),
             itemBuilder: (context, index) {
-              final user = users[index];//변경
+              final user = users[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 60, 
+                      width: 50, 
                       child: Text(user['distance'], style: TextStyle(color: pinkAccent, fontWeight: FontWeight.bold, fontSize: 14))
                     ),
                     SizedBox(
-                      width: 40, 
+                      width: 30, 
                       child: Text(user['gender'], style: const TextStyle(color: Colors.white, fontSize: 14))
                     ),
+                    // 💡 [수정 2] 빈 공간을 꽉 채우는 Expanded 안에 이름과 관심사를 위아래(Column)로 예쁘게 묶습니다.
                     Expanded(
-                      child: Text(user['name'], style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold))
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(user['name'], style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
+                          Text(user['interest'], style: TextStyle(color: subTextColor, fontSize: 12)),
+                        ],
+                      ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(8)),
-                      child: Text(user['interest'], style: TextStyle(color: subTextColor, fontSize: 12)),
-                    )
+                    // 💡 [수정 3] 여기서 드디어 아까 만들어둔 진짜 '상태 액션 버튼' 함수를 불러옵니다! 이 줄이 핵심입니다.
+                    _buildStatusActionButtons(user),
                   ],
                 ),
               );
