@@ -33,6 +33,28 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
   Position? _currentPosition;
   bool _isLoadingLocation = true;
 
+  // 👥 [핵심 추가] 거리별 가짜 회원 리스트 (필터링을 위해 distanceValue 추가)
+  final List<Map<String, dynamic>> _allDummyUsers = [
+    {'distanceValue': 0.3, 'distance': '300m', 'gender': '여', 'name': '지은', 'interest': '카페 탐방'},
+    {'distanceValue': 0.8, 'distance': '800m', 'gender': '남', 'name': '민준', 'interest': '한강 산책'},
+    {'distanceValue': 1.2, 'distance': '1.2km', 'gender': '여', 'name': '수연', 'interest': '영화 보기'},
+    {'distanceValue': 2.5, 'distance': '2.5km', 'gender': '남', 'name': '동현', 'interest': '술 한잔'},
+    {'distanceValue': 2.8, 'distance': '2.8km', 'gender': '여', 'name': '서연', 'interest': '맛집 탐방'},
+    {'distanceValue': 3.5, 'distance': '3.5km', 'gender': '남', 'name': '지훈', 'interest': '코딩 스터디'},
+    {'distanceValue': 4.1, 'distance': '4.1km', 'gender': '여', 'name': '유진', 'interest': '드라이브'},
+    {'distanceValue': 4.9, 'distance': '4.9km', 'gender': '남', 'name': '현우', 'interest': '동네 산책'},
+    // 반경 5km 밖의 유저 (필터링 테스트용 - 평소엔 안 보여야 함)
+    {'distanceValue': 6.5, 'distance': '6.5km', 'gender': '여', 'name': '보영', 'interest': '자전거 타기'}, 
+  ];
+  //반경에 맞춰 리스트를 걸러주는 함수..
+  List<Map<String, dynamic>> get _filteredUsers{
+    double maxDistance = 1.0;// 기본값 1km
+    if(_selectedRadius == '반경 3km')maxDistance = 3.0;
+    if(_selectedRadius == '반경 5km')maxDistance = 5.0;
+    //distanceValue가 선택된 반경보다 작거나 같은 유저만 리스트로 반환
+return _allDummyUsers.where((user) => user['distanceValue'] <= maxDistance).toList();
+  }
+
   // 화면 진입 시 위치기반 권한 스낵바 띄우기
   @override
   void initState(){
@@ -124,6 +146,8 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+//추가
+final displayedUsers = _filteredUsers;
     return Container(
       color: Colors.black,
       child: Center(
@@ -171,7 +195,9 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
                           padding: const EdgeInsets.all(20.0),
                           child: Column(
                             children: [
-                              _buildDropdownRow('탐색 반경', _selectedRadius, radiusOptions, (val) => setState(() => _selectedRadius = val!)),
+                              _buildDropdownRow('탐색 반경', _selectedRadius, radiusOptions, (val) => setState(() => _selectedRadius, radiusOptions, (val){
+                                setState(() => _selectedRadius = val!);
+                              }),
                               const SizedBox(height: 24),
                               SizedBox(
                                 width: double.infinity,
@@ -194,7 +220,7 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
                             ],
                           ),
                         ),
-                        Expanded(child: _buildNearbyUsersList()),
+                        Expanded(child: _buildNearbyUsersList(displayedUsers)),
                       ],
                     ),
                   ),
@@ -317,21 +343,21 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
   }
 
   // 주변 대기 유저 리스트 UI
-  Widget _buildNearbyUsersList() {
+  Widget _buildNearbyUsersList(List<Map<String, dynamic>> users) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, bottom: 8),
           child: Text(
-            '근처 접속 중인 유저 $_selectedRadius',
+            '근처 접속 중인 유저 $_selectedRadius(총 ${users.length}명)',
             style: TextStyle(color: subTextColor, fontSize: 13),
           ),
         ),
         Expanded(
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-            itemCount: nearbyUsers.length,
+            itemCount: users.length,
             separatorBuilder: (context, index) => Divider(color: cardColor, thickness: 1),
             itemBuilder: (context, index) {
               final user = nearbyUsers[index];
