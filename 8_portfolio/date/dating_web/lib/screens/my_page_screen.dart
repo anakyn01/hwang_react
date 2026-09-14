@@ -1,32 +1,104 @@
 import 'package:flutter/material.dart';
 
+//앱 전체에서 공통으로 쓸 테마 색상들을 미리 변수로 만들어둡니다.
+const Color bgColor = Color(0xFF12121A);
+const Color cardColor = Color(0xFF22222E);
+const Color pinkAccent = Color(0xFFFF4B93);
+const Color purpleAccent = Color(0xFFB635F7);
+const Color subTextColor = Color(0xFFA0A0B0);
+const Color goldColor = Color(0xFFFFD700);
+
 //파생페이지 미리 생성
 class ProfileEditScreen extends StatelessWidget{
   const ProfileEditScreen({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title:const Text('프로필 편집')), 
-    body:const Center(child: Text('프로필 편집 화면'))
+    //add
+    backgroundColor: bgColor,
+    appBar: AppBar(backgroundColor:bgColor, title: const Text('프로필 편집', style:TextStyle(color:Colors.white))), 
+    body:const Center(child: Text('닉네임, 나이 등을 수정하는 화면입니다.', style:TextStyle(color:Colors.white)))
     );
 }
 
+// 사진관리 화면 (그리드 뷰로 사진들 나열)
 class PhotoManagementScreen extends StatelessWidget{
   const PhotoManagementScreen({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title:const Text('사진 관리')), 
-    body:const Center(child: Text('사진 관리 화면'))
+    //add
+    backgroundColor: bgColor,
+appBar: AppBar(
+  //add
+  backgroundColor: bgColor,
+  title:const Text('사진 관리', 
+  style:TextStyle(color:Colors.white))), 
+    body:GridView.builder(
+      padding: const EdgeInsets.all(16),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,//한줄에 3개씩
+        crossAxisSpacing: 10, 
+        mainAxisSpacing: 10
+        ),
+        itemCount:6,//6개의 사진칸
+itemBuilder: (context, index){
+ return Container(
+decoration: BoxDecoration(color:cardColor, 
+borderRadius:BorderRadius.circular(12)),  
+child: index == 0
+? const Icon(Icons.add_a_photo, color:pinkAccent, size:40)
+: const Icon(Icons.person, color:subTextColor, size:40),
+ );
+      },
+    )
     );
 }
 
+//매칭내역 수정
 class MatchingSettingsScreen extends StatelessWidget{
   const MatchingSettingsScreen({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title:const Text('매칭 설정')), 
-    body:const Center(child: Text('매칭 설정 화면'))
+    backgroundColor: bgColor,
+    appBar: AppBar(backgroundColor: bgColor,
+    title:const Text('매칭 내역', 
+    style:TextStyle(color:Colors.white))), 
+    body:ListView.separated(
+      padding:const EdgeInsets.all(16),
+      itemCount:3,
+      separatorBuilder: (_, __) => const Divider(color:cardColor),
+      itemBuilder: (context, index) => ListTile(
+leading: const CircleAvatar(backgroundColor: pinkAccent,child:Icon(Icons.favorite, color:Colors.white, size:16)),
+title:const Text('님과 매칭 성사', style:TextStyle(color:Colors.white)),
+subtitle: Text('2026.09.${14 - index}', style:const TextStyle(color:subTextColor)),
+),
+    )
     );
 }
+//일기 내역 화면
+class DiaryHistoryScreen extends StatelessWidget{
+  const DiaryHistoryScreen({super.key});
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    backgroundColor: bgColor,
+    appBar: AppBar(
+      backgroundColor: bgColor,
+      title:const Text('나의 일기',style:TextStyle(color:Colors.white))),
+      body:ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: 4,
+        itemBuilder: (context, index) => Card(
+          color:cardColor,
+          child:ListTile(
+            title:const Text('오늘 한강 산책 좋앗다', 
+            style:TextStyle(color:Colors.white)),
+            subtitle: Text('2026.09.${10- index}', style:const TextStyle(color:subTextColor)),
+),
+),
+      )
+  );
+}
+
+
 class PrivacyScreen extends StatelessWidget{
   const PrivacyScreen({super.key});
   @override
@@ -54,13 +126,7 @@ class MyPageScreen extends StatefulWidget{
 
 class _MyPageScreenState extends State<MyPageScreen> {
  
-//앱 전체에서 공통으로 쓸 테마 색상들을 미리 변수로 만들어둡니다.
-final Color bgColor = const Color(0xFF12121A);
-final Color cardColor = const Color(0xFF22222E);
-final Color pinkAccent = const Color(0xFFFF4B93);
-final Color purpleAccent = const Color(0xFFB635F7);
-final Color subTextColor = const Color(0xFFA0A0B0);
-final Color goldColor = const Color(0xFFFFD700);
+
 
 /*하단 네비게이션 바(푸터)에서 현재 선택된 탭의 번호를 기억하는 변수입니다.
 0: 매칭, 1: 커뮤니티, 2: 일기, 3: 채팅, 4: MY (마이페이지는 4번)
@@ -261,6 +327,7 @@ _buildVerticalDivider(),
 _buildStatItem('23', '매칭'), 
 _buildVerticalDivider(),
 _buildStatItem('8', '일기'), 
+_buildStatItem('5,000','보유 포인트', isPoint:true),
 ],
 ),
 const SizedBox(height:24),
@@ -309,7 +376,7 @@ Text('무제한 좋아요 슈퍼 좋아요 누가 나를 좋아했는지 확인'
 ElevatedButton(
   style:ElevatedButton.styleFrom(
 backgroundColor: goldColor,
-shape:BeveledRectangleBorder(
+shape:RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(20)),
   ),    
 onPressed: (){
@@ -338,6 +405,14 @@ const PhotoManagementScreen()));
 },
 ),
 _buildMenuDivider(),
+//add
+_buildMenuTile(
+  icon:'⚙️', title:'매칭 설정',
+  onTap:() => Navigator.push(context, MaterialPageRoute(
+    builder: (context) => const MatchingSettingsScreen())),
+),
+_buildMenuDivider(),
+
 _buildMenuTile(
 icon:'🔒',title:'개인정보 보호',
 onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context) => const PrivacyScreen())),
@@ -363,10 +438,10 @@ print("로그아웃 처리");
 }
 
 //조립용 도구
-Widget _buildStatItem(String number, String label){
+Widget _buildStatItem(String number, String label, {bool isPoint = false}){
   return Column(
     children: [
-    Text(number, style:const TextStyle(color:Colors.white,
+    Text(number, style:TextStyle(color:isPoint ? goldColor: Colors.white,
     fontSize:22, fontWeight:FontWeight.bold)),
     const SizedBox(height: 4),
     Text(label, style:TextStyle(color:subTextColor, fontSize:12)),
