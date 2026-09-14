@@ -383,6 +383,118 @@ final displayedUsers = _filteredUsers;
     );
   }
 
+// 🚀 [새로 추가/변경인 부분] 기존 박스를 진짜 '버튼' 위젯들로 UI를 업그레이드한 구역입니다.
+  Widget _buildStatusActionButtons(Map<String, dynamic> user) {
+    final status = user['status'];
+    final userId = user['id'];
+    final userName = user['name'];
+
+    if (status == 'NONE') {
+      // 1. [아무 상태 아님 -> 요청 가능]
+      return SizedBox(
+        height: 32,
+        // 👉 [추가됨] 단순 박스 대신 터치 효과가 있는 진짜 버튼(ElevatedButton)을 적용했습니다.
+        child: ElevatedButton(
+          // 👉 [추가됨] 버튼의 배경색(핑크), 글자색(흰색), 모서리 둥글기 등을 깔끔하게 세팅합니다.
+          style: ElevatedButton.styleFrom(
+            backgroundColor: pinkAccent,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            elevation: 0, // 👉 [추가됨] 그림자를 없애서 요즘 유행하는 깔끔한 플랫 디자인으로 만듭니다.
+          ),
+          onPressed: () => _updateUserStatus(userId, 'SENT', userName),
+          child: const Text('요청', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+        ),
+      );
+    } else if (status == 'SENT') {
+      // 2. [내가 이미 요청을 보낸 상태]
+      return SizedBox(
+        height: 32,
+        // 👉 [추가됨] 이미 눌러서 비활성화된 느낌을 주기 위해 버튼 색을 어두운 회색(cardColor)으로 바꿨습니다.
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: cardColor,
+            foregroundColor: subTextColor,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            // 👉 [추가됨] 얇은 테두리(BorderSide)를 줘서 어두운 배경에 묻히지 않고 버튼처럼 보이게 구분해줍니다.
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: BorderSide(color: subTextColor.withOpacity(0.3)),
+            ),
+            elevation: 0,
+          ),
+          // 👉 [추가됨] onPressed에 기능을 아예 안 넣으면(null), 버튼이 회색으로 '비활성화'되어 안 눌리게 됩니다!
+          onPressed: null, 
+          child: const Text('요청됨', style: TextStyle(fontSize: 13)),
+        ),
+      );
+    } else if (status == 'RECEIVED') {
+      // 3. [상대방이 나에게 요청을 보낸 상태]
+      // 👉 [추가됨] 수락과 거절 버튼 2개를 나란히 띄우기 위해 Row(가로 정렬 위젯)로 묶었습니다.
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 32,
+            // 👉 [추가됨] '수락'은 눈에 띄어야 하므로 파란색 바탕의 일반 버튼(ElevatedButton)으로 만들었습니다.
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                elevation: 0,
+              ),
+              onPressed: () => _updateUserStatus(userId, 'MATCHED', userName),
+              child: const Text('수락', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+            ),
+          ),
+          const SizedBox(width: 6), // 👉 [추가됨] 수락 버튼과 거절 버튼 사이의 띄어쓰기 간격입니다.
+          SizedBox(
+            height: 32,
+            // 👉 [추가됨] '거절'은 덜 강조하기 위해 배경색이 투명하고 테두리만 있는 버튼(OutlinedButton)을 썼습니다!
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: subTextColor,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                side: BorderSide(color: subTextColor.withOpacity(0.5)),
+              ),
+              onPressed: () => _updateUserStatus(userId, 'NONE', userName),
+              child: const Text('거절', style: TextStyle(fontSize: 13)),
+            ),
+          ),
+        ],
+      );
+    } else if (status == 'MATCHED') {
+      // 4. [서로 매칭이 성사된 상태]
+      return SizedBox(
+        height: 32,
+        // 👉 [추가됨] 글자 옆에 예쁜 하트나 전화기 모양의 '아이콘'을 넣을 수 있는 'ElevatedButton.icon'을 썼습니다.
+        child: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.purpleAccent,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            elevation: 0,
+          ),
+          onPressed: () {
+            // 👉 [추가됨] 추후 여기에 백엔드 통화 기능이나 채팅창으로 이동하는 코드를 연결하면 됩니다.
+          },
+          // 👉 [추가됨] 버튼 왼쪽 위에 작은 하트 아이콘(Icons.favorite)을 띄워줍니다.
+          icon: const Icon(Icons.favorite, size: 14),
+          label: const Text('매칭됨', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+        ),
+      );
+    }
+    
+    return const SizedBox.shrink();
+  }
+
+
+
   // 주변 대기 유저 리스트 UI
   Widget _buildNearbyUsersList(List<Map<String, dynamic>> users) {
     return Column(
