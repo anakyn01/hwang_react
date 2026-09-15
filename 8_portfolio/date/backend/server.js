@@ -198,8 +198,7 @@ success:false, message:'서버 에러가 발생 했습니다'});
 });
 
 //💘 매칭 수락 및 포인트 차감 (트랜잭션)
-
-app.get('/api/match/accept', async (req, res) => {
+app.post('/api/match/accept', async (req, res) => {
 // 매칭 번호(match_id)와 수락 버튼을 누른 사람 번호(user_id)를 꺼냅니다.
 const { match_id, user_id } = req.body;
 /*
@@ -211,13 +210,15 @@ try{
 // 1. 수락 누른 사람의 정보를 DB에서 가져옵니다.
 const user = await User.findByPk(user_id);
 // 돈이 없으면 실행이 안되게..에러를 발생시켜 아래에 코드가 안돌게 막습니다
-if(user.points < 100 ) {
+if(user.points < 10000 ) {
     throw new Error('포인트가 부족합니다. 충전해 주세요!');
 }
 //내 포인트에서 100점을 뺍니다. (트랜잭션 t에 포함시킴)
-await user.update({ points:user.points - 100},{ transction:t});
+await user.update({ points:user.points - 10000},{ transction:t});
 //4.매칭 상태를 요청에서 수락으로 바꿉니다
-await match_id.update({ status:'ACCEPTED'},{where:{id:match_id},
+await Match.update(
+    { status:'ACCEPTED'},
+    {where:{id:match_id},
 transaction:t});
 
 await t.commit();
@@ -259,7 +260,7 @@ app.post('/api/match/noshow', async (req, res) => {
 // target_user_id는 노쇼를 한 "나쁜 놈"의 ID 번호입니다.
 const {match_id, target_user_id} = req.body;
 //1. 해당 매칭 건을 '노쇼' 상태로 바꿉니다.
-await match_id.update({ status:'NO_SHOW'},{where:{id:match_id}});
+await Match.update({ status:'NO_SHOW'},{where:{id:match_id}});
 //
 const targetUser = await User.findByPk(target_user_id);
 //기존 노쇼횟수에 1을 더함..
@@ -301,16 +302,11 @@ const diaryCount = await Diary.count({
 });
 
 res.json({
-    success:true,
-    data:{
-        profile:user,
-        status:{
-            received_likes: receivedLikes,
-            matches: matchedCount,
-            diaries: diaryCount
-        }
-    }
-})
+...user.toJSON(),
+received_likes: receivedLikes,
+matches: matchedCount,
+diaries: diaryCount
+});
 
 
 });
@@ -384,7 +380,7 @@ app.listen(PORT, async () => {
     await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
 
     //add
-    await sequelize.sync({alter:true});
+    await sequelize.sync({force:true});
 
     // 👉 3. 테이블이 예쁘게 만들어졌으니 '관계 보호 장치'를 다시 켭니다.
     await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');

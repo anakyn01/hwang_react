@@ -212,7 +212,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
   Future<void> _fetchMyPageData() async {
     try{
 final response = await http.get(
-  Uri.parse('http://localhost:3000/api/users/1'));
+  Uri.parse('http://localhost:3000/api/mypage/1'));
   //통신 성공 시 데이터를 JSON으로 변환하여 상태 저장
 if(response.statusCode == 200){
 setState((){
