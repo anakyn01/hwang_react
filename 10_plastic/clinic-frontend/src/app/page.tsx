@@ -4,6 +4,7 @@ import RollingBanner from "@/component/RollingBanner";
 import CategoryNav from "@/component/CategoryNav";
 import CircularOverlay from "@/component/CircularOverlay";
 import Selfies from '@/component/main/Selfies';
+import { VlogSlider } from "@/component/main/VlogSlider";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
     <CategoryNav/>
     <Selfies/>
     <CircularOverlay/>
+    <VlogSlider/>
     </>
   );
 }
