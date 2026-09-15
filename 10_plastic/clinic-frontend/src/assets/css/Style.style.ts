@@ -1531,5 +1531,19 @@ background-color: #111;
   letter-spacing: -0.5px;
 `;
 
+//Vlogslider..
+export const VlogSection = styled.section``;
+export const VlogInner = styled.div``;
+export const VlogHeader = styled.div``;
+export const VlogTitleGroup = styled.div``;
+export const VlogMainTitle = styled.h2``;
+export const VlogViewMoreBtn = styled.button``;
+export const VlogArrowBtn = styled.button``;
+export const VlogSliderWrapper = styled.div``;
+export const VlogCard = styled.div``;
+export const VlogImageWrapper = styled.div``;
+export const VlogInfo = styled.div``;
+export const VlogDesc = styled.p``;
+
 
 
