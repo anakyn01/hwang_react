@@ -1646,5 +1646,21 @@ overflow:hidden;
 text-overflow:ellipsis;
 `;
 
+//safety
+export const SafetySection = styled.section``;
+export const SafetyInner = styled.div``;
+export const SafetyHeader = styled.div``;
+export const SafetyTitleGroup = styled.div``;
+export const SafetyMainTitle = styled.h2``;
+export const SafetyControls = styled.div``;
+export const SafetyViewMoreBtn = styled.button``;
+export const SafetyArrowBtn = styled.button``;
+export const SafetySliderWrapper = styled.div``;
+export const SafetyCard = styled.div``;
+export const SafetyImage = styled.img``;
+export const SafetyTextOverlay = styled.div``;
+export const SafetyCardTitle = styled.h3``;
+export const SafetyCardDesc = styled.p``;
+
 
 
