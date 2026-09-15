@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+//add
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 //앱 전체에서 공통으로 쓸 테마 색상들을 미리 변수로 만들어둡니다.
 const Color bgColor = Color(0xFF12121A);
@@ -10,13 +13,20 @@ const Color goldColor = Color(0xFFFFD700);
 
 //파생페이지 미리 생성
 class ProfileEditScreen extends StatelessWidget{
-  const ProfileEditScreen({super.key});
+  //add
+  final Map<String, dynamic>? userData;
+  //add this.userData
+  const ProfileEditScreen({super.key, this.userData});
   @override
   Widget build(BuildContext context) => Scaffold(
     //add
     backgroundColor: bgColor,
     appBar: AppBar(backgroundColor:bgColor, title: const Text('프로필 편집', style:TextStyle(color:Colors.white))), 
-    body:const Center(child: Text('닉네임, 나이 등을 수정하는 화면입니다.', style:TextStyle(color:Colors.white)))
+    body:Center(child: Text(
+  //넘겨 받은 실제 이름 띄워주기
+  '${userData?['nickname'] ?? '유저'}님의 프로필을 수정합니다',   
+style:const TextStyle(color:Colors.white)
+))
     );
 }
 
@@ -181,6 +191,14 @@ class MyPageScreen extends StatefulWidget{
 }
 
 class _MyPageScreenState extends State<MyPageScreen> {
+
+  //add 백앤드에서 받아온 데이터를 저장할 변수들
+  Map<String, dynamic>? userData;
+  //데이터를 불러오는 중인지 확인하는 로딩 상태
+  bool isLoading = true;
+  //에러 발생시 띄워줄 메세지
+  String errorMessage = '';
+
  
   @override
   void initState(){
