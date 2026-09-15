@@ -206,6 +206,42 @@ class _MyPageScreenState extends State<MyPageScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_){
       _askLocationPermission();
     });
+    _fetchMyPageData();
+    //추가 화면이 켜지자 마자 데이터 불러오기 시작
+  }
+  Future<void> _fetchMyPageData() async {
+    try{
+final response = await http.get(
+  Uri.parse('http://localhost:3000/api/users/1'));
+  //통신 성공 시 데이터를 JSON으로 변환하여 상태 저장
+if(response.statusCode == 200){
+setState((){
+  userData = jsonDecode(response.body);
+  isLoading=false;
+});
+//데이터 로딩 완료후 권한 물어보기
+_askLocationPermission();
+} else{
+setState(() {
+errorMessage='데이터를 불러오는데 실패했습니다.(상태코드:${response.statusCode})';
+isLoading=false;  
+});
+} 
+    } catch (e) {
+//서버가 껴저 있거나 에러가 났을시 임시 데이터 보여주기
+print("서버 통신 실패: $e");
+      setState(() {
+        userData = {
+          'nickname': '지은(오프라인)',
+          'age': 24,
+          'address': '서울 노원구',
+          'bio': '서버가 꺼져있어 임시 데이터를 보여줍니다.',
+          'points': 5000,
+          'status': 'ACTIVE'
+        };
+        isLoading = false;
+      });
+    }
   }
 
   void _askLocationPermission(){
@@ -252,11 +288,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('취소', style: TextStyle(color: subTextColor))),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: pinkAccent),
-            onPressed: () {
-              Navigator.pop(context); // 팝업 닫고
-              // 임시로 어떤 비밀번호든 넘어가게 처리 (나중에 DB 연동 시 조건문 추가)
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileEditScreen())); 
-            },
+onPressed: () {
+  Navigator.pop(context); // 팝업 닫고
+  // 임시로 어떤 비밀번호든 넘어가게 처리 (나중에 DB 연동 시 조건문 추가)
+  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileEditScreen(userData: userData))); 
+},
             child: const Text('확인', style: TextStyle(color: Colors.white)),
           ),
         ],
@@ -324,7 +360,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
               elevation: 0,
               title: const Text('마이페이지', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
             ), 
-            body: SingleChildScrollView(
+            body: isLoading
+            ? const Center(child:CircularProgressIndicator(color:pinkAccent))
+            : errorMessage.isNotEmpty
+            ? Center(child: Text(errorMessage, style:const TextStyle(color:Colors.redAccent)))
+            : SingleChildScrollView(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
@@ -376,6 +416,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle, border: Border.all(color: pinkAccent, width: 2), color: Colors.pink[100],      
                         ),
+                        //진짜 이미지를 뛰우도록 변경예정
                         child: const Center(child: Text('🌸', style: TextStyle(fontSize: 40))),
                       ),
                     ),
@@ -394,25 +435,24 @@ class _MyPageScreenState extends State<MyPageScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,  
             children: [
-              Text('별빛소나타', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
-              SizedBox(width: 6),
-              Icon(Icons.verified, color: Colors.lightBlueAccent, size: 20),  
+              Text('${userData?['nickname'] ?? '이름없음'}', style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+              const SizedBox(width: 6),
+              const Icon(Icons.verified, color: Colors.lightBlueAccent, size: 20),  
             ],
           ),
           const SizedBox(height: 8),  
-          const Text('27세  서울마포구', style: TextStyle(color: subTextColor, fontSize: 14)),  
+          Text('${userData?['age'] ?? 0}세 ${userData?['address'] ?? '위치 미설정'}', style: TextStyle(color: subTextColor, fontSize: 14)),  
           const SizedBox(height: 12),
-          const Text('커피 한 잔과 함께..', style: TextStyle(color: subTextColor, fontSize: 13)),
+Text('${userData?['bio'] ?? '자기소개를 입력해 주새요'}', 
+style: const TextStyle(color: subTextColor, fontSize: 13)),
           const SizedBox(height: 24),
-          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // 💡 [추가/수정 6] '매칭' 글자를 누르면 매칭 히스토리 화면으로 넘어갑니다.
-              _buildStatItem('23', '매칭', onTap: () {
+_buildStatItem('${userData?['points'] ?? 0}', '보유 포인트', isPoint: true, onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const MatchingHistoryScreen()));
               }), 
               _buildVerticalDivider(),
