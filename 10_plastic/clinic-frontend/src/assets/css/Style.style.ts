@@ -1754,5 +1754,7 @@ margin:0;
 word-break:keep-all;
 `;
 
+export * from './ChangePw.styles';
+
 
 
