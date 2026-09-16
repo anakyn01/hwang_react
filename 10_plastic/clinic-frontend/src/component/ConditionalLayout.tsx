@@ -20,13 +20,21 @@ const pathname = usePathname();
 
 // 현재 주소가 '/admin' 이라는 글자로 시작하는지 검사해서 
 // 맞으면 true, 아니면 false를 저장합니다.
-const isAdminPage = 
+const isHideLayout = 
 pathname.startsWith('/admin') || pathname.startsWith('/find');
 
 //헤더에 크기때문에 픽스했을때 잘리는 크기만큼..패딩 or 마진
-const MainWrapper = styled.main<{$isAdmin: boolean}>`
-padding-top:${(props) => (props.$isAdmin ? '0' : '91px')};
+const MainWrapper = styled.main<{$isHide: boolean}>`
+padding-top:${(props) => (props.$isHide ? '0' : '91px')};
 min-height:100vh;
+
+// 800px 제한 해제 : 레이아웃을 숨기는 경우 화면을 100프로 채웁니다
+${(props) => props.$isHide && `
+  max-width: none !important;
+  width:100% !important;
+  padding:0 !important;
+  margin:0 !important;  
+`}
 `;
 
 return(
@@ -35,21 +43,21 @@ return(
 false(관리자 페이지가 아님)일 때만 팝업을 
 화면에 보여줍니다
 */}
-{!isAdminPage && <EventPopup/>}
+{!isHideLayout && <EventPopup/>}
 {/*
 💡 관리자 페이지가 아닐 때만 
 헤더(상단 메뉴)를 보여줍니다.
 */}
-{!isAdminPage && <Header/>}
+{!isHideLayout && <Header/>}
 {/*
 💡 사용자가 보려고 하는 진짜 페이지의 내용(회원가입 창, 로그인 창 등)은 무조건 가운데에 보여줍니다.
 */}
-<MainWrapper $isAdmin={isAdminPage}>
+<MainWrapper $isHide={isHideLayout}>
 {children}    
 </MainWrapper>
 {/* 관리자 페이지가 아닐 때만 푸터를 보여줍니다 */}
-{!isAdminPage && <Footer/>}
-{!isAdminPage && <QuickConsultBar/>}
+{!isHideLayout&& <Footer/>}
+{!isHideLayout && <QuickConsultBar/>}
 </>
 )
 }
