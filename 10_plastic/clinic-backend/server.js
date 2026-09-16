@@ -97,6 +97,62 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+//로그인 api 코드 추가하기
+app.post('/api/login', async(req, res) => {
+try{
+// 프론트 앤드에서 보낸 아이디와 비밀번호 받기
+const {userId, userPw} = req.body;
+// 비워진 것에 대한 방어
+if(!userId || !userPw) {
+    return res.status(400).json({
+        success:false,
+        message:'아이디와 패스워드를 모두 입력해 주세요'
+    });
+}
+
+//db 리파지토리 가져오기
+const memberRepository =
+AppDataSource.getRepository(Member);
+
+//db에서 해당 아이디를 가진 회원 찾기
+const user = await memberRepository.findOne({
+where:{USER_ID: userId}    
+})
+
+//가입된 아이디가 없는 경우
+if(!user) {
+    return res.status(401).json({
+        success:false,
+        message:'존재하지 않는 아이디입니다'
+    });
+}
+//비밀번호 검증(프론트에서 온 평문 비밀번호 vs DB의 암호화된 비밀번호)
+const isMatch = 
+await bcrypt.compare(userPw, user.USER_PW);
+
+//비밀번호가 틀린경우
+if(!isMatch) {
+    return res.status(401).json({
+success:false,
+message:'비밀번호가 일치하지 않습니다'       
+    });
+}
+
+//4 로그인 성공! (프론트앤드에서 라우팅을 위해 isAdmin값을 같이 넘겨줍니다)
+res.status(200).json({
+success:true, message:'로그인에 성공했습니다',
+isAdmin:user.IS_ADMIN 
+//관리자면 1, 일반 회원이면 0   
+})
+}catch(error){
+console.error('로그인 에러:',error);
+res.status(500).json({
+success:false,
+message:'로그인 처리중 서버 오류가 발생했습니다'    
+});
+}
+});
+
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
 
