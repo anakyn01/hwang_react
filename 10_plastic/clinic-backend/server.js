@@ -223,6 +223,47 @@ res.status(500).json({
     }
 })
 
+//비밀번호변경 api
+app.post('/api/reset-password', async(req, res) => {
+    try{
+const {userId, newPw} = req.body;
+
+if(!userId || !newPw) {
+    return res.status(400).json({
+        success:false, message:'잘못된 요청입니다.'
+    });
+}
+
+const memberRepository = AppDataSource.getRepository(Member);
+
+const user = await memberRepository.findOne({
+ where:{USER_ID:userId}   
+});
+
+if(!user) {
+    return res.status(404).json({
+        success:false, message:'회원을 찾을 수 없습니다.'
+    });
+}
+
+//새비밀번호를 암호화
+const hashedPw = await bcrypt.hash(newPw, 10);
+
+user.USER_PW = hashedPw;
+
+await memberRepository.save(user);
+
+res.status(200).json({
+        success:false, message:'비밀번호가 성공적으로 변경되었습니다.'
+    });
+    }catch(error){
+console.error('비밀번호 업데이트 에러:', error);
+        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+    }
+});
+
+//포트폴리오로 고도화 아이디 확인하고 그사람에 가입 이메일을 판단하고..거기에 맞는 이메일 발송하겠끔..
+
 
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
