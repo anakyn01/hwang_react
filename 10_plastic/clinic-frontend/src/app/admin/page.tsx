@@ -38,7 +38,7 @@ const result = await response.json();
 if(response.ok) {
     alert('로그인 성공');
     //관리자 라면
-    if (result.isAdmin === 1) {
+    if (Number(result.isAdmin) === 1) {
         router.push('/admin/total');
     }else{
         router.push('/');

@@ -65,6 +65,11 @@ type:"varchar2",
 length:10,
 nullable:true,        
 },
+IS_ADMIN:{
+type:"number",
+default:0,
+nullable:false,
+},
 REG_DATE:{
 type:"date",
 createDate:true,        
