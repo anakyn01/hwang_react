@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const PwWrapper= styled.div``;
-export const PwCard= styled.div``;
-export const PwHeader= styled.header``;
-export const PwTitle= styled.h1``;
-export const PwDescription= styled.p``;
-export const PwForm= styled.form``;
-export const PwInput= styled.input``;
-export const PwButton= styled.button``;
-export const PwDivider= styled.hr``;
-export const PwLinkGroup= styled.div``;
-export const Pw와우StyledLink= styled.a``;
+export const Wrapper= styled.div``;
+export const Card= styled.div``;
+export const Header= styled.header``;
+
+export const Description= styled.p``;
+export const Form= styled.form``;
+export const PwInput = styled.input``;
+export const PwButton = styled.button``;
+export const Divider= styled.hr``;
+export const LinkGroup= styled.div``;
+export const StyledLink= styled.a``;

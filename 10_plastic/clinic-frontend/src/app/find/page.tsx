@@ -57,17 +57,17 @@ alert('서버와 통신중 오류가 발생 했습니다');
 };
 
 return(
-    <S.PwWrapper>
-        <S.PwCard>
-            <S.PwHeader>
-<S.PwTitle>비밀번호 변경</S.PwTitle> 
-<S.PwDescription>
+    <S.Wrapper>
+        <S.Card>
+            <S.Header>
+<S.Title>비밀번호 변경</S.Title> 
+<S.Description>
 계정 보호를 위해 기존 비밀번호와<br />
 새롭게 사용할 비밀번호를 입력해 주세요.
-</S.PwDescription>               
-            </S.PwHeader>
+</S.Description>               
+            </S.Header>
 
-<S.PwForm onSubmit={handleSubmit}>
+<S.Form onSubmit={handleSubmit}>
 <S.PwInput
 type="text"
 name="userId"
@@ -75,9 +75,41 @@ placeholder='아이디 (User ID)'
 value={formData.userId}
 onChange={handleChange}
 />
-</S.PwForm>            
-        </S.PwCard>
-    </S.PwWrapper>
+<S.PwInput
+type="password"
+name="newPw"
+placeholder='새 비밀번호 (New Password)'
+value={formData.newPw}
+onChange={handleChange}
+/>
+<S.PwInput
+type="password"
+name="confirmNewPw"
+placeholder='새 비밀번호 (Conform New Password)'
+value={formData.confirmNewPw}
+onChange={handleChange}
+/>
+
+<S.PwButton type="submit">
+비밀번호 변경하기
+</S.PwButton>
+</S.Form>   
+<S.Divider/>
+<S.LinkGroup>
+<S.StyledLink 
+onClick={() => router.push('/register/terms')}
+>
+아직 계정이 없으신가요? 회원가입
+</S.StyledLink>
+
+<S.StyledLink 
+onClick={() => router.push('/admin')}
+>
+이미 계정이 있으신가요? 로그인
+</S.StyledLink>
+</S.LinkGroup>         
+        </S.Card>
+    </S.Wrapper>
 )
 
 }

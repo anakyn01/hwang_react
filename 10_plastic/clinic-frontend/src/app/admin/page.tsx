@@ -90,7 +90,7 @@ alert('서버와 통신중 오류가 발생 했습니다');
                 <S.Divider />
 
                 <S.LinkGroup>
-                    <S.StyledLink>Forgot Password?</S.StyledLink>
+                    <S.StyledLink onClick={() => router.push('/find')}>Forgot Password?</S.StyledLink>
                     <S.StyledLink onClick={() => router.push('/register/terms')}>
                         Create an Account!
                     </S.StyledLink>

@@ -21,7 +21,7 @@ const pathname = usePathname();
 // 현재 주소가 '/admin' 이라는 글자로 시작하는지 검사해서 
 // 맞으면 true, 아니면 false를 저장합니다.
 const isAdminPage = 
-pathname.startsWith('/admin');
+pathname.startsWith('/admin') || pathname.startsWith('/find');
 
 //헤더에 크기때문에 픽스했을때 잘리는 크기만큼..패딩 or 마진
 const MainWrapper = styled.main<{$isAdmin: boolean}>`
