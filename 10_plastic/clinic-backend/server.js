@@ -156,6 +156,73 @@ message:'로그인 처리중 서버 오류가 발생했습니다'
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
 
+//비밀번호 찾기
+app.post('/api/send-reset-email', async (req, res) => {
+    try{
+const{userId, userName , phone} = req.body;
+
+if(!userId|| !userName || !phone) {
+return res.status(400).json({
+    success:false, message:'인증 정보를 모두 입력해 주세요'
+});
+}
+
+const memberRepository = 
+AppDataSource.getRepository(Member);
+
+//오라클에서 찾기
+const user = await memberRepository.findOne({
+where:{ USER_ID:userId, USER_NAME:userName, PHONE:phone}    
+});
+
+if(!user) {
+return res.status(401).json({
+sucess:false,
+message:'입력하신 정보와 일치하는 회원이 없습니다.'    
+});
+}
+
+//이메일 발송기 세팅(구글 gmail 기준)
+const transporter = nodemailer.createTransport({
+  service:'gmail',
+  auth:{
+    user:'anakyn01@gmail.com',
+    pass:'yfxolnppxfwiivde'
+  }  
+});
+
+const resetUrl =
+`http://localhost:3000/find/reset?userId=${user.USER_ID}`;
+
+const mailOptions = {
+from: '"성형외과 관리자" <nop@nobodyhelpme.com>',
+to: user.EMAIL, // DB에 저장된 유저의 이메일로 쏩니다!
+subject: '[성형외과] 비밀번호 재설정 안내',
+html:`
+<div style="padding: 20px; text-align: center;">
+<h2>비밀번호 재설정</h2>
+<p>${user.USER_NAME}님, 본인인증이 완료되었습니다.</p>
+<p>아래 버튼을 클릭하여 새로운 비밀번호를 설정해 주세요.</p>
+<a href="${resetUrl}" style="display:inline-block; padding:10px 20px; background-color:#4e73df; color:#fff; text-decoration:none; border-radius:5px; margin-top:20px;">
+새 비밀번호 설정하기
+</a>
+</div>
+`  
+};
+//이메일 전송
+await transporter.sendMail(mailOptions);
+res.status(200).json({
+success:true, message:'이메일 발송 성공'
+});
+    }catch(error){
+console.error('이메일 발송 에러', error);
+res.status(500).json({
+    success:false, message:'서버 오류가 발생했습니다'
+});
+    }
+})
+
+
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
