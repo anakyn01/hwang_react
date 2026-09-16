@@ -4,6 +4,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const AppDataSource = require("./db"); // db.js 파일 경로 확인
 const Member = require("./src/entity/Member"); // Member.js 파일 경로 확인
+const nodemailer = require('nodemailer');
 
 const app = express();
 
