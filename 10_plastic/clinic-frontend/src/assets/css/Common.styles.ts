@@ -5,6 +5,18 @@ display:flex;
 justify-content:center;
 align-items:center;
 `;
+
+export const FlexStart = css`
+display:flex;
+justify-content:flex-start;
+align-items:center;
+`;
+export const FlexRight = css`
+display:flex;
+justify-content:flex-end;
+align-items:center;
+`;
+
 export const FlexBetween = css`
 display:flex;
 justify-content:space-between;
