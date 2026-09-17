@@ -6,6 +6,9 @@ import {useRouter} from 'next/navigation';
 import * as S from '@/assets/css/Style.style';
 import DaumPostcode from 'react-daum-postcode';
 
+//popup스타일 불러오기
+import { Popup } from '@/component/modal/Popup';
+
 export default function TermsPage(){
     const router =useRouter();
 
@@ -22,6 +25,23 @@ export default function TermsPage(){
 
 //주소검색 팝업 열림 / 닫힘
 const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);    
+
+//add 커스텀 팝업 관리를 위한 상태 (alert 대체용)
+const [popupConfig, setPopupConfig] = useState({
+isOpen:false,
+title:'',
+message:'',
+onConfirm:undefined as (() => void) | undefined    
+});
+
+//팝업 열기 함수
+const openPopup = (title:string, message:string, onConfirm?:() => void) => {
+setPopupConfig({isOpen:true, title, message, onConfirm});
+};
+//팝업 닫기 함수
+const closePopup = () => {
+setPopupConfig(prev => ({...prev, isOpen:false}));   
+}
 
     //폼입력값 관리할 객체 상태추가
 const [formData, setFormData] = useState({
@@ -107,23 +127,27 @@ return checkDigit === parseInt(rrn[12]);
 const handleSubmit = async () => {
     //필수 입력값 체크
  if(!formData.userName || !formData.userId || !formData.userPw) {
-    return alert('필수 항목을 모두 입력해 주세요');
+    openPopup('입력 오류', '필수 항목을 모두 입력해 주세요.');
+    return; 
  }
  if(formData.userPw !== formData.userPwConfirm){
-    return alert('필수 항목을 모두 입력해 주세요');
+    return openPopup('비밀번호 오류','비밀번호와 비밀번호 확인이 일치 하지 않습니다');
  }
 //주민번호 앞자리나 뒷자리가 비어있으면 경고
 if(!formData.residentNumFront || !formData.residentNumBack){
-    return alert('주민 등록번호를 입력해 주세요');
+    openPopup('입력 오류','주민 등록번호를 입력해 주세요');
+    return; 
 }
 //주민번호 검사 함수실행시..번호가 일치하지 않을경우
 if(!validateResidentNumber(formData.residentNumFront,
     formData.residentNumBack)){
-    return alert('유효하지 않은 주민등록번호입니다. 다시 확인해 주세요.');
+    openPopup('인증 실패','유효하지 않은 주민등록번호입니다. 다시 확인해 주세요.');
+    return; 
 }
 //이메일 앞부분(아이디 부분)이 비어있으면 경고창을 띄웁니다.
 if(!formData.email){
-return alert('이메일을 입력해 주세요');
+    openPopup('입력오류','이메일을 입력해 주세요');
+    return;
 }
 
  //이메일 주소 조합
@@ -157,15 +181,17 @@ address2:formData.address2,
 const result = await response.json();
 
 if(response.ok) {
-    alert('회원가입이 완료되었습니다');
-    router.push('/');
+    openPopup('가입 완료','회원가입이 완료되었습니다', () => {
+router.push('/');
+    });
+    
 }else{
-    alert(result.message);
+    openPopup('가입 실패',result.message || '가입에 실패했습니다');
 }
 
 }catch(error){
    console.error(error);
-   alert('서버와 통신중에 오류가 발생했습니다') 
+   openPopup('서버오류','서버와 통신중에 오류가 발생했습니다'); 
 }
 }
 
@@ -278,7 +304,8 @@ onChange={(e) => setTermsAgreed(e.target.checked)}
 <S.Button $variant='solid'
 onClick={() => {
     if (!termsAgreed || !privacyAgreed){
-        return alert('필수 약관에 모두 동의해 주세요');
+        openPopup('약관 동의','필수 약관에 모두 동의해 주세요');
+        return;
     }
     setStep(2);    
 }}
@@ -470,7 +497,20 @@ onClick={handleSubmit}
 
    </> 
 )}
-</S.Wrapper>        
+</S.Wrapper>   
+
+{/*커스텀 팝업 렌더링 */}
+<Popup
+isOpen={popupConfig.isOpen}
+title={popupConfig.title}
+onClose={closePopup}
+onConfirm={popupConfig.onConfirm ? () => {
+popupConfig.onConfirm!();
+closePopup();
+}:undefined}
+>
+{popupConfig.message}
+</Popup>
         </>
     )
 
