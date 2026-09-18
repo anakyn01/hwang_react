@@ -22,6 +22,11 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 `;
+export const FlexTopBetween = css`
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+`;
 export const FlexColumn = css`
 display:flex;
 flex-direction:column;
@@ -29,6 +34,10 @@ flex-direction:column;
 export const FlexRow = css`
 display:flex;
 flex-direction:row;
+`;
+export const FlexWrap = css`
+display:flex;
+flex-wrap:wrap;
 `;
 
 export const BlueButtonTheme = css`
