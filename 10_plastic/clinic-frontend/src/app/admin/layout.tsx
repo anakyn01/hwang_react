@@ -4,6 +4,23 @@ import { useRouter } from "next/navigation";
 import * as S from '@/assets/css/Style.style';
 import { Popup } from "@/component/modal/Popup";
 
+//아이콘
+import { 
+    FiMessageSquare, 
+    FiFeather, 
+    FiCompass, 
+    FiLayers, 
+    FiRadio, 
+    FiCamera, 
+    FiAward, 
+    FiVideo, 
+    FiShield, 
+    FiLayout, 
+    FiUsers, 
+    FiClipboard 
+} from "react-icons/fi";
+
+
 export const AdminLayout = ({children}:{children:React.ReactNode}) =>{
 
     const router = useRouter();
@@ -11,6 +28,9 @@ export const AdminLayout = ({children}:{children:React.ReactNode}) =>{
  //🎯 로그아웃 팝업 열림/닫힘 상태 관리
  const [isLogoutPopupOpen, setIsLogoutPopupOpen] = 
  useState(false);   
+
+ //🎯 사이드바 접힘/펼침 상태 관리 (기본값 false = 펼침)
+ const [isCollapsed, setIsCollapsed] = useState(false);
 
     const handleLogoutClick = () => {
 setIsLogoutPopupOpen(true);
@@ -26,93 +46,133 @@ router.push('/admin');
         <>
 <S.AdminContainer>
 {/*좌측 사이드바 */}
-<S.AdminSidebar>
+<S.AdminSidebar $isCollapsed={isCollapsed}>
 
-<S.SidebarBrand
+<S.AdminSidebarBrand
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/root')}
 >
-ADMIN PANEL    
-</S.SidebarBrand>
+{isCollapsed ? 'ADMIN' :'ADMIN PANEL'}    
+</S.AdminSidebarBrand>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/dashboard')}
 >
-대시보드    
-</S.NavItem>
+<span></span>{!isCollapsed && <span>대시보드</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/consultation')}
 >
-상담신청관리    
-</S.NavItem>
+<FiMessageSquare size={20} />{!isCollapsed && <span>상담신청관리</span>}   
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/tone')}
 >
-톤앤매너관리    
-</S.NavItem>
+<FiFeather size={20} />{!isCollapsed && <span>톤앤매너관리</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/nav')}
 >
-내비게이션관리    
-</S.NavItem>
+<FiCompass size={20} />{!isCollapsed && <span>내비게이션관리</span>}   
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/pop')}
 >
-팝업관리    
-</S.NavItem>
+<FiLayers size={20} />{!isCollapsed && <span>팝업관리</span>}   
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/news')}
 >
-뉴스티커관리    
-</S.NavItem>
+<FiRadio size={20} />{!isCollapsed && <span>뉴스티커관리</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/self')}
 >
-셀피관리    
-</S.NavItem>
+<FiCamera size={20} />{!isCollapsed && <span>셀피관리</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/event')}
 >
-이벤트랭킹관리    
-</S.NavItem>
+<FiAward size={20} />{!isCollapsed && <span>이벤트랭킹관리</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/vlog')}
 >
-vlog관리    
-</S.NavItem>
+<FiVideo size={20} />{!isCollapsed && <span>vlog관리</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/safety')}
 >
-안전마치관리    
-</S.NavItem>
+<FiShield size={20} />{!isCollapsed && <span>안전마치관리</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/footer')}
 >
-푸터관리    
-</S.NavItem>
+<FiLayout size={20} />{!isCollapsed && <span>푸터관리</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/users')}
 >
-회원관리    
-</S.NavItem>
+<FiUsers size={20} />{!isCollapsed && <span>회원관리</span>}    
+</S.AdminNavItem>
 
-<S.NavItem
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/boards')}
 >
-게시판 관리    
-</S.NavItem>
+<FiClipboard size={20} />{!isCollapsed && <span>게시판 관리</span>}    
+</S.AdminNavItem>
 
 </S.AdminSidebar>
+
+
+<S.AdminContentWrapper>
+
+<S.AdminTopbar>
+    <div className="">
+        <span>성형외과 관리시스템</span>
+    </div>
+
+    <div className="">
+        <span>최고관리자님</span>
+        <S.Button
+        $variant="outline"
+        onClick={handleLogoutClick}
+        >
+        로그아웃
+        </S.Button>
+    </div>
+</S.AdminTopbar>
+
+<S.AdminMain>
+    {children}
+</S.AdminMain>
+
+
+</S.AdminContentWrapper>
 
 
 
