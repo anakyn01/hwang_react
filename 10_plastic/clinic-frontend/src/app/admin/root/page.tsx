@@ -1,6 +1,14 @@
 "use client";
-export default function Total(){
+import React from "react";
+
+import { Layout } from "../Layout";
+
+export default function Root(){
     return(
-        <></>
+        <>
+        <Layout>
+            <h1></h1>
+        </Layout>
+        </>
     )
 }

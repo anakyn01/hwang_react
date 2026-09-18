@@ -76,3 +76,11 @@ border:none;
 color:white;
 cursor:pointer;
 `;
+
+export const Transparent = css`
+background-color:transparent;
+padding:0.35rem 0.8rem;
+border-radius:0.35rem;
+font-size:0.85rem;
+font-weight:600;
+`;

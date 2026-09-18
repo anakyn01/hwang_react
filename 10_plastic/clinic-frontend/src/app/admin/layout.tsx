@@ -17,11 +17,12 @@ import {
     FiShield, 
     FiLayout, 
     FiUsers, 
-    FiClipboard 
+    FiClipboard,
+    FiLogOut 
 } from "react-icons/fi";
 
 
-export const AdminLayout = ({children}:{children:React.ReactNode}) =>{
+export const Layout = ({children}:{children:React.ReactNode}) =>{
 
     const router = useRouter();
 
@@ -160,19 +161,20 @@ onClick={() => setIsCollapsed(!isCollapsed)}
 <S.AdminContentWrapper>
 
 <S.AdminTopbar>
-    <div className="">
-        <span>성형외과 관리시스템</span>
-    </div>
+    <S.AdminTopbarBrand>
+        성형외과 관리시스템
+    </S.AdminTopbarBrand>
 
-    <div className="">
-        <span>최고관리자님</span>
-        <S.Button
-        $variant="outline"
+    <S.AdminTopbarRight>
+        <S.AdminTopbarUser>
+            최고관리자님
+        </S.AdminTopbarUser>
+        <S.AdminLogoutBtn
         onClick={handleLogoutClick}
         >
-        로그아웃
-        </S.Button>
-    </div>
+        <FiLogOut size={16}/> 로그아웃
+        </S.AdminLogoutBtn>
+    </S.AdminTopbarRight>
 </S.AdminTopbar>
 
 <S.AdminMain>

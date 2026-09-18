@@ -2,17 +2,19 @@
 
 import { GlobalStyle} from "@/assets/css/GlobalStyle";
 import ConditinalLayout from '@/component/ConditionalLayout';
+import StyledComponentsRegistry from "@/lib/registry";
 
 export default function RootLayout({ children }:{children:React.ReactNode}) {
   return (
     <html lang="ko">
    
       <body>
-      <GlobalStyle />  
-          
+      <StyledComponentsRegistry>
+      <GlobalStyle />            
       <ConditinalLayout>
       {children}
-      </ConditinalLayout>   
+      </ConditinalLayout> 
+      </StyledComponentsRegistry>  
       </body>
     </html>
   );
