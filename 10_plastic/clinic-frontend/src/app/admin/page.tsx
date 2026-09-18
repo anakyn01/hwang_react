@@ -34,11 +34,15 @@ body:JSON.stringify(formData)
 
 const result = await response.json();
 
+
+
 //분기
 if(response.ok) {
     alert('로그인 성공');
     //관리자 라면
     if (Number(result.isAdmin) === 1) {
+        //과자만들기
+document.cookie = "admin_token=true; path=/; max-age=86400;";
         router.push('/admin/root');
     }else{
         router.push('/');

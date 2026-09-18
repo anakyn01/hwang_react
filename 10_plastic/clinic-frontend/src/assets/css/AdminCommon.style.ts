@@ -108,3 +108,15 @@ color: #3a3b45;
 border-color: #b7b9cc;
 }
 `;
+
+export const DashboardContainer = styled.div``;
+export const DashboardPageTitle = styled.h1``;
+export const DashboardCardGrid = styled.div``;
+export const DashboardSummaryCard = styled.div``;
+export const DashboardCardInfo = styled.div``;
+export const DashboardCardLabel = styled.span<{$textColor:string}>``;
+export const DashboardCardMainValue = styled.span``;
+export const DashboardCardSubGrid = styled.div``;
+export const DashboardCardSubItem = styled.div``;
+export const DashboardCardIconWrapper = styled.div``;
+export const DashboardBottomSection = styled.div``;
