@@ -112,7 +112,7 @@ border-color: #b7b9cc;
 export const DashboardContainer = styled.div``;
 export const DashboardPageTitle = styled.h1``;
 export const DashboardCardGrid = styled.div``;
-export const DashboardSummaryCard = styled.div``;
+export const DashboardSummaryCard = styled.div<{$borderColor:string}>``;
 export const DashboardCardInfo = styled.div``;
 export const DashboardCardLabel = styled.span<{$textColor:string}>``;
 export const DashboardCardMainValue = styled.span``;
