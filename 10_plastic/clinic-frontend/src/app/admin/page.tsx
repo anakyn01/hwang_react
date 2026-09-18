@@ -39,7 +39,7 @@ if(response.ok) {
     alert('로그인 성공');
     //관리자 라면
     if (Number(result.isAdmin) === 1) {
-        router.push('/admin/total');
+        router.push('/admin/root');
     }else{
         router.push('/');
     }
