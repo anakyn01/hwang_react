@@ -146,6 +146,14 @@ onClick={() => router.push('/admin/boards')}
 <FiClipboard size={20} />{!isCollapsed && <span>게시판 관리</span>}    
 </S.AdminNavItem>
 
+<S.SidebarTogglerWrapper>
+    <S.SidebarToggler
+onClick={() => setIsCollapsed(!isCollapsed)}    
+    >
+{isCollapsed ? '▶' : '◀'}        
+    </S.SidebarToggler>
+</S.SidebarTogglerWrapper>
+
 </S.AdminSidebar>
 
 

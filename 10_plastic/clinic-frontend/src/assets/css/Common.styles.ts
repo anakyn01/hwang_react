@@ -68,3 +68,11 @@ text-align:left;
 export const TextRight = css`
 text-align:right;
 `;
+
+export const CircleBtn = css`
+width:2.5rem; height:2.5rem;
+border-radius:50%;
+border:none;
+color:white;
+cursor:pointer;
+`;
