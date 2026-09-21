@@ -112,21 +112,17 @@ export default function Nav(){
                 <>
                 <S.SetNavLabel>텍스트 입력</S.SetNavLabel>
                 <S.SetNavInput
-                type="file" 
-                accept="image/*"
-                onChange={handleFileChange}
-                id="logo-upload"
+                type="text" 
+                value={logoText}
+                onChange={(e) => setLogoText(e.target.value)}
+                placeholder="예:안호범성형외과"
                 />
-<S.SetNavFileLabel htmlFor="logo-upload">
-파일선택
-</S.SetNavFileLabel>
-<span className="file-name">{logoFileName || "선택된 파일이 없습니다"}</span>        
                 </>
-            ):(
-                <>
-                <S.SetNavLabel>이미지 파일 등록</S.SetNavLabel>
-                <S.SetNavFileInputWrapper>
-<S.SetNavFileInput
+                ):(
+                    <>
+                    <S.SetNavLabel>이미지 파일 등록</S.SetNavLabel>
+                    <S.SetNavFileInputWrapper>
+                        <S.SetNavFileInput
 type="file"
 accept="image/*"
 onChange={handleFileChange}
@@ -134,14 +130,15 @@ id="logo-upload"
 /> 
 <S.SetNavFileLabel htmlFor="logo-upload">
 파일선택
-</S.SetNavFileLabel>     
-<span className="file-name">{logoFileName || "선택된 파일이 없습니다"}</span>               
-                </S.SetNavFileInputWrapper>
-                </>
+</S.SetNavFileLabel>
+<span className="file-name">{logoFileName || "선택된 파일이 없습니다"}</span>        
+</S.SetNavFileInputWrapper>  
+</>              
             )}
         </S.SetNavFileInputWrapper>
     </S.SetNavCardBody>
 </S.SetNavCard>
+
     <S.SetNavCard>
         <S.SetNavCardHeader>
             <S.SetNavCardTitle>
