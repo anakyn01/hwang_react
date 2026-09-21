@@ -1,0 +1,23 @@
+import styled,{keyframes, Keyframes} from 'styled-components';
+
+export const SetNavContainer = styled.div``;
+export const SetNavPageHeader = styled.header``;
+export const SetNavPageTitle = styled.h1``;
+export const SetNavSaveButton = styled.button``;
+export const SetNavContentGrid = styled.div``;
+export const SetNavCard = styled.div``;
+export const SetNavCardHeader = styled.header``;
+export const SetNavCardTitle = styled.h6``;
+export const SetNavCardBody = styled.div``;
+export const SetNavRadioGroup = styled.div``;
+export const SetNavRadioLabel = styled.div<{$isActive:boolean}>``;
+export const SetNavInputWrapper = styled.div``;
+export const SetNavLabel = styled.label``;
+export const SetNavInput = styled.input``;
+export const SetNavFileInputWrapper = styled.div``;
+export const SetNavFileInput = styled.input``;
+export const SetNavFileLabel = styled.label``;
+export const SetNavMenuList = styled.div``;
+export const SetNavMenuItem = styled.div``;
+export const SetNavDeleteButton = styled.button``;
+export const SetNavAddButton = styled.button``;

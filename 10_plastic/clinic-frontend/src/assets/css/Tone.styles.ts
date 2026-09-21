@@ -85,7 +85,7 @@ margin-bottom:1.5rem;
 export const ToneModeButton= 
 styled.button<{$isActive:boolean; $isDark?:boolean}>`
 background-color:${(props) => (props.$isActive ? (props.$isDark ? "#202020" : "#fff" ) : "transparent")};
-color:${(props) => (props.$isActive ? (props.$isDark ? "#fff" :"#4e73df") : "858796")};
+color:${(props) => (props.$isActive ? (props.$isDark ? "#fff" :"#4e73df") : "#858796")};
 border:none;
 padding:0.6rem 1.5rem;
 border-radius:0.35rem;

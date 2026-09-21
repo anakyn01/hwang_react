@@ -88,7 +88,8 @@ primaryTone:selectedTone, isDarkMode:isDarkMode ? 'Y' : 'N'
 
 
              <S.ToneModeButton
-                $isActive={!isDarkMode}
+                $isActive={isDarkMode}
+                $isDark={true}
                 onClick={() => setIsDarkMode(true)}
                 >
                 <FiMoon size={20}/>다크 모드
