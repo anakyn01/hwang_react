@@ -82,7 +82,7 @@ background-color:#f8f9fc;
 `;
 export const SetNavInputWrapper = 
 styled.div`
-${FlexColumn} gap:0.5rem;
+${FlexColumn} gap:1rem;
 background-color: #f8f9fc;
 padding:1.5rem;
 border-radius:0.35rem;
@@ -92,6 +92,10 @@ export const SetNavLabel = styled.label`
 font-size:0.85rem;
 font-weight:700;
 color: #5a5c69;
+
+/* 💡 텍스트 찌그러짐 방지 핵심 속성 */
+white-space: nowrap; /* 글자가 모자라도 절대 줄바꿈하지 않음 */
+flex-shrink: 0;      /* 옆에 있는 인풋창이 커져도 내 영역을 뺏기지(수축하지) 않음 */
 `;
 export const SetNavInput = styled.input`
 width:100%; padding:0.6rem 1rem;
