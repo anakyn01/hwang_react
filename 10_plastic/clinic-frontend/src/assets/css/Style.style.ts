@@ -1765,5 +1765,6 @@ export * from './Pop.styles';
 export * from './News.styles';
 export * from './Self.styles';
 export * from './Event.styles';
+export * from './Footer.styles';
 
 
