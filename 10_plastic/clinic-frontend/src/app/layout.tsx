@@ -1,4 +1,4 @@
-"use client";
+
 
 import { GlobalStyle} from "@/assets/css/GlobalStyle";
 import ConditinalLayout from '@/component/ConditionalLayout';

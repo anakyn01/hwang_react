@@ -1766,5 +1766,9 @@ export * from './News.styles';
 export * from './Self.styles';
 export * from './Event.styles';
 export * from './Footer.styles';
+export * from './User.styles';
+export * from './Board.styles';
+export * from './Vlog.styles';
+export * from './Safety.styles';
 
 
