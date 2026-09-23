@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexBetween, FlexCenter, TransitionAll } from "../admin/Common.styles";
 
 //헤더
 export const HeaderWraper = styled.header`
@@ -12,9 +13,7 @@ export const HeaderInner = styled.div`
 max-width:1860px;
 margin:0 auto;
 height:90px;
-display:flex;
-align-items:center;
-justify-content:space-between;
+${FlexBetween}
 padding:0 40px;
 
 @media (max-width: 1024px) {
@@ -24,8 +23,7 @@ height:60px; padding:0 20px;
 
 //로고그룹
 export const LogoGroup = styled.div`
-display:flex;
-align-items:center;
+${FlexCenter}
 flex:1;
 `;
 
@@ -39,9 +37,7 @@ cursor:pointer;
 
 //중앙 네비게이션 그룹
 export const NavGroup = styled.nav`
-display:flex;
-align-items:center;
-justify-content:center;
+${FlexCenter}
 gap:40px;
 flex:2;
 
@@ -56,7 +52,7 @@ cursor:pointer;
 color:${(props) => (props.$active ? '#0056b3':'#111111')};
 border-bottom:${(props) => (props.$active ? '2px solid #0056b3' :'2px solid transparent')}
 padding-bottom:5px;
-transition:all 0.2s ease-in-out;
+${TransitionAll}
 
 &:hover{ color:#0056b3;}
 `;
@@ -72,8 +68,7 @@ gap:8px;
 }
 `;
 export const PhoneButton = styled.a`
-display:flex;
-align-items:center;
+${FlexCenter}
 height:40px;
 border:1px solid #d1d5db;
 border-radius:20px;
@@ -104,9 +99,7 @@ height:40px;
 border-radius:50%;
 border:1px solid #d1d5db;
 background-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
+${FlexCenter}
 cursor:pointer;
 color:#333;
 transition:background-color .2s;
@@ -123,8 +116,7 @@ width:20px; height:20px;
 
 //add
 export const DesktopOnly = styled.div`
-display:flex;
-align-items:center;
+${FlexCenter}
 gap:12px;
 @media (max-width: 1024px) {
 display:none;
@@ -153,9 +145,7 @@ cursor:pointer;
 export const HamburgerButton = styled.button`
 display:none;
 @media (max-width:1024px) {
-display:flex;
-flex-direction:column;
-justify-content:center;
+${FlexCenter}
 gap:5px;
 width:32px;
 height:32px;

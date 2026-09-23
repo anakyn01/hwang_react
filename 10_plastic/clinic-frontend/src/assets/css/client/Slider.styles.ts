@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexCenter, FlexColumn } from "../admin/Common.styles";
 //슬라이더
 export const SliderSection = styled.section`
 background-color:#ffe6f0;
@@ -16,8 +17,7 @@ align-items:flex-end;
 margin-bottom:30px;
 `;
 export const SliderTitleGroup = styled.div`
-display:flex;
-flex-direction:column;
+${FlexColumn}
 `;
 export const SliderMainTitle = styled.h2`
 font-size:32px;
@@ -30,8 +30,7 @@ font-size:18px;
 color:#888;
 margin:5px 0 0 0;`;
 export const SliderControls = styled.div`
-display:flex;
-align-items:center;
+${FlexCenter}
 gap:10px;
 `;
 export const SliderViewMoreBtn = styled.button`
@@ -54,9 +53,7 @@ color:#fff;
 border:none;
 font-size:16px;
 cursor:pointer;
-display:flex;
-justify-content:center;
-align-items:center;
+${FlexCenter}
 &:hover{
 background-color:#333;}
 `;
@@ -105,8 +102,7 @@ export const SelfieLikeBadge = styled.div`
 color:#fff;
 font-size:14px;
 font-weight:700;
-display:flex;
-align-items:center;
+${FlexCenter}
 gap:5px;
 
 span{

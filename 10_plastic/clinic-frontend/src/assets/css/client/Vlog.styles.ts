@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexCenter } from "../admin/Common.styles";
 export const MAIN_COLOR = '#ffe6f0';
 export const POINT_COLOR = '#ff1493';
 export const TEXT_COLOR = '#111';
@@ -20,12 +21,11 @@ border-bottom:2xp solid ${TEXT_COLOR};
 padding-bottom:1rem;
 `;
 export const VlogControls = styled.div`
-display:flex; align-items:center;
+${FlexCenter}
 gap:10px;
 `;
 export const VlogTitleGroup = styled.div`
-display:flex;
-align-items:center;
+${FlexCenter}
 `;
 export const VlogMainTitle = styled.h2`
 font-size:2.29rem; font-weight:900;

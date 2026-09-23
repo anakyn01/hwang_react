@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexColumn } from "../admin/Common.styles";
 
 //safety
 export const SafetySection = styled.section`
@@ -15,7 +16,7 @@ align-items:flex-end;
 margin-bottom:2.86rem;
 `;
 export const SafetyTitleGroup = styled.div`
-display:flex; flex-direction:column;
+${FlexColumn}
 `;
 export const SafetyMainTitle = styled.h2`
 font-size:2.29rem; font-weight:900;
@@ -89,8 +90,7 @@ background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, rgb
 position:absolute;
 bottom:0; left:0;
 padding:40px 20px 20px 20px;
-display:flex;
-flex-direction:column;
+${FlexColumn}
 justify-content:flex-end;
 `;
 export const SafetyCardTitle = styled.h3`

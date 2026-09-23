@@ -1,12 +1,11 @@
 import styled from "styled-components";
+import { FlexBetween, FlexCenter, FlexColumn, TransitionAll } from "../admin/Common.styles";
 
 //footer
 export const SiteFooterWrapper = styled.footer`
 background-color:#000;
 padding:20px 15px 120px 15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+${FlexBetween}
 border-top:1px solid #eee;
 `;
 export const SiteFooterInner = styled.div`
@@ -39,7 +38,8 @@ font-size:14px; color:#fff; font-weight:bold;
 export const SiteFooterScheduleWrap = styled.div`
 flex:2; display:flex; gap:60px;
 @media (max-width:768px) {
-flex-direction:column; gap:20px;
+${FlexColumn}
+gap:20px;
 }
 `;
 export const SiteFooterScheduleTitle = styled.div`
@@ -52,8 +52,7 @@ font-weight:bold;
 color:#999; letter-spacing:-0.5px;
 `;
 export const SiteFooterScheduleBlock = styled.div`
-display:flex;
-flex-direction:column;
+${FlexColumn}
 gap:8px;
 `;
 export const SiteFooterLocationBtn = styled.button`
@@ -80,7 +79,7 @@ gap:40px;
 }
 `;
 export const SiteFooterCompany= styled.div`
-display:flex; flex-direction:column;
+${FlexColumn}
 gap:10px;
 `;
 export const SiteFooterCompanyName = styled.h2`
@@ -93,8 +92,7 @@ margin:0;font-size:13px;color:#999; line-height:1.6;
 letter-spacing:-0.3px;
 `;
 export const SiteFooterBottomRight = styled.div`
-display:flex;
-flex-direction:column;
+${FlexColumn}
 align-items:flex-end;
 gap:20px;
 
@@ -114,7 +112,7 @@ padding:8px 16px;
 font-size:12px;
 cursor:pointer;
 border-radius:2px;
-transition:all .2s;
+${TransitionAll}
 
 &:hover{
 background-color:#333;
@@ -128,9 +126,9 @@ color:white;
 margin-bottom:60px;
 `;
 export const SiteFooterFamilyLogos = styled.div`
-display:flex;
+${FlexCenter}
 gap:15px;
-align-items:center;
+
 flex-wrap:wrap;
 .logo-placeholder{
 font-size:11px; color:#999;
@@ -142,8 +140,7 @@ border-radius:15px;
 export const FloatingMenuWrapper = styled.div`
 position:fixed;
 right:30px; bottom:90px;
-display:flex;
-flex-direction:column;
+${FlexColumn}
 gap:15px;
 z-index:999999;
 
@@ -152,9 +149,7 @@ right:15px; bottom:20px; transform:scale(0.85);
 }
 `;
 export const FloatingMenuItem = styled.div`
-display:flex;
-flex-direction:column;
-align-items:center;
+${FlexColumn}
 gap:5px;
 cusor:pointer;
 `;
@@ -164,9 +159,7 @@ width:60px;
 height:60px;
 border-radius:50%;
 background-color:${(props) => props.$bgColor};
-display:flex;
-align-items:center;
-justify-content:center;
+${FlexCenter}
 color:#000;
 font-weight:900;
 font-size:16px;

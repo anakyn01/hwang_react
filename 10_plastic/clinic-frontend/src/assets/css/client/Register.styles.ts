@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexBetween, FlexCenter, FlexColumn } from "../admin/Common.styles";
 
 //서브
 export const Wrapper = styled.div`
@@ -7,20 +8,18 @@ margin:0 auto; padding:40px 20px;
 `;
 
 export const StepContainer = styled.div`
-display:flex; align-items:center;
-justify-content:center; margin-bottom:50px;
+${FlexCenter}
+margin-bottom:50px;
 `;
 
 export const Step = styled.div<{ $active:boolean}>`
-display:flex; align-items:center; gap:8px;
+${FlexCenter} gap:8px;
 `;
 export const StepNumber = styled.div<{ $active?: boolean}>`
 width:24px; height:24px; border-radius:50%;
 background-color:${(props) => (props.$active ? '#000' :'#f0f0f0')};
 color: ${(props) => (props.$active ? '#fff' :'#999')};
-display:flex;
-align-items:center;
-justify-content:center;
+${FlexCenter}
 font-size:13px;
 font-weight:bold;
 `;
@@ -77,8 +76,7 @@ export const TermSection = styled.div`
 margin-bottom:30px;
 `;
 export const TermHeader = styled.div`
-display:flex; justify-content:space-between;
-align-items:center;
+${FlexBetween}
 margin-bottom:15px;
 `;
 export const TermTitle = styled.span`
@@ -90,8 +88,7 @@ border:none;
 color:#666;
 font-size:14px;
 cursor:pointer;
-display:flex;
-align-items:center;
+${FlexCenter}
 gap:4px;
 `;
 
@@ -115,8 +112,7 @@ white-space: pre-wrap;
 `;
 
 export const ButtonGroup = styled.div`
-display:flex;
-justify-content:center;
+${FlexCenter}
 gap:10px;
 margin-top:60px;
 `;
@@ -148,11 +144,12 @@ text-align:center; font-size:28px;
 font-weight:900; margin-bottom:40px;
 `;
 export const FormContainer = styled.div`
-width:100%; display:flex; flex-direction:column;
+width:100%; 
+${FlexColumn}
 gap:24px; margin-top:20px;
 `;
 export const FormGroup = styled.div`
-display:flex; flex-direction:column;
+${FlexColumn}
 gap:10px;
 `;
 export const Label = styled.label`
@@ -163,13 +160,12 @@ color:#111;
 export const EmailWrapper = styled.div`
 display:flex; gap:10px;
 @media(max-width: 480px) {
-flex-direction:column;
+${FlexColumn}
 }
 `;
 
 export const SubCheckboxLabel = styled.label`
-display: flex;
-align-items: center;
+${FlexCenter}
 gap: 8px;
 font-size: 14px;
 color: #333333;
@@ -177,14 +173,12 @@ cursor: pointer;
 margin-top: 5px;
 `;
 export const RadioWrapper = styled.div`
-display: flex;
-align-items: center;
+${FlexCenter}
 gap: 30px;
 height:50px;
 `;
 export const RadioLabel = styled.label`
-display: flex;
-align-items: center;
+${FlexCenter}
 gap: 8px;
 font-size:15px;
 font-weight:bold;

@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { BoxShadow, FlexCenter, FlexColumn, TransitionAll } from "../admin/Common.styles";
 
 //floating
 export const FlaotingMenu = styled.div`
 position:fixed; right:30px; bottom:90px;
-display:flex; flex-direction:column;
+${FlexColumn}
 gap:15px; z-index:100;
 @media (max-width: 768px) {
 right:15px; bottom:20px;
@@ -11,7 +12,7 @@ transform:scale(0.85);
 }
 `;
 export const FabItem = styled.div`
-display:flex; flex-direction:column;
+${FlexColumn}
 align-items:center;
 gap:5px;
 cursor:pointer;
@@ -20,13 +21,12 @@ export const FabIcon = styled.div<{$bgColor:string}>`
 width:60px; height:60px;
 border-radius:50%;
 background-color:${(props) => props.$bgColor};
-display:flex; align-items:center;
-justify-content:center;
+${FlexCenter}
 color:#000;
 font-weight:900;
 font-size:16px;
-box-shadow:0 4px 10px rgba(0,0,0, 0.3);
-transition:transform 0.2s;
+${BoxShadow}
+${TransitionAll}
 
 &:hover{
 transform: translateY(-5px);

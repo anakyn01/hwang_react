@@ -1,10 +1,9 @@
 import styled from "styled-components";
+import { FlexCenter, FlexColumn, TransitionAll } from "../admin/Common.styles";
 
 //카테고리나브
 export const NavContainer = styled.div`
-display:flex;
-justify-content:center;
-align-items:center;
+${FlexCenter}
 gap:30px;
 padding-bottom:15px;
 margin-top:40px;
@@ -26,9 +25,7 @@ display:none;
 `;
 export const CategoryItem = 
 styled.div<{$active:boolean}>`
-display:flex;
-flex-direction:column;
-align-items:center;
+${FlexColumn}
 cursor:pointer;
 position:relative;
 min-width:70px;
@@ -56,7 +53,7 @@ margin-bottom:10px;
 
 border:${({ $active }) => ($active ? '4px solid #ffdidf' : '4px solid transparent')};
 box-sizing:border-box;
-transition:all .2s ease-in-out;
+${TransitionAll}
 
 img{
 width:100%; 
@@ -71,9 +68,7 @@ left:0;
 width:100%;
 height:100%;
 background-color:rgba(255, 209, 223, 0.4);
-display:flex;
-justify-content:center;
-align-items:center;
+${FlexCenter}
 border-radius:50%;
 `;
 export const CategoryText=

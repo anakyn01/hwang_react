@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexCenter, FlexRow, TransitionAll } from "../admin/Common.styles";
 
 //캐러셀
 export const CarouselSection = styled.section`
@@ -14,8 +15,7 @@ width:100%;
 overflow:hidden;
 `;
 export const EmblaContainer = styled.div`
-display:flex;
-flex-direction:row;
+${FlexRow}
 width:100%;
 `;
 export const EmblaSlide = styled.div`
@@ -51,11 +51,8 @@ border:none;
 font-size:24px;
 cursor:pointer;
 z-index:20;
-display:flex;
-align-items:center;
-justify-content:center;
-transition:background-color .2s;
-
+${FlexCenter}
+${TransitionAll}
 &:hover{
 background-color:rgba(255, 255, 255, .7);
 color:#000;

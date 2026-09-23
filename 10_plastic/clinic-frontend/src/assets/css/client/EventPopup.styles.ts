@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexBetween, FlexCenter, FlexColumn } from "../admin/Common.styles";
 
 //이벤트팝업
 export const PopupContainer = styled.div<{ $top:number; $left:number}>`
@@ -9,8 +10,7 @@ width:380px;
 background-color:rgba(0,0,0,.8);
 box-shadow:0 10px 30px rgba(0, 0, 0, .5);
 z-index:99999;
-display:flex;
-flex-direction:column;
+${FlexColumn}
 `;
 export const ImageWrapper = styled.div`
 width:100%;
@@ -61,8 +61,7 @@ background-color:#fce83a;
 }
 `;
 export const PrivacyLabel = styled.label`
-display:flex;
-align-items:center;
+${FlexCenter}
 gap:6px;
 cursor:pointer;
 `;
@@ -98,13 +97,10 @@ cursor:pointer;
 export const FooterWrapper = styled.div`
 background-color:#fff;
 padding:10px 15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+${FlexBetween}
 `;
 export const CloseLabel = styled.label`
-display:flex;
-align-items:center;
+${FlexCenter}
 gap:6px;
 cursor:pointer;
 font-size:13px;
@@ -136,9 +132,7 @@ font-size:18px;
 font-weight:300;
 cursor:pointer;
 color:#000;
-display:flex;
-align-items:center;
-justify-content:center;
+${FlexCenter}
 padding:0;
 `;
 
@@ -182,11 +176,12 @@ flex:2;
 display:flex;
 gap:60px;
 @media (max-width:768px) {
-flex-direction:column; gap:20px;
+${FlexColumn};
+ gap:20px;
 }
 `;
 export const ScheduleBlock = styled.div`
-display:flex; flex-direction:column;
+display:flex; ${FlexColumn}
 gap:8px;
 `;
 export const ScheduleTitle = styled.div`
@@ -221,13 +216,13 @@ export const BottomSection = styled.div`
 display:flex; justify-content:space-between;
 align-items:flex-end;
 @media (max-width: 1024px) {
-flex-direction:column;
+${FlexColumn}
 align-items:flex-start;
 gap:40px;
 }
 `;
 export const CompanyInfo = styled.div`
-display:flex; flex-direction:column;
+display:flex; ${FlexColumn}
 gap:10px;
 `;
 export const CompanyName = styled.h2`
@@ -245,8 +240,7 @@ color:#555;
 }
 `;
 export const BottomRight = styled.div`
-display:flex;
-flex-direction:column;
+${FlexColumn}
 align-items:flex-end;
 gap:20px;
 @media (max-width: 1024px) {

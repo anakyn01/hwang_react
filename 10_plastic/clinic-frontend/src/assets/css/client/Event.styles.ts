@@ -1,4 +1,5 @@
 import styled, {keyframes} from "styled-components";
+import { FlexBetween, FlexCenter, FlexColumn } from "../admin/Common.styles";
 
 //🎯 원형 텍스트 회전 애니메이션
 const spin = keyframes`
@@ -21,8 +22,7 @@ align-items:flex-end;
 margin-bottom:40px;
 `;
 export const EventTitleGroup= styled.div`
-display:flex;
-flex-direction:column;
+${FlexColumn}
 `;
 export const EventMainTitle=styled.h2`
 font-size:32px;
@@ -36,7 +36,7 @@ color:#888;
 margin:5px 0 0 0;
 `;
 export const EventControls = styled.div`
-display:flex; align-items:center;
+${FlexCenter}
 gap:10px;
 `;
 export const EventViewMoreBtn = styled.button`
@@ -62,9 +62,7 @@ border:none;
 font-size:16px;
 color:#fff;
 cursor:pointer;
-display:flex;
-justify-content:center;
-align-items:center;
+${FlexCenter}
 
 &:hover{
 background-color:#444;
@@ -146,9 +144,7 @@ height:54px;
 background-color:${(props) => props.$bgColor};
 z-index:10; color:#000;
 font-size:26px; font-weight:900;
-display:flex;
-justify-content:center;
-align-items:center;
+${FlexCenter}
 border-radius:${(props) => props.$radius || '50%'};
 box-shadow:2px 2px 10px rgba(0,0,0,0.3);
 `;
@@ -156,9 +152,7 @@ export const EventInfo =
 styled.div<{$bgColor:string}>`
 background-color:${(props) => props.$bgColor};
 padding:16px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+${FlexBetween}
 `;
 export const SurgeryLabel = styled.div`
 background-color:#000;

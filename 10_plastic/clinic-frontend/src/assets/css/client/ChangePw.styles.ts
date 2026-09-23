@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { FlexCenter, BoxShadow, FlexBetween, 
-    BlueButtonTheme, LinearGradient, 
+import { FlexCenter, BoxShadow, 
+   LinearGradient, 
     FlexColumn,
     TransitionAll,
     ButtonBasic,
