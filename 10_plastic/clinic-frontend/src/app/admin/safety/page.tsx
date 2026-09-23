@@ -122,77 +122,77 @@ export default function Safety() {
     return (
         <>
             <Layout>
-                <S.SafetyContainer>
-                    <S.SafetyPageHeader>
-                        <S.SafetyPageTitle>안전 시스템 관리</S.SafetyPageTitle>
-                        <S.SafetySaveButton onClick={handleSave}>
+                <S.AdminSafetyContainer>
+                    <S.AdminSafetyPageHeader>
+                        <S.AdminSafetyPageTitle>안전 시스템 관리</S.AdminSafetyPageTitle>
+                        <S.AdminSafetySaveButton onClick={handleSave}>
                             <FiSave size={18} /> 설정 저장하기
-                        </S.SafetySaveButton>
-                    </S.SafetyPageHeader>
+                        </S.AdminSafetySaveButton>
+                    </S.AdminSafetyPageHeader>
 
-                    <S.SafetyGrid>
+                    <S.AdminSafetyGrid>
                         {/* ⚙️ 1. 새 안전시스템 등록 폼 (좌측) */}
-                        <S.SafetyLeftColumn>
-                            <S.SafetyCard>
-                                <S.SafetyCardHeader>
-                                    <S.SafetyCardTitle>새 장비/시스템 등록</S.SafetyCardTitle>
-                                </S.SafetyCardHeader>
-                                <S.SafetyCardBody>
-                                    <S.SafetyFormGroup>
-                                        <S.SafetyLabel>배경 이미지 (정방형 비율 권장)</S.SafetyLabel>
-                                        <S.SafetyFileInputWrapper>
-                                            <S.SafetyFileInput 
+                        <S.AdminSafetyLeftColumn>
+                            <S.AdminSafetyCard>
+                                <S.AdminSafetyCardHeader>
+                                    <S.AdminSafetyCardTitle>새 장비/시스템 등록</S.AdminSafetyCardTitle>
+                                </S.AdminSafetyCardHeader>
+                                <S.AdminSafetyCardBody>
+                                    <S.AdminSafetyFormGroup>
+                                        <S.AdminSafetyLabel>배경 이미지 (정방형 비율 권장)</S.AdminSafetyLabel>
+                                        <S.AdminSafetyFileInputWrapper>
+                                            <S.AdminSafetyFileInput 
                                                 type="file" 
                                                 id="safety-img" 
                                                 accept="image/*"
                                                 onChange={handleFileChange}
                                             />
-                                            <S.SafetyFileLabel htmlFor="safety-img"><FiImage /> 이미지 선택</S.SafetyFileLabel>
+                                            <S.AdminSafetyFileLabel htmlFor="safety-img"><FiImage /> 이미지 선택</S.AdminSafetyFileLabel>
                                             <span className="file-name">{fileName || "선택된 파일 없음"}</span>
-                                        </S.SafetyFileInputWrapper>
+                                        </S.AdminSafetyFileInputWrapper>
                                         
                                         {previewUrl && (
-                                            <S.SafetyPreviewRect>
+                                            <S.AdminSafetyPreviewRect>
                                                 <img src={previewUrl} alt="미리보기" />
-                                            </S.SafetyPreviewRect>
+                                            </S.AdminSafetyPreviewRect>
                                         )}
-                                    </S.SafetyFormGroup>
+                                    </S.AdminSafetyFormGroup>
 
-                                    <S.SafetyFormGroup>
-                                        <S.SafetyLabel>타이틀 (예: EtCO2 모니터링)</S.SafetyLabel>
-                                        <S.SafetyInput 
+                                    <S.AdminSafetyFormGroup>
+                                        <S.AdminSafetyLabel>타이틀 (예: EtCO2 모니터링)</S.AdminSafetyLabel>
+                                        <S.AdminSafetyInput 
                                             type="text" 
                                             placeholder="장비 및 시스템 명칭 입력"
                                             value={newSafety.title}
                                             onChange={(e) => setNewSafety({...newSafety, title: e.target.value})}
                                         />
-                                    </S.SafetyFormGroup>
+                                    </S.AdminSafetyFormGroup>
 
-                                    <S.SafetyFormGroup>
-                                        <S.SafetyLabel>상세 설명 (카드 하단 노출)</S.SafetyLabel>
-                                        <S.SafetyTextarea 
+                                    <S.AdminSafetyFormGroup>
+                                        <S.AdminSafetyLabel>상세 설명 (카드 하단 노출)</S.AdminSafetyLabel>
+                                        <S.AdminSafetyTextarea 
                                             placeholder="해당 시스템에 대한 상세 설명을 입력해주세요."
                                             value={newSafety.description}
                                             onChange={(e) => setNewSafety({...newSafety, description: e.target.value})}
                                             rows={3}
                                         />
-                                    </S.SafetyFormGroup>
+                                    </S.AdminSafetyFormGroup>
 
-                                    <S.SafetyAddButton onClick={handleAddSafety}>
+                                    <S.AdminSafetyAddButton onClick={handleAddSafety}>
                                         <FiPlus size={18} /> 리스트에 추가
-                                    </S.SafetyAddButton>
-                                </S.SafetyCardBody>
-                            </S.SafetyCard>
-                        </S.SafetyLeftColumn>
+                                    </S.AdminSafetyAddButton>
+                                </S.AdminSafetyCardBody>
+                            </S.AdminSafetyCard>
+                        </S.AdminSafetyLeftColumn>
 
                         {/* 📋 2. 등록된 시스템 리스트 (우측) */}
-                        <S.SafetyRightColumn>
-                            <S.SafetyCard style={{ height: '100%' }}>
-                                <S.SafetyCardHeader>
-                                    <S.SafetyCardTitle>현재 노출 순서 (총 {safetyList.length}개)</S.SafetyCardTitle>
-                                </S.SafetyCardHeader>
-                                <S.SafetyTableWrapper>
-                                    <S.SafetyTable>
+                        <S.AdminSafetyRightColumn>
+                            <S.AdminSafetyCard style={{ height: '100%' }}>
+                                <S.AdminSafetyCardHeader>
+                                    <S.AdminSafetyCardTitle>현재 노출 순서 (총 {safetyList.length}개)</S.AdminSafetyCardTitle>
+                                </S.AdminSafetyCardHeader>
+                                <S.AdminSafetyTableWrapper>
+                                    <S.AdminSafetyTable>
                                         <thead>
                                             <tr>
                                                 <th style={{ width: '15%' }}>순위/이동</th>
@@ -206,21 +206,21 @@ export default function Safety() {
                                                 <tr key={item.id}>
                                                     <td>
                                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem' }}>
-                                                            <S.SafetyRankBadge>{index + 1}</S.SafetyRankBadge>
+                                                            <S.AdminSafetyRankBadge>{index + 1}</S.AdminSafetyRankBadge>
                                                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                                                                <S.SafetyActionBtn onClick={() => moveSafety(index, 'UP')} disabled={index === 0}>
+                                                                <S.AdminSafetyActionBtn onClick={() => moveSafety(index, 'UP')} disabled={index === 0}>
                                                                     <FiArrowUp size={14} />
-                                                                </S.SafetyActionBtn>
-                                                                <S.SafetyActionBtn onClick={() => moveSafety(index, 'DOWN')} disabled={index === safetyList.length - 1}>
+                                                                </S.AdminSafetyActionBtn>
+                                                                <S.AdminSafetyActionBtn onClick={() => moveSafety(index, 'DOWN')} disabled={index === safetyList.length - 1}>
                                                                     <FiArrowDown size={14} />
-                                                                </S.SafetyActionBtn>
+                                                                </S.AdminSafetyActionBtn>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <S.SafetyThumbnail>
+                                                        <S.AdminSafetyThumbnail>
                                                             {item.imageUrl ? <img src={item.imageUrl} alt={item.title} /> : <span>No Img</span>}
-                                                        </S.SafetyThumbnail>
+                                                        </S.AdminSafetyThumbnail>
                                                     </td>
                                                     <td style={{ textAlign: 'left' }}>
                                                         <strong style={{ display: 'block', marginBottom: '0.4rem', fontSize: '1.05rem' }}>{item.title}</strong>
@@ -229,9 +229,9 @@ export default function Safety() {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <S.SafetyDeleteBtn onClick={() => handleDeleteClick(item.id)}>
+                                                        <S.AdminSafetyDeleteBtn onClick={() => handleDeleteClick(item.id)}>
                                                             <FiTrash2 size={16} />
-                                                        </S.SafetyDeleteBtn>
+                                                        </S.AdminSafetyDeleteBtn>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -239,12 +239,12 @@ export default function Safety() {
                                                 <tr><td colSpan={4} style={{ padding: '3rem 0' }}>등록된 안전 시스템이 없습니다.</td></tr>
                                             )}
                                         </tbody>
-                                    </S.SafetyTable>
-                                </S.SafetyTableWrapper>
-                            </S.SafetyCard>
-                        </S.SafetyRightColumn>
-                    </S.SafetyGrid>
-                </S.SafetyContainer>
+                                    </S.AdminSafetyTable>
+                                </S.AdminSafetyTableWrapper>
+                            </S.AdminSafetyCard>
+                        </S.AdminSafetyRightColumn>
+                    </S.AdminSafetyGrid>
+                </S.AdminSafetyContainer>
             </Layout>
 
             {/* ✅ 팝업 모음 */}

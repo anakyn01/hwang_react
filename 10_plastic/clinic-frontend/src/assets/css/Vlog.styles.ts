@@ -9,21 +9,21 @@ export const VlogContainer = styled.div`
   width: 100%;
 `;
 
-export const VlogPageHeader = styled.div`
+export const AdminVlogPageHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 `;
 
-export const VlogPageTitle = styled.h1`
+export const AdminVlogPageTitle = styled.h1`
   font-size: 1.5rem;
   color: #5a5c69;
   font-weight: 700;
   margin: 0;
 `;
 
-export const VlogSaveButton = styled.button`
+export const AdminVlogSaveButton = styled.button`
   background-color: #4e73df;
   color: white;
   border: none;
@@ -43,7 +43,7 @@ export const VlogSaveButton = styled.button`
   }
 `;
 
-export const VlogGrid = styled.div`
+export const AdminVlogGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 1.5rem;
@@ -53,17 +53,20 @@ export const VlogGrid = styled.div`
   }
 `;
 
-export const VlogLeftColumn = styled.div`
+export const AdminVlogLeftColumn = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 0; /* 💡 핵심 1: 그리드 영역이 강제로 늘어나는 것을 방지 */
+  
 `;
 
-export const VlogRightColumn = styled.div`
+export const AdminVlogRightColumn = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 0; /* 💡 핵심 2: 그리드 영역이 강제로 늘어나는 것을 방지 */
 `;
 
-export const VlogCard = styled.div`
+export const AdminVlogCard = styled.div`
   background-color: #fff;
   border-radius: 0.35rem;
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
@@ -71,28 +74,28 @@ export const VlogCard = styled.div`
   overflow: hidden;
 `;
 
-export const VlogCardHeader = styled.div`
+export const AdminVlogCardHeader = styled.div`
   background-color: #f8f9fc;
   border-bottom: 1px solid #e3e6f0;
   padding: 1rem 1.25rem;
 `;
 
-export const VlogCardTitle = styled.h6`
+export const AdminVlogCardTitle = styled.h6`
   margin: 0;
   font-weight: 700;
   color: #4e73df;
 `;
 
-export const VlogCardBody = styled.div`
+export const AdminVlogCardBody = styled.div`
   padding: 1.5rem;
   color: #858796;
 `;
 
-export const VlogFormGroup = styled.div`
+export const AdminVlogFormGroup = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-export const VlogLabel = styled.label`
+export const AdminVlogLabel = styled.label`
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
@@ -100,7 +103,7 @@ export const VlogLabel = styled.label`
   margin-bottom: 0.5rem;
 `;
 
-export const VlogInput = styled.input`
+export const AdminVlogInput = styled.input`
   width: 100%;
   padding: 0.6rem 1rem;
   font-size: 0.9rem;
@@ -116,7 +119,7 @@ export const VlogInput = styled.input`
   }
 `;
 
-export const VlogFileInputWrapper = styled.div`
+export const AdminVlogFileInputWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -128,11 +131,11 @@ export const VlogFileInputWrapper = styled.div`
   }
 `;
 
-export const VlogFileInput = styled.input`
+export const AdminVlogFileInput = styled.input`
   display: none;
 `;
 
-export const VlogFileLabel = styled.label`
+export const AdminVlogFileLabel = styled.label`
   background-color: #fff;
   border: 1px solid #d1d3e2;
   padding: 0.5rem 1rem;
@@ -152,7 +155,7 @@ export const VlogFileLabel = styled.label`
 `;
 
 // 💡 유튜브 영상처럼 가로가 긴 16:9 비율의 미리보기 영역
-export const VlogPreviewRect = styled.div`
+export const AdminVlogPreviewRect = styled.div`
   width: 160px;
   height: 90px;
   border-radius: 0.25rem;
@@ -168,7 +171,7 @@ export const VlogPreviewRect = styled.div`
   }
 `;
 
-export const VlogAddButton = styled.button`
+export const AdminVlogAddButton = styled.button`
   width: 100%;
   background-color: #fff;
   border: 1px dashed #b7b9cc;
@@ -189,18 +192,19 @@ export const VlogAddButton = styled.button`
   }
 `;
 
-export const VlogTableWrapper = styled.div`
+export const AdminVlogTableWrapper = styled.div`
   width: 100%;
   overflow-x: auto;
   padding: 1rem;
 `;
 
-export const VlogTable = styled.table`
+export const AdminVlogTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: center;
   color: #858796;
   font-size: 0.9rem;
+  table-layout: fixed; /* 💡 핵심 3: 테이블 너비를 고정하여 텍스트가 넘치지 않게 함 */
 
   th {
     color: #5a5c69;
@@ -214,11 +218,12 @@ export const VlogTable = styled.table`
     padding: 1rem 0.5rem;
     border-bottom: 1px solid #eaecf4;
     vertical-align: middle;
+    word-break: break-all; /* 💡 핵심 4: 긴 유튜브 URL이 칸을 넘어가지 않고 줄바꿈되도록 처리 */
   }
 `;
 
 // 💡 리스트 내부의 16:9 썸네일
-export const VlogThumbnail = styled.div`
+export const AdminVlogThumbnail = styled.div`
   width: 100px;
   height: 56px; 
   border-radius: 0.25rem;
@@ -238,7 +243,7 @@ export const VlogThumbnail = styled.div`
   }
 `;
 
-export const VlogRankBadge = styled.div`
+export const AdminVlogRankBadge = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -252,7 +257,7 @@ export const VlogRankBadge = styled.div`
   box-shadow: 0 0.15rem 0.25rem rgba(0,0,0,0.1);
 `;
 
-export const VlogActionBtn = styled.button`
+export const AdminVlogActionBtn = styled.button`
   background: #eaecf4;
   border: none;
   color: #5a5c69;
@@ -273,7 +278,7 @@ export const VlogActionBtn = styled.button`
   }
 `;
 
-export const VlogDeleteBtn = styled.button`
+export const AdminVlogDeleteBtn = styled.button`
   background: transparent;
   border: none;
   color: #e74a3b;

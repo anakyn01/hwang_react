@@ -4,25 +4,25 @@ import styled from 'styled-components';
 // 🎯 안전시스템 관리 (Safety) 전용 스타일
 // -----------------------------------------
 
-export const SafetyContainer = styled.div`
+export const AdminSafetyContainer = styled.div`
   width: 100%;
 `;
 
-export const SafetyPageHeader = styled.div`
+export const AdminSafetyPageHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 `;
 
-export const SafetyPageTitle = styled.h1`
+export const AdminSafetyPageTitle = styled.h1`
   font-size: 1.5rem;
   color: #5a5c69;
   font-weight: 700;
   margin: 0;
 `;
 
-export const SafetySaveButton = styled.button`
+export const AdminSafetySaveButton = styled.button`
   background-color: #4e73df;
   color: white;
   border: none;
@@ -42,7 +42,7 @@ export const SafetySaveButton = styled.button`
   }
 `;
 
-export const SafetyGrid = styled.div`
+export const AdminSafetyGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 1.5rem;
@@ -52,17 +52,17 @@ export const SafetyGrid = styled.div`
   }
 `;
 
-export const SafetyLeftColumn = styled.div`
+export const AdminSafetyLeftColumn = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const SafetyRightColumn = styled.div`
+export const AdminSafetyRightColumn = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const SafetyCard = styled.div`
+export const AdminSafetyCard = styled.div`
   background-color: #fff;
   border-radius: 0.35rem;
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
@@ -70,28 +70,28 @@ export const SafetyCard = styled.div`
   overflow: hidden;
 `;
 
-export const SafetyCardHeader = styled.div`
+export const AdminSafetyCardHeader = styled.div`
   background-color: #f8f9fc;
   border-bottom: 1px solid #e3e6f0;
   padding: 1rem 1.25rem;
 `;
 
-export const SafetyCardTitle = styled.h6`
+export const AdminSafetyCardTitle = styled.h6`
   margin: 0;
   font-weight: 700;
   color: #4e73df;
 `;
 
-export const SafetyCardBody = styled.div`
+export const AdminSafetyCardBody = styled.div`
   padding: 1.5rem;
   color: #858796;
 `;
 
-export const SafetyFormGroup = styled.div`
+export const AdminSafetyFormGroup = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-export const SafetyLabel = styled.label`
+export const AdminSafetyLabel = styled.label`
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
@@ -99,7 +99,7 @@ export const SafetyLabel = styled.label`
   margin-bottom: 0.5rem;
 `;
 
-export const SafetyInput = styled.input`
+export const AdminSafetyInput = styled.input`
   width: 100%;
   padding: 0.6rem 1rem;
   font-size: 0.9rem;
@@ -116,7 +116,7 @@ export const SafetyInput = styled.input`
 `;
 
 // 💡 상세 설명을 위한 Textarea 컴포넌트 추가
-export const SafetyTextarea = styled.textarea`
+export const AdminSafetyTextarea = styled.textarea`
   width: 100%;
   padding: 0.6rem 1rem;
   font-size: 0.9rem;
@@ -134,7 +134,7 @@ export const SafetyTextarea = styled.textarea`
   }
 `;
 
-export const SafetyFileInputWrapper = styled.div`
+export const AdminSafetyFileInputWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -146,11 +146,11 @@ export const SafetyFileInputWrapper = styled.div`
   }
 `;
 
-export const SafetyFileInput = styled.input`
+export const AdminSafetyFileInput = styled.input`
   display: none;
 `;
 
-export const SafetyFileLabel = styled.label`
+export const AdminSafetyFileLabel = styled.label`
   background-color: #fff;
   border: 1px solid #d1d3e2;
   padding: 0.5rem 1rem;
@@ -169,7 +169,7 @@ export const SafetyFileLabel = styled.label`
   }
 `;
 
-export const SafetyPreviewRect = styled.div`
+export const AdminSafetyPreviewRect = styled.div`
   width: 120px;
   height: 120px;
   border-radius: 0.5rem;
@@ -185,7 +185,7 @@ export const SafetyPreviewRect = styled.div`
   }
 `;
 
-export const SafetyAddButton = styled.button`
+export const AdminSafetyAddButton = styled.button`
   width: 100%;
   background-color: #fff;
   border: 1px dashed #b7b9cc;
@@ -206,13 +206,13 @@ export const SafetyAddButton = styled.button`
   }
 `;
 
-export const SafetyTableWrapper = styled.div`
+export const AdminSafetyTableWrapper = styled.div`
   width: 100%;
   overflow-x: auto;
   padding: 1rem;
 `;
 
-export const SafetyTable = styled.table`
+export const AdminSafetyTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: center;
@@ -234,7 +234,7 @@ export const SafetyTable = styled.table`
   }
 `;
 
-export const SafetyThumbnail = styled.div`
+export const AdminSafetyThumbnail = styled.div`
   width: 80px;
   height: 80px;
   border-radius: 0.35rem;
@@ -254,7 +254,7 @@ export const SafetyThumbnail = styled.div`
   }
 `;
 
-export const SafetyRankBadge = styled.div`
+export const AdminSafetyRankBadge = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -268,7 +268,7 @@ export const SafetyRankBadge = styled.div`
   box-shadow: 0 0.15rem 0.25rem rgba(0,0,0,0.1);
 `;
 
-export const SafetyActionBtn = styled.button`
+export const AdminSafetyActionBtn = styled.button`
   background: #eaecf4;
   border: none;
   color: #5a5c69;
@@ -289,7 +289,7 @@ export const SafetyActionBtn = styled.button`
   }
 `;
 
-export const SafetyDeleteBtn = styled.button`
+export const AdminSafetyDeleteBtn = styled.button`
   background: transparent;
   border: none;
   color: #e74a3b;

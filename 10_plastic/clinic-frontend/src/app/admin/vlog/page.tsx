@@ -118,77 +118,77 @@ export default function Vlog() {
         <>
             <Layout>
                 <S.VlogContainer>
-                    <S.VlogPageHeader>
-                        <S.VlogPageTitle>VLOG 영상 관리</S.VlogPageTitle>
-                        <S.VlogSaveButton onClick={handleSave}>
+                    <S.AdminVlogPageHeader>
+                        <S.AdminVlogPageTitle>VLOG 영상 관리</S.AdminVlogPageTitle>
+                        <S.AdminVlogSaveButton onClick={handleSave}>
                             <FiSave size={18} /> 설정 저장하기
-                        </S.VlogSaveButton>
-                    </S.VlogPageHeader>
+                        </S.AdminVlogSaveButton>
+                    </S.AdminVlogPageHeader>
 
-                    <S.VlogGrid>
+                    <S.AdminVlogGrid>
                         {/* ⚙️ 1. 새 VLOG 등록 폼 (좌측) */}
-                        <S.VlogLeftColumn>
-                            <S.VlogCard>
-                                <S.VlogCardHeader>
-                                    <S.VlogCardTitle>새 영상 등록</S.VlogCardTitle>
-                                </S.VlogCardHeader>
-                                <S.VlogCardBody>
-                                    <S.VlogFormGroup>
-                                        <S.VlogLabel>영상 썸네일 이미지 (권장 비율 16:9)</S.VlogLabel>
-                                        <S.VlogFileInputWrapper>
-                                            <S.VlogFileInput 
+                        <S.AdminVlogLeftColumn>
+                            <S.AdminVlogCard>
+                                <S.AdminVlogCardHeader>
+                                    <S.AdminVlogCardTitle>새 영상 등록</S.AdminVlogCardTitle>
+                                </S.AdminVlogCardHeader>
+                                <S.AdminVlogCardBody>
+                                    <S.AdminVlogFormGroup>
+                                        <S.AdminVlogLabel>영상 썸네일 이미지 (권장 비율 16:9)</S.AdminVlogLabel>
+                                        <S.AdminVlogFileInputWrapper>
+                                            <S.AdminVlogFileInput 
                                                 type="file" 
                                                 id="vlog-img" 
                                                 accept="image/*"
                                                 onChange={handleFileChange}
                                             />
-                                            <S.VlogFileLabel htmlFor="vlog-img"><FiImage /> 이미지 선택</S.VlogFileLabel>
+                                            <S.AdminVlogFileLabel htmlFor="vlog-img"><FiImage /> 이미지 선택</S.AdminVlogFileLabel>
                                             <span className="file-name">{fileName || "선택된 파일 없음"}</span>
-                                        </S.VlogFileInputWrapper>
+                                        </S.AdminVlogFileInputWrapper>
                                         
                                         {/* 16:9 비율의 미리보기 영역 */}
                                         {previewUrl && (
-                                            <S.VlogPreviewRect>
+                                            <S.AdminVlogPreviewRect>
                                                 <img src={previewUrl} alt="썸네일 미리보기" />
-                                            </S.VlogPreviewRect>
+                                            </S.AdminVlogPreviewRect>
                                         )}
-                                    </S.VlogFormGroup>
+                                    </S.AdminVlogFormGroup>
 
-                                    <S.VlogFormGroup>
-                                        <S.VlogLabel>영상 제목 (노출될 텍스트)</S.VlogLabel>
-                                        <S.VlogInput 
+                                    <S.AdminVlogFormGroup>
+                                        <S.AdminVlogLabel>영상 제목 (노출될 텍스트)</S.AdminVlogLabel>
+                                        <S.AdminVlogInput 
                                             type="text" 
                                             placeholder="예: 광대·사각턱·이중턱 싹 지우고 온 후기"
                                             value={newVlog.title}
                                             onChange={(e) => setNewVlog({...newVlog, title: e.target.value})}
                                         />
-                                    </S.VlogFormGroup>
+                                    </S.AdminVlogFormGroup>
 
-                                    <S.VlogFormGroup>
-                                        <S.VlogLabel>영상 링크 (유튜브 URL 등)</S.VlogLabel>
-                                        <S.VlogInput 
+                                    <S.AdminVlogFormGroup>
+                                        <S.AdminVlogLabel>영상 링크 (유튜브 URL 등)</S.AdminVlogLabel>
+                                        <S.AdminVlogInput 
                                             type="text" 
                                             placeholder="예: https://youtube.com/watch?v=..."
                                             value={newVlog.videoUrl}
                                             onChange={(e) => setNewVlog({...newVlog, videoUrl: e.target.value})}
                                         />
-                                    </S.VlogFormGroup>
+                                    </S.AdminVlogFormGroup>
 
-                                    <S.VlogAddButton onClick={handleAddVlog}>
+                                    <S.AdminVlogAddButton onClick={handleAddVlog}>
                                         <FiPlus size={18} /> 리스트에 추가
-                                    </S.VlogAddButton>
-                                </S.VlogCardBody>
-                            </S.VlogCard>
-                        </S.VlogLeftColumn>
+                                    </S.AdminVlogAddButton>
+                                </S.AdminVlogCardBody>
+                            </S.AdminVlogCard>
+                        </S.AdminVlogLeftColumn>
 
                         {/* 📋 2. 등록된 VLOG 리스트 (우측) */}
-                        <S.VlogRightColumn>
-                            <S.VlogCard style={{ height: '100%' }}>
-                                <S.VlogCardHeader>
-                                    <S.VlogCardTitle>현재 노출 순서 (총 {vlogList.length}개)</S.VlogCardTitle>
-                                </S.VlogCardHeader>
-                                <S.VlogTableWrapper>
-                                    <S.VlogTable>
+                        <S.AdminVlogRightColumn>
+                            <S.AdminVlogCard style={{ height: '100%' }}>
+                                <S.AdminVlogCardHeader>
+                                    <S.AdminVlogCardTitle>현재 노출 순서 (총 {vlogList.length}개)</S.AdminVlogCardTitle>
+                                </S.AdminVlogCardHeader>
+                                <S.AdminVlogTableWrapper>
+                                    <S.AdminVlogTable>
                                         <thead>
                                             <tr>
                                                 <th>순위/이동</th>
@@ -202,21 +202,21 @@ export default function Vlog() {
                                                 <tr key={vlog.id}>
                                                     <td>
                                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem' }}>
-                                                            <S.VlogRankBadge>{index + 1}</S.VlogRankBadge>
+                                                            <S.AdminVlogRankBadge>{index + 1}</S.AdminVlogRankBadge>
                                                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                                                                <S.VlogActionBtn onClick={() => moveVlog(index, 'UP')} disabled={index === 0}>
+                                                                <S.AdminVlogActionBtn onClick={() => moveVlog(index, 'UP')} disabled={index === 0}>
                                                                     <FiArrowUp size={14} />
-                                                                </S.VlogActionBtn>
-                                                                <S.VlogActionBtn onClick={() => moveVlog(index, 'DOWN')} disabled={index === vlogList.length - 1}>
+                                                                </S.AdminVlogActionBtn>
+                                                                <S.AdminVlogActionBtn onClick={() => moveVlog(index, 'DOWN')} disabled={index === vlogList.length - 1}>
                                                                     <FiArrowDown size={14} />
-                                                                </S.VlogActionBtn>
+                                                                </S.AdminVlogActionBtn>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <S.VlogThumbnail>
+                                                        <S.AdminVlogThumbnail>
                                                             {vlog.thumbnailUrl ? <img src={vlog.thumbnailUrl} alt={vlog.title} /> : <span>No Img</span>}
-                                                        </S.VlogThumbnail>
+                                                        </S.AdminVlogThumbnail>
                                                     </td>
                                                     <td style={{ textAlign: 'left' }}>
                                                         <strong>{vlog.title}</strong>
@@ -225,9 +225,9 @@ export default function Vlog() {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <S.VlogDeleteBtn onClick={() => handleDeleteClick(vlog.id)}>
+                                                        <S.AdminVlogDeleteBtn onClick={() => handleDeleteClick(vlog.id)}>
                                                             <FiTrash2 size={16} />
-                                                        </S.VlogDeleteBtn>
+                                                        </S.AdminVlogDeleteBtn>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -235,11 +235,11 @@ export default function Vlog() {
                                                 <tr><td colSpan={4} style={{ padding: '3rem 0' }}>등록된 영상이 없습니다.</td></tr>
                                             )}
                                         </tbody>
-                                    </S.VlogTable>
-                                </S.VlogTableWrapper>
-                            </S.VlogCard>
-                        </S.VlogRightColumn>
-                    </S.VlogGrid>
+                                    </S.AdminVlogTable>
+                                </S.AdminVlogTableWrapper>
+                            </S.AdminVlogCard>
+                        </S.AdminVlogRightColumn>
+                    </S.AdminVlogGrid>
                 </S.VlogContainer>
             </Layout>
 
