@@ -1,3 +1,4 @@
+"use client"
 import styled,{keyframes, Keyframes} from 'styled-components';
 
 export const MAIN_COLOR = '#ffe6f0';
@@ -1770,5 +1771,6 @@ export * from './User.styles';
 export * from './Board.styles';
 export * from './Vlog.styles';
 export * from './Safety.styles';
+export * from './Dash.styles';
 
 
