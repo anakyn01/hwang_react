@@ -1,0 +1,27 @@
+import styled from 'styled-components';
+
+export const EventAdminContainer = styled.div``;
+export const EventPageHeader = styled.div``;
+export const EventPageTitle = styled.h1``;
+export const EventSaveButton = styled.button``;
+export const EventGrid = styled.div``;
+export const EventLeftColumn = styled.div``;
+export const EventRightColumn = styled.div``;
+export const EventCard = styled.div``;
+export const EventCardHeader = styled.div``;
+export const EventCardTitle = styled.h6``;
+export const EventCardBody = styled.div``;
+export const EventFormGroup = styled.div``;
+export const EventLabel = styled.label``;
+export const EventInput = styled.input``;
+export const EventFileInputWrapper = styled.div``;
+export const EventFileInput = styled.input``;
+export const EventFileLabel = styled.label``;
+export const EventPreviewReact = styled.div``;
+export const EventAddButton = styled.button``;
+export const EventTableWrapper = styled.div``;
+export const EventTable = styled.table``;
+export const EventThumbnail = styled.div``;
+export const EventRankBadge = styled.div``;
+export const EventActionBtn = styled.button``;
+export const EventDeleteBtn = styled.button``;

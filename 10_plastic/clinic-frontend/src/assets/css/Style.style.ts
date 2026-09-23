@@ -1764,5 +1764,6 @@ export * from './Consult.styles';
 export * from './Pop.styles';
 export * from './News.styles';
 export * from './Self.styles';
+export * from './Event.styles';
 
 
