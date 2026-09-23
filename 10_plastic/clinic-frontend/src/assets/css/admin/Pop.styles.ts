@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BoxShadow, FlexCenter, FlexColumn, TransitionAll } from './Common.styles';
 // -----------------------------------------
 // 🎯 팝업 관리 (Pop) 전용 스타일
 // -----------------------------------------
@@ -8,9 +9,7 @@ export const PopContainer = styled.div`
 `;
 
 export const PopPageHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+${FlexCenter}
   margin-bottom: 1.5rem;
 `;
 
@@ -29,12 +28,11 @@ export const PopSaveButton = styled.button`
   border-radius: 0.35rem;
   font-size: 0.9rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
+ ${FlexCenter}
   gap: 0.5rem;
   cursor: pointer;
-  box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.2);
-  transition: background-color 0.2s;
+${BoxShadow}
+${TransitionAll}
 
   &:hover {
     background-color: #2e59d9;
@@ -52,19 +50,17 @@ export const PopGrid = styled.div`
 `;
 
 export const PopLeftColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
 `;
 
 export const PopRightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
 `;
 
 export const PopCard = styled.div`
   background-color: #fff;
   border-radius: 0.35rem;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+${BoxShadow}
   border: 1px solid #e3e6f0;
   overflow: hidden;
 `;
@@ -96,8 +92,7 @@ export const PopLabel = styled.label`
   font-weight: 700;
   color: #5a5c69;
   margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
+${FlexCenter}
   gap: 0.3rem;
 `;
 
@@ -119,8 +114,7 @@ export const PopInput = styled.input`
 `;
 
 export const PopFileInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
+${FlexCenter}
   gap: 1rem;
   
   .file-name {
@@ -143,8 +137,7 @@ export const PopFileLabel = styled.label`
   font-weight: 600;
   color: #5a5c69;
   cursor: pointer;
-  display: flex;
-  align-items: center;
+${FlexCenter}
   gap: 0.4rem;
   white-space: nowrap;
   
@@ -154,8 +147,7 @@ export const PopFileLabel = styled.label`
 `;
 
 export const PopCheckboxLabel = styled.label`
-  display: flex;
-  align-items: center;
+${FlexCenter}
   gap: 0.5rem;
   font-size: 0.9rem;
   color: #5a5c69;
@@ -179,9 +171,7 @@ export const PopAddButton = styled.button`
   border-radius: 0.35rem;
   font-weight: 600;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
   gap: 0.5rem;
   transition: all 0.2s ease;
 
@@ -241,7 +231,7 @@ export const PopDeleteBtn = styled.button`
   cursor: pointer;
   padding: 0.4rem;
   border-radius: 0.25rem;
-  transition: background-color 0.2s;
+${TransitionAll}
 
   &:hover {
     background-color: #fdeaea;

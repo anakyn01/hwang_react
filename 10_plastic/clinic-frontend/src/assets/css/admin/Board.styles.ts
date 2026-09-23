@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BoxShadow, FlexBetween, FlexCenter, FlexColumn, TransitionAll } from './Common.styles';
 
 // -----------------------------------------
 // 🎯 게시판 관리 (Board Admin) 전용 스타일
@@ -9,9 +10,7 @@ export const BoardContainer = styled.div`
 `;
 
 export const BoardPageHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+${FlexBetween}
   margin-bottom: 1.5rem;
 `;
 
@@ -30,12 +29,11 @@ export const BoardSaveButton = styled.button`
   border-radius: 0.35rem;
   font-size: 0.9rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
+${FlexCenter}
   gap: 0.5rem;
   cursor: pointer;
-  box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.2);
-  transition: background-color 0.2s;
+${BoxShadow}
+${TransitionAll}
 
   &:hover {
     background-color: #2e59d9;
@@ -53,19 +51,17 @@ export const BoardGrid = styled.div`
 `;
 
 export const BoardLeftColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
 `;
 
 export const BoardRightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
 `;
 
 export const BoardCard = styled.div`
   background-color: #fff;
   border-radius: 0.35rem;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+${BoxShadow}
   border: 1px solid #e3e6f0;
   overflow: hidden;
 `;
@@ -142,12 +138,10 @@ export const BoardAddButton = styled.button`
   border-radius: 0.35rem;
   font-weight: 700;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
   gap: 0.5rem;
   margin-top: 1.5rem;
-  transition: all 0.2s ease;
+${TransitionAll}
 
   &:hover {
     background-color: #eaecf4;
@@ -209,10 +203,7 @@ export const BoardActionBtn = styled.button`
   cursor: pointer;
   padding: 0.4rem;
   border-radius: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
+${FlexCenter}
   &:hover {
     background-color: #d1d3e2;
   }
@@ -225,9 +216,7 @@ export const BoardDeleteBtn = styled.button`
   cursor: pointer;
   padding: 0.4rem;
   border-radius: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
 
   &:hover {
     background-color: #fdeaea;

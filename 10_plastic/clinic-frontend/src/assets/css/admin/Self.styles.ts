@@ -1,28 +1,27 @@
 import styled from 'styled-components';
+import { BoxShadow, FlexBetween, FlexCenter, FlexColumn, TransitionAll } from './Common.styles';
 
 // -----------------------------------------
-// 🎯 안전시스템 관리 (Safety) 전용 스타일
+// 🎯 셀피 관리 (Self) 전용 스타일
 // -----------------------------------------
 
-export const AdminSafetyContainer = styled.div`
+export const SelfContainer = styled.div`
   width: 100%;
 `;
 
-export const AdminSafetyPageHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+export const SelfPageHeader = styled.div`
+${FlexBetween}
   margin-bottom: 1.5rem;
 `;
 
-export const AdminSafetyPageTitle = styled.h1`
+export const SelfPageTitle = styled.h1`
   font-size: 1.5rem;
   color: #5a5c69;
   font-weight: 700;
   margin: 0;
 `;
 
-export const AdminSafetySaveButton = styled.button`
+export const SelfSaveButton = styled.button`
   background-color: #4e73df;
   color: white;
   border: none;
@@ -34,15 +33,15 @@ export const AdminSafetySaveButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.2);
-  transition: background-color 0.2s;
+${BoxShadow}
+${TransitionAll}
 
   &:hover {
     background-color: #2e59d9;
   }
 `;
 
-export const AdminSafetyGrid = styled.div`
+export const SelfGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 1.5rem;
@@ -52,54 +51,54 @@ export const AdminSafetyGrid = styled.div`
   }
 `;
 
-export const AdminSafetyLeftColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+export const SelfLeftColumn = styled.div`
+${FlexColumn}
 `;
 
-export const AdminSafetyRightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+export const SelfRightColumn = styled.div`
+${FlexColumn}
 `;
 
-export const AdminSafetyCard = styled.div`
+export const SelfCard = styled.div`
   background-color: #fff;
   border-radius: 0.35rem;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+${BoxShadow}
   border: 1px solid #e3e6f0;
   overflow: hidden;
 `;
 
-export const AdminSafetyCardHeader = styled.div`
+export const SelfCardHeader = styled.div`
   background-color: #f8f9fc;
   border-bottom: 1px solid #e3e6f0;
   padding: 1rem 1.25rem;
 `;
 
-export const AdminSafetyCardTitle = styled.h6`
+export const SelfCardTitle = styled.h6`
   margin: 0;
   font-weight: 700;
   color: #4e73df;
 `;
 
-export const AdminSafetyCardBody = styled.div`
+export const SelfCardBody = styled.div`
   padding: 1.5rem;
   color: #858796;
 `;
 
-export const AdminSafetyFormGroup = styled.div`
+export const SelfFormGroup = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-export const AdminSafetyLabel = styled.label`
+export const SelfLabel = styled.label`
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
   color: #5a5c69;
   margin-bottom: 0.5rem;
+${FlexCenter}
+  gap: 0.3rem;
 `;
 
-export const AdminSafetyInput = styled.input`
+export const SelfInput = styled.input`
   width: 100%;
   padding: 0.6rem 1rem;
   font-size: 0.9rem;
@@ -115,28 +114,8 @@ export const AdminSafetyInput = styled.input`
   }
 `;
 
-// 💡 상세 설명을 위한 Textarea 컴포넌트 추가
-export const AdminSafetyTextarea = styled.textarea`
-  width: 100%;
-  padding: 0.6rem 1rem;
-  font-size: 0.9rem;
-  color: #5a5c69;
-  background-color: #fff;
-  border: 1px solid #d1d3e2;
-  border-radius: 0.35rem;
-  outline: none;
-  box-sizing: border-box;
-  resize: vertical;
-  min-height: 80px;
-
-  &:focus {
-    border-color: #4e73df;
-  }
-`;
-
-export const AdminSafetyFileInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
+export const SelfFileInputWrapper = styled.div`
+${FlexCenter}
   gap: 1rem;
   
   .file-name {
@@ -146,11 +125,11 @@ export const AdminSafetyFileInputWrapper = styled.div`
   }
 `;
 
-export const AdminSafetyFileInput = styled.input`
+export const SelfFileInput = styled.input`
   display: none;
 `;
 
-export const AdminSafetyFileLabel = styled.label`
+export const SelfFileLabel = styled.label`
   background-color: #fff;
   border: 1px solid #d1d3e2;
   padding: 0.5rem 1rem;
@@ -159,8 +138,7 @@ export const AdminSafetyFileLabel = styled.label`
   font-weight: 600;
   color: #5a5c69;
   cursor: pointer;
-  display: flex;
-  align-items: center;
+${FlexCenter}
   gap: 0.4rem;
   white-space: nowrap;
   
@@ -169,9 +147,9 @@ export const AdminSafetyFileLabel = styled.label`
   }
 `;
 
-export const AdminSafetyPreviewRect = styled.div`
+export const SelfPreviewRect = styled.div`
   width: 120px;
-  height: 120px;
+  height: 160px;
   border-radius: 0.5rem;
   overflow: hidden;
   border: 2px solid #e3e6f0;
@@ -185,7 +163,7 @@ export const AdminSafetyPreviewRect = styled.div`
   }
 `;
 
-export const AdminSafetyAddButton = styled.button`
+export const SelfAddButton = styled.button`
   width: 100%;
   background-color: #fff;
   border: 1px dashed #b7b9cc;
@@ -194,9 +172,7 @@ export const AdminSafetyAddButton = styled.button`
   border-radius: 0.35rem;
   font-weight: 600;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
   gap: 0.5rem;
   margin-top: 1.5rem;
 
@@ -206,13 +182,13 @@ export const AdminSafetyAddButton = styled.button`
   }
 `;
 
-export const AdminSafetyTableWrapper = styled.div`
+export const SelfTableWrapper = styled.div`
   width: 100%;
   overflow-x: auto;
   padding: 1rem;
 `;
 
-export const AdminSafetyTable = styled.table`
+export const SelfTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: center;
@@ -234,16 +210,14 @@ export const AdminSafetyTable = styled.table`
   }
 `;
 
-export const AdminSafetyThumbnail = styled.div`
-  width: 80px;
+export const SelfThumbnail = styled.div`
+  width: 60px;
   height: 80px;
   border-radius: 0.35rem;
   background-color: #eaecf4;
   margin: 0 auto;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
   font-size: 0.7rem;
   color: #b7b9cc;
 
@@ -254,42 +228,24 @@ export const AdminSafetyThumbnail = styled.div`
   }
 `;
 
-export const AdminSafetyRankBadge = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #1cc88a; /* 안전 관련이므로 그린 계열로 적용 */
-  color: #fff;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  box-shadow: 0 0.15rem 0.25rem rgba(0,0,0,0.1);
-`;
-
-export const AdminSafetyActionBtn = styled.button`
-  background: #eaecf4;
-  border: none;
-  color: #5a5c69;
+export const SelfStatusBadge = styled.span<{ $isActive: boolean }>`
+  background-color: ${(props) => (props.$isActive ? "#1cc88a" : "#858796")};
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
   cursor: pointer;
-  padding: 0.3rem;
-  border-radius: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-  
-  &:hover:not(:disabled) {
-    background-color: #d1d3e2;
+  display: inline-block;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
   }
 `;
 
-export const AdminSafetyDeleteBtn = styled.button`
+export const SelfDeleteBtn = styled.button`
   background: transparent;
   border: none;
   color: #e74a3b;

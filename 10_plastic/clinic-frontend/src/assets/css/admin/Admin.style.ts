@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import { BoxShadow, FlexCenter, FlexColumn, TransitionAll } from './Common.styles';
+
+export * from '../admin/AdminCommon.style';
+export * from '../admin/Admin.style';
 
 // 🎯 SB Admin 시그니처: 블루 그라데이션 전체 화면 배경
 export const LoginWrapper = styled.div`
@@ -6,9 +10,7 @@ export const LoginWrapper = styled.div`
   background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
   background-size: cover;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
   padding: 20px;
 `;
 
@@ -17,7 +19,7 @@ export const LoginCard = styled.div`
   background-color: #fff;
   border: none;
   border-radius: 0.35rem;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  ${BoxShadow}
   width: 100%;
   max-width: 450px;
   padding: 3rem;
@@ -36,8 +38,7 @@ export const LoginTitle = styled.h1`
 `;
 
 export const LoginForm = styled.form`
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
   gap: 1rem;
 `;
 
@@ -50,7 +51,7 @@ export const LoginInput = styled.input`
   border: 1px solid #d1d3e2;
   color: #6e707e;
   outline: none;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  ${TransitionAll}
 
   &:focus {
     border-color: #bac8f3;
@@ -59,8 +60,7 @@ export const LoginInput = styled.input`
 `;
 
 export const CheckboxGroup = styled.div`
-  display: flex;
-  align-items: center;
+${FlexCenter}
   padding-left: 0.5rem;
 `;
 
@@ -86,7 +86,7 @@ export const LoginButton = styled.button`
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.15s ease-in-out;
+${TransitionAll}
   margin-top: 10px;
 
   &:hover {
@@ -102,9 +102,7 @@ export const Divider = styled.hr`
 `;
 
 export const LinkGroup = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+${FlexCenter}
   gap: 0.5rem;
 `;
 
@@ -119,3 +117,23 @@ export const StyledLink = styled.a`
     color: #224abe;
   }
 `;
+
+
+
+
+
+
+export * from './News.styles';
+export * from './Self.styles';
+export * from './Event.styles';
+export * from './Footer.styles';
+export * from './User.styles';
+export * from './Board.styles';
+export * from './Vlog.styles';
+export * from './Safety.styles';
+
+export * from './Dash.styles';
+export * from './Consult.styles';
+export * from './Tone.styles';
+export * from './NavSetting.style';
+export * from './Pop.styles';

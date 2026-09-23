@@ -1,14 +1,13 @@
 "use client";
 import styled from 'styled-components';
+import { FlexBetween, FlexCenter, FlexColumn } from './Common.styles';
 
 export const DashContainer = styled.div`
   width: 100%;
 `;
 
 export const DashHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+${FlexBetween}
   margin-bottom: 1.5rem;
 `;
 
@@ -43,9 +42,7 @@ export const SummaryCard = styled.div<{ $color: string }>`
 `;
 
 export const SummaryCardBody = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+${FlexBetween}
 `;
 
 export const SummaryTitle = styled.div<{ $color: string }>`
@@ -84,8 +81,7 @@ export const ChartCard = styled.div`
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
   border: 1px solid #e3e6f0;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
 `;
 
 export const ChartHeader = styled.div`
@@ -120,8 +116,7 @@ export const BarChartContainer = styled.div`
 `;
 
 export const BarWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
   align-items: center;
   justify-content: flex-end;
   height: 100%;
@@ -162,9 +157,7 @@ export const DonutChart = styled.div`
     #1cc88a 45% 75%,
     #36b9cc 75% 100%
   );
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
   margin-right: 1.5rem;
 
   .inner-circle {
@@ -172,23 +165,19 @@ export const DonutChart = styled.div`
     height: 110px;
     background-color: #fff;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+${FlexCenter}
     font-weight: 700;
     color: #5a5c69;
   }
 `;
 
 export const LegendContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
   gap: 0.8rem;
 `;
 
 export const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
+${FlexCenter}
   font-size: 0.85rem;
   color: #858796;
 
@@ -214,15 +203,12 @@ export const SystemGrid = styled.div`
 export const SystemCard = styled(ChartCard)``;
 
 export const StatusList = styled.div`
-  display: flex;
-  flex-direction: column;
+${FlexColumn}
   gap: 1rem;
 `;
 
 export const StatusItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+${FlexBetween}
   padding-bottom: 0.8rem;
   border-bottom: 1px dashed #eaecf4;
 
@@ -235,8 +221,7 @@ export const StatusItem = styled.div`
     font-size: 0.9rem;
     color: #5a5c69;
     font-weight: 600;
-    display: flex;
-    align-items: center;
+${FlexCenter}
     gap: 0.5rem;
   }
 `;

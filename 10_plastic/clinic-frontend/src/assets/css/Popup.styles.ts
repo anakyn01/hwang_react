@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FlexCenter, BoxShadow, TransitionAll,
      FlexBetween, FlexRight } 
-from './Common.styles';
+from './admin/Common.styles';
 
 export const PopupOverlay = styled.div`
 position:fixed;

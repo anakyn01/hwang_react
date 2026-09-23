@@ -2,7 +2,7 @@
 import React from "react";
 
 import { Layout } from "../Layout";
-import * as S from "@/assets/css/Style.style";
+import * as S from "@/assets/css/admin/Admin.style";
 import {
 FiUserPlus, FiPhoneCall, FiSearch, FiAlertOctagon    
 } from "react-icons/fi";

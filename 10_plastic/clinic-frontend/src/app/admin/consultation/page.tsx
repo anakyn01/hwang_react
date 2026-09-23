@@ -1,6 +1,6 @@
 "use client";
 import React ,{useState} from "react";
-import * as S from "@/assets/css/Style.style";
+import * as S from "@/assets/css/admin/Admin.style";
 import { FiTrash2, FiSearch, FiCheck } from "react-icons/fi";
 
 import { Layout } from "../Layout";

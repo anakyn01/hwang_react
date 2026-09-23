@@ -2,7 +2,7 @@
 // 🎯 푸터 설정 관리 (Footer Admin) 전용 스타일
 // -----------------------------------------
 import styled from 'styled-components';
-import { BoxShadow, FlexBetween, FlexCenter, FlexColumn, TransitionAll } from './Common.styles';
+import { BoxShadow, FlexBetween, FlexCenter, FlexColumn, TransitionAll } from '../admin/Common.styles';
 
 export const FooterAdminContainer = styled.div`
   width: 100%;

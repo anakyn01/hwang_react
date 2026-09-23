@@ -2,7 +2,7 @@
 import React from "react";
 import { Layout } from "../Layout";
 // 💡 직통 임포트(Direct Import)를 사용하여 스타일 깨짐 방지
-import * as S from "@/assets/css/Style.style";
+import * as S from "@/assets/css/admin/Admin.style";
 import { 
     FiMessageSquare, FiUsers, FiStar, FiClipboard, 
     FiTrendingUp, FiPieChart, FiLayout, FiLayers, 

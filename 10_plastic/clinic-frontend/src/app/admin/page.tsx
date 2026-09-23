@@ -1,7 +1,7 @@
 "use client";
 import React,{useState}from 'react';
 import {useRouter} from 'next/navigation';
-import * as S from '@/assets/css/Admin.style';
+import * as S from '@/assets/css/admin/Admin.style';
 
 export default function LoginPage(){
     const router = useRouter();

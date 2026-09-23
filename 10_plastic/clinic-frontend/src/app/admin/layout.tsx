@@ -1,7 +1,7 @@
 "use client";
 import React,{useState} from "react";
 import { useRouter } from "next/navigation";
-import * as S from '@/assets/css/Style.style';
+import * as S from '@/assets/css/admin/Admin.style';
 import { Popup } from "@/component/modal/Popup";
 
 //아이콘

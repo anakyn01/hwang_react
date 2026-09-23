@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import * as S from "@/assets/css/Style.style";
+import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2 } from "react-icons/fi";
 import { Layout } from "../Layout";
 import { Popup } from "@/component/modal/Popup";

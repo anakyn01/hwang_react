@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BoxShadow, FlexBetween, FlexCenter, FlexColumn, TransitionAll } from './Common.styles';
+import { BoxShadow, FlexBetween, FlexCenter, FlexColumn, TransitionAll } from '../admin/Common.styles';
 
 export const SetNavContainer = styled.div`
 width:100%;

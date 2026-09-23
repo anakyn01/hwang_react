@@ -1,5 +1,5 @@
 import styled,{keyframes, Keyframes} from 'styled-components';
-import { BoxShadow, CircleBtn, FlexBetween, FlexCenter, FlexColumn, FlexStart, FlexTopBetween, FlexWrap, LinearGradient, TransitionAll, Transparent } from './Common.styles';
+import { BoxShadow, CircleBtn, FlexBetween, FlexCenter, FlexColumn, FlexStart, FlexTopBetween, FlexWrap, LinearGradient, TransitionAll, Transparent } from '../admin/Common.styles';
 
 export const AdminContainer = styled.div`
 display:flex;

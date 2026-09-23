@@ -1,28 +1,28 @@
 import styled from 'styled-components';
+import { BoxShadow, FlexBetween, FlexCenter, FlexColumn } from './Common.styles';
+
 
 // -----------------------------------------
-// 🎯 셀피 관리 (Self) 전용 스타일
+// 🎯 VLOG 관리 전용 스타일
 // -----------------------------------------
 
-export const SelfContainer = styled.div`
+export const VlogContainer = styled.div`
   width: 100%;
 `;
 
-export const SelfPageHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+export const AdminVlogPageHeader = styled.div`
+${FlexBetween}
   margin-bottom: 1.5rem;
 `;
 
-export const SelfPageTitle = styled.h1`
+export const AdminVlogPageTitle = styled.h1`
   font-size: 1.5rem;
   color: #5a5c69;
   font-weight: 700;
   margin: 0;
 `;
 
-export const SelfSaveButton = styled.button`
+export const AdminVlogSaveButton = styled.button`
   background-color: #4e73df;
   color: white;
   border: none;
@@ -30,8 +30,7 @@ export const SelfSaveButton = styled.button`
   border-radius: 0.35rem;
   font-size: 0.9rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
+${FlexCenter}
   gap: 0.5rem;
   cursor: pointer;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.2);
@@ -42,7 +41,7 @@ export const SelfSaveButton = styled.button`
   }
 `;
 
-export const SelfGrid = styled.div`
+export const AdminVlogGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 1.5rem;
@@ -52,57 +51,55 @@ export const SelfGrid = styled.div`
   }
 `;
 
-export const SelfLeftColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+export const AdminVlogLeftColumn = styled.div`
+${FlexColumn}
+  min-width: 0; /* 💡 핵심 1: 그리드 영역이 강제로 늘어나는 것을 방지 */
+  
 `;
 
-export const SelfRightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+export const AdminVlogRightColumn = styled.div`
+${FlexColumn}
+  min-width: 0; /* 💡 핵심 2: 그리드 영역이 강제로 늘어나는 것을 방지 */
 `;
 
-export const SelfCard = styled.div`
+export const AdminVlogCard = styled.div`
   background-color: #fff;
   border-radius: 0.35rem;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+${BoxShadow}
   border: 1px solid #e3e6f0;
   overflow: hidden;
 `;
 
-export const SelfCardHeader = styled.div`
+export const AdminVlogCardHeader = styled.div`
   background-color: #f8f9fc;
   border-bottom: 1px solid #e3e6f0;
   padding: 1rem 1.25rem;
 `;
 
-export const SelfCardTitle = styled.h6`
+export const AdminVlogCardTitle = styled.h6`
   margin: 0;
   font-weight: 700;
   color: #4e73df;
 `;
 
-export const SelfCardBody = styled.div`
+export const AdminVlogCardBody = styled.div`
   padding: 1.5rem;
   color: #858796;
 `;
 
-export const SelfFormGroup = styled.div`
+export const AdminVlogFormGroup = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-export const SelfLabel = styled.label`
+export const AdminVlogLabel = styled.label`
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
   color: #5a5c69;
   margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
 `;
 
-export const SelfInput = styled.input`
+export const AdminVlogInput = styled.input`
   width: 100%;
   padding: 0.6rem 1rem;
   font-size: 0.9rem;
@@ -118,9 +115,8 @@ export const SelfInput = styled.input`
   }
 `;
 
-export const SelfFileInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
+export const AdminVlogFileInputWrapper = styled.div`
+${FlexCenter}
   gap: 1rem;
   
   .file-name {
@@ -130,11 +126,11 @@ export const SelfFileInputWrapper = styled.div`
   }
 `;
 
-export const SelfFileInput = styled.input`
+export const AdminVlogFileInput = styled.input`
   display: none;
 `;
 
-export const SelfFileLabel = styled.label`
+export const AdminVlogFileLabel = styled.label`
   background-color: #fff;
   border: 1px solid #d1d3e2;
   padding: 0.5rem 1rem;
@@ -143,8 +139,7 @@ export const SelfFileLabel = styled.label`
   font-weight: 600;
   color: #5a5c69;
   cursor: pointer;
-  display: flex;
-  align-items: center;
+${FlexCenter}
   gap: 0.4rem;
   white-space: nowrap;
   
@@ -153,10 +148,11 @@ export const SelfFileLabel = styled.label`
   }
 `;
 
-export const SelfPreviewRect = styled.div`
-  width: 120px;
-  height: 160px;
-  border-radius: 0.5rem;
+// 💡 유튜브 영상처럼 가로가 긴 16:9 비율의 미리보기 영역
+export const AdminVlogPreviewRect = styled.div`
+  width: 160px;
+  height: 90px;
+  border-radius: 0.25rem;
   overflow: hidden;
   border: 2px solid #e3e6f0;
   margin-top: 1rem;
@@ -169,7 +165,7 @@ export const SelfPreviewRect = styled.div`
   }
 `;
 
-export const SelfAddButton = styled.button`
+export const AdminVlogAddButton = styled.button`
   width: 100%;
   background-color: #fff;
   border: 1px dashed #b7b9cc;
@@ -178,9 +174,7 @@ export const SelfAddButton = styled.button`
   border-radius: 0.35rem;
   font-weight: 600;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
   gap: 0.5rem;
   margin-top: 1.5rem;
 
@@ -190,18 +184,19 @@ export const SelfAddButton = styled.button`
   }
 `;
 
-export const SelfTableWrapper = styled.div`
+export const AdminVlogTableWrapper = styled.div`
   width: 100%;
   overflow-x: auto;
   padding: 1rem;
 `;
 
-export const SelfTable = styled.table`
+export const AdminVlogTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: center;
   color: #858796;
   font-size: 0.9rem;
+  table-layout: fixed; /* 💡 핵심 3: 테이블 너비를 고정하여 텍스트가 넘치지 않게 함 */
 
   th {
     color: #5a5c69;
@@ -215,19 +210,19 @@ export const SelfTable = styled.table`
     padding: 1rem 0.5rem;
     border-bottom: 1px solid #eaecf4;
     vertical-align: middle;
+    word-break: break-all; /* 💡 핵심 4: 긴 유튜브 URL이 칸을 넘어가지 않고 줄바꿈되도록 처리 */
   }
 `;
 
-export const SelfThumbnail = styled.div`
-  width: 60px;
-  height: 80px;
-  border-radius: 0.35rem;
+// 💡 리스트 내부의 16:9 썸네일
+export const AdminVlogThumbnail = styled.div`
+  width: 100px;
+  height: 56px; 
+  border-radius: 0.25rem;
   background-color: #eaecf4;
   margin: 0 auto;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${FlexCenter}
   font-size: 0.7rem;
   color: #b7b9cc;
 
@@ -238,24 +233,38 @@ export const SelfThumbnail = styled.div`
   }
 `;
 
-export const SelfStatusBadge = styled.span<{ $isActive: boolean }>`
-  background-color: ${(props) => (props.$isActive ? "#1cc88a" : "#858796")};
-  color: white;
-  padding: 0.3rem 0.6rem;
-  border-radius: 1rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-block;
-  white-space: nowrap;
-  transition: opacity 0.2s;
+export const AdminVlogRankBadge = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #36b9cc;
+  color: #fff;
+  font-weight: 900;
+${FlexCenter}
+  font-size: 0.9rem;
+  box-shadow: 0 0.15rem 0.25rem rgba(0,0,0,0.1);
+`;
 
-  &:hover {
-    opacity: 0.8;
+export const AdminVlogActionBtn = styled.button`
+  background: #eaecf4;
+  border: none;
+  color: #5a5c69;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 0.25rem;
+${FlexCenter}
+  
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  
+  &:hover:not(:disabled) {
+    background-color: #d1d3e2;
   }
 `;
 
-export const SelfDeleteBtn = styled.button`
+export const AdminVlogDeleteBtn = styled.button`
   background: transparent;
   border: none;
   color: #e74a3b;
