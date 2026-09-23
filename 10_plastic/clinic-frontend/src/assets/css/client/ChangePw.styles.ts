@@ -4,7 +4,7 @@ import { FlexCenter, BoxShadow, FlexBetween,
     FlexColumn,
     TransitionAll,
     ButtonBasic,
-    TextCenter} from './admin/Common.styles';
+    TextCenter} from '../admin/Common.styles';
 
 export const PwWrapper= styled.div`
 background-color: #4e73df;
