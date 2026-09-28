@@ -1,9 +1,67 @@
 "use client";
-import React from 'react';
+
+//개발후 연동
+import React ,{useState, useEffect} from 'react';
+import axios from 'axios';
+
+
 import * as S from '@/assets/css/Style.style';
 import Link from 'next/link';
 
+
+//백앤드에서 받아올 데이터의 형태(타입)를 정의
+interface ScheduleData {
+  id:number;
+  departments:string;
+  weekday:string;
+  night:string;
+  weekend:string;
+}
+
+interface FamilySiteData{
+id:number; name:string; url:string;
+}
+
 export default function Footer(){
+
+//1.서버에서 가져온 데이터를 담아둘 빈 바구니 만들기
+const [companyInfo, setCompanyInfo] = useState({
+name:"", address:"", clinicName:"", phone:"",
+email:"", locationUrl:""
+});
+const [schedules, setSchedules] = useState<ScheduleData[]>([]);
+const [familySites, setFamilySites] = useState<FamilySiteData[]>([]);
+const [isLoading, setIsLoading] =useState(true);
+
+useEffect(()=>{
+const fetchFooterData = async () => {
+try{
+const response = await axios.get("http://localhost:4000/api/admin/footer");
+
+if(response.data.success && response.data.data) {
+  const { companyInfo, schedules, familySites} = response.data.data;
+  //db에서 가져온 데이터로 빈 바구니를 채웁니다
+  if(companyInfo) setCompanyInfo(companyInfo);
+  if(schedules)setSchedules(schedules);
+  if(familySites) setFamilySites(familySites);
+}
+}catch(error){
+console.error("클라이언트 푸터 데이터 로드 실패", error);
+}finally{
+setIsLoading(false);
+}
+};
+fetchFooterData();
+},[]);
+//아직 db에서 데이터를 받아오고 있다면..
+if(isLoading) {
+  return <S.SiteFooterWrapper>
+    <S.SiteFooterInner>
+      로딩중...
+    </S.SiteFooterInner>
+  </S.SiteFooterWrapper>
+}
+
     return(
         <>
 <S.SiteFooterWrapper>

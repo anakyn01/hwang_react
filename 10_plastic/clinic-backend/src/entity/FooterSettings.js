@@ -4,7 +4,7 @@ module.exports=new EntitySchema({
     name:"FooterSettings",
     tableName:"FOOTER_SETTINGS",
 columns:{
-id:{primary:true, type:"int"},
+id:{primary:true, type:"int", },
 name:{type:"varchar",length:100, nullable:false},  
 address:{type:"varchar", length:255, nullable:false},
 clinicName:{type:"varchar", length:100, nullable:false},

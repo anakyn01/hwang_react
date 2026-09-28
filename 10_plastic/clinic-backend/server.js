@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const AppDataSource = require("./db"); // db.js 파일 경로 확인
 const Member = require("./src/entity/Member"); // Member.js 파일 경로 확인
 
-const FooterSettings = require("./src/entity/FooterSetting");
+const FooterSettings = require("./src/entity/FooterSettings");
 const nodemailer = require('nodemailer');
 
 const app = express();
@@ -192,6 +192,47 @@ res.status(500).json({
 })
     }
 });
+//footer post
+app.post('/api/admin/footer', async(req, res) => {
+    try{
+//1) 프론트에서 post로 보낸 데이터(req.body)를 3개의 덩어리로 분해
+const {companyInfo, schedules, familySites} = req.body;
+//2) 테이블 저장소를 가지고 옵니다
+const footerRepo = AppDataSource.getRepository(FooterSettings);
+/*3) 덮어쓰기를 하기 위해 기존에 저장된 설정(id가 1번인 데이터)이 
+있는지 먼저 찾아봅니다.*/
+let footer = await footerRepo.findOne({where:{id:1}});
+
+//4. 만약 최초 저장이라 기존 데이터가 없다면?
+if(!footer) {
+//db에 새롭게 넣을 준비를 합니다 이때 고유번호(id)는 무조건 1로 강제 고정합니다!
+footer = footerRepo.create({id:1});
+}
+
+footer.name = companyInfo.name;
+footer.address = companyInfo.address;
+footer.clinicName = companyInfo.clinicName;
+footer.phone = companyInfo.phone;
+footer.email = companyInfo.email;
+footer.locationUrl = companyInfo.locationUrl;
+footer.schedules = schedules;
+footer.familySites = familySites;
+
+//footer객체를 최종적으로 저장
+await footerRepo.save(footer);
+
+//
+res.status(200).json({
+    success:true, message:'푸터설정이 성공적으로 저장되었습니다'
+})
+    } catch(error){
+console.error('푸터 저장 에러: ',error);
+res.status(500).json({
+success:false,
+message:'푸터 저장 중 서버 오류가 발생했습니다.'
+});
+    }
+})
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;

@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2 } from "react-icons/fi";
 import { Layout } from "../Layout";
@@ -35,7 +36,33 @@ const [familySites, setFamilySites] = useState<FamilySiteData[]>([
 { id: 3, name: "Lifting Center", url: "#" }
 ]);
 
-const [isSavePopupOpen, setIsSavePopupOpen] =useState(false);
+//const [isSavePopupOpen, setIsSavePopupOpen] =useState(false);
+const [isPopupOpen, setIsPopupOpen] = useState(false);
+const [popupTitle, setPopupTitle] = useState("");
+const [popupMessage, setPopupMessage] = useState("");
+
+
+useEffect(() => {
+    const fetchFooterData = async () => {
+        try{
+const response =
+//백앤드를 통해 데이터를 달라고 요청
+await axios.get("http://localhost:4000/api/admin/footer");
+//서버가 통신성공을 알리고 빈껍데기가 아닌 실제 데이터가 있다면
+if(response.data.success && response.data.data){
+//서버가 보내준 데이터 덩어리에서 필요한 3가지 속성만 쏙 빼냅니다(구조 분해 할당)
+const { companyInfo, schedules, familySites} = response.data.data;
+// 빼낸 데이터들을 각각 프론트엔드의 상태에 채워 넣어 화면에 보여줌
+setCompanyInfo(companyInfo);
+setSchedules(schedules);
+setFamilySites(familySites);
+}
+} catch (error) {
+console.error("푸터 데이터 로드 실패", error);
+}
+    };
+    fetchFooterData();
+},[]);
 
 //1. 진료시간 수정 핸들러 (입력창에 글자를 칠 때마다 실행)
 const handleScheduleChange = 
@@ -77,10 +104,26 @@ setFamilySites(familySites.map(site =>
 ))
 };
 //5. 최종 저장 핸들러 ('설정 저장하기' 버튼 클릭 시 실행)
-const handleSave = () => {
+const handleSave = async () => {
+    //현재 화면에 사용자가 입력해둔 3가지 정보를 하나의 보따리로 패킹
 const payload = {companyInfo, schedules, familySites};
-console.log("DB에 저장될 푸터 데이터:", payload);
-setIsSavePopupOpen(true);
+try{
+const response =
+//백앤드 api주소로 방금 패킹한 것을 post방식으로 던져주고 기다림
+await axios.post("http://localhost:4000/api/admin/footer", payload);
+// 백앤드에서 DB저장에 성공했어라고 대답을 보내주면
+if(response.data.success){
+ // 성공 시 세팅
+            setPopupTitle("저장 완료");
+            setPopupMessage("푸터 설정이 성공적으로 저장되었습니다.");
+            setIsPopupOpen(true);
+}
+}catch (error) {
+console.error("푸터 저장 실패",error);
+setPopupTitle("저장실패");
+setPopupMessage("저장 중 서버 오류가 발생했습니다. 다시 시도해 주세요");
+setIsPopupOpen(true);
+}
 };
     return(
         <>
@@ -235,6 +278,15 @@ setIsSavePopupOpen(true);
                     </S.FooterGrid>
                 </S.FooterAdminContainer>           
         </Layout>
+
+        <Popup
+        isOpen={isPopupOpen}
+        title={popupTitle}
+        onClose={()=> setIsPopupOpen(false)}
+        onConfirm={() => setIsPopupOpen(false)}
+        >
+        {popupMessage}    
+        </Popup>
         </>
     )
 }
