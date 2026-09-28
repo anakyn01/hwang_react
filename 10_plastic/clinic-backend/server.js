@@ -4,6 +4,8 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const AppDataSource = require("./db"); // db.js 파일 경로 확인
 const Member = require("./src/entity/Member"); // Member.js 파일 경로 확인
+
+const FooterSettings = require("./src/entity/FooterSetting");
 const nodemailer = require('nodemailer');
 
 const app = express();
@@ -154,6 +156,43 @@ message:'로그인 처리중 서버 오류가 발생했습니다'
 }
 });
 
+//footer세팅 관리자
+app.get('/api/admin/footer', async (req, res) =>{
+    try{
+// 테이블 데이터를 다룰수 있는 권한(저장소)를 가져 옵니다
+const footerRepo = AppDataSource.getRepository(FooterSettings);
+// 푸터 설정은 여러개가 필요 없습니다 무조건 고유번호가 1번인 데이터 딱 하나만 찾습니다
+const footer = await footerRepo.findOne({where:{id:1}});
+// 만약 테이블을 방금 만들어서 아직 한번도 저장한 적이 없다면
+if(!footer) {
+    //에러가 아니기에 프론트앤드가 뻗지 않게 빈 껍데기를 성공 상태로 보냅니다
+    return res.status(200).json({ success:true, data:null});
+}
+// db에서 찾은 데이터를 프론트엔드의 3가지 상태(state)구조에 완벽히 맞춰서 조립
+res.status(200).json({
+    success:true,
+    data:{
+        companyInfo:{
+name: footer.name || "",
+address:footer.address || "",
+clinicName:footer.clinicName||"",
+phone:footer.phone||"",
+email:footer.email||"",
+locationUrl:footer.locationUrl||""            
+        },
+        schedules:footer.schedules||[],
+        familySites:footer.familySites||[]
+    }
+})
+    }catch (error) {
+console.error('푸터 조회 에러:', error);
+res.status(500).json({
+    success:false,
+    message:'푸터 데이터를 불러오지 못했습니다'
+})
+    }
+});
+
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
 
@@ -188,7 +227,7 @@ const transporter = nodemailer.createTransport({
   service:'gmail',
   auth:{
     user:'anakyn01@gmail.com',
-    pass:'yfxolnppxfwiivde'
+    pass:''
   }  
 });
 
