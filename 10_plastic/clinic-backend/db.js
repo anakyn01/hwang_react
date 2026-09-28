@@ -3,6 +3,7 @@ require("reflect-metadata");
 const { DataSource} = require("typeorm");
 const Member = require("./src/entity/Member");
 const FooterSettings = require("./src/entity/FooterSettings");
+const Consult = require("./src/entity/Consult");
 
 const AppDataSource = new DataSource({
     type:"oracle",

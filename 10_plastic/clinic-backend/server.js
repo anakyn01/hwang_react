@@ -247,7 +247,11 @@ return res.status(400).json({success:false, message:'이름, 연락처, 상담�
 const consultRepo = AppDataSource.getRepository(Consult);
 
 const newConsult = consultRepo.create({
-NAME:name, PHONE:phone, DEPARTMENT:department, 
+NAME:name, 
+PHONE:phone, 
+DEPARTMENT:department, 
+PASSWORD:"0000",
+USER_ID:"비회원",
 TITLE:`[빠른상담] ${department} 문의입니다`,
 CONTENT:`${name}님의 빠른 상담 신청입니다. 빠른 시일내에 연락바랍니다`,
 STATUS:'대기중'
@@ -263,6 +267,39 @@ res.status(500).json({ success:false, message:'상담 신청중 오류가 발생
 }
 });
 
+//상담내역 전체 조회
+app.get('/api/admin/consult', async (req, res) => {
+    try{
+const consultRepo = AppDataSource.getRepository(Consult);
+const list = await consultRepo.find({ order:{CREATED_AT:"DESC"}});
+res.status(200).json({success:true, data:list});
+    }catch(error){
+res.status(500).json({success:false});
+    }
+});
+//상담 상태 토글
+app.put('/api/admin/consult/:id/status', async (req, res) => {
+    try{
+const consultRepo = AppDataSource.getRepository(Consult);
+const consult = await consultRepo.findOne({ where:{ID:req.params.id}});
+if (!consult) return res.status(404).json({ success:false, message:"데이터가 없습니다"})
+consult.STATUS = consult.STATUS === '대기중' ? '상담완료' : '대기중';   
+await consultRepo.save(consult);
+res.status(200).json({success:true});
+}catch(error){
+res.status(500).json({success:false});
+    }
+});
+//상담 내역 삭제
+app.delete('/api/admin/consult/:id', async (req, res) => {
+    try{
+const consultRepo = AppDataSource.getRepository(Consult);
+await consultRepo.delete(req.params.id);
+res.status(200).json({success:true});
+    }catch(error){
+res.status(500).json({success:false});
+    }
+});
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
