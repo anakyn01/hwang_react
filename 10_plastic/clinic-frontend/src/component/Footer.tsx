@@ -69,16 +69,23 @@ if(isLoading) {
           {/* cs번호 진료시간 오시는길 */}
           <S.SiteFooterTop>
             <S.SiteFooterCs>
-              <S.SiteFooterPhone>02. 932. 2222</S.SiteFooterPhone>
+              <S.SiteFooterPhone>
+{companyInfo.phone || "02. 000. 0000"}                
+              </S.SiteFooterPhone>
               <S.SiteFooterCsTitle>CS CENTER</S.SiteFooterCsTitle>
             </S.SiteFooterCs>
 
             <S.SiteFooterScheduleWrap>
-              <S.SiteFooterScheduleBlock>
-                <S.SiteFooterScheduleTitle>성형외과</S.SiteFooterScheduleTitle>
-                <S.SiteFooterScheduleText>평일 : AM 09:00 - PM 06:00</S.SiteFooterScheduleText>
-                <S.SiteFooterScheduleText>야간 : </S.SiteFooterScheduleText>
-                <S.SiteFooterScheduleText>토요일 : PM 09:00 - PM 03:00</S.SiteFooterScheduleText>
+
+{schedules.map((sch) =>(
+  <>
+              <S.SiteFooterScheduleBlock key={sch.id}>
+                <S.SiteFooterScheduleTitle>{sch.departments}</S.SiteFooterScheduleTitle>
+                <S.SiteFooterScheduleText>평일 : {sch.weekday}</S.SiteFooterScheduleText>
+ {/*야간은 빈칸이면 깔끔하게 렌더링을 안함 */}
+ {sch.night &&<S.SiteFooterScheduleText>야간 : {sch.night}
+  </S.SiteFooterScheduleText>}
+<S.SiteFooterScheduleText>토요일 : PM 09:00 - PM 03:00</S.SiteFooterScheduleText>
               </S.SiteFooterScheduleBlock>
 
               <S.SiteFooterScheduleBlock>
@@ -86,6 +93,10 @@ if(isLoading) {
                 <S.SiteFooterScheduleText>평일 : AM 09:00 - PM 06:00</S.SiteFooterScheduleText>
                 <S.SiteFooterScheduleText>토요일 : PM 09:00 - PM 03:00</S.SiteFooterScheduleText>
               </S.SiteFooterScheduleBlock>
+              </>
+))}
+            
+            
             </S.SiteFooterScheduleWrap>
             
             <S.SiteFooterLocationBtn>오시는길 바로가기</S.SiteFooterLocationBtn>
