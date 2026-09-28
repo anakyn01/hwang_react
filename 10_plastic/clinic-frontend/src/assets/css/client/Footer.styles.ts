@@ -29,6 +29,7 @@ export const SiteFooterCs = styled.div`
 flex:1;
 `;
 export const SiteFooterPhone = styled.div`
+color:#fff;
 font-size:32px; font-weight:900; letter-spacing:1px;
 margin-bottom:5px;
 `;

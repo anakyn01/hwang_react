@@ -85,7 +85,9 @@ if(isLoading) {
  {/*야간은 빈칸이면 깔끔하게 렌더링을 안함 */}
  {sch.night &&<S.SiteFooterScheduleText>야간 : {sch.night}
   </S.SiteFooterScheduleText>}
-<S.SiteFooterScheduleText>토요일 : PM 09:00 - PM 03:00</S.SiteFooterScheduleText>
+<S.SiteFooterScheduleText>
+  토요일 : {sch.weekend}
+</S.SiteFooterScheduleText>
               </S.SiteFooterScheduleBlock>
 
               <S.SiteFooterScheduleBlock>
@@ -98,25 +100,31 @@ if(isLoading) {
             
             
             </S.SiteFooterScheduleWrap>
-            
-            <S.SiteFooterLocationBtn>오시는길 바로가기</S.SiteFooterLocationBtn>
+<Link href={companyInfo.locationUrl || "/"} 
+passHref legacyBehavior>          
+            <S.SiteFooterLocationBtn>
+              오시는길 바로가기
+              </S.SiteFooterLocationBtn>
+</Link> 
           </S.SiteFooterTop>
 
-          <S.SiteFooterBottom>
-            <S.SiteFooterCompany>
-              <S.SiteFooterCompanyName>안호범 안스성형외과</S.SiteFooterCompanyName>
+<S.SiteFooterBottom>
+<S.SiteFooterCompany>
+<S.SiteFooterCompanyName>
+{companyInfo.name || "안과"}
+</S.SiteFooterCompanyName>
               <S.SiteFooterInfoText>
-                서울 노원구 노해로 460 (상계동) 2층 201호
+{companyInfo.address || "201호"}              
                 <br />
                 (안호범안스성형외과 건물 주차장 이용)
               </S.SiteFooterInfoText>
 
               <S.SiteFooterInfoText>
-                의료기관 명칭 : 안호범안스성형외과
+                의료기관 명칭 : {companyInfo.clinicName}
                 <br />
-                대표번호 02. 932. 2222
+                대표번호 : {companyInfo.phone}
                 <br />
-                E-mail : test@test.com
+                E-mail : {companyInfo.email}
               </S.SiteFooterInfoText>
             </S.SiteFooterCompany>
 
@@ -128,10 +136,21 @@ if(isLoading) {
 
               <div>
                 <S.SiteFooterFamilyTitle>Family</S.SiteFooterFamilyTitle>
+                {/*db에서 가져온 패밀리 사이트 배열 렌더링 */}
                 <S.SiteFooterFamilyLogos>
-                  <div className="logo-placeholder">Breast Surgery Center</div>
+{familySites.map((site) =>(
+  <a key={site.id} href={site.url} 
+  target="_blank" rel="noopener noreferrer">
+<div className='logo-placeholder'>
+  {site.name}
+  </div>    
+  </a>
+))}
+
+
+                  {/*<div className="logo-placeholder">Breast Surgery Center</div>
                   <div className="logo-placeholder">Derm</div>
-                  <div className="logo-placeholder">Lifting Center</div>
+                  <div className="logo-placeholder">Lifting Center</div>*/}
                 </S.SiteFooterFamilyLogos>
               </div>
             </S.SiteFooterBottomRight>
