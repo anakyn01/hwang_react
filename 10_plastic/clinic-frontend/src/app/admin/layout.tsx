@@ -58,7 +58,7 @@ onClick={() => router.push('/admin/root')}
 
 <S.AdminNavItem
 $isCollapsed={isCollapsed}
-onClick={() => router.push('/admin/dashboard')}
+onClick={() => router.push('/admin/root')}
 >
 <span></span>{!isCollapsed && <span>대시보드</span>}    
 </S.AdminNavItem>

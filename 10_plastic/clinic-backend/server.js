@@ -3,9 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const AppDataSource = require("./db"); // db.js 파일 경로 확인
-const Member = require("./src/entity/Member"); // Member.js 파일 경로 확인
 
+const Member = require("./src/entity/Member"); // Member.js 파일 경로 확인
 const FooterSettings = require("./src/entity/FooterSettings");
+const Consult = require('./src/entity/Consult');
+
 const nodemailer = require('nodemailer');
 
 const app = express();
@@ -233,6 +235,34 @@ message:'푸터 저장 중 서버 오류가 발생했습니다.'
 });
     }
 })
+
+//퀵상담
+app.post('/api/consult/quick', async (req, res) => {
+try{
+const {name, phone, department} = req.body;
+//필수값 검증
+if(!name || !phone || !department) {
+return res.status(400).json({success:false, message:'이름, 연락처, 상담분야를 모두 입력해 주세요'})    
+}
+const consultRepo = AppDataSource.getRepository(Consult);
+
+const newConsult = consultRepo.create({
+NAME:name, PHONE:phone, DEPARTMENT:department, 
+TITLE:`[빠른상담] ${department} 문의입니다`,
+CONTENT:`${name}님의 빠른 상담 신청입니다. 빠른 시일내에 연락바랍니다`,
+STATUS:'대기중'
+});
+//3.DB저장
+await consultRepo.save(newConsult);
+res.status(200).json({
+    success:true, 
+    message:'빠른 상담 신청이 완료되었습니다'})
+} catch(error) {
+console.error('빠른 상담 신청 에러:', error);
+res.status(500).json({ success:false, message:'상담 신청중 오류가 발생했습니다'})
+}
+});
+
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;

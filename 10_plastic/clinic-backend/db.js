@@ -15,7 +15,7 @@ const AppDataSource = new DataSource({
     synchronize:false,
     //로깅 최적화 (운영환경이 아닐때만 true)
     logging:process.env.NODE_ENV !== 'production',
-    entities:[Member, FooterSettings],
+    entities:[Member, FooterSettings, Consult],
     extra:{
         poolMin:2, poolMax:10, poolIncrement:1
     }
