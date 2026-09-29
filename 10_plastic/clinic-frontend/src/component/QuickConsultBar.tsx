@@ -14,6 +14,13 @@ const handleSubmit = async () => {
     //유효성 검사 빈칸방지
     if(!name.trim()) return alert('이름을 입력해 주세요');
     if(!phone.trim()) return alert('연락처를 입력해 주세요');
+
+//add
+//연락처에 갈이가 너무 짧은경우
+if(phone.length < 9) { return alert('연락처를 올바르게 끝까지 입력해 주세요')}
+//가짜번호 검사 정규식
+if(/(\d)\1{6}/.test(phone)){ return alert('장난성 번호는 접수할수 없습니다 실제 연락처를 입력해 주세요')}
+
     if(!department) return alert('상담분야를 입력해 주세요');
     if(!isAgreed) return alert('개인정보처리방침에 동의해 주세요');
 
@@ -44,9 +51,13 @@ alert('상담 신청 중 문제가 발생했습니다. 다시 시도해 주세�
         onChange={(e) => setName(e.target.value)}
         />
         <S.Input type="tel" 
-        placeholder='연락처를 작성해주세요'
+        placeholder='연락처를 작성해주세요 (숫자만 입력)'
         value={phone}
-        onChange={(e) => setPhone(e.target.value)}
+        onChange={(e) => {
+       const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');      
+            setPhone(onlyNumbers);
+        }}
+        maxLength={11}
         />
 
 

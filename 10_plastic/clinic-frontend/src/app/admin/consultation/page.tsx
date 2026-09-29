@@ -10,6 +10,7 @@ import { FiTrash2, FiSearch, FiCheck } from "react-icons/fi";
 import { Layout } from "../Layout";
 
 import {Popup} from "@/component/modal/Popup";
+import { Temporal } from '@js-temporal/polyfill';
 
 //임시 데이터 인터페이스
 interface ConsultData{
@@ -24,6 +25,12 @@ STATUS: "대기중" | "상담완료";
 export default function Consult(){
 
 const [consultList, setConsultList] = useState<ConsultData[]>([]);
+//검색 및 페이징을 위한 상태 추가
+const [searchTerm, setSearchTerm] = useState("");
+const [currentPage, setCurrentPage] = useState(1);
+const ITEMS_PER_PAGE = 10;//10개까지 보여주고 11개부터 다음 페이지로
+
+
 //팝업창 관리를 위한 상태
 const [isPopupOpen, setIsPopupOpen] = useState(false);
 const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
@@ -42,6 +49,36 @@ useEffect(() =>{
 fetchConsults();
 },[]);
 
+// 💡 2. 검색어에 맞게 데이터 필터링 (이름 또는 전화번호)
+const filteredList = consultList.filter((item) => {
+    if (!searchTerm) return true;
+    return item.NAME.includes(searchTerm) || item.PHONE.includes(searchTerm);
+});
+
+/*
+💡 3. 페이징 처리 계산
+전체 데이터 개수를 한 페이지당 개수(10개)로 나눈 뒤
+소수점이 남으면 올림(Math.ceil)하여 전체 페이지 수를 구합니다.
+데이터가 11개면 1.1이 되므로 올림해서 2페이지로 계산
+*/
+const totalPages = Math.ceil(filteredList.length / ITEMS_PER_PAGE);
+// 검색된 전체 리스트(filteredList)에서 
+// 현재 페이지에 보여줄 데이터만 싹둑 잘라냅니다(slice).
+const paginatedList = filteredList.slice(
+//자르기 시작할 번호 (1페이지면 0번부터, 2페이지면 10번부터)
+(currentPage - 1) * ITEMS_PER_PAGE,
+//자르기를 끝낼 번호 (1페이지면 10번 앞까지, 2페이지면 20번 앞까지)
+currentPage * ITEMS_PER_PAGE
+);
+//검색어 입력 핸들러 (사용자가 검색창에 키보드를 칠 때마다 실행됨)
+const handleSearchChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+// 사용자가 방금 입력한 글자를 검색어 상태(State)에 실시간으로 저장합니다.    
+setSearchTerm(e.target.value);
+//검색어가 바뀌면 결과 리스트가 변하므로, 보던 페이지가 어디였든 무조건 1페이지로 초기화해 줍니다.
+setCurrentPage(1);
+}
+
+
 //변경
 const toggleStatus = async (id:number) => {
 try{
@@ -58,7 +95,7 @@ setIsPopupOpen(true);
 };
 
 //확인을 누를때 실제 삭제 처리
-const confrimDelete = async () => {
+const confirmDelete = async () => {
     if(!deleteTargetId) return;
 
     try{
@@ -72,14 +109,16 @@ alert("삭제에 실패")
 
 // 💡 최신 Temporal API를 활용한 날짜 포맷 함수
     const formatDate = (dateString: string) => {
-        let dateTime;
+        let dateTime: any;
         
         try {
             // 1. UTC 기준 ISO 문자열일 경우 (예: 2026-09-21T05:30:00Z) -> 한국 시간으로 변환
+            //@ts-ignore
             dateTime = Temporal.Instant.from(dateString).toZonedDateTimeISO('Asia/Seoul');
         } catch (error) {
             // 2. 타임존 정보가 없는 일반 문자열일 경우 (예: 2026-09-21 14:30:00) 공백을 T로 치환 후 파싱
             const safeString = dateString.replace(' ', 'T');
+             //@ts-ignore
             dateTime = Temporal.PlainDateTime.from(safeString);
         }
 
@@ -104,7 +143,11 @@ alert("삭제에 실패")
 
                     <S.ConsultFilterCard>
                         <S.ConsultInputGroup>
-                            <S.ConsultInput type="text" placeholder="이름 또는 연락처 검색" />
+<S.ConsultInput type="text" placeholder="이름 또는 연락처 검색" 
+value={searchTerm}
+onChange={handleSearchChange}
+/>
+{/*input요소의 onChange 이벤트는 입력필드의 값을 변경할때 발생하는 이벤트 */}
                             <S.ConsultSearchButton>
                                 <FiSearch size={16} /> 검색
                             </S.ConsultSearchButton>
@@ -130,9 +173,12 @@ alert("삭제에 실패")
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {consultList.map((item, index) => (
+{paginatedList.map((item, index) => {
+const displayIndex = 
+filteredList.length - ((currentPage - 1) * ITEMS_PER_PAGE + index);  
+return(  
                                         <tr key={item.ID}>
-                                            <td>{consultList.length - index}</td>
+                                            <td>{displayIndex}</td>
                                             <td><strong>{item.NAME}</strong></td>
                                             <td>{item.PHONE}</td>
                                             <td>{item.DEPARTMENT}</td>
@@ -154,17 +200,28 @@ alert("삭제에 실패")
                                                 </S.ConsultDeleteActionBtn>
                                             </td>
                                         </tr>
-                                    ))}
-                                    {consultList.length === 0 && (
+);
+})}
+                                    {paginatedList.length === 0 && (
                                         <tr>
-                                            <td colSpan={7} style={{ textAlign: 'center', padding: '3rem' }}>
-                                                접수된 상담 내역이 없습니다.
-                                            </td>
+<td colSpan={7} style={{ textAlign: 'center', padding: '3rem' }}>
+{searchTerm ?"검색 결과가 없습니다.":"접수된 상담 내역이 없습니다" }  
+</td>
                                         </tr>
                                     )}
                                 </tbody>
                             </S.ConsultTable>
                         </S.ConsultTableWrapper>
+{totalPages > 1 && (
+    <S.Pagenation>
+{Array.from({ length:totalPages}, (_, i) => i + 1).map((page) =>(
+<S.PagenationBtn
+key={page}
+onClick={() => setCurrentPage(page)}
+>{page}</S.PagenationBtn>
+))}       
+    </S.Pagenation>
+)}                      
                     </S.ConsultTableCard>
                 </S.ConsultContainer>
         </Layout>
@@ -173,7 +230,7 @@ alert("삭제에 실패")
 isOpen={isPopupOpen}
 title="상담 내역 삭제"
 onClose={() => setIsPopupOpen(false)}   
-onConfirm={confrimDelete}     
+onConfirm={confirmDelete}     
         >
         정말 이 상담 내역을 삭제하시겠습니까?
         <br/>삭제된 데이터는 복구할 수 없습니다.    

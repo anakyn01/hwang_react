@@ -137,3 +137,4 @@ export * from './Consult.styles';
 export * from './Tone.styles';
 export * from './NavSetting.style';
 export * from './Pop.styles';
+export * from '../common/LayoutStyle';
