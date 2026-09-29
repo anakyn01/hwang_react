@@ -1,17 +1,47 @@
 "use client";
 import React, {useCallback, useEffect, useState} from 'react';
 import useEmblaCarousel from "embla-carousel-react";
+import axios from 'axios';
+import Link from 'next/link';
 import * as S from '@/assets/css/Style.style';
 
-const MAIN_SLIDES = [
-{id:1, imageUrl:'/images/main-banner1.jpg', title:'예쁘면 다야!'},
-{id:2, imageUrl:'/images/main-banner2.jpg', title:'레이어핏 울쎄라'},
-{id:3, imageUrl:'/images/main-banner3.jpg', title:'여름시즌 한정이벤트'}
-];
+interface SlideItem {
+id:number;
+fileName:string;
+title:string;
+link:string;
+}
 
 export default function MainCarousel(){
     //💡 loop: 무한반복
     const [emblaRef, emblaApi] = useEmblaCarousel({loop:true});
+    //DB에서 가져온 슬라이드를 담을 상태 관리
+    const [slides, setSlides] = useState<SlideItem[]>([]);
+
+    //생명주기
+    useEffect(() => {
+const fetchVisualSettings = async () => {
+try{
+const response =
+await axios.get("http://localhost:4000/api/admin/visual");
+if(response.data.success){
+    const dbData = response.data.data;
+
+    if (dbData.SLIDES && dbData.SLIDES !== "[]"){
+        setSlides(JSON.parse(dbData.SLIDES));
+    }else{
+ // DB가 비어있을 때 깨지지 않도록 보여줄 기본 슬라이드 1장 세팅
+setSlides([
+{ id: 1, fileName: "default-banner.jpg", title: "기본 배너", link: "/" }
+]);       
+    }
+}
+}catch(error){
+console.error("캐러셀 데이터 로드 실패:", error);
+}
+};
+fetchVisualSettings();
+},[]);
     
     //좌우 화살표 핸들러
     const scrollPrev = useCallback(() => {
@@ -27,7 +57,7 @@ export default function MainCarousel(){
         if(!emblaApi) return;
         const autoplay = setInterval(() => {
             emblaApi.scrollNext();
-        }, 3000);
+        }, 4000);
         return () => clearInterval(autoplay);
     },[emblaApi]);
 
@@ -36,10 +66,21 @@ export default function MainCarousel(){
 
 <S.EmblaViewport ref={emblaRef}>
     <S.EmblaContainer>
-        {MAIN_SLIDES.map((slide) => (
+        {slides.map((slide) => (
 <S.EmblaSlide key={slide.id}>
+<Link href={slide.link || "#"}>
+<S.SlideImage
+src={`http://localhost:4000/images/${slide.fileName}`}
+alt={slide.title}
+/>
 
-<S.SlideImage src={slide.imageUrl} alt={slide.title}/>
+{slide.title && (
+    <S.SlideCopy>
+        {slide.title}
+    </S.SlideCopy>
+)}
+
+</Link>
 
 </S.EmblaSlide>
         ))}

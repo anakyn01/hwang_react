@@ -59,6 +59,9 @@ background-image:linear-gradient(180deg, #4e73df 10%, #224abe 100%);
 export const BoxShadow = css`
 box-shadow: 0 0.15rem 1.75rem 0 rgba(58,59, 69, 0.15);
 `;
+export const TextShadow = css`
+text-shadow: 2px 2px 8px rgba(0,0,0,.5);
+`;
 
 export const TransitionAll = css`
 transition:all 0.15s ease-in-out;

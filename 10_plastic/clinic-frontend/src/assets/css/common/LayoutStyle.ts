@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexCenter } from "../admin/Common.styles";
+import { FlexCenter, TextShadow } from "../admin/Common.styles";
 
 export const Pagenation = styled.div`
 ${FlexCenter}
@@ -20,4 +20,16 @@ font-weight:currentPage === page ? 'bold' : 'normal';
 export const LogoImg = styled.img`
 max-height:40px;
 width:50px;
+`;
+
+export const SlideCopy = styled.div`
+position:absolute;
+top:86%; left:50%;
+transform:translate(-50%, -50%);
+color:#fff;
+font-size:2.5rem;
+font-weight:bold;
+${TextShadow}
+z-index:10;
+text-align:center;
 `;
