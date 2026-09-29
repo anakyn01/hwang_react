@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BoxShadow, FlexBetween, FlexCenter } from './Common.styles';
+import { BoxShadow, FlexBetween, FlexCenter, InlineFlexCenter } from './Common.styles';
 
 // -----------------------------------------
 // 🎯 상담신청 관리 (Consult) 전용 스타일
@@ -132,7 +132,8 @@ export const ConsultStatusBadge = styled.span<{ $status: string }>`
   border-radius: 1rem;
   font-size: 0.8rem;
   font-weight: 700;
-${FlexCenter}
+${InlineFlexCenter}
+width:95px;
   gap: 0.2rem;
   cursor: pointer;
   transition: opacity 0.2s;

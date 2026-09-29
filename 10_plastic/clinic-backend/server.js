@@ -274,6 +274,7 @@ const consultRepo = AppDataSource.getRepository(Consult);
 const list = await consultRepo.find({ order:{CREATED_AT:"DESC"}});
 res.status(200).json({success:true, data:list});
     }catch(error){
+console.error('상담 내역 조회 에러:', error);        
 res.status(500).json({success:false});
     }
 });
@@ -285,9 +286,9 @@ const consult = await consultRepo.findOne({ where:{ID:req.params.id}});
 if (!consult) return res.status(404).json({ success:false, message:"데이터가 없습니다"})
 consult.STATUS = consult.STATUS === '대기중' ? '상담완료' : '대기중';   
 await consultRepo.save(consult);
-res.status(200).json({success:true});
+res.status(200).json({success:true, message:'상태가 변경되었습니다'});
 }catch(error){
-res.status(500).json({success:false});
+res.status(500).json({success:false, message:'상태가 변경 실패'});
     }
 });
 //상담 내역 삭제
@@ -297,6 +298,7 @@ const consultRepo = AppDataSource.getRepository(Consult);
 await consultRepo.delete(req.params.id);
 res.status(200).json({success:true});
     }catch(error){
+console.error('상담 삭제 에러:', error);        
 res.status(500).json({success:false});
     }
 });
