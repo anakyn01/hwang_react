@@ -7,6 +7,7 @@ const AppDataSource = require("./db"); // db.js 파일 경로 확인
 const Member = require("./src/entity/Member"); // Member.js 파일 경로 확인
 const FooterSettings = require("./src/entity/FooterSettings");
 const Consult = require('./src/entity/Consult');
+const NavSetting = require('./src/entity/NavSetting');
 
 const nodemailer = require('nodemailer');
 
@@ -302,6 +303,59 @@ console.error('상담 삭제 에러:', error);
 res.status(500).json({success:false});
     }
 });
+
+//[ADMIN] 내비게이션 설정 API
+app.get('/api/admin/nav' , async ( req, res) => {
+    try{
+const navRepo =
+AppDataSource.getRepository(NavSetting);
+let setting = await navRepo.findOne({where:{ID:1}});
+//처음 세팅이라 DB에 값이 없다면 기본값을 내려줍니다.
+if(!setting) {
+    return res.status(200).json({
+success:true,
+data:{
+    LOGO_TYPE:"TEXT",
+    LOGO_TEXT:"안효범안스성형외과",
+    LOGO_FILE:"",
+    MENUS:"[]"
+}        
+    });
+}
+res.status(200).json({success:true, data:setting});
+    }catch(error){
+console.error('내비게이션 조회 에러:', error);
+res.status(500).json({success:false});
+    }
+});
+
+//최초저장이거나 변경
+app.put('/api/admin/nav' , async ( req, res) => {
+    try{
+//프론트에서 보낸 데이터
+const {logoType, logoText, logoFileName, menus} = req.body;
+const navRepo = AppDataSource.getRepository(NavSetting);
+// DB에 기존 설정이 없으면 ID 1번으로 새로 생성
+let setting = await navRepo.findOne({where:{ID:1}});
+
+if(!setting) {
+    setting = navRepo.create({ID:1});
+}
+
+setting.LOGO_TYPE = logoType;
+setting.LOGO_TEXT = logoText || "";
+setting.LOGO_FILE = logoFileName || "";
+
+//💡 프론트에서 넘어온 배열(menus)을 오라클 clob에 넣기 위해 문자열(JSON)로 변환
+setting.MENUS = JSON.stringify(menus);
+await navRepo.save(setting);
+res.status(200).json({success:true});
+    }catch(error){
+console.error('내비게이션 저장 에러', error);
+res.status(500).json({success:false});
+    }
+});
+
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;

@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
 import { Layout } from "../Layout";
 import * as S from "@/assets/css/admin/Admin.style";
 import { Popup } from "@/component/modal/Popup";
@@ -15,19 +17,46 @@ export default function Nav() {
     const [logoType, setLogoType] = useState<"TEXT" | "IMAGE">("TEXT");
     const [logoText, setLogoText] = useState<string>("성형외과 로고");
     const [logoFileName, setLogoFileName] = useState<string>("");
+    const [menus, setMenus]= useState<MenuItem[]>([]);
 
-    // 💡 1. 수정: 초기 데이터는 겹치지 않도록 안전한 고정 숫자로 부여합니다.
-    const [menus, setMenus] = useState<MenuItem[]>([
-        { id: 1, name: "병원소개", url: "/" },
+    // 상태관리 팝업
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+//생명주기
+useEffect(() => {
+const fetchNavSettings = async () => {
+    try{
+const response =
+await axios.get("http://localhost:4000/api/admin/nav");
+if(response.data.success){
+const dbData = response.data.data;
+setLogoType(dbData.LOGO_TYPE);
+setLogoText(dbData.LOGO_TEXT);
+setLogoFileName(dbData.LOGO_FILE);
+
+if(dbData.MENUS && dbData.MENUS !== "[]"){
+setMenus(JSON.parse(dbData.MENUS));
+}else{
+   //DB에 메뉴가 비어있으면 초기 기본값 세팅
+   setMenus([
+       { id: 1, name: "병원소개", url: "/" },
         { id: 2, name: "눈성형", url: "/" },
         { id: 3, name: "코성형", url: "/" },
         { id: 4, name: "동안성형", url: "/" },
         { id: 5, name: "쁘띠시술", url: "/" },
         { id: 6, name: "커뮤니티", url: "/" }
-    ]);
+   ]); 
+}
 
-    // 상태관리 팝업
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+}
+    }catch(error){
+console.error("설정 로드 실패:", error);
+    }
+};
+fetchNavSettings();
+},[])
+
 
     // 로고 이미지 파일 선택핸들러
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +82,7 @@ export default function Nav() {
         ));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const payload = {
             logo: {
                 type: logoType,
@@ -62,8 +91,14 @@ export default function Nav() {
             },
             menus: menus
         };
+        try{
+await axios.put("http://localhost:4000/api/admin/nav", payload);
+setIsPopupOpen(true);
+        }catch(error){
         console.log("DB에 저장될 데이터", payload);
-        setIsPopupOpen(true);
+alert("설정 저장에 실패했습니다");        
+        }
+
     };
 
     return (

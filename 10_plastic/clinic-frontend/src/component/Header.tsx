@@ -1,11 +1,58 @@
 "use client"
-import React from 'react';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios';
+
 import Link from 'next/link';
 import * as S from '@/assets/css/Style.style';
 import GlobeIcon from './icons/GlobeIcon';
 import UserIcon from './icons/UserIcon';
 
+//메뉴 데이터 타입을 정의
+interface MenuItem{
+id:number; name:string; url:string;
+}
+
 export default function Header(){
+
+//상태관리
+const[logoType, setLogoType] = useState<"TEXT" | "IMAGE">("TEXT");
+const[logoText, setLogoText] = useState<string>("Ahn's");
+const[logoFileName, setLogoFileName] = useState<string>("");
+const[menus, setMenus] = useState<MenuItem[]>([]);
+
+useEffect(() => {
+const fetchNavSettings = async () => {
+try{
+const response =
+await axios.get("http://localhost:4000/api/admin/nav");   
+if(response.data.success){
+    const dbData = response.data.data;
+    //로고 설정 적용
+    if(dbData.LOGO_TYPE)setLogoType(dbData.LOGO_TYPE);
+    if(dbData.LOGO_TEXT)setLogoText(dbData.LOGO_TEXT);
+    if(dbData.LOGO_FILE)setLogoFileName(dbData.LOGO_FILE);
+
+    if(dbData.MENUS && dbData.MENUS !== "[]"){
+setMenus(JSON.parse(dbData.MENUS));        
+    }else{
+           setMenus([
+       { id: 1, name: "병원소개", url: "/" },
+        { id: 2, name: "눈성형", url: "/" },
+        { id: 3, name: "코성형", url: "/" },
+        { id: 4, name: "동안성형", url: "/" },
+        { id: 5, name: "쁘띠시술", url: "/" },
+        { id: 6, name: "커뮤니티", url: "/" }
+   ]); 
+    }
+}
+}catch(error){
+console.error("헤더 내비게이션 로드 실패:", error);
+}   
+};
+fetchNavSettings();
+},[]);
+
+
     return(
         <>
 <S.HeaderWraper>
@@ -14,7 +61,14 @@ export default function Header(){
 {/*로고영역 */}
 <S.LogoGroup>
     <Link href="/" >
-        <S.Logo>Ahn's</S.Logo>
+        {logoType === "TEXT" ? (
+            <S.Logo>{logoText}</S.Logo>
+        ):(
+        <S.LogoImg
+        src={`/images/logo/${logoFileName}`}
+        alt="성형외과 웹사이트 로고"
+        />            
+        )}
     </Link>
 </S.LogoGroup>
 

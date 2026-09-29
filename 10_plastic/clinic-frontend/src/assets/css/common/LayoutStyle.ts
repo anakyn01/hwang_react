@@ -16,3 +16,7 @@ cursor:pointer;
 border-radius:4px;
 font-weight:currentPage === page ? 'bold' : 'normal';
 `;
+
+export const LogoImg = styled.img`
+max-height:40px;
+`;
