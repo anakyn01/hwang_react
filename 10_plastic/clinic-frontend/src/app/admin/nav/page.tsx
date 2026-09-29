@@ -87,7 +87,7 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     };
 
 //💡 3. 저장 버튼 클릭 시 (파일 전송 -> DB 저장 순서로 동작)
-    const handleSave = async () => {
+const handleSave = async () => {
 let finalFileName = logoFileName;
         try{
 //[step 1] 이미지 모드이고, 새로 등록한 파일이 존재한다면 먼저 서버로 파일 전송!
@@ -106,11 +106,10 @@ if(uploadRes.data.success){
 
 //[step 2] 모든 텍스트/메뉴 데이터와 확정된 파일명을 DB에 저장
 const payload = {
-logo: {
-type: logoType,
-text: logoType === "TEXT" ? logoText : null,
-fileName: logoType === "IMAGE" ? logoFileName : null,
-},
+
+logoType: logoType,
+logoText: logoType === "TEXT" ? logoText : "",
+logoFileName: logoType === "IMAGE" ? finalFileName : "",
 menus: menus
 };
 await axios.put("http://localhost:4000/api/admin/nav", payload);
