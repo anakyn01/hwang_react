@@ -17,10 +17,12 @@ export default function Nav() {
     const [logoType, setLogoType] = useState<"TEXT" | "IMAGE">("TEXT");
     const [logoText, setLogoText] = useState<string>("성형외과 로고");
     const [logoFileName, setLogoFileName] = useState<string>("");
-    const [menus, setMenus]= useState<MenuItem[]>([]);
 
-    // 상태관리 팝업
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+//add
+const [logoFile, setLogoFile] = useState<File | null>(null);
+const [menus, setMenus]= useState<MenuItem[]>([]);
+ // 상태관리 팝업
+const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 //생명주기
 useEffect(() => {
@@ -58,12 +60,14 @@ fetchNavSettings();
 },[])
 
 
-    // 로고 이미지 파일 선택핸들러
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-            setLogoFileName(e.target.files[0].name);
-        }
-    };
+// 로고 이미지 파일 선택핸들러
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+        //add
+        setLogoFile(e.target.files[0]);
+        setLogoFileName(e.target.files[0].name);
+    }
+};
 
     // 추가 삭제 변경 핸들러
     const handleAddMenu = () => {
@@ -82,20 +86,37 @@ fetchNavSettings();
         ));
     };
 
+//💡 3. 저장 버튼 클릭 시 (파일 전송 -> DB 저장 순서로 동작)
     const handleSave = async () => {
-        const payload = {
-            logo: {
-                type: logoType,
-                text: logoType === "TEXT" ? logoText : null,
-                fileName: logoType === "IMAGE" ? logoFileName : null,
-            },
-            menus: menus
-        };
+let finalFileName = logoFileName;
         try{
+//[step 1] 이미지 모드이고, 새로 등록한 파일이 존재한다면 먼저 서버로 파일 전송!
+if (logoType === "IMAGE" && logoFile) {
+    const formData = new FormData();
+    formData.append('logoImage', logoFile);
+
+    //백앤드 업로드 전용 api전송
+const uploadRes = await axios.post("http://localhost:4000/api/admin/upload", formData,{
+    headers:{'Content-Type':'multipart/form-data'}
+});
+if(uploadRes.data.success){
+    finalFileName = uploadRes.data.fileName;
+}
+}
+
+//[step 2] 모든 텍스트/메뉴 데이터와 확정된 파일명을 DB에 저장
+const payload = {
+logo: {
+type: logoType,
+text: logoType === "TEXT" ? logoText : null,
+fileName: logoType === "IMAGE" ? logoFileName : null,
+},
+menus: menus
+};
 await axios.put("http://localhost:4000/api/admin/nav", payload);
 setIsPopupOpen(true);
         }catch(error){
-        console.log("DB에 저장될 데이터", payload);
+        console.log("DB에 저장될 데이터", error);
 alert("설정 저장에 실패했습니다");        
         }
 

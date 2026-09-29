@@ -65,21 +65,26 @@ fetchNavSettings();
             <S.Logo>{logoText}</S.Logo>
         ):(
         <S.LogoImg
-        src={`/images/logo/${logoFileName}`}
+        src={`http://localhost:4000/images/${logoFileName}`}
         alt="성형외과 웹사이트 로고"
         />            
         )}
     </Link>
 </S.LogoGroup>
 
-{/*메인 네비에이션 영역 */}
+{/*메인 네비게이션 영역 */}
 <S.NavGroup>
-    <S.NavItem>병원소개</S.NavItem>
+{menus.map((menu, index) =>(
+    <Link href={menu.url || "/" } key={menu.id}>
+<S.NavItem $active={index === 1}>{menu.name}</S.NavItem>        
+    </Link>
+))}
+    {/*<S.NavItem>병원소개</S.NavItem>
     <S.NavItem $active>눈 성형</S.NavItem>
     <S.NavItem>코 성형</S.NavItem>
     <S.NavItem>동안 성형</S.NavItem>
     <S.NavItem>쁘띠 시술</S.NavItem>
-    <S.NavItem>커뮤니티</S.NavItem>
+    <S.NavItem>커뮤니티</S.NavItem>*/}
 </S.NavGroup>
 
 {/*유틸리티 영역 */}

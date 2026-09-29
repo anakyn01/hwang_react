@@ -11,6 +11,15 @@ const NavSetting = require('./src/entity/NavSetting');
 
 const nodemailer = require('nodemailer');
 
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+
+/*
+💡 업로드된 이미지를 프론트에서 볼 수 있도록 폴더 개방
+(app.use 들이 모여있는 곳에 추가)
+*/
+
 const app = express();
 
 // 1. CORS 설정 (프론트엔드 3000번 포트의 접근만 안전하게 허용)
@@ -19,6 +28,38 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json());
+//이미지
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+
+//업로드 폴더가 없으면 자동으로 생성
+const uploadDir = 
+path.join(__dirname, 'public/images');
+if(!fs.existsSync(uploadDir)){
+    fs.mkdirSync(uploadDir, {recursive:true});
+}
+
+//파일저장규칙 설정
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename:function(req, file, cb) {
+// 한글 이름 깨짐 방지 및 중복 방지를 
+// 위해 파일명 앞에 현재 시간(ms)을 붙임  
+const ext = path.extname(file.originalname);
+cb(null, Date.now() + ext);      
+    }
+});
+const upload = multer({storage: storage});
+
+app.post('/api/admin/upload', upload.single('logoImage'),(req, res) => {
+    if(!req.file) {
+        return res.status(400).json({
+            success:false, message:'파일이 없습니다'
+        });
+    }
+    res.status(200).json({success:true, fileName:req.file.filename})
+})
 
 // 2. TypeORM 오라클 DB 연결
 AppDataSource.initialize()
