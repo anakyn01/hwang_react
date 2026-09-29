@@ -8,6 +8,7 @@ const Member = require("./src/entity/Member"); // Member.js 파일 경로 확인
 const FooterSettings = require("./src/entity/FooterSettings");
 const Consult = require('./src/entity/Consult');
 const NavSetting = require('./src/entity/NavSetting');
+const MainVisual = require("./src/entity/MainVisual");
 
 const nodemailer = require('nodemailer');
 
@@ -395,6 +396,42 @@ res.status(200).json({success:true});
 console.error('내비게이션 저장 에러', error);
 res.status(500).json({success:false});
     }
+});
+
+//메인 비주얼 캐러셀 설정
+app.get('/api/admin/visual', async(req, res) => {
+try{
+const visualRepo=AppDataSource.getRepository(MainVisual);
+let setting = await visualRepo.findOne({where:{ID:1}});
+
+if(!setting) {
+return res.status(200).json({success:true, data:{SLIDES:"[]"}});
+}
+res.status(200).json({success:true, data:setting});
+}catch(error){
+console.error('메인비주얼 조회 에러:', error);
+res.status(500).json({success:false});
+}
+});
+app.put('/api/admin/visual', async(req, res) => {
+try{
+const {slides} = req.body;    
+const visualRepo=AppDataSource.getRepository(MainVisual);
+
+let setting = await visualRepo.findOne({where:{ID:1}});
+
+if(!setting) {
+setting = visualRepo.create({ID:1});
+}
+
+setting.SLIDES = JSON.stringify(slides);
+
+await visualRepo.save(setting);
+res.status(200).json({success:true});
+}catch(error){
+console.error('메인비주얼 저장 에러:', error);
+res.status(500).json({success:false});    
+}
 });
 
 

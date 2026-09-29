@@ -86,6 +86,13 @@ onClick={() => router.push('/admin/nav')}
 
 <S.AdminNavItem
 $isCollapsed={isCollapsed}
+onClick={() => router.push('/admin/carousel')}
+>
+<FiCompass size={20} />{!isCollapsed && <span>캐러셀슬라이드관리</span>}   
+</S.AdminNavItem>
+
+<S.AdminNavItem
+$isCollapsed={isCollapsed}
 onClick={() => router.push('/admin/pop')}
 >
 <FiLayers size={20} />{!isCollapsed && <span>팝업관리</span>}   
