@@ -522,7 +522,10 @@ res.status(500).json({success:false});
     }
 });
 app.put('/api/admin/tone', async(req, res) => {
+
     try{
+const { primaryTone, isDarkMode} = req.body;
+
 const toneRepo = AppDataSource.getRepository(ToneSetting);
 let setting = await toneRepo.findOne({where:{ID: 1}});
 if(!setting){

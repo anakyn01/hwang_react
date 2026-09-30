@@ -20,6 +20,10 @@ const[logoText, setLogoText] = useState<string>("Ahn's");
 const[logoFileName, setLogoFileName] = useState<string>("");
 const[menus, setMenus] = useState<MenuItem[]>([]);
 
+//톤앤매너
+const [themeColor, setThemColor] = useState<string>("#fecbec")
+const [isDark, setIsDark] = useState<boolean>(false);//기본라이트
+
 useEffect(() => {
 const fetchNavSettings = async () => {
 try{
@@ -49,20 +53,42 @@ setMenus(JSON.parse(dbData.MENUS));
 console.error("헤더 내비게이션 로드 실패:", error);
 }   
 };
+
+const fetchThemeSettings = async () => {
+    try{
+const response =
+await axios.get("http://localhost:4000/api/admin/tone");
+if(response.data.success){
+    const dbData = response.data.data;
+    //DB설정에 따라 색상과 다크모드 적용
+setThemColor(dbData.PRIMARY_TONE === "PINK" ? "#e83e8c" : "#4e73df");
+setIsDark(dbData.IS_DARK_MODE === 'Y');    
+}
+    }catch(error){
+console.error("테마 설정 로드 실패:", error);
+    }
+}
+
+
 fetchNavSettings();
+fetchThemeSettings();
 },[]);
 
+// 💡 다크모드에 따른 배경색과 글자색 변수 선언
+    const bgColor = isDark ? "#1a1a1a" : "#ffffff";
+    const textColor = isDark ? "#ffffff" : "#333333";
 
     return(
         <>
-<S.HeaderWraper>
+<S.HeaderWraper style={{ backgroundColor: bgColor, color: textColor }}>
 <S.HeaderInner>
 
 {/*로고영역 */}
 <S.LogoGroup>
     <Link href="/" >
         {logoType === "TEXT" ? (
-            <S.Logo>{logoText}</S.Logo>
+//텍스트 로고일 경우 테마포인트 컬러 적용            
+            <S.Logo style={{color:themeColor}}>{logoText}</S.Logo>
         ):(
         <S.LogoImg
         src={`http://localhost:4000/images/${logoFileName}`}
@@ -76,7 +102,7 @@ fetchNavSettings();
 <S.NavGroup>
 {menus.map((menu, index) =>(
     <Link href={menu.url || "/" } key={menu.id}>
-<S.NavItem $active={index === 1}>{menu.name}</S.NavItem>        
+<S.NavItem $active={index === 1} style={{ color:textColor}}>{menu.name}</S.NavItem>        
     </Link>
 ))}
     {/*<S.NavItem>병원소개</S.NavItem>
@@ -91,16 +117,29 @@ fetchNavSettings();
 <S.UtilGroup>
     
 <S.DesktopOnly>
-    <S.PhoneButton href="tel:02-932-2222">
-        TEL.<span>02.932.2222</span>
+    <S.PhoneButton href="tel:02-932-2222" 
+    style={{ 
+backgroundColor: isDark ? '#2a2a2a' : '#fff',
+borderColor:isDark ? '#444' : '#ddd',
+color:textColor
+    }}>
+        TEL.<span style={{color:themeColor}}>02.932.2222</span>
     </S.PhoneButton>
-    <S.CtaButton>상담예약</S.CtaButton>
+    <S.CtaButton style={{backgroundColor:themeColor, color:'#fff', border:'none'}}>상담예약</S.CtaButton>
 
-    <S.IconButton aria-label='Language'>
+    <S.IconButton aria-label='Language' 
+    style={{
+backgroundColor: isDark ? '#2a2a2a' : '#fff',
+borderColor:isDark ? '#444' : '#ddd',        
+color:textColor}}>
         <GlobeIcon/>
     </S.IconButton>
 
-    <S.IconButton aria-label='My page'>
+    <S.IconButton aria-label='My page' 
+    style={{
+backgroundColor: isDark ? '#2a2a2a' : '#fff',
+borderColor:isDark ? '#444' : '#ddd',         
+        color:textColor}}>
         <Link href="http://localhost:3000/register/terms">
         <UserIcon/>
         </Link>
@@ -108,13 +147,17 @@ fetchNavSettings();
 </S.DesktopOnly>
 
 {/*모바일 화면일때만 나타나는 요소들 */}
-<S.MobilePillButton>Men's</S.MobilePillButton>
-<S.MobilePillButton>breast</S.MobilePillButton>
+<S.MobilePillButton 
+style={{backgroundColor:themeColor, color:'#fff'}}>
+    Men's</S.MobilePillButton>
+<S.MobilePillButton
+style={{backgroundColor:themeColor, color:'#fff'}}
+>breast</S.MobilePillButton>
 
 <S.HamburgerButton aria-label="Mobile Menu">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span style={{backgroundColor:textColor}}></span>
+    <span style={{backgroundColor:textColor}}></span>
+    <span style={{backgroundColor:textColor}}></span>
 </S.HamburgerButton>
 
 </S.UtilGroup>
