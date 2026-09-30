@@ -568,8 +568,10 @@ res.status(500).json({success:false});
 app.put('/api/admin/popups/setting', async(req, res) => {
 try{
 const {maxPopups} = req.body;    
-const settingRepo =
-AppDataSource.findOne({where:{ID: 1}});
+const settingRepo =AppDataSource.getRepository(PopupSetting);
+
+let setting = await settingRepo.findOne({where:{ID: 1}});
+
 if(!setting) setting = settingRepo.create({ID:1});
 
 setting.MAX_POPUPS = maxPopups;
@@ -589,7 +591,7 @@ if(!req.file) return res.status(400).json({
 success:false, message:"이미지가 없습니다"    
 });
 const {title, link, startDate, endDate, useTodayClose} = req.body;   
-const popupRepo = AppDataSource.getRepository(popup);
+const popupRepo = AppDataSource.getRepository(Popup);
 
 const newPopup = popupRepo.create({
 TITLE:title,

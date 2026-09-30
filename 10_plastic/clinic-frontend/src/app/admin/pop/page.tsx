@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Layout } from "../Layout";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiClock } from "react-icons/fi";
@@ -12,6 +13,7 @@ interface PopupData {
     startDate: string;
     endDate: string;
     useTodayClose: boolean;
+    fileName?:string;
 }
 
 export default function Pop() {
@@ -19,21 +21,15 @@ export default function Pop() {
     const [maxPopups, setMaxPopups] = useState<number>(1);
     
     // 🎯 상태 관리: 팝업 목록 데이터
-    const [popups, setPopups] = useState<PopupData[]>([
-        {
-            id: 1,
-            title: "가을맞이 첫방문 할인 이벤트",
-            link: "/event/autumn",
-            startDate: "2026-09-01T00:00",
-            endDate: "2026-10-31T23:59",
-            useTodayClose: true
-        }
-    ]);
+    const [popups, setPopups] = useState<PopupData[]>([]);
 
     // 🎯 상태 관리: 새 팝업 등록 폼
     const [newPopup, setNewPopup] = useState<Partial<PopupData>>({
         title: "", link: "", startDate: "", endDate: "", useTodayClose: true
     });
+
+    //이미지 파일 객체를 저장할 상태추가
+    const[selectedFile, setSelectedFile] = useState<File | null>(null);
     const [fileName, setFileName] = useState("");
 
     const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
@@ -45,6 +41,31 @@ export default function Pop() {
         return () => clearInterval(timer);
     }, []);
 
+//db에서 불러오기
+const fetchPopups = async () => {
+    try{
+const response =
+await axios.get("http://localhost:4000/api/admin/popups");
+if(response.data.success) {
+    setMaxPopups(response.data.maxPopups);
+    const formattedPopups = response.data.popups.map((p:any) => ({
+id:p.POPUP_IDX,
+title:p.TITLE,
+link:p.LINK,
+fileName:p.FILE_NAME,
+startDate:p.START_DATE,
+endDate:p.END_DATE,
+useTodayClose:p.USE_TODAY_CLOSE ==='Y'
+    }));
+    setPopups(formattedPopups);
+}
+    }catch(error) {
+console.error("팝업목록로드실패:",error);
+    }
+}
+
+
+
     // 🕒 날짜 비교 로직
     const getPopupStatus = (start: string, end: string) => {
         const startTime = new Date(start).getTime();
@@ -55,31 +76,67 @@ export default function Pop() {
         return { label: "노출중", color: "#1cc88a" };
     };
 
-    const handleAddPopup = () => {
-        if (!newPopup.title || !newPopup.startDate || !newPopup.endDate) {
-            alert("제목과 시작/종료 일시를 모두 입력해주세요.");
-            return;
-        }
-        setPopups([...popups, { id: Date.now(), ...newPopup } as PopupData]);
-        setNewPopup({ title: "", link: "", startDate: "", endDate: "", useTodayClose: true });
-        setFileName("");
-    };
+    const handleAddPopup = async () => {
+if (!newPopup.title || !newPopup.startDate || !newPopup.endDate || !selectedFile) {
+    alert("제목과 시작/종료 일시를 모두 입력해주세요.");
+    return;
+}
 
-    const handleDelete = (id: number) => {
-        if (confirm("정말 이 팝업을 삭제하시겠습니까?")) {
-            setPopups(popups.filter(p => p.id !== id));
-        }
-    };
+const formData = new FormData();
+formData.append("popupImg", selectedFile);
+formData.append("title", newPopup.title);
+formData.append("link", newPopup.link || "");
+formData.append("startDate", newPopup.startDate);
+formData.append("endDate", newPopup.endDate);
+formData.append("useTodayClose", String(newPopup.useTodayClose));
 
-    const handleSave = () => {
-        const payload = { maxPopups, popups };
-        console.log("DB에 저장될 데이터:", payload);
-        setIsSavePopupOpen(true);
-    };
+try{
+const response =
+await axios.post("http://localhost:4000/api/admin/popups", formData,{
+headers:{"Content-Type":"multipart/form-data"}    
+})
+if(response.data.success){
+    alert("팝업이 등록 되었습니다");
+setNewPopup({ title: "", link: "", startDate: "", endDate: "", useTodayClose: true });
+setSelectedFile(null);
+setFileName("");
+fetchPopups();
+}
+}catch(error){
+    console.error("팝업 등록 실패: ", error);
+    alert("등록에 실패 했습니다");
+}
+};
+
+const handleDelete = async (id: number) => {
+    if (confirm("정말 이 팝업을 삭제하시겠습니까?")) {
+        try{
+const response =
+await axios.delete(`http://localhost:4000/api/admin/popups/${id}`);
+if(response.data.success) fetchPopups();
+}catch(error){
+console.error("팝업 삭제 실패:", error);
+}
+}
+};
+
+const handleSave = async () => {
+try{
+const response =
+await axios.put("http://localhost:4000/api/admin/popups/setting", {maxPopups});
+if(response.data.success){
+    setIsSavePopupOpen(true);
+}
+}catch(error){
+    const payload = { maxPopups, popups };
+console.log("설정 저장 실패:", error);
+
+}
+};
 
     return (
         <>
-            <Layout>
+<Layout>
                 <S.PopContainer>
                     <S.PopPageHeader>
                         <S.PopPageTitle>메인 팝업 관리</S.PopPageTitle>
@@ -98,9 +155,7 @@ export default function Pop() {
                                     <S.PopFormGroup>
                                         <S.PopLabel>동시 노출 가능한 최대 팝업 갯수</S.PopLabel>
                                         <S.PopInput 
-                                            type="number" 
-                                            min={1} max={5}
-                                            value={maxPopups} 
+                                            type="number" min={1} max={5} value={maxPopups} 
                                             onChange={(e) => setMaxPopups(Number(e.target.value))} 
                                             style={{ width: '120px' }}
                                         />
@@ -119,9 +174,7 @@ export default function Pop() {
                                     <S.PopFormGroup>
                                         <S.PopLabel>팝업 제목 (관리용)</S.PopLabel>
                                         <S.PopInput 
-                                            type="text" 
-                                            placeholder="예: 수능 할인 이벤트" 
-                                            value={newPopup.title}
+                                            type="text" placeholder="예: 수능 할인 이벤트" value={newPopup.title}
                                             onChange={(e) => setNewPopup({...newPopup, title: e.target.value})}
                                         />
                                     </S.PopFormGroup>
@@ -130,10 +183,14 @@ export default function Pop() {
                                         <S.PopLabel>이미지 등록</S.PopLabel>
                                         <S.PopFileInputWrapper>
                                             <S.PopFileInput 
-                                                type="file" 
-                                                id="popup-img" 
-                                                accept="image/*"
-                                                onChange={(e) => setFileName(e.target.files?.[0]?.name || "")}
+                                                type="file" id="popup-img" accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files?.[0];
+                                                    if (file) {
+                                                        setSelectedFile(file);
+                                                        setFileName(file.name);
+                                                    }
+                                                }}
                                             />
                                             <S.PopFileLabel htmlFor="popup-img"><FiImage /> 이미지 선택</S.PopFileLabel>
                                             <span className="file-name">{fileName || "선택된 파일 없음"}</span>
@@ -144,14 +201,12 @@ export default function Pop() {
                                         <S.PopLabel><FiClock /> 노출 기간 설정</S.PopLabel>
                                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                             <S.PopInput 
-                                                type="datetime-local" 
-                                                value={newPopup.startDate}
+                                                type="datetime-local" value={newPopup.startDate}
                                                 onChange={(e) => setNewPopup({...newPopup, startDate: e.target.value})}
                                             />
                                             <span>~</span>
                                             <S.PopInput 
-                                                type="datetime-local" 
-                                                value={newPopup.endDate}
+                                                type="datetime-local" value={newPopup.endDate}
                                                 onChange={(e) => setNewPopup({...newPopup, endDate: e.target.value})}
                                             />
                                         </div>
@@ -160,17 +215,14 @@ export default function Pop() {
                                     <S.PopFormGroup>
                                         <S.PopLabel>클릭 시 이동할 링크 URL (선택)</S.PopLabel>
                                         <S.PopInput 
-                                            type="text" 
-                                            placeholder="예: /event/1"
-                                            value={newPopup.link}
+                                            type="text" placeholder="예: /event/1" value={newPopup.link}
                                             onChange={(e) => setNewPopup({...newPopup, link: e.target.value})}
                                         />
                                     </S.PopFormGroup>
 
                                     <S.PopCheckboxLabel>
                                         <input 
-                                            type="checkbox" 
-                                            checked={newPopup.useTodayClose}
+                                            type="checkbox" checked={newPopup.useTodayClose}
                                             onChange={(e) => setNewPopup({...newPopup, useTodayClose: e.target.checked})}
                                         />
                                         "오늘 하루 보지 않음" 버튼 사용하기
@@ -192,6 +244,7 @@ export default function Pop() {
                                     <S.PopTable>
                                         <thead>
                                             <tr>
+                                                <th>미리보기</th>
                                                 <th>제목 / 링크</th>
                                                 <th>노출 기간</th>
                                                 <th>옵션</th>
@@ -204,6 +257,11 @@ export default function Pop() {
                                                 const status = getPopupStatus(popup.startDate, popup.endDate);
                                                 return (
                                                     <tr key={popup.id}>
+                                                        <td>
+                                                            {popup.fileName && (
+                                                                <img src={`http://localhost:4000/images/${popup.fileName}`} alt="popup" style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }} />
+                                                            )}
+                                                        </td>
                                                         <td style={{ textAlign: 'left' }}>
                                                             <strong>{popup.title}</strong>
                                                             <div style={{ fontSize: '0.8rem', color: '#858796' }}>{popup.link || '링크 없음'}</div>
@@ -227,7 +285,7 @@ export default function Pop() {
                                                 )
                                             })}
                                             {popups.length === 0 && (
-                                                <tr><td colSpan={5} style={{ padding: '3rem 0' }}>등록된 팝업이 없습니다.</td></tr>
+                                                <tr><td colSpan={6} style={{ padding: '3rem 0' }}>등록된 팝업이 없습니다.</td></tr>
                                             )}
                                         </tbody>
                                     </S.PopTable>
