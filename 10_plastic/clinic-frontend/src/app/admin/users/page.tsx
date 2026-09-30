@@ -21,6 +21,14 @@ export default function Users() {
     // 🎯 상태 관리: 회원 목록
     const [userList, setUserList] = useState<UserData[]>([]);
 
+    // 🎯 새롭게 추가된 상태: 페이징 및 검색
+    const [totalCount, setTotalCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const [searchInput, setSearchInput] = useState("");
+    const [searchKeyword, setSearchKeyword] = useState("");
+
     // 🎯 상태 관리: 삭제 팝업
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
     const [selectedDeleteIdx, setSelectedDeleteIdx] = useState<number | null>(null);
@@ -28,11 +36,17 @@ export default function Users() {
     //화면 로드시 데이터 조회
     useEffect(() => {
 fetchUsers();
-    },[]);
+    },[currentPage, searchKeyword]);
 
 const fetchUsers = async () => {
-    try{
-const response = await axios.get("http://localhost:4000/api/admin/users");
+try{
+const response = await axios.get("http://localhost:4000/api/admin/users",{
+    params:{
+page:currentPage,
+limit:10,
+search:searchKeyword        
+    }
+});
 if(response.data.success) {
 const formattedUsers = response.data.data.map((user: any) => ({
 idx: user.USER_IDX,
@@ -45,17 +59,27 @@ joinDate:user.REG_DATE
 : "2026-09-01"
 }));   
 setUserList(formattedUsers); 
+setTotalCount(response.data.pagination.totalCount);
+setTotalPages(response.data.pagination.totalPages);
 }
     }catch(error){
 console.error("회원 목록 불러오기 실패:", error);
     }
-}    
+}   
+//검색 버튼 클릭 / 엔터 입력 시 실행
+const handleSearch = () => {
+    setSearchKeyword(searchInput);
+    setCurrentPage(1); // 검색시 무조건 1페이지로 돌아가기
+}
+
+
     // ----------------------------------------------------
     // 1. 회원 상태 변경 토글 (정상 <-> 정지)
     // ----------------------------------------------------
 const toggleStatus = async (idx: number) => {
 try{
-const response = await axios.put(`http://localhost:4000/api/admin/users/${idx}/status`);    
+const response = 
+await axios.put(`http://localhost:4000/api/admin/users/${idx}/status`);    
 if(response.data.success){
 setUserList(userList.map(item =>
 item.idx === idx
@@ -105,7 +129,13 @@ alert("상태 변경에 실패 했습니다")
                     {/* 🎯 검색 및 필터 영역 */}
                     <S.UserFilterCard>
                         <S.UserInputGroup>
-                            <S.UserInput type="text" placeholder="이름, 아이디 또는 연락처 검색" />
+<S.UserInput 
+type="text" 
+placeholder="이름, 아이디 또는 연락처 검색" 
+value={searchInput}
+onChange={(e) => setSearchInput(e.target.value)}
+onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+/>
                             <S.UserSearchButton>
                                 <FiSearch size={16} /> 검색
                             </S.UserSearchButton>
@@ -131,29 +161,29 @@ alert("상태 변경에 실패 했습니다")
                                         <th>관리</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {userList.map((item, index) => (
-                                        <tr key={item.idx}>
-                                            <td>{userList.length - index}</td>
-                                            <td><strong>{item.name}</strong></td>
-                                            <td>{item.userId}</td>
-                                            <td>{item.phone}</td>
-                                            <td>{item.joinDate}</td>
-                                            <td>
-                                                <S.UserStatusBadge 
-                                                    $status={item.status} 
-                                                    onClick={() => toggleStatus(item.idx)}
-                                                >
+<tbody>
+{userList.map((item, index) => (
+<tr key={item.idx}>
+<td>{totalCount-((currentPage - 1) * 10) - index}</td>
+<td><strong>{item.name}</strong></td>
+<td>{item.userId}</td>
+<td>{item.phone}</td>
+<td>{item.joinDate}</td>
+<td>
+<S.UserStatusBadge 
+$status={item.status} 
+onClick={() => toggleStatus(item.idx)}
+>
 {item.status === "정상" ? <FiCheck size={12} /> : <FiUserX size={12} />}
-                                                    {item.status}
-                                                </S.UserStatusBadge>
-                                            </td>
-                                            <td>
+{item.status}
+</S.UserStatusBadge>
+</td>
+<td>
 <S.UserDeleteActionBtn onClick={() => handleDeleteClick(item.idx)}>
     <FiTrash2 size={16} />
 </S.UserDeleteActionBtn>
-                                            </td>
-                                        </tr>
+</td>
+</tr>
 ))}
 {userList.length === 0 && (
     <tr>
@@ -162,12 +192,45 @@ alert("상태 변경에 실패 했습니다")
         </td>
     </tr>
 )}
-                                </tbody>
-                            </S.UserTable>
-                        </S.UserTableWrapper>
-                    </S.UserTableCard>
-                </S.UserContainer>
-            </Layout>
+</tbody>
+</S.UserTable>
+</S.UserTableWrapper>
+
+{totalPages > 0 && (
+    <S.Pagenation>
+<S.Prev
+onClick={(e) => {
+    if(isPrevDisabled) e.preventDefault();
+    setCurrentPage(prev => Math.max(1, prev - 1))}}
+disabled={currentPage <= 1}
+>
+이전
+        </S.Prev>
+{Array.from({length:totalPages}, (_, i) => i + 1).map(page =>(
+<S.PagenationBtn
+key={page}
+onClick={() => setCurrentPage(page)}
+>
+{page}    
+</S.PagenationBtn>    
+))}
+<S.Next
+onClick={(e) => {
+    if (isNextDisabled) e.preventDefault();
+    else setCurrentPage(prev =>  prev + 1);
+}}
+disabled={currentPage >= totalPages}
+>
+다음            
+</S.Next>
+    </S.Pagenation>
+)}
+
+
+
+</S.UserTableCard>
+</S.UserContainer>
+</Layout>
 
             {/* ✅ 커스텀 삭제 팝업 */}
             <Popup 

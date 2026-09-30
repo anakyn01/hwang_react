@@ -16,6 +16,24 @@ cursor:pointer;
 border-radius:4px;
 font-weight:currentPage === page ? 'bold' : 'normal';
 `;
+export const Prev = styled.button`
+${FlexCenter}
+padding:6px 12px;
+border:1px solid #ddd;
+border-radius:4px;
+background-color:isPrevDisabled ? '#eee' : '#fff';
+color:isPrevDisabled ? '#999' : '#333',
+cursor:isPrevDisabled === totalPages ? 'not-allowed' : 'pointer';
+`;
+export const Next = styled.button`
+${FlexCenter}
+padding:6px 12px;
+border:1px solid #ddd;
+border-radius:4px;
+background-color:isNextDisabled ? '#eee' : '#fff';
+color:isNextDisabled ? '#999' : '#333',
+cursor:isNextDisabled === totalPages ? 'not-allowed' : 'pointer';
+`;
 
 export const LogoImg = styled.img`
 max-height:40px;

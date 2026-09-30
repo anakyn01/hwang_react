@@ -10,6 +10,7 @@ const FooterSettings = require("./src/entity/FooterSettings");
 const Consult = require('./src/entity/Consult');
 const NavSetting = require('./src/entity/NavSetting');
 const MainVisual = require("./src/entity/MainVisual");
+const ToneSetting = require("./src/entity/ToneSetting");
 
 const nodemailer = require('nodemailer');
 
@@ -502,6 +503,40 @@ res.status(200).json({success:true, message:'삭제되었습니다'});
 console.error('회원목록조회에러:', error);
 res.status(500).json({success:false});
 }
+});
+
+//톤앤매너 설정
+app.get('/api/admin/tone', async(req, res) => {
+    try{
+const toneRepo = AppDataSource.getRepository(ToneSetting);
+let setting = await toneRepo.findOne({where:{ID: 1}});
+
+if(!setting){
+return res.status(200).json({success:true, 
+    data:{PRIMARY_TONE:"BLUE", IS_DARK_MODE:"N"}});
+}
+res.status(200).json({success:true, data:setting});
+    }catch(error){
+console.error('테마 설정 조회 에러:', error);
+res.status(500).json({success:false});
+    }
+});
+app.put('/api/admin/tone', async(req, res) => {
+    try{
+const toneRepo = AppDataSource.getRepository(ToneSetting);
+let setting = await toneRepo.findOne({where:{ID: 1}});
+if(!setting){
+setting = toneRepo.create({ID:1});
+}
+setting.PRIMARY_TONE = primaryTone;
+setting.IS_DARK_MODE = isDarkMode;
+
+await toneRepo.save(setting);
+res.status(200).json({success:true});
+    }catch(error){
+console.error('테마 설정 조회 에러:', error);
+res.status(500).json({success:false});
+    }
 });
 
 
