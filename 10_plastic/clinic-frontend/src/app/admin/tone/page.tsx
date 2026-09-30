@@ -1,9 +1,10 @@
 "use client";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 import *as S from "@/assets/css/admin/Admin.style"
 import { FiMoon, FiSun, FiCheck, FiSave} from "react-icons/fi";
-
 import { Layout } from "../Layout";
+import { Popup} from "@/component/modal/Popup";
 
 
 export default function Tone(){
@@ -11,6 +12,27 @@ export default function Tone(){
     const [selectedTone, setSelectedTone] = 
     useState<"BLUE" | "PINK">("BLUE");
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+    //💡 팝업 상태 관리
+    const[isPopupOpen, setIsPopupOpen] = useState(false);
+
+useEffect(() => {
+fetchToneSetting();
+},[])
+
+const fetchToneSetting = async () => {
+    try{
+const response =
+await axios.get("http://localhost:4000/api/admin/tone");
+if(response.data.success) {
+const dbData = response.data.data;
+if(dbData.PRIMARY_TONE) setSelectedTone (dbData.PRIMARY_TONE);  
+if(dbData.IS_DARK_MODE) setIsDarkMode (dbData.IS_DARK_MODE === 'Y'); 
+}
+    }catch(error){
+console.error("테마 설정 로드 실패:", error);
+    };
+}
 
     //
 const handleSave = async () => {
