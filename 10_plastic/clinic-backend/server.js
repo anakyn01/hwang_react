@@ -11,6 +11,8 @@ const Consult = require('./src/entity/Consult');
 const NavSetting = require('./src/entity/NavSetting');
 const MainVisual = require("./src/entity/MainVisual");
 const ToneSetting = require("./src/entity/ToneSetting");
+const PopupSetting = require("./src/entity/PopupSetting");
+const Popup = require("./src/entity/Popup");
 
 const nodemailer = require('nodemailer');
 
@@ -542,6 +544,79 @@ res.status(500).json({success:false});
     }
 });
 
+//1. 팝업 목록 및 설정 전체 조회
+app.get('/api/admin/popups', async(req, res) => {
+try{
+const settingRepo = AppDataSource.getRepository(PopupSetting);
+const popupRepo = AppDataSource.getRepository(Popup);
+
+let setting = await settingRepo.findOne({where:{ID: 1}});
+const popups = await popupRepo.find({order:{POPUP_IDX:"DESC"}});
+
+res.status(200).json({
+success:true,
+maxPopups:setting ? setting.MAX_POPUPS: 1, 
+popups   
+});
+}catch(error){
+console.error('팝업 조회 에러:', error);
+res.status(500).json({success:false});    
+}
+});
+
+// 2. 최대 노출 갯수 설정 저장
+app.put('/api/admin/popups/setting', async(req, res) => {
+try{
+const {maxPopups} = req.body;    
+const settingRepo =
+AppDataSource.findOne({where:{ID: 1}});
+if(!setting) setting = settingRepo.create({ID:1});
+
+setting.MAX_POPUPS = maxPopups;
+await settingRepo.save(setting);
+
+res.status(200).json({success:true});
+}catch(error){
+console.error('팝업 조회 에러:', error);
+res.status(500).json({success:false});       
+}
+});
+
+// 3. 새 팝업 등록 (이미지 업로드 포함)
+app.post('/api/admin/popups', upload.single('popupImg'), async(req, res) => {
+try{
+if(!req.file) return res.status(400).json({
+success:false, message:"이미지가 없습니다"    
+});
+const {title, link, startDate, endDate, useTodayClose} = req.body;   
+const popupRepo = AppDataSource.getRepository(popup);
+
+const newPopup = popupRepo.create({
+TITLE:title,
+LINK:link || "",
+FILE_NAME:req.file.filename,
+START_DATE :startDate,
+END_DATE :endDate,
+USE_TODAY_CLOSE :useTodayClose === 'true' ? 'Y' : 'N'     
+});
+await popupRepo.save(newPopup);
+res.status(200).json({success: true});
+}catch(error){
+console.error('팝업 등록 에러:', error);
+res.status(500).json({success:false});       
+}
+});
+// 4. 팝업 삭제
+app.delete('/api/admin/popups/:idx', async(req, res) => {
+try{
+const popupRepo = AppDataSource.getRepository(Popup);
+await popupRepo.delete(req.params.idx);
+res.status(200).json({success:true});
+}catch(error){
+console.error('팝업 삭제 에러:', error);
+res.status(500).json({success:false});   
+}
+});
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
