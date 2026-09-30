@@ -1,4 +1,5 @@
 require('dotenv').config();
+const {Like} = require("typeorm");
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
@@ -438,8 +439,39 @@ res.status(500).json({success:false});
 app.get('/api/admin/users', async (req, res) => {
 try{
 const memberRepo = AppDataSource.getRepository(Member);
-const users = await memberRepo.find({order:{USER_IDX:"DESC"}});
-res.status(200).json({success:true, data:users});
+
+//프론트에서 보낸 파라미터 받기(기본값 설정)
+const page = parseInt(req.query.page) || 1;
+const limit = parseInt(req.query.limit) || 10;
+const search = req.query.search || "";
+
+//데이터베이스에게 건너뛸 개수 계산
+const skip = (page - 1) * limit;
+
+//검색어가 있으면 이름(USER_NAME)으로 필터링
+const whereClause = search ? { USER_NAME: Like(`%${search}%`)}:{};
+
+//데이터 검색 및 전체개수(totalCount)같이 가져오기
+const [users, totalCount] = await memberRepo.findAndCount({
+where:whereClause,
+order:{USER_IDX: "DESC"},
+skip:skip,
+take:limit    
+});
+
+//총 페이지 수 계산
+const totalPages = Math.ceil(totalCount / limit);
+
+
+res.status(200).json({
+    success:true, 
+    data:users,
+pagination:{
+totalCount, totalPages, 
+currentPage:page,
+limit    
+}
+});
 }catch(error){
 console.error('회원목록조회에러:', error);
 res.status(500).json({success:false, message:'서버 에러'});

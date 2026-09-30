@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
 import { Layout } from "../Layout";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiTrash2, FiSearch, FiCheck, FiUserX } from "react-icons/fi";
@@ -7,7 +9,7 @@ import { Popup } from "@/component/modal/Popup";
 
 // 임시 회원 데이터 인터페이스
 interface UserData {
-    id: number;
+    idx: number;
     name: string;
     userId: string;
     phone: string;
@@ -17,41 +19,79 @@ interface UserData {
 
 export default function Users() {
     // 🎯 상태 관리: 회원 목록
-    const [userList, setUserList] = useState<UserData[]>([
-        { id: 1, name: "홍길동", userId: "hong123@test.com", phone: "010-1234-5678", joinDate: "2026-09-20", status: "정상" },
-        { id: 2, name: "김철수", userId: "kim_ch@test.com", phone: "010-9876-5432", joinDate: "2026-09-18", status: "정지" },
-        { id: 3, name: "이영희", userId: "young_hee@test.com", phone: "010-5555-4444", joinDate: "2026-09-15", status: "정상" },
-    ]);
+    const [userList, setUserList] = useState<UserData[]>([]);
 
     // 🎯 상태 관리: 삭제 팝업
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
-    const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
+    const [selectedDeleteIdx, setSelectedDeleteIdx] = useState<number | null>(null);
 
+    //화면 로드시 데이터 조회
+    useEffect(() => {
+fetchUsers();
+    },[]);
+
+const fetchUsers = async () => {
+    try{
+const response = await axios.get("http://localhost:4000/api/admin/users");
+if(response.data.success) {
+const formattedUsers = response.data.data.map((user: any) => ({
+idx: user.USER_IDX,
+name:user.USER_NAME,
+userId:user.USER_ID,
+phone:user.PHONE,
+status:user.STATUS || "정상",
+joinDate:user.REG_DATE
+? new Date(user.REG_DATE).toISOString().split('T')[0]
+: "2026-09-01"
+}));   
+setUserList(formattedUsers); 
+}
+    }catch(error){
+console.error("회원 목록 불러오기 실패:", error);
+    }
+}    
     // ----------------------------------------------------
     // 1. 회원 상태 변경 토글 (정상 <-> 정지)
     // ----------------------------------------------------
-    const toggleStatus = (id: number) => {
-        setUserList(userList.map(item =>
-            item.id === id
-                ? { ...item, status: item.status === "정상" ? "정지" : "정상" }
-                : item
-        ));
+const toggleStatus = async (idx: number) => {
+try{
+const response = await axios.put(`http://localhost:4000/api/admin/users/${idx}/status`);    
+if(response.data.success){
+setUserList(userList.map(item =>
+item.idx === idx
+    ? { ...item, status: item.status === "정상" ? "정지" : "정상" }
+    : item
+));
+}
+}catch(error) {
+console.error("상태 변경 실패:", error);
+alert("상태 변경에 실패 했습니다")
+}
     };
 
     // ----------------------------------------------------
     // 2. 회원 삭제 기능 (팝업 열기 & 실제 삭제)
     // ----------------------------------------------------
-    const handleDeleteClick = (id: number) => {
-        setSelectedDeleteId(id);
+    const handleDeleteClick = (idx: number) => {
+        setSelectedDeleteIdx(idx);
         setIsDeletePopupOpen(true);
     };
 
-    const confirmDelete = () => {
-        if (selectedDeleteId !== null) {
-            setUserList(userList.filter(item => item.id !== selectedDeleteId));
+    const confirmDelete = async () => {
+        if (selectedDeleteIdx !== null) {
+            try{
+            const response = 
+            await axios.delete(`http://localhost:4000/api/admin/users/${selectedDeleteIdx}`);
+                if(response.data.success){
+                    setUserList(userList.filter(item => item.idx !== selectedDeleteIdx));
+                }
+            }catch(error){
+                console.error("회원 삭제 실패:", error);
+                alert("회원 삭제에 실패했습니다")
+            }            
         }
         setIsDeletePopupOpen(false);
-        setSelectedDeleteId(null);
+        setSelectedDeleteIdx(null);
     };
 
     return (
@@ -93,7 +133,7 @@ export default function Users() {
                                 </thead>
                                 <tbody>
                                     {userList.map((item, index) => (
-                                        <tr key={item.id}>
+                                        <tr key={item.idx}>
                                             <td>{userList.length - index}</td>
                                             <td><strong>{item.name}</strong></td>
                                             <td>{item.userId}</td>
@@ -102,26 +142,26 @@ export default function Users() {
                                             <td>
                                                 <S.UserStatusBadge 
                                                     $status={item.status} 
-                                                    onClick={() => toggleStatus(item.id)}
+                                                    onClick={() => toggleStatus(item.idx)}
                                                 >
-                                                    {item.status === "정상" ? <FiCheck size={12} /> : <FiUserX size={12} />}
+{item.status === "정상" ? <FiCheck size={12} /> : <FiUserX size={12} />}
                                                     {item.status}
                                                 </S.UserStatusBadge>
                                             </td>
                                             <td>
-                                                <S.UserDeleteActionBtn onClick={() => handleDeleteClick(item.id)}>
-                                                    <FiTrash2 size={16} />
-                                                </S.UserDeleteActionBtn>
+<S.UserDeleteActionBtn onClick={() => handleDeleteClick(item.idx)}>
+    <FiTrash2 size={16} />
+</S.UserDeleteActionBtn>
                                             </td>
                                         </tr>
-                                    ))}
-                                    {userList.length === 0 && (
-                                        <tr>
-                                            <td colSpan={7} style={{ textAlign: 'center', padding: '3rem' }}>
-                                                가입된 회원 내역이 없습니다.
-                                            </td>
-                                        </tr>
-                                    )}
+))}
+{userList.length === 0 && (
+    <tr>
+        <td colSpan={7} style={{ textAlign: 'center', padding: '3rem' }}>
+            가입된 회원 내역이 없습니다.
+        </td>
+    </tr>
+)}
                                 </tbody>
                             </S.UserTable>
                         </S.UserTableWrapper>
@@ -135,7 +175,7 @@ export default function Users() {
                 title="회원 삭제 확인" 
                 onClose={() => {
                     setIsDeletePopupOpen(false);
-                    setSelectedDeleteId(null);
+                    setSelectedDeleteIdx(null);
                 }}
                 onConfirm={confirmDelete}
             >

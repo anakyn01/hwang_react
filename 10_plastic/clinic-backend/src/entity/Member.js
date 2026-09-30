@@ -1,5 +1,6 @@
 const { EntitySchema } = require("typeorm");
 
+
 module.exports = new EntitySchema({
     name:"Member",
     tableName:"MEMBER_TB",
@@ -71,10 +72,12 @@ default:0,
 nullable:false,
 },
 REG_DATE:{
+name:"REG_DATE",    
 type:"date",
 createDate:true,        
 },
 STATUS:{
+name:"STATUS",    
 type:"varchar2",
 length:20,
 default:"'정상'"    
