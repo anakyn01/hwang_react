@@ -73,6 +73,11 @@ nullable:false,
 REG_DATE:{
 type:"date",
 createDate:true,        
+},
+STATUS:{
+type:"varchar2",
+length:20,
+default:"'정상'"    
 }
 },
 });

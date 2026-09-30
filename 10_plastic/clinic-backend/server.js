@@ -434,6 +434,44 @@ res.status(500).json({success:false});
 }
 });
 
+//1.회원목록전체조회(최신 가입순)
+app.get('/api/admin/users', async (req, res) => {
+try{
+const memberRepo = AppDataSource.getRepository(Member);
+const users = await memberRepo.find({order:{USER_IDX:"DESC"}});
+res.status(200).json({success:true, data:users});
+}catch(error){
+console.error('회원목록조회에러:', error);
+res.status(500).json({success:false, message:'서버 에러'});
+}
+});
+
+app.put('/api/admin/users/:idx/status', async (req, res) => {
+try{
+const memberRepo = AppDataSource.getRepository(Member);
+const users = await memberRepo.find({where:{USER_IDX:req.params.idx}});
+
+if(!user) return res.status(404).json({success:false, message:'회원이 없습니다'})
+user.STATUS = user.STATUS === '정지' ? '정상' :'정지';
+await memberRepo.save(user);
+res.status(200).json({success:true, message:'상태가 변경 되었습니다'});
+}catch(error){
+console.error('상태 변경 에러:', error);
+res.status(500).json({success:false});
+}
+});
+
+app.delete('/api/admin/users/:idx', async (req, res) => {
+try{
+const memberRepo = AppDataSource.getRepository(Member);
+await memberRepo.delete(req.params.idx);
+res.status(200).json({success:true, message:'삭제되었습니다'});
+}catch(error){
+console.error('회원목록조회에러:', error);
+res.status(500).json({success:false});
+}
+});
+
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
