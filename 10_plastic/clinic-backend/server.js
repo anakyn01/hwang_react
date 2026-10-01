@@ -18,6 +18,7 @@ const Safety = require("./src/entity/Safety");
 const Selfie = require("./src/entity/Selfie");
 const EventRanking = require("./src/entity/EventRanking");
 const Vlog = require("./src/entity/Vlog");
+const Board = require("./src/entity/Board");
 
 
 const nodemailer = require('nodemailer');
@@ -987,6 +988,47 @@ app.put('/api/admin/vlogs/order', async (req, res) => {
     }
 });
 
+//여러개 게시판 만들기 관리자
+app.get('/api/admin/boards', async(req, res) => {
+    try{
+const repo = 
+AppDataSource.getRepository(Board);
+const items =
+await repo.find({order:{BOARD_IDX:"ASC"}});        
+res.status(200).json({success:true, data:items});
+    }catch(error) {
+res.status(500).json({success:false});
+    }
+});
+
+app.post('/api/admin/boards', async(req, res) => {
+    try{
+const {name, type, readAuth, writeAuth } = req.body;
+const repo = AppDataSource.getRepository(Board);
+
+const newBoard = repo.create({
+NAME:name,
+BOARD_TYPE:type,
+READ_AUTH:readAuth,
+WRITE_AUTH:writeAuth    
+});
+await repo.save(newBoard);
+res.status(200).json({success:true})
+    }catch(error) {
+res.status(500).json({success:false});
+    }
+});
+
+app.delete('/api/admin/boards/:idx', async(req, res) => {
+    try{
+const repo =
+AppDataSource.getRepository(Board);
+await repo.delete(req.params.idx);        
+res.status(200).json({success:true})
+    }catch(error) {
+res.status(500).json({success:false});
+    }
+});
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
