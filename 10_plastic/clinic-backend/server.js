@@ -1030,6 +1030,25 @@ res.status(500).json({success:false});
     }
 });
 
+//특정게시판 단건 조회
+app.get('/api/boards/:idx', async (req, res) => {
+    try{
+const repo =
+AppDataSource.getRepository(Board);
+const board =
+await repo.findOne({where:{BOARD_IDX:req.params.idx}});
+
+if(!board) {
+    return res.status(404).json({success:false, 
+        message:"게시판이 존재하지 않습니다."});
+}
+res.status(200).json({success:true, data:board});
+    }catch(error){
+console.error('게시판 조회 에러:', error);
+res.status(500).json({ success: false });
+    }
+});
+
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
 

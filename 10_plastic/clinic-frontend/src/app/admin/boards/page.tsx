@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Layout } from "../Layout";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiSettings, FiList } from "react-icons/fi";
@@ -17,12 +18,7 @@ interface BoardData {
 
 export default function Board() {
     // 🎯 상태 관리: 등록된 게시판 목록
-    const [boardList, setBoardList] = useState<BoardData[]>([
-        { id: 1, name: "공지사항", type: "일반게시판", readAuth: "전체", writeAuth: "관리자", regDate: "2026-09-01" },
-        { id: 2, name: "전후사진 갤러리", type: "갤러리형", readAuth: "전체", writeAuth: "관리자", regDate: "2026-09-05" },
-        { id: 3, name: "고객 리얼후기", type: "일반게시판", readAuth: "회원", writeAuth: "회원", regDate: "2026-09-10" },
-        { id: 4, name: "자주 묻는 질문", type: "FAQ형", readAuth: "전체", writeAuth: "관리자", regDate: "2026-09-15" }
-    ]);
+    const [boardList, setBoardList] = useState<BoardData[]>([]);
 
     // 🎯 상태 관리: 새 게시판 생성 폼
     const [newBoard, setNewBoard] = useState({
@@ -32,62 +28,84 @@ export default function Board() {
         writeAuth: "관리자"
     });
 
-    // 🎯 상태 관리: 팝업창
     const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
     const [isAlertPopupOpen, setIsAlertPopupOpen] = useState(false);
     
-    // 삭제 팝업 상태 및 선택된 ID
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
     const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
 
-    // ----------------------------------------------------
-    // 1. 새 게시판 추가 기능
-    // ----------------------------------------------------
-    const handleAddBoard = () => {
-        if (!newBoard.name) {
-            setIsAlertPopupOpen(true); // 게시판 이름이 비어있으면 경고 팝업
+    // 💡 화면 렌더링 시 DB에서 목록 불러오기
+    useEffect(() => {
+        fetchBoards();
+    }, []);
+
+    const fetchBoards = async () => {
+        try {
+            const response = await axios.get("http://localhost:4000/api/admin/boards");
+            if (response.data.success) {
+                const formatted = response.data.data.map((b: any) => {
+                    // 날짜를 YYYY-MM-DD 형식으로 자르기
+                    const dateObj = new Date(b.REG_DATE);
+                    const formattedDate = !isNaN(dateObj.getTime()) ? dateObj.toISOString().split('T')[0] : "";
+                    
+                    return {
+                        id: b.BOARD_IDX,
+                        name: b.NAME,
+                        type: b.BOARD_TYPE,
+                        readAuth: b.READ_AUTH,
+                        writeAuth: b.WRITE_AUTH,
+                        regDate: formattedDate
+                    };
+                });
+                setBoardList(formatted);
+            }
+        } catch (error) {
+            console.error("게시판 목록 로드 실패:", error);
+        }
+    };
+
+    // 💡 1. 새 게시판 추가 기능 (서버 전송)
+    const handleAddBoard = async () => {
+        if (!newBoard.name.trim()) {
+            setIsAlertPopupOpen(true);
             return;
         }
 
-        const today = new Date().toISOString().split('T')[0]; // 오늘 날짜 구하기 (YYYY-MM-DD)
-
-        setBoardList([
-            ...boardList,
-            {
-                id: Date.now(),
-                name: newBoard.name,
-                type: newBoard.type,
-                readAuth: newBoard.readAuth,
-                writeAuth: newBoard.writeAuth,
-                regDate: today
+        try {
+            // 이미지가 없으므로 JSON 형태로 바로 전송
+            const response = await axios.post("http://localhost:4000/api/admin/boards", newBoard);
+            if (response.data.success) {
+                setNewBoard({ name: "", type: "일반게시판", readAuth: "전체", writeAuth: "관리자" });
+                fetchBoards(); // 목록 새로고침
             }
-        ]);
-
-        // 입력 폼 초기화
-        setNewBoard({ name: "", type: "일반게시판", readAuth: "전체", writeAuth: "관리자" });
+        } catch (error) {
+            alert("게시판 생성에 실패했습니다.");
+        }
     };
 
-    // ----------------------------------------------------
-    // 2. 게시판 삭제 기능 (팝업 열기 & 확인 후 삭제)
-    // ----------------------------------------------------
+    // 💡 2. 게시판 삭제 기능
     const handleDeleteClick = (id: number) => {
         setSelectedDeleteId(id);
         setIsDeletePopupOpen(true);
     };
 
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
         if (selectedDeleteId !== null) {
-            setBoardList(boardList.filter(b => b.id !== selectedDeleteId));
+            try {
+                const response = await axios.delete(`http://localhost:4000/api/admin/boards/${selectedDeleteId}`);
+                if (response.data.success) {
+                    fetchBoards();
+                }
+            } catch (error) {
+                alert("삭제 중 문제가 발생했습니다.");
+            }
         }
         setIsDeletePopupOpen(false);
         setSelectedDeleteId(null);
     };
 
-    // ----------------------------------------------------
-    // 3. 최종 저장 기능
-    // ----------------------------------------------------
+    // 💡 3. 최종 설정 저장 버튼 기능 (추가/삭제는 이미 실시간으로 DB에 반영되므로, UI 확인용도로 유지)
     const handleSave = () => {
-        console.log("DB에 저장될 게시판 목록:", boardList);
         setIsSavePopupOpen(true);
     };
 
@@ -188,7 +206,13 @@ export default function Board() {
                                                     <td style={{ textAlign: 'left' }}>
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                             <FiList color="#b7b9cc" />
-                                                            <strong>{board.name}</strong>
+<a
+href={`/board/${board.id}`}
+target="_blank"
+rel="noreferrer"
+>
+<strong>{board.name}</strong>
+</a>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -229,7 +253,6 @@ export default function Board() {
                 </S.BoardContainer>
             </Layout>
 
-            {/* ✅ 커스텀 팝업 모음 */}
             <Popup 
                 isOpen={isSavePopupOpen} 
                 title="저장 완료" 
