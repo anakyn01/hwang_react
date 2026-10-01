@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import { Layout } from "../Layout";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiArrowUp, FiArrowDown } from "react-icons/fi";
@@ -14,70 +16,119 @@ interface CategoryData {
 
 export default function News() {
     // 🎯 상태 관리: 등록된 카테고리 아이콘 목록
-    const [categories, setCategories] = useState<CategoryData[]>([
-        { id: 1, title: "전체", imageUrl: "", link: "/all" },
-        { id: 2, title: "눈", imageUrl: "", link: "/eye" },
-        { id: 3, title: "코", imageUrl: "", link: "/nose" }
-    ]);
+    const [categories, setCategories] = useState<CategoryData[]>([]);
 
     // 🎯 상태 관리: 새 카테고리 등록 폼
     const [newCategory, setNewCategory] = useState({ title: "", link: "" });
+//add
+const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+
     const [fileName, setFileName] = useState("");
     const [previewUrl, setPreviewUrl] = useState<string>("");
-
     const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
 
-    // 이미지 첨부 및 썸네일 미리보기 처리
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setFileName(file.name);
-            setPreviewUrl(URL.createObjectURL(file)); // 로컬 썸네일 미리보기 생성
-        }
-    };
+//생명주기
+useEffect(() => {
+    fetchCategories();
+},[]);
 
-    // 카테고리 추가
-    const handleAddCategory = () => {
-        if (!newCategory.title) {
-            alert("카테고리 이름을 입력해주세요.");
-            return;
-        }
-        setCategories([...categories, { 
-            id: Date.now(), 
-            title: newCategory.title, 
-            imageUrl: previewUrl, 
-            link: newCategory.link 
-        }]);
-        setNewCategory({ title: "", link: "" });
-        setFileName("");
-        setPreviewUrl("");
-    };
+const fetchCategories = async () => {
+    try{
+const response =
+await axios.get("http://localhost:4000/api/admin/categories");        
+if(response.data.success){
+const formatted = response.data.data.map((c: any) => ({
+id:c.CATEGORY_IDX,
+title:c.TITLE,
+imageUrl:`http://localhost:4000/images/${c.FILE_NAME}`,
+link:c.LINK    
+}));
+setCategories(formatted);
+}
+}catch(error) {
+console.error("카테고리 로드 실패", error);
+}
+}
 
-    // 카테고리 삭제
-    const handleDelete = (id: number) => {
-        if (confirm("해당 카테고리 아이콘을 삭제하시겠습니까?")) {
-            setCategories(categories.filter(c => c.id !== id));
-        }
-    };
 
-    // 순서 변경 (위/아래)
-    const moveCategory = (index: number, direction: 'UP' | 'DOWN') => {
-        const newCategories = [...categories];
-        if (direction === 'UP' && index > 0) {
-            [newCategories[index - 1], newCategories[index]] = [newCategories[index], newCategories[index - 1]];
-        } else if (direction === 'DOWN' && index < newCategories.length - 1) {
-            [newCategories[index + 1], newCategories[index]] = [newCategories[index], newCategories[index + 1]];
-        }
-        setCategories(newCategories);
-    };
+// 이미지 첨부 및 썸네일 미리보기 처리
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+        setSelectedFile(file);
+        setFileName(file.name);
+        setPreviewUrl(URL.createObjectURL(file)); // 로컬 썸네일 미리보기 생성
+    }
+};
 
-    // 최종 저장
-    const handleSave = () => {
-        console.log("DB에 저장될 데이터:", categories);
-        setIsSavePopupOpen(true);
-    };
+// 카테고리 추가
+const handleAddCategory = async () => {
+if (!newCategory.title || !selectedFile) {
+alert("카테고리 이름과 이미지를 모두 등록해주세요.");
+return;
+}
 
-    return (
+const formData = new FormData();
+formData.append("categoryImg",selectedFile);
+formData.append("title",newCategory.title);
+formData.append("link",newCategory.link);
+
+try{
+const response =
+await axios.post("http://localhost:4000/api/admin/categories", formData,{
+    headers:{"Content-Type":"multipart/form-data"}
+});
+if(response.data.success) {
+setNewCategory({title: "", link: "" });
+setSelectedFile(null);
+setFileName("");
+setPreviewUrl("");
+fetchCategories();
+}
+}catch(error){
+alert("카테고리 등록에 실패 했습니다")
+}
+};
+
+// 카테고리 삭제
+const handleDelete = async (id: number) => {
+    if (confirm("해당 카테고리 아이콘을 삭제하시겠습니까?")) {
+        try{
+await axios.delete(`http://localhost:4000/api/admin/categories/${id}`);
+fetchCategories();
+}catch(error){
+    alert("삭제 실패");
+}
+    }
+};
+
+// 순서 변경 (위/아래)
+const moveCategory = (index: number, direction: 'UP' | 'DOWN') => {
+    const newCategories = [...categories];
+    if (direction === 'UP' && index > 0) {
+        [newCategories[index - 1], newCategories[index]] = [newCategories[index], newCategories[index - 1]];
+    } else if (direction === 'DOWN' && index < newCategories.length - 1) {
+        [newCategories[index + 1], newCategories[index]] = [newCategories[index], newCategories[index + 1]];
+    }
+    setCategories(newCategories);
+};
+
+//4.변경된 순서를 db에 최종저장
+const handleSave = async () => {
+    const orderedIds = categories.map(c => c.id);
+    try{
+const response =
+await axios.put("http://localhost:4000/api/admin/categories/order",{orderedIds});
+if(response.data.success){
+   setIsSavePopupOpen(true); 
+}    
+}catch(error){
+alert("순서 저장 실패")
+    }
+};
+
+return (
         <>
             <Layout>
                 <S.NewsContainer>
@@ -89,7 +140,6 @@ export default function News() {
                     </S.NewsPageHeader>
 
                     <S.NewsGrid>
-                        {/* ⚙️ 1. 새 아이콘 등록 폼 */}
                         <S.NewsLeftColumn>
                             <S.NewsCard>
                                 <S.NewsCardHeader>
@@ -99,8 +149,7 @@ export default function News() {
                                     <S.NewsFormGroup>
                                         <S.NewsLabel>카테고리명 (예: 눈, 코, 가슴)</S.NewsLabel>
                                         <S.NewsInput 
-                                            type="text" 
-                                            placeholder="아이콘 아래에 표시될 텍스트" 
+                                            type="text" placeholder="아이콘 아래에 표시될 텍스트" 
                                             value={newCategory.title}
                                             onChange={(e) => setNewCategory({...newCategory, title: e.target.value})}
                                         />
@@ -110,27 +159,23 @@ export default function News() {
                                         <S.NewsLabel>원형 썸네일 이미지</S.NewsLabel>
                                         <S.NewsFileInputWrapper>
                                             <S.NewsFileInput 
-                                                type="file" 
-                                                id="category-img" 
-                                                accept="image/*"
+                                                type="file" id="category-img" accept="image/*"
                                                 onChange={handleFileChange}
                                             />
                                             <S.NewsFileLabel htmlFor="category-img"><FiImage /> 이미지 선택</S.NewsFileLabel>
                                             <span className="file-name">{fileName || "선택된 파일 없음"}</span>
                                         </S.NewsFileInputWrapper>
-                                        {/* 썸네일 미리보기 영역 */}
                                         {previewUrl && (
                                             <S.NewsPreviewCircle>
-                                                <img src={previewUrl} alt="미리보기" />
+                                                <img src={previewUrl} alt="미리보기" style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', marginTop: '1rem' }} />
                                             </S.NewsPreviewCircle>
                                         )}
                                     </S.NewsFormGroup>
 
                                     <S.NewsFormGroup>
-                                        <S.NewsLabel>클릭 시 이동할 링크 URL</S.NewsLabel>
+                                        <S.NewsLabel>클릭 시 이동할 링크 URL (선택)</S.NewsLabel>
                                         <S.NewsInput 
-                                            type="text" 
-                                            placeholder="예: /category/eye"
+                                            type="text" placeholder="예: /category/eye"
                                             value={newCategory.link}
                                             onChange={(e) => setNewCategory({...newCategory, link: e.target.value})}
                                         />
@@ -143,7 +188,6 @@ export default function News() {
                             </S.NewsCard>
                         </S.NewsLeftColumn>
 
-                        {/* 📋 2. 등록된 아이콘 리스트 */}
                         <S.NewsRightColumn>
                             <S.NewsCard style={{ height: '100%' }}>
                                 <S.NewsCardHeader>
@@ -174,12 +218,12 @@ export default function News() {
                                                     </td>
                                                     <td>
                                                         <S.NewsThumbnail>
-                                                            {cat.imageUrl ? <img src={cat.imageUrl} alt={cat.title} /> : <span>No Img</span>}
+                                                            {cat.imageUrl ? <img src={cat.imageUrl} alt={cat.title} style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} /> : <span>No Img</span>}
                                                         </S.NewsThumbnail>
                                                     </td>
                                                     <td style={{ textAlign: 'left' }}>
                                                         <strong>{cat.title}</strong>
-                                                        <div style={{ fontSize: '0.8rem', color: '#858796' }}>{cat.link}</div>
+                                                        <div style={{ fontSize: '0.8rem', color: '#858796' }}>{cat.link || '링크 없음'}</div>
                                                     </td>
                                                     <td>
                                                         <S.NewsDeleteBtn onClick={() => handleDelete(cat.id)}>
@@ -206,7 +250,7 @@ export default function News() {
                 onClose={() => setIsSavePopupOpen(false)}
                 onConfirm={() => setIsSavePopupOpen(false)}
             >
-                카테고리 설정이 성공적으로 저장되었습니다.
+                카테고리 순서가 성공적으로 저장되었습니다.
             </Popup>
         </>
     );
