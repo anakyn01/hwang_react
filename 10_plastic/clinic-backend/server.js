@@ -13,6 +13,7 @@ const MainVisual = require("./src/entity/MainVisual");
 const ToneSetting = require("./src/entity/ToneSetting");
 const PopupSetting = require("./src/entity/PopupSetting");
 const Popup = require("./src/entity/Popup");
+const Category = require("./src/entity/Category");
 
 const nodemailer = require('nodemailer');
 
@@ -617,6 +618,90 @@ res.status(200).json({success:true});
 }catch(error){
 console.error('팝업 삭제 에러:', error);
 res.status(500).json({success:false});   
+}
+});
+
+//카테고리 아이콘 관리 목록조회 (SORT_ORDER순으로 정렬)
+app.get('/api/admin/categories', async(req, res) => {
+try{
+const categoryRepo =
+AppDataSource.getRepository(Category);
+const categories = await categoryRepo.find({order:{SORT_ORDER:"ASC", CATEGORY_IDX:"ASC"}});
+res.status(200).json({success:true, data:categories}); 
+}catch(error){
+console.error(':',error);  
+res.status(500).json({success:false});  
+}
+});
+//2.새카테고리 등록
+app.post('/api/admin/categories', upload.single('categoryImg'),
+async(req, res) => {
+try{
+if(!req.file) return res.status(400).json({ success:false, 
+    message:"이미지가 없습니다"})
+
+const {title, link} = req.body;
+const categoryRepo = 
+AppDataSource.getRepository(Category);   
+
+/*
+DB에 저장된 카테고리들 중 '순서(SORT_ORDER)' 값이 가장 큰 숫자를 찾아냅니다.
+현재 3개면 제일 큰 숫자는 3
+*/
+const maxSort = await categoryRepo.createQueryBuilder("category")
+.select("MAX(category.SORT_ORDER)", "max")
+.getRawOne();
+
+//새로 등록될 카테고리가 맨 뒤에 오도록, 방금 찾은 가장 큰 숫자에 1을 더해줍니다.
+//(아무것도 없었으면 0+1 = 1)
+const nextOrder = (maxSort.max || 0) + 1;
+
+const newCategory = categoryRepo.create({
+TITLE : title,
+LINK : link || "",
+FILE_NAME : req.file.filename,
+SORT_ORDER : nextOrder     
+});
+
+await categoryRepo.save(newCategory);
+
+res.status(200).json({success:true});     
+}catch(error){
+console.error('카테고리 등록 에러:',error);  
+res.status(500).json({success:false});  
+}
+});
+//3.삭제
+app.delete('/api/admin/categories/:idx', async(req, res) => {
+try{
+const categoryRepo = 
+AppDataSource.getRepository(Category);
+
+await categoryRepo.delete(req.params.idx);
+
+res.status(200).json({success:true}); 
+}catch(error){
+console.error('카테고리 삭제 에러:',error);  
+res.status(500).json({success:false});  
+}
+});
+//4.순서일괄저장
+app.put('/api/admin/categories/order', async(req, res) => {
+try{
+//프론트엔드에서 '바뀐 순서대로 나열된 카테고리의 고유 ID 배열'을 꺼냅니다
+const {orderedIds} = req.body;
+//
+const categoryRepo =
+AppDataSource.getRepository(Category);
+
+for(let i = 0; i < orderedIds.length; i++) {
+await categoryRepo.update(orderedIds[i], {SORT_ORDER: i +1});    
+}
+
+res.status(200).json({success:true}); 
+}catch(error){
+console.error('카테고리 순서 저장 에러:',error);  
+res.status(500).json({success:false});  
 }
 });
 
