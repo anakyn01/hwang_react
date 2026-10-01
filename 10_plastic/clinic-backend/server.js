@@ -15,6 +15,7 @@ const PopupSetting = require("./src/entity/PopupSetting");
 const Popup = require("./src/entity/Popup");
 const Category = require("./src/entity/Category");
 const Safety = require("./src/entity/Safety");
+const Selfie = require("./src/entity/Selfie");
 
 const nodemailer = require('nodemailer');
 
@@ -740,30 +741,98 @@ DESCRIPTION:description,
 FILE_NAME:req.file.filename,
 SORT_ORDER: nextOrder   
 });
-
+await repo.save(newItem);
 res.status(200).json({success:true})
 }catch(error){
 console.error('',error);
 res.status(500).json({success:false});
 }
 });
-//safety 1.목록조회
+//safety 3.삭제
 app.delete('/api/admin/safety/:idx', async (req, res) => {
 try{
 const repo = AppDataSource.getRepository(Safety);
+await repo.delete(req.params.idx);
 res.status(200).json({success:true})
 }catch(error){
 console.error('',error);
 res.status(500).json({success:false});
 }
 });
-//safety 1.목록조회
+//safety 4.순서 일괄 저장
 app.put('/api/admin/safety/order', async (req, res) => {
 try{
+const {orderedIds} = req.body;    
 const repo = AppDataSource.getRepository(Safety);
+
+for(let i =0; i < orderedIds.length; i++){
+await repo.update(orderedIds[i],{SORT_ORDER:i + 1});    
+}
+
 res.status(200).json({success:true})
 }catch(error){
-console.error('',error);
+console.error('안전마취 순서 저장 에러',error);
+res.status(500).json({success:false});
+}
+});
+
+//셀피 목록
+app.get('/api/admin/selfies', async (req, res) => {
+try{
+const repo =
+AppDataSource.getRepository(Selfie);
+const items =
+await repo.find({order:{SELFIE_IDX:"DESC"}});
+res.status(200).json({success:true});
+}catch(error){
+res.status(500).json({success:false});
+}
+});
+//2.새 셀피 등록(이미지 업로드)
+app.post('/api/admin/selfies', upload.single('selfieImg'),async (req, res) => {
+try{
+if(!req.file) return res.status(400).json({success:false, 
+    message:"이미지가 없습니다"
+});
+
+const {likes, views} = req.body;
+const repo = AppDataSource.getRepository(Selfie);
+
+const newItem = repo.create({
+FILE_NAME : req.file.filename,
+LIKES : parseInt(likes) || 0,
+VIEWS: parseInt(views) || 0,
+IS_ACTIVE : 'Y'
+});
+
+res.status(200).json({success:true});
+}catch(error){
+res.status(500).json({success:false});
+}
+});
+//3.삭제
+app.delete('/api/admin/selfies/:idx', async (req, res) => {
+try{
+const repo = AppDataSource.getRepository(Selfie);
+await repo.delete(req.params.idx);
+res.status(200).json({success:true});
+}catch(error){
+res.status(500).json({success:false});
+}
+});
+
+//4.노출상태
+app.put('/api/admin/selfies/status', async (req, res) => {
+try{
+const{ statuses } = req.body;
+const repo = AppDataSource.getRepository(Selfie);
+
+for(let item of statuses) {
+    await repo.update(item.id, {IS_ACTIVE: item.isActive ? 'Y' : 'N'});
+}
+
+res.status(200).json({success:true});
+}catch(error){
 res.status(500).json({success:false});
 }
 });

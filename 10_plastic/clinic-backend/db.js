@@ -11,6 +11,7 @@ const PopupSetting = require("./src/entity/PopupSetting");
 const Popup = require("./src/entity/Popup");
 const Category = require("./src/entity/Category");
 const Safety = require("./src/entity/Safety");
+const Selfie = require("./src/entity/Selfie");
 
 const AppDataSource = new DataSource({
     type:"oracle",
@@ -23,7 +24,9 @@ const AppDataSource = new DataSource({
     synchronize:false,
     //로깅 최적화 (운영환경이 아닐때만 true)
     logging:process.env.NODE_ENV !== 'production',
-    entities:[Member, FooterSettings, Consult, NavSetting, MainVisual, ToneSetting, PopupSetting, Popup, Category, Safety],
+entities:[Member, FooterSettings, Consult, 
+    NavSetting, MainVisual, ToneSetting, PopupSetting, 
+    Popup, Category, Safety, Selfie],
     extra:{
         poolMin:2, poolMax:10, poolIncrement:1
     }

@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Layout } from "../Layout";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiArrowUp, FiArrowDown } from "react-icons/fi";
 import { Popup } from "@/component/modal/Popup";
 
-// 안전마취 데이터 인터페이스
 interface SafetyData {
     id: number;
     title: string;
@@ -14,90 +14,99 @@ interface SafetyData {
 }
 
 export default function Safety() {
-    // 🎯 상태 관리: 등록된 안전마취 장비/시스템 목록
-    const [safetyList, setSafetyList] = useState<SafetyData[]>([
-        { 
-            id: 1, 
-            title: "EtCO2 모니터링", 
-            description: "마취통증의학과 전문의가 수술 전부터 수술 후 의식을 회복할 때까지 환자의 호흡과 맥박 등 상태 체크", 
-            imageUrl: "" 
-        },
-        { 
-            id: 2, 
-            title: "악성 고열증 대비 특수치료제", 
-            description: "단트롤렌 보유로 마취통증의학과 전문의의 신속한 치료가 가능하게 합니다.", 
-            imageUrl: "" 
-        }
-    ]);
-
-    // 🎯 상태 관리: 새 아이템 등록 폼
+    const [safetyList, setSafetyList] = useState<SafetyData[]>([]);
     const [newSafety, setNewSafety] = useState({ title: "", description: "" });
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [fileName, setFileName] = useState("");
     const [previewUrl, setPreviewUrl] = useState<string>("");
 
-    // 🎯 팝업 상태 관리 (저장, 경고, 삭제)
     const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
     const [isAlertPopupOpen, setIsAlertPopupOpen] = useState(false);
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
     const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
 
-    // ----------------------------------------------------
-    // 0. 이미지 첨부 및 썸네일 미리보기 기능
-    // ----------------------------------------------------
+    // 💡 화면 렌더링 시 DB에서 데이터 불러오기
+    useEffect(() => {
+        fetchSafetyItems();
+    }, []);
+
+    const fetchSafetyItems = async () => {
+        try {
+            const response = await axios.get("http://localhost:4000/api/admin/safety");
+            if (response.data.success) {
+                const formatted = response.data.data.map((item: any) => ({
+                    id: item.SAFETY_IDX,
+                    title: item.TITLE,
+                    description: item.DESCRIPTION,
+                    imageUrl: `http://localhost:4000/images/${item.FILE_NAME}`
+                }));
+                setSafetyList(formatted);
+            }
+        } catch (error) {
+            console.error("안전 시스템 데이터 로드 실패", error);
+        }
+    };
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
+            setSelectedFile(file);
             setFileName(file.name);
             setPreviewUrl(URL.createObjectURL(file)); 
         }
     };
 
-    // ----------------------------------------------------
-    // 1. 안전마취 항목 추가 기능
-    // ----------------------------------------------------
-    const handleAddSafety = () => {
-        // [검증] 빈칸이 하나라도 있으면 경고 팝업 띄우기
-        if (!newSafety.title || !newSafety.description || !previewUrl) {
+    // 💡 새 아이템 서버로 등록
+    const handleAddSafety = async () => {
+        if (!newSafety.title || !newSafety.description || !selectedFile) {
             setIsAlertPopupOpen(true); 
             return;
         }
 
-        // [추가] 기존 목록 끝에 새로운 데이터 추가하기
-        setSafetyList([
-            ...safetyList, 
-            { 
-                id: Date.now(), 
-                title: newSafety.title, 
-                description: newSafety.description, 
-                imageUrl: previewUrl 
-            } 
-        ]);
+        const formData = new FormData();
+        formData.append("safetyImg", selectedFile);
+        formData.append("title", newSafety.title);
+        formData.append("description", newSafety.description);
 
-        // [초기화] 입력 폼 비우기
-        setNewSafety({ title: "", description: "" }); 
-        setFileName(""); 
-        setPreviewUrl(""); 
+        try {
+            const response = await axios.post("http://localhost:4000/api/admin/safety", formData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
+
+            if (response.data.success) {
+                setNewSafety({ title: "", description: "" }); 
+                setSelectedFile(null);
+                setFileName(""); 
+                setPreviewUrl(""); 
+                fetchSafetyItems();
+            }
+        } catch (error) {
+            alert("등록에 실패했습니다.");
+        }
     };
 
-    // ----------------------------------------------------
-    // 2. 항목 삭제 기능 (팝업 띄우기 및 실제 삭제)
-    // ----------------------------------------------------
+    // 💡 아이템 삭제 처리
     const handleDeleteClick = (id: number) => { 
         setSelectedDeleteId(id); 
         setIsDeletePopupOpen(true); 
     };
 
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
         if (selectedDeleteId !== null) {
-            setSafetyList(safetyList.filter(item => item.id !== selectedDeleteId)); 
+            try {
+                const response = await axios.delete(`http://localhost:4000/api/admin/safety/${selectedDeleteId}`);
+                if (response.data.success) {
+                    fetchSafetyItems();
+                }
+            } catch (error) {
+                alert("삭제 중 문제가 발생했습니다.");
+            }
         }
         setIsDeletePopupOpen(false); 
         setSelectedDeleteId(null); 
     };
 
-    // ----------------------------------------------------
-    // 3. 노출 순서 변경 기능 (화살표 클릭)
-    // ----------------------------------------------------
+    // 화면 상에서 순서 변경
     const moveSafety = (index: number, direction: 'UP' | 'DOWN') => {
         const newList = [...safetyList]; 
         
@@ -111,12 +120,18 @@ export default function Safety() {
         setSafetyList(newList); 
     };
 
-    // ----------------------------------------------------
-    // 4. 최종 저장 기능
-    // ----------------------------------------------------
-    const handleSave = () => {
-        console.log("DB에 저장될 안전마취 데이터:", safetyList);
-        setIsSavePopupOpen(true); 
+    // 💡 바뀐 순서를 DB에 저장
+    const handleSave = async () => {
+        const orderedIds = safetyList.map(item => item.id);
+        
+        try {
+            const response = await axios.put("http://localhost:4000/api/admin/safety/order", { orderedIds });
+            if (response.data.success) {
+                setIsSavePopupOpen(true); 
+            }
+        } catch (error) {
+            alert("순서 저장 중 문제가 발생했습니다.");
+        }
     };
 
     return (
@@ -131,7 +146,6 @@ export default function Safety() {
                     </S.AdminSafetyPageHeader>
 
                     <S.AdminSafetyGrid>
-                        {/* ⚙️ 1. 새 안전시스템 등록 폼 (좌측) */}
                         <S.AdminSafetyLeftColumn>
                             <S.AdminSafetyCard>
                                 <S.AdminSafetyCardHeader>
@@ -152,8 +166,8 @@ export default function Safety() {
                                         </S.AdminSafetyFileInputWrapper>
                                         
                                         {previewUrl && (
-                                            <S.AdminSafetyPreviewRect>
-                                                <img src={previewUrl} alt="미리보기" />
+                                            <S.AdminSafetyPreviewRect style={{ marginTop: '1rem', width: '150px', height: '150px', borderRadius: '8px', overflow: 'hidden' }}>
+                                                <img src={previewUrl} alt="미리보기" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                             </S.AdminSafetyPreviewRect>
                                         )}
                                     </S.AdminSafetyFormGroup>
@@ -185,7 +199,6 @@ export default function Safety() {
                             </S.AdminSafetyCard>
                         </S.AdminSafetyLeftColumn>
 
-                        {/* 📋 2. 등록된 시스템 리스트 (우측) */}
                         <S.AdminSafetyRightColumn>
                             <S.AdminSafetyCard style={{ height: '100%' }}>
                                 <S.AdminSafetyCardHeader>
@@ -218,8 +231,8 @@ export default function Safety() {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <S.AdminSafetyThumbnail>
-                                                            {item.imageUrl ? <img src={item.imageUrl} alt={item.title} /> : <span>No Img</span>}
+                                                        <S.AdminSafetyThumbnail style={{ width: '80px', height: '80px', borderRadius: '4px', overflow: 'hidden', margin: '0 auto' }}>
+                                                            {item.imageUrl ? <img src={item.imageUrl} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <span>No Img</span>}
                                                         </S.AdminSafetyThumbnail>
                                                     </td>
                                                     <td style={{ textAlign: 'left' }}>
@@ -247,7 +260,6 @@ export default function Safety() {
                 </S.AdminSafetyContainer>
             </Layout>
 
-            {/* ✅ 팝업 모음 */}
             <Popup 
                 isOpen={isSavePopupOpen} 
                 title="저장 완료" 
@@ -256,7 +268,6 @@ export default function Safety() {
             >
                 안전 시스템 설정이 성공적으로 저장되었습니다.
             </Popup>
-
             <Popup 
                 isOpen={isAlertPopupOpen} 
                 title="입력 오류" 
@@ -265,7 +276,6 @@ export default function Safety() {
             >
                 이미지, 타이틀, 상세 설명을 모두 입력해주세요.
             </Popup>
-
             <Popup 
                 isOpen={isDeletePopupOpen} 
                 title="삭제 확인" 
