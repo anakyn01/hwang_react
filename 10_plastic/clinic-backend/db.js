@@ -13,6 +13,7 @@ const Category = require("./src/entity/Category");
 const Safety = require("./src/entity/Safety");
 const Selfie = require("./src/entity/Selfie");
 const EventRanking = require("./src/entity/EventRanking");
+const Vlog = require("./src/entity/Vlog");
 
 const AppDataSource = new DataSource({
     type:"oracle",
@@ -27,7 +28,7 @@ const AppDataSource = new DataSource({
     logging:process.env.NODE_ENV !== 'production',
 entities:[Member, FooterSettings, Consult, 
     NavSetting, MainVisual, ToneSetting, PopupSetting, 
-    Popup, Category, Safety, Selfie, EventRanking],
+    Popup, Category, Safety, Selfie, EventRanking, Vlog],
     extra:{
         poolMin:2, poolMax:10, poolIncrement:1
     }

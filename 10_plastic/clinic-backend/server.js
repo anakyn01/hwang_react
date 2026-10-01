@@ -17,6 +17,7 @@ const Category = require("./src/entity/Category");
 const Safety = require("./src/entity/Safety");
 const Selfie = require("./src/entity/Selfie");
 const EventRanking = require("./src/entity/EventRanking");
+const Vlog = require("./src/entity/Vlog");
 
 
 const nodemailer = require('nodemailer');
@@ -915,6 +916,77 @@ res.status(200).json({success:true});
 res.status(500).json({success:false});
     }
 })
+
+// 1. 영상 목록 조회 (SORT_ORDER 순 정렬)
+app.get('/api/admin/vlogs', async (req, res) => {
+    try {
+        const repo = AppDataSource.getRepository(Vlog);
+        const items = await repo.find({ order: { SORT_ORDER: "ASC", VLOG_IDX: "ASC" } });
+        res.status(200).json({ success: true, data: items });
+    } catch (error) {
+        console.error('VLOG 조회 에러:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+// 2. 새 영상 등록 (이미지 업로드 포함)
+app.post('/api/admin/vlogs', upload.single('vlogImg'), async (req, res) => {
+    try {
+        if (!req.file) return res.status(400).json({ success: false, message: "이미지가 없습니다." });
+        
+        const { title, videoUrl } = req.body;
+        const repo = AppDataSource.getRepository(Vlog);
+        
+        // 현재 가장 큰 순서 번호 찾기 (맨 뒤에 배치)
+        const maxSort = await repo.createQueryBuilder("vlog")
+                                  .select("MAX(vlog.SORT_ORDER)", "max")
+                                  .getRawOne();
+        const nextOrder = (maxSort.max || 0) + 1;
+
+        const newItem = repo.create({
+            TITLE: title,
+            VIDEO_URL: videoUrl,
+            FILE_NAME: req.file.filename,
+            SORT_ORDER: nextOrder
+        });
+        
+        await repo.save(newItem);
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('VLOG 등록 에러:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+// 3. 영상 삭제
+app.delete('/api/admin/vlogs/:idx', async (req, res) => {
+    try {
+        const repo = AppDataSource.getRepository(Vlog);
+        await repo.delete(req.params.idx);
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('VLOG 삭제 에러:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+// 4. 영상 순서 일괄 저장
+app.put('/api/admin/vlogs/order', async (req, res) => {
+    try {
+        const { orderedIds } = req.body; 
+        const repo = AppDataSource.getRepository(Vlog);
+        
+        for (let i = 0; i < orderedIds.length; i++) {
+            await repo.update(orderedIds[i], { SORT_ORDER: i + 1 });
+        }
+        
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('VLOG 순서 저장 에러:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
