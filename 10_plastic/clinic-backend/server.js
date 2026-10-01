@@ -14,6 +14,7 @@ const ToneSetting = require("./src/entity/ToneSetting");
 const PopupSetting = require("./src/entity/PopupSetting");
 const Popup = require("./src/entity/Popup");
 const Category = require("./src/entity/Category");
+const Safety = require("./src/entity/Safety");
 
 const nodemailer = require('nodemailer');
 
@@ -702,6 +703,68 @@ res.status(200).json({success:true});
 }catch(error){
 console.error('카테고리 순서 저장 에러:',error);  
 res.status(500).json({success:false});  
+}
+});
+
+//safety 1.목록조회 
+app.get('/api/admin/safety', async (req, res) => {
+try{
+const repo = AppDataSource.getRepository(Safety);
+const items = 
+await repo.find({order:{SORT_ORDER:"ASC", SAFETY_IDX:"ASC"}})
+res.status(200).json({success:true, data:items});
+}catch(error){
+console.error('',error);
+res.status(500).json({success:false});
+}
+});
+//safety 2.새 안전 시스템 등록
+app.post('/api/admin/safety', upload.single('safetyImg'), async (req, res) => {
+try{
+//파일이 없다면
+if(!req.file) return res.status(400).json({success:false, 
+    message:"이미지가 없습니다"
+});
+const {title, description} = req.body;
+const repo = AppDataSource.getRepository(Safety);
+//가장 큰순서 번호 찾기
+const maxSort = await repo.createQueryBuilder("safety")
+.select("MAX(safety.SORT_ORDER)","max")
+.getRawOne();
+
+const nextOrder = (maxSort.max || 0) + 1;
+
+const newItem = repo.create({
+TITLE:title,
+DESCRIPTION:description,
+FILE_NAME:req.file.filename,
+SORT_ORDER: nextOrder   
+});
+
+res.status(200).json({success:true})
+}catch(error){
+console.error('',error);
+res.status(500).json({success:false});
+}
+});
+//safety 1.목록조회
+app.delete('/api/admin/safety/:idx', async (req, res) => {
+try{
+const repo = AppDataSource.getRepository(Safety);
+res.status(200).json({success:true})
+}catch(error){
+console.error('',error);
+res.status(500).json({success:false});
+}
+});
+//safety 1.목록조회
+app.put('/api/admin/safety/order', async (req, res) => {
+try{
+const repo = AppDataSource.getRepository(Safety);
+res.status(200).json({success:true})
+}catch(error){
+console.error('',error);
+res.status(500).json({success:false});
 }
 });
 
