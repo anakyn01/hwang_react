@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FlexCenter, TextShadow } from "../admin/Common.styles";
+import Link from 'next/link';
 
 export const Pagenation = styled.div`
 ${FlexCenter}
@@ -50,4 +51,15 @@ font-weight:bold;
 ${TextShadow}
 z-index:10;
 text-align:center;
+`;
+
+
+export const PopupLink = styled(Link)<{$hasLink:boolean}>`
+display:block;
+cursor:${(props) => (props.$hasLink ? 'pinter' :'default')};
+text-decoration:none;
+`;
+
+export const PopupImage = styled.img`
+width:100%; display:block;
 `;
