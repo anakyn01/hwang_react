@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Layout } from "../Layout";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiHeart, FiEye } from "react-icons/fi";
@@ -14,64 +15,108 @@ interface SelfieData {
 }
 
 export default function Self() {
-    // 🎯 상태 관리: 등록된 셀피 목록
-    const [selfies, setSelfies] = useState<SelfieData[]>([
-        { id: 1, imageUrl: "", likes: 892, views: 7921, isActive: true },
-        { id: 2, imageUrl: "", likes: 530, views: 4200, isActive: true }
-    ]);
-
-    // 🎯 상태 관리: 새 셀피 등록 폼
+    const [selfies, setSelfies] = useState<SelfieData[]>([]);
     const [newSelfie, setNewSelfie] = useState({ likes: 0, views: 0 });
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [fileName, setFileName] = useState("");
     const [previewUrl, setPreviewUrl] = useState<string>("");
 
     const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
 
-    // 이미지 첨부 및 썸네일 미리보기 처리
+    // 💡 화면 첫 렌더링 시 DB 데이터 로드
+    useEffect(() => {
+        fetchSelfies();
+    }, []);
+
+    const fetchSelfies = async () => {
+        try {
+            const response = await axios.get("http://localhost:4000/api/admin/selfies");
+            if (response.data.success) {
+                const formatted = response.data.data.map((s: any) => ({
+                    id: s.SELFIE_IDX,
+                    imageUrl: `http://localhost:4000/images/${s.FILE_NAME}`,
+                    likes: s.LIKES,
+                    views: s.VIEWS,
+                    isActive: s.IS_ACTIVE === 'Y'
+                }));
+                setSelfies(formatted);
+            }
+        } catch (error) {
+            console.error("셀피 목록 로드 실패:", error);
+        }
+    };
+
+    // 이미지 첨부 및 미리보기
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
+            setSelectedFile(file);
             setFileName(file.name);
             setPreviewUrl(URL.createObjectURL(file)); 
         }
     };
 
-    // 셀피 추가
-    const handleAddSelfie = () => {
-        if (!previewUrl) {
+    // 💡 새 셀피 서버로 등록
+    const handleAddSelfie = async () => {
+        if (!selectedFile) {
             alert("셀피 이미지를 등록해주세요.");
             return;
         }
-        setSelfies([...selfies, { 
-            id: Date.now(), 
-            imageUrl: previewUrl, 
-            likes: newSelfie.likes,
-            views: newSelfie.views,
-            isActive: true 
-        }]);
-        setNewSelfie({ likes: 0, views: 0 });
-        setFileName("");
-        setPreviewUrl("");
-    };
 
-    // 셀피 삭제
-    const handleDelete = (id: number) => {
-        if (confirm("해당 셀피 게시물을 삭제하시겠습니까?")) {
-            setSelfies(selfies.filter(s => s.id !== id));
+        const formData = new FormData();
+        formData.append("selfieImg", selectedFile);
+        formData.append("likes", String(newSelfie.likes));
+        formData.append("views", String(newSelfie.views));
+
+        try {
+            const response = await axios.post("http://localhost:4000/api/admin/selfies", formData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
+            if (response.data.success) {
+                setNewSelfie({ likes: 0, views: 0 });
+                setSelectedFile(null);
+                setFileName("");
+                setPreviewUrl("");
+                fetchSelfies(); // 등록 후 목록 새로고침
+            }
+        } catch (error) {
+            alert("셀피 등록에 실패했습니다.");
         }
     };
 
-    // 노출 상태 변경 토글
+    // 💡 셀피 삭제 (DB에서 영구 삭제)
+    const handleDelete = async (id: number) => {
+        if (confirm("해당 셀피 게시물을 삭제하시겠습니까?")) {
+            try {
+                const response = await axios.delete(`http://localhost:4000/api/admin/selfies/${id}`);
+                if (response.data.success) {
+                    fetchSelfies();
+                }
+            } catch (error) {
+                alert("삭제 실패");
+            }
+        }
+    };
+
+    // 노출 상태 변경 (화면에서만 임시 변경)
     const toggleStatus = (id: number) => {
         setSelfies(selfies.map(s => 
             s.id === id ? { ...s, isActive: !s.isActive } : s
         ));
     };
 
-    // 최종 저장
-    const handleSave = () => {
-        console.log("DB에 저장될 데이터:", selfies);
-        setIsSavePopupOpen(true);
+    // 💡 상태(노출/숨김) 변경 내역을 DB에 최종 저장
+    const handleSave = async () => {
+        const statuses = selfies.map(s => ({ id: s.id, isActive: s.isActive }));
+        
+        try {
+            const response = await axios.put("http://localhost:4000/api/admin/selfies/status", { statuses });
+            if (response.data.success) {
+                setIsSavePopupOpen(true);
+            }
+        } catch (error) {
+            alert("상태 저장 실패");
+        }
     };
 
     return (
@@ -107,8 +152,8 @@ export default function Self() {
                                         </S.SelfFileInputWrapper>
                                         
                                         {previewUrl && (
-                                            <S.SelfPreviewRect>
-                                                <img src={previewUrl} alt="미리보기" />
+                                            <S.SelfPreviewRect style={{ marginTop: '1rem', width: '120px', height: '160px', borderRadius: '8px', overflow: 'hidden' }}>
+                                                <img src={previewUrl} alt="미리보기" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                             </S.SelfPreviewRect>
                                         )}
                                     </S.SelfFormGroup>
@@ -162,8 +207,8 @@ export default function Self() {
                                             {selfies.map((selfie) => (
                                                 <tr key={selfie.id}>
                                                     <td>
-                                                        <S.SelfThumbnail>
-                                                            {selfie.imageUrl ? <img src={selfie.imageUrl} alt="셀피" /> : <span>No Img</span>}
+                                                        <S.SelfThumbnail style={{ width: '60px', height: '80px', borderRadius: '4px', overflow: 'hidden', margin: '0 auto' }}>
+                                                            {selfie.imageUrl ? <img src={selfie.imageUrl} alt="셀피" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <span>No Img</span>}
                                                         </S.SelfThumbnail>
                                                     </td>
                                                     <td style={{ textAlign: 'left' }}>
@@ -178,6 +223,7 @@ export default function Self() {
                                                         <S.SelfStatusBadge 
                                                             $isActive={selfie.isActive}
                                                             onClick={() => toggleStatus(selfie.id)}
+                                                            style={{ cursor: 'pointer' }}
                                                         >
                                                             {selfie.isActive ? "노출중" : "숨김"}
                                                         </S.SelfStatusBadge>

@@ -16,6 +16,8 @@ const Popup = require("./src/entity/Popup");
 const Category = require("./src/entity/Category");
 const Safety = require("./src/entity/Safety");
 const Selfie = require("./src/entity/Selfie");
+const EventRanking = require("./src/entity/EventRanking");
+
 
 const nodemailer = require('nodemailer');
 
@@ -783,7 +785,7 @@ const repo =
 AppDataSource.getRepository(Selfie);
 const items =
 await repo.find({order:{SELFIE_IDX:"DESC"}});
-res.status(200).json({success:true});
+res.status(200).json({success:true, data:items });
 }catch(error){
 res.status(500).json({success:false});
 }
@@ -804,6 +806,9 @@ LIKES : parseInt(likes) || 0,
 VIEWS: parseInt(views) || 0,
 IS_ACTIVE : 'Y'
 });
+
+//db실제 저장 명령
+await repo.save(newItem);
 
 res.status(200).json({success:true});
 }catch(error){
@@ -836,6 +841,80 @@ res.status(200).json({success:true});
 res.status(500).json({success:false});
 }
 });
+
+//1. 이벤트 목록
+app.get('/api/admin/events', async(req, res) => {
+    try{
+const repo =
+AppDataSource.getRepository(EventRanking);
+const items = 
+await repo.find({order:{SORT_ORDER:"ASC", EVENT_IDX:"ASC"}});
+
+res.status(200).json({success:true, data:items});
+    }catch(error){
+res.status(500).json({success:false});
+    }
+})
+//이벤트
+app.post('/api/admin/events', upload.single('eventImg'),async(req, res) => {
+    try{
+if (!req.file) return res.status(400).json({success:false, 
+    message:"이미지가 없습니다"
+});
+
+const {title, price} = req.body;
+const repo = AppDataSource.getRepository(EventRanking);
+
+//현재 가장 큰 순서 번호 찾기 (맨 뒤에 추가하기 위함)
+const maxSort =
+await repo.createQueryBuilder("event")
+.select("MAX(event.SORT_ORDER)","max")
+.getRawOne();
+
+const nextOrder =
+(maxSort.max || 0) + 1;
+
+const newItem = repo.create({
+TITLE : title,
+PRICE : price,
+FILE_NAME: req.file.filename,
+SORT_ORDER :nextOrder
+});
+
+//db실제 저장 명령
+await repo.save(newItem);
+res.status(200).json({success:true});
+    }catch(error){
+res.status(500).json({success:false});
+    }
+})
+//이벤트
+app.delete('/api/admin/events/:idx', async(req, res) => {
+    try{
+const repo =
+AppDataSource.getRepository(EventRanking);
+await repo.delete(req.params.idx);        
+res.status(200).json({success:true});
+    }catch(error){
+
+res.status(500).json({success:false});
+    }
+})
+//이벤트 순서 일괄저장
+app.put('/api/admin/events/order', async(req, res) => {
+    try{
+const { orderedIds } = req.body;
+const repo = AppDataSource.getRepository(EventRanking);
+
+for(let i=0; i < orderedIds.length; i++) {
+await repo.update(orderedIds[i], {SORT_ORDER:i + 1});    
+}
+
+res.status(200).json({success:true});
+    }catch(error){
+res.status(500).json({success:false});
+    }
+})
 
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
