@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Relative, TransitionAll,Pointer, BgWhite, Circle, Absolute, BoxShadow, FlexBetween, Flex, Fw500, Grid, FlexCenter ,
-H100, Vw100,  
+H100, Vw100, TextCenter, 
 Vh100,
 W100,
 Fixed,
@@ -10,7 +10,13 @@ ColorWhite,
 Fw700,
 Nowrap,
 FlexStart,
-WebkitBox
+WebkitBox,
+BorderNone,
+Fw600,
+MainMaxWidth,
+Mauto,
+FlexAround,
+FlexColumn
 } from '../common/Common.styles';
 
 export const AppWrapper = styled.div`
@@ -196,3 +202,52 @@ font-size:0.625rem;
 color:#999;
 `;
 
+export const LoadingText = styled.div`
+${TextCenter}
+grid-column:span 2;
+padding: 2.5rem;
+color:#888;
+font-size:0.8rem;
+`;
+
+export const FloatingWriteButton = styled.button`
+${Fixed}
+bottom:5rem;
+right:1.25rem;
+background-color:#52c41a;
+${ColorWhite}
+${BorderNone}
+border-radius:1.875rem;
+padding:0.6rem 1.2rem;
+${FlexCenter}
+gap:0.375rem;
+font-size:.875rem;
+${Fw600}
+${BoxShadow}
+${Pointer}
+z-index:10;
+`;
+
+export const BottomNav = styled.nav`
+${Fixed}
+${MainMaxWidth}
+${Mauto}
+height:3.75rem;
+${BgWhite}
+border-top:1px solid #eee;
+${FlexAround}
+z-index:100;
+`;
+
+interface NavItemProps{active?:boolean}
+export const NavItem = styled.div<NavItemProps>`
+${FlexColumn}
+gap:0.125rem;
+${Pointer}
+
+span{
+font-size:0.75rem;
+color:${props => (props.active ? '#ff7a00':'#888')};
+font-weight:${props =>(props.active ? '700':'400')};
+}
+`;

@@ -119,3 +119,21 @@ display: -webkit-box; //플렉스 박스에 초기버전..
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical;
 `;
+
+export const TextCenter = css`
+text-align:center;
+`;
+
+export const MainMaxWidth = css`
+max-width:480px;
+`;
+
+export const Bottom0 = css`
+bottom:0; left:0; right:0;
+`;
+export const Top0 = css`
+top:0; left:0; right:0;
+`;
+export const Mauto = css`
+margin:0 auto;
+`;
