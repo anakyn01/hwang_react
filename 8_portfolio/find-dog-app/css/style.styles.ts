@@ -95,15 +95,7 @@ span{
 font-size:12px;
 }
 `;
-export const AnimalCard = styled.div`
-width:160px;
-border-radius:15px;
-box-shadow:0 2px 8px rgba(0, 0, 0, 0.08);
-flex-shrink:0;
-display:flex;
-flex-direction:column;
-background-color:white;
-`;
+
 
 export const CardTitle = styled.p`
 font-weight:bold;

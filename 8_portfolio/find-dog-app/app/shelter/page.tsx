@@ -174,15 +174,14 @@ alt={animal.breed}
 </A.Badge>
             </A.BadgeGroup>
             <A.InfoGrid>
-     <span className="label">품종</span>
-     <span className="label">품종</span>
-                                        <span className="value">{animal.breed}</span>
-                                        <span className="label">공고번호</span>
-                                        <span className="value">{animal.noticeNo}</span>
-                                        <span className="label">등록날짜</span>
-                                        <span className="value">{animal.regDate}</span>
-                                        <span className="label">구조장소</span>
-                                        <span className="value">{animal.rescueLocation}</span>
+<span className="label">품종</span>
+<span className="value">{animal.breed}</span>
+<span className="label">공고번호</span>
+<span className="value">{animal.noticeNo}</span>
+<span className="label">등록날짜</span>
+<span className="value">{animal.regDate}</span>
+<span className="label">구조장소</span>
+<span className="value">{animal.rescueLocation}</span>
             </A.InfoGrid>
         </A.AnimalInfo>
     </A.AnimalCard>
