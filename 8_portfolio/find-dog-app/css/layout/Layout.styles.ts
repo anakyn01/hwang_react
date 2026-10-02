@@ -5,7 +5,12 @@ Vh100,
 W100,
 Fixed,
 Ohidden,
-Ellipsis
+Ellipsis,
+ColorWhite,
+Fw700,
+Nowrap,
+FlexStart,
+WebkitBox
 } from '../common/Common.styles';
 
 export const AppWrapper = styled.div`
@@ -148,3 +153,46 @@ ${FlexCenter}
 gap:0.375rem;
 margin-bottom:0.25rem;
 `;
+
+interface StatusProps{ status:string;}
+
+export const StatusBadge = styled.span<StatusProps>`
+background-color:${(props) => (props.status === '실종'? '#ff4d4f' :'#52c41a')}
+${ColorWhite}
+${Fw700}
+padding:0.125rem 0.375rem;
+border-radius:0.25rem;
+`;
+
+export const MetaInfo = styled.div`
+font-size:0.6875rem;
+color:#666;
+margin-bottom:0.5rem;
+${Nowrap}
+${Ohidden}
+${Ellipsis}
+`;
+
+export const LocationRow = styled.div`
+${FlexStart}
+gap:0.25rem;
+margin-bottom:0.25rem;
+`;
+export const LocationText = styled.span`
+font-size:0.6875rem;
+color:#555;
+line-height:1.2;
+${WebkitBox}
+${Ohidden}
+`;
+export const DateRow = styled.div`
+${FlexCenter}
+gap:0.25rem;
+margin-top:0.375rem;
+`;
+
+export const DateText = styled.span`
+font-size:0.625rem;
+color:#999;
+`;
+

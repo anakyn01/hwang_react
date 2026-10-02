@@ -109,3 +109,13 @@ display:grid;
 export const BgWhite = css`
 background-color:#fff;
 `;
+
+export const ColorWhite = css`
+color:#fff;
+`;
+
+export const WebkitBox = css`
+display: -webkit-box; //플렉스 박스에 초기버전..
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+`;
