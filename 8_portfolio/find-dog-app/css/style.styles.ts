@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components';
 import { PlayArrow as PlayArrowIcon } from '@mui/icons-material';
 
 export * from './layout/Layout.styles';
-
+export * from './client/Shelter.styled';
 
 
 
@@ -104,13 +104,7 @@ display:flex;
 flex-direction:column;
 background-color:white;
 `;
-export const CardImage = styled.img`
-width:100%; height:160px; object-fit:cover;
-border-radius:15px 15px 0 0;
-`;
-export const CardBody = styled.div`
-padding:12px;
-`;
+
 export const CardTitle = styled.p`
 font-weight:bold;
 font-size:13px;
@@ -641,4 +635,5 @@ opacity:0.9;
 `;
 
 export * from './client/MissingReport.styles';
+
 //motion

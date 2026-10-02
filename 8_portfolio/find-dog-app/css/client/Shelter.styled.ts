@@ -68,16 +68,7 @@ outline:none;
 flex-shrink:0;
 cursor:pointer;
 `;
-export const AlertBanner = styled.div`
-background-color:#f8f9fa;
-margin:0 20px 20px;
-padding:15px;
-border-radius:12px;
-border:1px solid #eee;
-display:flex;
-align-items:center;
-justify-content:space-between;
-`;
+
 export const AlertInfo = styled.div`
 display:flex;
 align-items:center;
@@ -167,15 +158,7 @@ width: 140px;
     color: rgba(255,255,255,0.9);
   }
 `;
-export const LocationText = styled.div`
-font-size:.85rem;
-color:#111;
-margin-top:10px;
-font-weight:600;
-display:flex;
-align-items:center;
-gap:2px;
-`;
+
 export const ListSection = styled.section`
 padding:20px;
 display:flex;
