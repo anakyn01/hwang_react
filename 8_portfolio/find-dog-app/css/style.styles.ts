@@ -1,30 +1,11 @@
 import styled, {css} from 'styled-components';
 import { PlayArrow as PlayArrowIcon } from '@mui/icons-material';
 
+export * from './layout/Layout.styles';
 
 
-export const AppWrapper = styled.div`
-display:flex;
-justify-content:center;
-background-color:#333;
-min-height:100vh;
-width:100%;
-`;
 
-export const Container = styled.div`
-width:100%;
-max-width:480px;
-min-height:100vh;
-background-color:#fff;
-position:relative;
-padding-bottom:70px;
-box-shadow:0 0 15px rgba(0, 0, 0, 0.1);
 
-@media (max-width:480px) {
-width:100%;
-box-shadow:none;
-}
-`;
 export const ContainerColumn = styled.div`
 display:flex;
 flex-direction:column;
@@ -35,47 +16,7 @@ max-width:480px;
 `;
 
 
-export const Header = styled.header`
 
-position:fixed;
-z-index:99999;
-//화면 정중앙 배치공식 (내가 최대치에 크기를 정했을때)
-left:50%; 
-transform: translateX(-50%);
-width:100%;
-box-sizing:border-box;
-padding:16px 20px;
-
-top:0;
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-background-color:#fff;
-
-max-width:480px;
-
-@media (max-width: 480px) {
-  max-width: 480px;
-}
-@media (max-width: 440px) {
-  max-width: 440px;
-}
-@media (max-width: 430px) {
-  max-width: 430px;
-}
-@media (max-width: 390px) {
-  max-width: 390px;
-}
-@media (max-width: 280px) {
-  max-width: 280px;
-}
-`;
-export const Logo = styled.h4`
-margin:0;
-font-weight:700;
-color:#f28c28;
-`;
 export const Banner = styled.section`
 background-color:#e9f7f4;
 padding:24px;
@@ -699,4 +640,5 @@ font-size:2.5rem;
 opacity:0.9;
 `;
 
+export * from './client/MissingReport.styles';
 //motion
