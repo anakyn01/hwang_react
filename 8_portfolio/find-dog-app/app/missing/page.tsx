@@ -26,127 +26,125 @@ PlayCircleFilled as PlayIcon,
 ChevronRight as ChevronRightIcon
 } from '@mui/icons-material';
 
+import { ModalSingle } from '../modal/ModalSingle';
+
 import * as S from '@/css/style.styles';
 import Footer from '@/app/components/Footer';
 
-// 데이터 타입 정의
-interface MissingAnimal {
-  id: number;
-  status: string;
-  breed: string;
-  gender: string;
-  age: string;
-  weight: string;
-  color: string;
-  rescueLocation: string;
-  regDate: string;
-  imageUrl: string;
-  content: string;
-}
-
 export default function MissingReportPage(){
 
-const [animalList, setAnimalList] = 
-useState<MissingAnimal[]>([]);
-const [loading, setLoading] =
-useState<boolean>(true);
-const [isAlertOn, setIsAlertOn] =
-useState<boolean>(false);
+const [animalList, setAnimalList] = useState<any[]>([]);
+const [loading, setLoading] =useState<boolean>(true);
+const [isAlertOn, setIsAlertOn] =useState<boolean>(false);
 
-useEffect(() => {
+//모달 제어 및 폼 데이터 상태 (하나의 모달 틀을 공유)
+const [isModalOpen, setIsModalOpen] =useState<boolean>(false);
+const [formData, setFormData] = useState({
+title: '',
+    content: '',
+    breed: '',
+    gender: '수컷',
+    age: '',
+    weight: '',
+    color: '',
+    rescueLocation: '',
+});
+
+//파일 상태추가
+const [selectedFile, setSelectedFile] = 
+useState<File | null>(null);
+
   const fetchMissingAnimals = async () => {
 try{
 const response =
-await axios.get('http://localhost:8080/api/missing-posts');
+await axios.get('http://localhost:8080/api/missing-posts',{
+  withCredentials:true
+});
 setAnimalList(response.data);
-setLoading(false);
 }catch (error){
 console.error('실종/제보 데이터를 불러오는데 실패했습니다.', error);
-        // 테스트용 더미 데이터
-        setAnimalList([
-          {
-            id: 1,
-            status: '실종',
-            breed: '포메라니안',
-            gender: '암컷',
-            age: '나이 모름',
-            weight: '몸무게 모름',
-            color: '흰색',
-            rescueLocation: '충남 태안군 근흥면 정죽리 지령산...',
-            regDate: '2026-10-02',
-            imageUrl: 'https://placehold.co/300x300',
-            content: '겁이 많고 낯을 가립니다.'
-          },
-          {
-            id: 2,
-            status: '실종',
-            breed: '포메라니안',
-            gender: '수컷',
-            age: '3살',
-            weight: '6kg',
-            color: '흰색',
-            rescueLocation: '정왕역 인근 S-oil주유소 마지막 목격',
-            regDate: '2026-09-23',
-            imageUrl: 'https://placehold.co/300x300',
-            content: '결정적 제보 시 사례하겠습니다.'
-          }
-        ]);
 }finally{
 setLoading(false);
 }
   };
+
+useEffect(() => {  
   fetchMissingAnimals();
 },[]);
-    return(
-  <S.Container>
-      {/* 상단 헤더 */}
-<S.Header>
-      <S.Logo>어서찾아주개</S.Logo>
-      <NotificationsNoneIcon fontSize="large"/>
-</S.Header>
 
-      {/* 필터 바 영역 */}
-      <S.FilterBar>
-        <S.FilterButton><SlidersHorizontal size={16} /></S.FilterButton>
-        <S.FilterButton>최근 1년 <ChevronDown size={14} /></S.FilterButton>
-        <S.FilterButton>등록일 기준 <ChevronDown size={14} /></S.FilterButton>
-        <S.FilterButton>모든 지역 <ChevronDown size={14} /></S.FilterButton>
-        <S.FilterButton>모든 동물 <ChevronDown size={14} /></S.FilterButton>
-      </S.FilterBar>
+//입력값 변경 핸들러
+const handleChange = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+const {name, value} =e.target;
+setFormData(prev => ({...prev, [name]: value}));  
+};
 
-      {/* 실시간 알림 설정 배너 */}
-      <S.AlertBanner>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Bell size={18} color="#555" />
-          <div>
-            <S.AlertTitle>신고/제보 실시간 알림</S.AlertTitle>
-            <S.AlertSub>설정한 지역·품종의 새 글을 알려드려요</S.AlertSub>
-          </div>
-        </div>
-        <S.ToggleSwitch 
-          active={isAlertOn} 
-          onClick={() => setIsAlertOn(!isAlertOn)}
-        >
-          <S.ToggleThumb active={isAlertOn} />
-        </S.ToggleSwitch>
-      </S.AlertBanner>
 
-      {/* 게시판 이용 안내 */}
-      <S.GuideBox>
-        <Info size={16} color="#666" />
-        <S.GuideText>신고/제보 게시판 이용 안내</S.GuideText>
-        <ChevronDown size={16} color="#666" />
-      </S.GuideBox>
 
-      {/* 카드 그리드 리스트 */}
+useEffect(() => {
+  fetchMissingAnimals();
+},[]);
+
+
+
+  // 파일 선택 핸들러
+const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+if(e.target.files && e.target.files[0]){
+    setSelectedFile(e.target.files[0])
+}
+}
+
+// 글 등록 API 전송 핸들러 (FormData 및 withCredentials 적용)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const data = new FormData();
+      // 백엔드 구조에 맞춰 JSON 데이터와 파일을 함께 구성하여 전송
+      data.append('dto', new Blob([JSON.stringify(formData)], { type: 'application/json' }));
+      
+      if (selectedFile) {
+        data.append('file', selectedFile);
+      }
+
+      await axios.post('http://localhost:8080/api/missing-posts', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true // 💡 세션/쿠키 인증 필수 전송 (principal null 방지)
+      });
+
+      alert('실종 신고가 등록되었습니다.');
+      fetchMissingAnimals(); // 목록 새로고침
+      setIsModalOpen(false); // 모달 닫기
+    } catch (error: any) {
+      console.error('등록 실패:', error);
+      if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+        alert('로그인이 만료되었거나 권한이 없습니다.');
+      } else {
+        alert('글 등록에 실패했습니다.');
+      }
+    }
+  };
+ return(
+    <S.Container>
+      <S.Header>
+        <S.Logo>어서찾아주개</S.Logo>
+        <NotificationsNoneIcon fontSize="large"/>
+      </S.Header>
+
+      {/* 카드 리스트 영역 (기존 유지) */}
       <S.CardGrid>
         {loading ? (
           <S.LoadingText>데이터를 불러오는 중입니다...</S.LoadingText>
+        ) : animalList.length === 0 ? (
+          <S.LoadingText>등록된 실종 신고가 없습니다.</S.LoadingText>
         ) : (
           animalList.map((item) => (
             <S.Card key={item.id}>
               <S.ImageContainer>
-                <S.CardImage src={item.imageUrl} alt={item.breed} />
+                <S.CardImage 
+                  src={item.mediaUrls && item.mediaUrls.length > 0 ? item.mediaUrls[0] : 'https://placehold.co/300x300'} 
+                  alt={item.breed} 
+                />
               </S.ImageContainer>
               <S.CardBody>
                 <S.InfoRow>
@@ -154,7 +152,7 @@ setLoading(false);
                   <S.BreedName>{item.breed}</S.BreedName>
                 </S.InfoRow>
                 <S.MetaInfo>
-                  {item.gender} | {item.age} | {item.weight} | {item.color}
+                  {item.gender} {item.age ? `| ${item.age}` : ''} {item.weight ? `| ${item.weight}` : ''}
                 </S.MetaInfo>
                 <S.LocationRow>
                   <MapPin size={14} color="#666" />
@@ -162,7 +160,7 @@ setLoading(false);
                 </S.LocationRow>
                 <S.DateRow>
                   <Calendar size={14} color="#666" />
-                  <S.DateText>{item.regDate}</S.DateText>
+                  <S.DateText>{item.createdAt ? item.createdAt.substring(0, 10) : ''}</S.DateText>
                 </S.DateRow>
               </S.CardBody>
             </S.Card>
@@ -171,13 +169,28 @@ setLoading(false);
       </S.CardGrid>
 
       {/* 글쓰기 플로팅 버튼 */}
-      <S.FloatingWriteButton>
+      <S.FloatingWriteButton onClick={() => {
+        setFormData({
+          title: '', content: '', breed: '', gender: '수컷',
+          age: '', weight: '', color: '', rescueLocation: '',
+        });
+        setSelectedFile(null);
+        setIsModalOpen(true);
+      }}>
         <Plus size={20} color="#fff" />
         <span>글쓰기</span>
       </S.FloatingWriteButton>
 
-<Footer/>
+      {/* 공통 모달 컴포넌트 연결 */}
+      <ModalSingle
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        titleText="실종/제보 글쓰기"
+        submitText="등록하기"
+        onSuccess={fetchMissingAnimals}
+      />
 
+      <Footer/>
     </S.Container>      
-    )
+  );
 }
