@@ -627,5 +627,4 @@ opacity:0.9;
 `;
 
 export * from './client/MissingReport.styles';
-
-//motion
+export * from './modal/Modal.styles';
