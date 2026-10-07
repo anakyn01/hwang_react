@@ -4,6 +4,7 @@ package com.hbk.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 // HMAC-SHA 알고리즘에 맞는 비밀키(Key) 객체를 생성하기 위한 클래스 임포트
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 /*
 Hash-based Message Authentication Code
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Date;
 
 @Component
 //이 클래스를 스프링 빈(Bean)으로 등록하여 다른 곳에서 주입받아 사용할 수 있게 합니다.
@@ -48,6 +50,21 @@ public class JwtTokenProvider {
         // 변환된 바이트를 바탕으로 안전한 HMAC-SHA 암호화 키 객체를 생성하여 저장합니다.
         this.key = Keys.hmacShaKeyFor(bytes);
     }
+
+
+    public String createToken(String email) {
+        Date now = new Date();
+        long validityInMilliseconds = 3600000; // 1시간 (1시간 동안 토큰 유효)
+        Date validity = new Date(now.getTime() + validityInMilliseconds);
+
+        return Jwts.builder()
+                .setSubject(email) // 토큰 주체(Subject)로 이메일 저장
+                .setIssuedAt(now) // 토큰 발행 시간
+                .setExpiration(validity) // 토큰 만료 시간
+                .signWith(key, SignatureAlgorithm.HS256) // 비밀키와 알고리즘으로 서명
+                .compact();
+    }
+
 
     //토큰에서 회원 이름(Username/Subject) 추출
     public String getUsernameFromToken(String token){

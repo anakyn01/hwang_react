@@ -12,7 +12,5 @@ private String title, content, breed, gender, age, weight, color,
     rescueLocation;
 private List<String> mediaUrls;
 
-    public PostStatus getS() {
-        return null;
-    }
+
 }

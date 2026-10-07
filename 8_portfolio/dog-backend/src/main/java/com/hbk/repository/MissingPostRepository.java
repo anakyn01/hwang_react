@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface MissingPostRepository extends JpaRepository<MissingPost, Long> {
-@Query("SELECT p FROM MissingPost p WHERE (:cursorId IS NULL OR p.id < : cursorId) ORDER BY p.id DESC")
+@Query("SELECT p FROM MissingPost p WHERE (:cursorId IS NULL OR p.id < :cursorId) ORDER BY p.id DESC")
 //쿼리뒤에 세미콜론이 오면..오타 어노테이션은 세미콜론을 붙이는 것이 아니라 바로메서드가 와야됨..
 List<MissingPost> findAllByCursor(@Param("cursorId") Long cursorId, Pageable pageable);
 /*

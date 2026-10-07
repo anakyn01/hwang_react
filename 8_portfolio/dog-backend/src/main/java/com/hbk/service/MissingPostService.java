@@ -13,9 +13,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service //스프링 빈으로 등록하여 비즈니스로직을 담당하는 클래스로 지정
@@ -27,12 +31,17 @@ public class MissingPostService {
     private final MemberRepository memberRepository;
 
     //실종 신고글 작성(로그인 유저 정보 반영)
+    // 실종 신고글 작성 (파일 및 로그인 유저 정보 반영)
     @Transactional
     public MissingPostResponseDto createPost(
-            MissingPostRequestDto requestDto, String username){
-  //1.현재 로그인한 유저의 아이디를 기반으로 DB에서 유저 정보를 조회
-  Member member = memberRepository.findByName(username)
-.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저 입니다"));
+            MissingPostRequestDto requestDto, MultipartFile file, String username){
+
+        System.out.println("========== [서비스 계층 진입] ==========");
+        System.out.println("전달받은 title: " + (requestDto != null ? requestDto.getTitle() : "requestDto가 NULL입니다"));
+        System.out.println("전달받은 username: " + username);
+
+        Member member = memberRepository.findByName(username)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저 입니다"));
 
         MissingPost post = new MissingPost();
         post.setTitle(requestDto.getTitle());
@@ -43,46 +52,71 @@ public class MissingPostService {
         post.setWeight(requestDto.getWeight());
         post.setColor(requestDto.getColor());
         post.setRescueLocation(requestDto.getRescueLocation());
-        post.setMediaUrls(requestDto.getMediaUrls());
         post.setStatus(PostStatus.MISSING);
-        post.setAuthor(member);//누락
+        post.setAuthor(member);
         post.setCreatedAt(LocalDateTime.now());
 
+        if (file != null && !file.isEmpty()) {
+            try {
+                String projectPath = System.getProperty("user.dir") + "/uploads/";
+                File uploadDir = new File(projectPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                String originalFilename = file.getOriginalFilename();
+                String savedFileName = UUID.randomUUID().toString() + "_" + originalFilename;
+
+                File saveFile = new File(projectPath, savedFileName);
+                file.transferTo(saveFile);
+
+                String fileUrl = "/uploads/" + savedFileName;
+                post.setMediaUrls(List.of(fileUrl));
+                System.out.println("파일 저장 완료 경로: " + fileUrl);
+            } catch (IOException e) {
+                throw new RuntimeException("파일 업로드에 실패했습니다.", e);
+            }
+        }
+
         MissingPost savePost = missingPostRepository.save(post);
+        System.out.println("========== [DB 저장 완료 ID: " + savePost.getId() + "] ==========");
         return new MissingPostResponseDto(savePost);
     }
-  //무한 스크롤 조회
-public List<MissingPostResponseDto> getPostByScroll(Long cursorId, int size){
-     Pageable pageable = PageRequest.of(0, size);
-     //0번째 페이지부터 시작해서, 지정한 개수(size)만큼 데이터를 가져와라"라는 뜻입니다.
-    List<MissingPost> posts =
- missingPostRepository.findAllByCursor(cursorId, pageable);
+
+
+
+
+    //무한 스크롤 조회
+    public List<MissingPostResponseDto> getPostByScroll(Long cursorId, int size){
+        Pageable pageable = PageRequest.of(0, size);
+        //0번째 페이지부터 시작해서, 지정한 개수(size)만큼 데이터를 가져와라"라는 뜻입니다.
+        List<MissingPost> posts =
+                missingPostRepository.findAllByCursor(cursorId, pageable);
 /*
 전달받은 cursorId를 기준으로 그보다 오래된 글들을
 pageable에 설정된 개수만큼 데이터베이스에서
 엔티티 리스트(List<MissingPost>)로 조회해 옵니다.
 */
-return posts.stream().map(MissingPostResponseDto::new)
-        .collect(Collectors.toList());
+        return posts.stream().map(MissingPostResponseDto::new)
+                .collect(Collectors.toList());
 /*
 자바 스트림(Stream)을 사용하여 데이터베이스에서 가져온 엔티티 객체(MissingPost)들을
 프론트엔드가 필요한 형태인 응답 DTO(MissingPostResponseDto)로 각각 변환
 .collect(Collectors.toList())를 통해 변환된 DTO들을 다시
 깔끔한 리스트(List) 형태로 묶어서 최종 반환*/
-}
+    }
 
 
-    //글수정 (본인확인)
     @Transactional
     public MissingPostResponseDto updatePost(Long id, MissingPostRequestDto requestDto, String username){
-MissingPost post = missingPostRepository.findById(id)
-.orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        MissingPost post = missingPostRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 
-if(!post.getAuthor().getUsername().equals(username)){
-    throw new SecurityException("수정권한이 없습니다");
-}
+        if(!post.getAuthor().getUsername().equals(username)){
+            throw new SecurityException("수정권한이 없습니다");
+        }
 
-//수정 내용 반영
+        // 수정 내용 반영
         post.setTitle(requestDto.getTitle());
         post.setContent(requestDto.getContent());
         post.setBreed(requestDto.getBreed());
@@ -91,8 +125,14 @@ if(!post.getAuthor().getUsername().equals(username)){
         post.setWeight(requestDto.getWeight());
         post.setColor(requestDto.getColor());
         post.setRescueLocation(requestDto.getRescueLocation());
-        post.setMediaUrls(requestDto.getMediaUrls());
-        post.setCreatedAt(LocalDateTime.now());
+
+        // 💡 mediaUrls는 값이 비어있지 않을 때만 변경하도록 방어 코드를 넣거나,
+        // 폼에서 넘어올 때 유의해야 합니다. 일단 전달받은 값이 있으면 세팅합니다.
+        if (requestDto.getMediaUrls() != null && !requestDto.getMediaUrls().isEmpty()) {
+            post.setMediaUrls(requestDto.getMediaUrls());
+        }
+
+        // ❌ post.setCreatedAt(LocalDateTime.now()); 삭제 완료!
 
         return new MissingPostResponseDto(post);
     }
@@ -100,14 +140,14 @@ if(!post.getAuthor().getUsername().equals(username)){
     //글삭제 본인확인
     @Transactional//데이터의 삭제 변경이 일어나끼 때문에 트랜잭션 적용
     public void deletePost(Long id, String username){
-MissingPost post = missingPostRepository.findById(id)
-        .orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다  id=" +id));
+        MissingPost post = missingPostRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다  id=" +id));
 //권한이 없는 사람이 삭제 시도
-if(!post.getAuthor().getUsername().equals(username)){
-    throw new SecurityException("삭제 권한이 없습니다");
-}
+        if(!post.getAuthor().getUsername().equals(username)){
+            throw new SecurityException("삭제 권한이 없습니다");
+        }
 
-missingPostRepository.delete(post);
+        missingPostRepository.delete(post);
 //본인 확인 검증이 모두 끝나면,
 // 리파지토리의 delete 메서드를 호출해 데이터베이스에서 해당 게시글 엔티티를 삭제합니다.
     }
@@ -116,12 +156,12 @@ missingPostRepository.delete(post);
     @Transactional
     public void completPost(Long id, String username){
         MissingPost post = missingPostRepository.findById(id)
-.orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다 id="+id));
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다 id="+id));
 
-if(!post.getAuthor().getUsername().equals(username)){
-    throw new SecurityException("권한이 없습니다");
-}
-post.setStatus(PostStatus.COMPLETED);
+        if(!post.getAuthor().getUsername().equals(username)){
+            throw new SecurityException("권한이 없습니다");
+        }
+        post.setStatus(PostStatus.COMPLETED);
     }
 
 }
@@ -164,5 +204,29 @@ Spring Bean : 스프링 컨테이너가 직접 만들고 관리하는 자바 객
  없는 클래스를 빈으로 등록해야 할 때 씁니다.
  또한 애플리케이션 전반에 걸쳐 공통적으로 적용되는
  기술 지원 객체를 명확하게 드러내고 싶을 때 사용합니다.
+
+ @Transactional
+    public MissingPostResponseDto createPost(
+            MissingPostRequestDto requestDto, String username){
+        //1.현재 로그인한 유저의 아이디를 기반으로 DB에서 유저 정보를 조회
+        Member member = memberRepository.findByName(username)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저 입니다"));
+
+        MissingPost post = new MissingPost();
+        post.setTitle(requestDto.getTitle());
+        post.setContent(requestDto.getContent());
+        post.setBreed(requestDto.getBreed());
+        post.setGender(requestDto.getGender());
+        post.setAge(requestDto.getAge());
+        post.setWeight(requestDto.getWeight());
+        post.setColor(requestDto.getColor());
+        post.setRescueLocation(requestDto.getRescueLocation());
+        post.setMediaUrls(requestDto.getMediaUrls());
+        post.setStatus(PostStatus.MISSING);
+        post.setAuthor(member);//누락
+
+        MissingPost savePost = missingPostRepository.save(post);
+        return new MissingPostResponseDto(savePost);
+    }
 
 */
