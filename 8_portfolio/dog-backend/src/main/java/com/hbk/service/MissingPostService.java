@@ -31,7 +31,7 @@ public class MissingPostService {
     public MissingPostResponseDto createPost(
             MissingPostRequestDto requestDto, String username){
   //1.현재 로그인한 유저의 아이디를 기반으로 DB에서 유저 정보를 조회
-  Member member = memberRepository.findByUsername(username)
+  Member member = memberRepository.findByName(username)
 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저 입니다"));
 
         MissingPost post = new MissingPost();
