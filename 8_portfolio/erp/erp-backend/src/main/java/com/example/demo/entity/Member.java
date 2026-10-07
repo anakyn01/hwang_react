@@ -61,4 +61,9 @@ public class Member {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt; // 정보 수정일
+
+    // 💡 이 부분을 새로 추가해 주세요! (비밀번호 변경을 허용하는 메서드)
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
