@@ -56,7 +56,7 @@ export const Header = () => {
         <a href="/material">자재관리</a>
         <a href="/quality">품질관리</a>
         <a href="/equipment">설비관리</a>
-        <a href="/profile" style={{ color: "#93c5fd" }}>내 정보</a>
+        <a href="/dashboard/mypage" style={{ color: "#93c5fd" }}>내 정보</a>
         <a href="/logout" style={{ color: "#fca5a5" }}>로그아웃</a>
       </S.MobileNav>
     </S.HeaderContainer>
