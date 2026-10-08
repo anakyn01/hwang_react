@@ -5,6 +5,11 @@ display:flex;
 justify-content:center;
 align-items:center;
 `;
+export const InlineFlex = css`
+display:inline-flex;
+justify-content:center;
+align-items:center;
+`;
 export const FlexBetween = css`
 display:flex;
 justify-content:space-between;
