@@ -40,9 +40,11 @@ export const Header = () => {
       {/* 데스크탑 유저 섹션 */}
       <S.UserSection>
         <span>관리자님 환영합니다</span>
-        <S.LogoutButton
+        <S.Button 
+        $variant="danger"
+        
         onClick={handleLogout}
-        >로그아웃</S.LogoutButton>
+        >로그아웃</S.Button>
       </S.UserSection>
 
       {/* 모바일 햄버거 버튼 */}

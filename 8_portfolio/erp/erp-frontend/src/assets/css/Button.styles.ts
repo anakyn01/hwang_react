@@ -20,7 +20,7 @@ ${Fw900};
 ${({ $size}) =>{
 switch($size){
 case "small":return css`padding:0.25rem .5rem; font-size:.75rem`; 
-case "large":return css`padding:0.625rem 1.25rem; font-size:1.125rem`; 
+case "large":return css`padding:0.825rem 2rem !important; font-size:1.125rem`; 
 case "medium":return css`padding:0.375rem 0.75rem; font-size:.875rem`;     
 }    
 }}
@@ -37,6 +37,7 @@ background-color: #ef4444;
 color:white;
 border:none;
 &:hover{background-color: #dc2626;}
+padding:.5rem 1rem;
 `; 
 
 case "outline":return css`
@@ -44,12 +45,14 @@ background-color:transparent;
 color: #333;
 border:1px solid #d1d3e2;
 &:hover{background-color: #f8f9fa;}
+padding:.5rem 1rem;
 `;
 
 case "primary":return css`
 background-color: #2563eb;
 color:white;
 border:none;
+padding:.5rem 1rem;
 &:hover{background-color: #1d4ed8;}
 `; 
 
