@@ -67,6 +67,7 @@ export default function MyPageClient() {
                 <S.Button type="submit" 
                 $variant="primary"
                 $fullWidth
+                $size="large"
                 >비밀번호 변경하기</S.Button>
                 </S.BtnCenterWrap>
             </form>

@@ -1,9 +1,9 @@
 import styled,{css} from "styled-components";
-import { FlexCenter, W100, Pointer, InlineFlex, TransitionAll, Fw900 } from "./common/Common.styles";
+import { FlexCenter, W100, Pointer, InlineFlex, TransitionAll, Fw900, Nowrap } from "./common/Common.styles";
 
 // 버튼에 전달할 Props의 타입 정의
 interface ButtonProps{
-$variant?: "primary" | "danger" | "outline" | "ghost" | "insta" | "kakao";
+$variant?: "primary" | "danger" | "outline" | "ghost" | "insta" | "kakao" | "white";
 $size?:"small"|"medium"|"large";
 $fullWidth?:boolean;
 $width?:string;    
@@ -16,11 +16,16 @@ ${Pointer};
 ${TransitionAll};
 ${Fw900};
 justify-content: center;
+//글자가 두 줄로 깨지는 현상 방지
+${Nowrap};
+//혹시나 인풋창에 밀려 찌그러지는 현상 방지
+flex-shrink:0;
+min-width:max-content;
 
 //크기 사이즈 설정
 ${({ $size}) =>{
 switch($size){
-case "small":return css`padding:0.25rem .5rem; font-size:.75rem;`; 
+case "small":return css`padding:0.5rem .8rem; font-size:.9rem;`; 
 case "large":return css`padding:0.95rem 2rem; !important; font-size:1.125rem;`; 
 case "medium":return css`padding:0.375rem; 0.75rem; font-size:.875rem;`; 
 default:return css`padding: 0.95rem 1rem; font-size: 0.875rem;`;    
@@ -44,6 +49,13 @@ border:none;
 case "outline":return css`
 background-color:transparent;
 color: #333;
+border:1px solid #d1d3e2;
+&:hover{background-color: #f8f9fa;}
+`;
+
+case "white":return css`
+background-color:transparent;
+color: #fff;
 border:1px solid #d1d3e2;
 &:hover{background-color: #f8f9fa;}
 `;

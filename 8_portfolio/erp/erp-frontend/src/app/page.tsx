@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { AlertModal } from "@/components/modal/AlertModal";
 
 import type { Metadata } from "next";
 import * as S from "@/assets/css/Style.style";
@@ -18,6 +19,12 @@ export default function Home() {
   // 입력값 상태 관리
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  //모달 상태관리 추가
+const [isModalOpen, setIsModalOpen] = useState(false);
+const [modalMessage, setModalMessage] = useState("");
+// 확인 버튼을 눌렀을 때 이동할 경로를 저장 (로그인 성공 시 대시보드로 가기 위함)
+const [nextRoute, setNextRoute] = useState("");  
 
 // 로그인 폼 제출 핸들러
 const handleLogin = async (e:React.FormEvent<HTMLFormElement>) => {
@@ -38,16 +45,28 @@ if (response.status === 200) {
         // 2. 이후 모든 axios 요청 헤더에 JWT 토큰을 자동 포함하도록 설정
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-        alert("로그인 성공!");
-        router.push("/dashboard"); // 로그인 성공 후 이동할 메인 페이지 (필요에 따라 수정)
-}
+        //alert("로그인 성공!");
+        setModalMessage("로그인 성공");
+        setNextRoute("/dashboard"); // 로그인 성공 후 이동할 메인 페이지 (필요에 따라 수정)
+        setIsModalOpen(true);
+      }
   }catch (error){
 console.error("로그인 에러:", error);
-      alert("이메일 또는 비밀번호를 확인해주세요.");
+        setModalMessage("이메일 또는 비밀번호를 확인해 주세요");
+        setNextRoute(""); // 로그인 성공 후 이동할 메인 페이지 (필요에 따라 수정)
+        setIsModalOpen(true);
   }
-}
+};
+
+const handleCloseModal = () => {
+        setIsModalOpen(false);
+    if(nextRoute){
+      router.push(nextRoute);
+    }    
+};
 
   return (
+    <>
 <S.Container>
       <S.Card>
         <S.ImageColumn />
@@ -107,5 +126,12 @@ console.error("로그인 에러:", error);
         </S.FormColumn>
       </S.Card>
     </S.Container>
+
+    <AlertModal
+    isOpen={isModalOpen}
+    message={modalMessage}
+    onClose={handleCloseModal}
+    />
+    </>
   );
 }

@@ -42,7 +42,7 @@ export const Header = () => {
         <span>관리자님 환영합니다</span>
         <S.Button 
         $variant="danger"
-        
+        $size="small"
         onClick={handleLogout}
         >로그아웃</S.Button>
       </S.UserSection>
