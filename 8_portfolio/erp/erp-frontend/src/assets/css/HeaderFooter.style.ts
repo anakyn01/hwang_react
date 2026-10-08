@@ -1,20 +1,21 @@
 "use client";
 import styled from "styled-components";
 import Link from "next/link";
+import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, Fw700, Pointer, TransitionAll } from "./common/Common.styles";
 
 /*헤더 */
 export const HeaderContainer = styled.header`
-display:flex; justify-content:space-between;
-align-items:center;
+${FlexBetween};
 padding: 0 1.5rem;
 height:4rem;
 background-color:#1e293b;
 color:#fff;
-box-shadow:0 2px 4px rgba(0,0,0, 0.1);
+${BoxShadow};
 position:relative;
 `;
 export const Logo = styled.div`
-font-size:1.5rem; font-weight:700;
+font-size:1.5rem; 
+${Fw700};
 letter-spacing:-0.5px;
 cursor:pointer;
 `;
@@ -31,11 +32,11 @@ color: #cbd5e1;
 text-decoration:none;
 font-size:1rem;
 font-weight:500;
-transition:color 0.2s ease-in-out;
+${TransitionAll};
 &:hover{color:#fff;}
 `;
 export const UserSection = styled.div`
-display:flex; align-items:center;
+${FlexCenter};
 gap:16px;
 @media(max-width: 768px) {
 display:none;
@@ -59,7 +60,7 @@ background:transparent;
 border:none;
 color:white;
 font-size:1.75rem;
-cursor:pointer;
+${Pointer};
 
 @media (max-width: 768px) {
 display:block;
@@ -68,9 +69,8 @@ display:block;
 `;
 export const MobileNav = 
 styled.nav<{$isOpen:boolean}>`
-display:flex;
-flex-direction:column;
-position:absolute;
+${FlexColumn};
+${Absolute};
 top:64px;
 left:0;
 width:100%;
@@ -78,7 +78,7 @@ background-color:#334155;
 padding:${({ $isOpen }) => ($isOpen ? "16px 24px" : "0 24px")};
 max-height:${({ $isOpen }) => ($isOpen ? "300px" : "0")};
 overflow:hidden;
-transition:all 0.3s ease-in-out;
+${TransitionAll};
 box-shadow:0 4px 6px rgba(0,0,0,0.1);
 z-index:99999999999999;
 
@@ -103,8 +103,8 @@ export const FooterContainer = styled.footer`
 background-color:#f8fafc;
 border-top:1px solid #e2e8f0;
 padding:1.5rem 2.285rem;
-color:#64748b; display:flex;
-flex-direction:column; align-items:center;
+color:#64748b; 
+${FlexColumn};
 gap:1.143rem;
 
 @media (min-width: 768px) {

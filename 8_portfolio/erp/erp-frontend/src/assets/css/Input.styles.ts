@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { Absolute, FlexBetween, Ohidden, Pointer, Relative, W100 } from "./common/Common.styles";
 
 
 // 커스텀 셀렉트 박스 컨테이너
 export const CustomSelectContainer = styled.div`
-position:relative; width:100%;
+${Relative};
+${W100};
 z-index:100;
 `;
 
@@ -14,10 +16,8 @@ border:1px solid #d1d3e2;
 border-radius:6px;
 background-color:#fff;
 font-size:0.9rem;
-cursor:pointer;
-display:flex;
-justify-content:space-between;
-align-items:center;
+${Pointer};
+${FlexBetween};
 color:#333;
 &:hover{
 border-color:#bac8f3;
@@ -26,7 +26,7 @@ border-color:#bac8f3;
 
 //드롭다운 리스트 영역
 export const SelectList = styled.ul`
-position:absolute;
+${Absolute};
 top:100%;
 left:0;
 width:100%;
@@ -38,7 +38,7 @@ border:1px solid #e2e8f0;
 border-radius:6px;
 box-shadow:0 4px 12px rgba(0,0, 0, 0.1);
 z-index:50;
-overflow:hidden;
+${Ohidden};
 `;
 interface SelectItemprops {
   $isSelected?: boolean;

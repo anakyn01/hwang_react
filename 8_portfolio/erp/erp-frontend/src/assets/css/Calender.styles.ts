@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { BgWhite, FlexColumn, Fw700 } from "./common/Common.styles";
 
 //캘린더
 export const CalTopMargin = styled.div`
@@ -7,13 +8,16 @@ margin-top:2rem;
 `;
 export const CalenderWrapper = styled.div`
 max-width:1000px;
-margin:0 auto; background-color:#fff;
+margin:0 auto; 
+${BgWhite};
 border:1px solid #e0e0e0;
 border-radius:20px;
 box-shadow:0 4px 6px rgba(0,0,0, 0.5);
 `;
 export const CalHeader = styled.h2`
-text-align:center; font-size:32px; font-weight:700;
+text-align:center; 
+font-size:32px; 
+${Fw700};
 margin-bottom:1.5rem; color:#333;
 `;
 export const Grid = styled.div`
@@ -41,9 +45,7 @@ $isSaturday?: boolean; // <--- 추가
 
 export const DayCell = styled.div<DayCellProps>`
 position:relative;
-display:flex;
-flex-direction:column;
-align-items:center;
+${FlexColumn};
 height:80px;
 border-radius:8px;
 font-size:1.2rem;

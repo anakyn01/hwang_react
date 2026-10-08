@@ -1,27 +1,25 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { BgWhite, Fixed, FlexBetween, FlexCenter, FlexColumn, H100, W100 } from "./common/Common.styles";
 //일정모달
 export const ModalOverlay = styled.div`
-position:fixed;
+${Fixed};
 top:0; left:0;
 background:rgba(0,0,0,.8);
-width:100%; height:100%;
+${W100};
+${H100};
 z-index:99999;
-display:flex;
-align-items:center;
-justify-content:center;
+${FlexCenter};
 `;
 export const ModalContainer =styled.div`
-background:#fff;
+${BgWhite};
 width:400px;
 padding:24px;
 border-radius:8px;
 box-shadow:0 4px 12px rgba(0,0,0,0.15);
 `;
 export const ModalHeader = styled.div`
-display:flex;
-justify-content:space-between;
-align-items:center;
+${FlexBetween};
 margin-bottom:1rem;
 `;
 export const ModalTitle = styled.h3`
@@ -36,8 +34,7 @@ font-size:2rem; font-weight:300;
 line-height:1; 
 cursor:pointer;
 color:#666;
-display:flex; align-items:center;
-justify-content:center;
+${FlexCenter};
 transform:rotate(45deg);
 transition:transform 0.2s ease, color 0.2s ease;
 &:hover{
@@ -47,7 +44,7 @@ transform:rotate(135deg);
 `;
 export const ModalBody = styled.div``;
 export const FormGroup = styled.div`
-display:flex; flex-direction:column;
+${FlexColumn};
 gap:8px;
 margin-bottom:1rem;
 `;
@@ -87,16 +84,13 @@ overflow-y:auto;
 border-top:1px solid #eee;
 `;
 export const ScheduleItem = styled.li`
-display:flex;
-flex-direction:column;
+${FlexColumn}
 padding:12px 0;
 border-bottom:1px solid #eee;
 gap:8px;
 `;
 export const ScheduleHeader = styled.div`
-display:flex;
-justify-content:space-between;
-align-items:center;
+${FlexBetween};
 font-size:0.85rem;
 color:#666;
 `;

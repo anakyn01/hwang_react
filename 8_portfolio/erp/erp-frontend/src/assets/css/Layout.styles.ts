@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { FlexColumn, Vh100 } from "./common/Common.styles";
 
 export const PageWrapper = styled.div`
-display:flex; flex-direction:column;
-min-height:100vh;
+${FlexColumn};
+${Vh100};
 `;
 export const TopArea = styled.div`
 position:sticky;
