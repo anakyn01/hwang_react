@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { FlexStart, Fw700 } from "../common/Common.styles";
 
 
 export const Container = styled.div`
@@ -39,6 +40,17 @@ font-size:1.5rem;
 color:#3a3b45;
 margin-bottom:1.5rem;
 font-weight:400;
+`;
+export const TitleStart = styled.h1`
+${FlexStart};
+font-size:1.5rem;
+color:#3a3b45;
+margin-bottom:1.5rem;
+${Fw700};
+small{
+text-indent:0.5rem;
+color:#666;
+}
 `;
 export const Form = styled.form`
 display:flex; flex-direction:column;
@@ -179,3 +191,4 @@ padding:0.625rem;
 export const Mt1 = styled.div`
 margin-top:1rem;
 `;
+

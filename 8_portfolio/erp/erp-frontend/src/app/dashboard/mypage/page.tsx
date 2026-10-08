@@ -42,8 +42,8 @@ export default function MyPageClient() {
 
     return (
         <Layout>
-        <S.P5>
-            <h2>마이페이지 - 비밀번호 변경</h2>
+
+            <S.TitleStart>마이페이지  <small>- 비밀번호 변경</small></S.TitleStart>
             <form onSubmit={handleChangePassword}>
                 <S.Mt1>
                     <S.Label>기존(또는 임시) 비밀번호: </S.Label>
@@ -67,7 +67,7 @@ export default function MyPageClient() {
                 <S.Button type="submit">비밀번호 변경하기</S.Button>
                 </S.BtnCenterWrap>
             </form>
-        </S.P5>
+
         </Layout>
     );
 }

@@ -27,7 +27,7 @@ display:none;
 `;
 export const ContentArea = styled.main`
 flex:1;
-padding:32px;
+padding:2rem;
 background-color:#f8fafc;
 overflow-y:auto;
 min-width:0;
