@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, Fw700, Pointer, TransitionAll } from "./common/Common.styles";
-
+export * from './Button.styles';
 /*헤더 */
 export const HeaderContainer = styled.header`
 ${FlexBetween};
@@ -42,31 +42,7 @@ gap:16px;
 display:none;
 }
 `;
-export const LogoutButton = styled.button`
-background-color: #ef4444;
-color: white; border:none;
-padding:6px 12px;
-border-radius:4px;
-font-size:0.875rem;
-cursor:pointer;
-font-weight:bold;
-&:hover{
-background-color:#dc2626;
-}
-`;
-export const MobileMenuToggle = styled.button`
-display:none;
-background:transparent;
-border:none;
-color:white;
-font-size:1.75rem;
-${Pointer};
 
-@media (max-width: 768px) {
-display:block;
-}
-
-`;
 export const MobileNav = 
 styled.nav<{$isOpen:boolean}>`
 ${FlexColumn};

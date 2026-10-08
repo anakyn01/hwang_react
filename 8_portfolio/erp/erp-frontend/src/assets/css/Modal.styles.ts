@@ -27,21 +27,7 @@ font-size:1.2rem;
 color:#333;
 margin:0;
 `;
-export const CloseButton = styled.button`
-background:transparent;
-border:none;
-font-size:2rem; font-weight:300;
-line-height:1; 
-cursor:pointer;
-color:#666;
-${FlexCenter};
-transform:rotate(45deg);
-transition:transform 0.2s ease, color 0.2s ease;
-&:hover{
-color:#333;
-transform:rotate(135deg);
-}
-`;
+
 export const ModalBody = styled.div``;
 export const FormGroup = styled.div`
 ${FlexColumn};
@@ -104,16 +90,7 @@ background-color:${({ $status}) =>
 $status === "완료" ? "#10b981" :
 $status === "진행" ? "#3B82f6" : "#f59e0b"};
 `;
-export const SmallButton = styled.button`
-width:100px;
-background:transparent;
-border:1px solid #d1d3e2;
-border-radius:4px;
-padding:4px 8px;
-font-size:0.75rem;
-cursor:pointer;
 
-`;
 export const ScheduleDot = styled.div`
 width:6px;
 height:6px;
