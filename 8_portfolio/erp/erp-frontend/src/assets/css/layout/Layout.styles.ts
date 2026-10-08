@@ -158,3 +158,24 @@ color:#6e707e;
 margin-bottom:1.5rem;
 line-height:1.5;
 `;
+
+//padding 들어간 레이아웃
+export const P5 = styled.div`
+padding:3.125rem;
+`;
+export const P4 = styled.div`
+padding:2.5rem;
+`;
+export const P3 = styled.div`
+padding:1.875rem;
+`;
+export const P2= styled.div`
+padding:1.25rem;
+`;
+export const P1 = styled.div`
+padding:0.625rem;
+`;
+
+export const Mt1 = styled.div`
+margin-top:1rem;
+`;

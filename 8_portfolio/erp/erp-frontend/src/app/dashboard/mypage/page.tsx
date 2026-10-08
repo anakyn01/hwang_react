@@ -42,30 +42,32 @@ export default function MyPageClient() {
 
     return (
         <Layout>
-        <div style={{ padding: "50px" }}>
+        <S.P5>
             <h2>마이페이지 - 비밀번호 변경</h2>
             <form onSubmit={handleChangePassword}>
-                <div style={{ marginBottom: "15px" }}>
-                    <label>기존(또는 임시) 비밀번호: </label>
-                    <input 
+                <S.Mt1>
+                    <S.Label>기존(또는 임시) 비밀번호: </S.Label>
+                    <S.Input 
                         type="password" 
                         value={oldPassword} 
                         onChange={(e) => setOldPassword(e.target.value)} 
                         required 
                     />
-                </div>
-                <div style={{ marginBottom: "15px" }}>
-                    <label>새 비밀번호: </label>
-                    <input 
+                </S.Mt1>
+                <S.Mt1>
+                    <S.Label>새 비밀번호: </S.Label>
+                    <S.Input 
                         type="password" 
                         value={newPassword} 
                         onChange={(e) => setNewPassword(e.target.value)} 
                         required 
                     />
-                </div>
-                <button type="submit">비밀번호 변경하기</button>
+                </S.Mt1>
+                <S.BtnCenterWrap>
+                <S.Button type="submit">비밀번호 변경하기</S.Button>
+                </S.BtnCenterWrap>
             </form>
-        </div>
+        </S.P5>
         </Layout>
     );
 }

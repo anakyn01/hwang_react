@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { Absolute, FlexBetween, Ohidden, Pointer, Relative, W100 } from "./common/Common.styles";
+import { Absolute, FlexBetween, Fw400, Ohidden, Pointer, Relative, W100 } from "./common/Common.styles";
 
 
 // 커스텀 셀렉트 박스 컨테이너
@@ -55,4 +55,13 @@ font-weight:${({ $isSelected }) => ($isSelected ? 'bold' :'normal')};
 &:hover{
 background-color:#f1f5f9;
 }
+`;
+
+export const Label = styled.label`
+letter-spacing:-0.03px;
+${Fw400};
+font-size:.9rem;
+color:#666;
+word-spacing:.1rem;
+line-height:2.5rem;
 `;
