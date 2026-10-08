@@ -142,9 +142,10 @@ onClick={handleSave}
     >
 {editingId ? "수정" :"등록"}        
     </S.Button>
-<S.SearchButton
+<S.Button
 onClick={onClose}
->닫기</S.SearchButton>    
+$variant="primary"
+>닫기</S.Button>    
 </S.ButtonGroup>
 
 <S.ScheduleList>
@@ -159,13 +160,15 @@ onClick={onClose}
 <div className="">{sch.content}</div> 
 <S.ButtonGroup>
 
-<S.SmallButton
+<S.Button
 onClick={() => handleEdit(sch)}
->수정</S.SmallButton>
+$size="small"
+>수정</S.Button>
 
-<S.SmallButton
+<S.Button
 onClick={() => handleDelete(sch.id)}
->삭제</S.SmallButton>
+$size="small"
+>삭제</S.Button>
 </S.ButtonGroup>      
     </S.ScheduleItem>
 ))}    

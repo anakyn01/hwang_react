@@ -39,7 +39,9 @@ export default function ForgotPasswordClient() {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        <S.Button type="submit">Reset Password</S.Button>
+                        <S.Button type="submit" $fullWidth 
+                        $variant="primary"
+                        >Reset Password</S.Button>
                     </S.Form>
                     <S.Divider />
                     <S.StyledLink href="/member">Create an Account!</S.StyledLink>

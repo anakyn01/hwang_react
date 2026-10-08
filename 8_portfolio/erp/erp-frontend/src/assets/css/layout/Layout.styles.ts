@@ -98,56 +98,9 @@ export const AddressWrapper = styled.div`
 display:flex;
 gap:0.5rem;
 `;
-export const Button = styled.button`
-width:100%; padding:0.8rem;
-background-color:#4e73df;
-color:white;
-border:none;
-border-radius:10rem;
-font-size:0.9rem;
-cursor:pointer;
-transition:background-color 0.15s ease-in-out;
 
-&:hover{
-background-color:#2e59d9;
-}
-`;
-export const SearchButton = styled(Button)`
-width:auto; min-width:100px;
-background-color:#858796;
-&:hover{
-background-color:#717384;
-}
-`;
-export const SocialButton = styled.button<{$provider:"google" |"insta"|"kakao"}>`
-width:100%;
-padding:0.8rem;
-margin-bottom:0.5rem;
-background-color:${({ $provider}) => ($provider === "insta" ? "#e1306c" : "#FEE500")};
-color:${({ $provider }) => ($provider === "insta" ? "white" : "#000")};
-border:none;
-border-radius:10rem;
-font-size:0.9rem;
-cursor:pointer;
-text-align:center;
-`;
-export const Divider = styled.hr`
-margin:1.5rem 0;
-border:0;
-border-top:1px solid rgba(0,0,0,0.1);
-`;
-export const StyledLink = styled(Link)`
-display:block;
-text-align:center;
-font-size:0.875rem;
-color:#4e73df;
-text-decoration:none;
-margin-bottom:0.5rem;
-&:hover{
-text-decoration:underline;
-color:#224abe;
-}
-`;
+
+
 
 export const CheckboxWrapper = styled.div`
   display: flex;
@@ -190,5 +143,24 @@ padding:0.625rem;
 
 export const Mt1 = styled.div`
 margin-top:1rem;
+`;
+
+export const StyledLink = styled(Link)`
+display:block;
+text-align:center;
+font-size:0.875rem;
+color:#4e73df;
+text-decoration:none;
+margin-bottom:0.5rem;
+&:hover{
+text-decoration:underline;
+color:#224abe;
+}
+`;
+
+export const Divider = styled.hr`
+margin:1.5rem 0;
+border:0;
+border-top:1px solid rgba(0,0,0,0.1);
 `;
 

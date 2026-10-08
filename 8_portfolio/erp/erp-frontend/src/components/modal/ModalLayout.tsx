@@ -19,9 +19,9 @@ export default function ModalLayout({isOpen, onClose, title, children} : ModalLa
 <S.ModalContainer onClick={(e) => e.stopPropagation()}>
 <S.ModalHeader>
 <S.ModalTitle>{title}</S.ModalTitle>  
-<S.CloseButton onClick={onClose}>
+<S.Button onClick={onClose} $variant="ghost">
 +
-</S.CloseButton>  
+</S.Button>  
 </S.ModalHeader>
 <S.ModalBody>
 {children}

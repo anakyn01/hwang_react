@@ -80,19 +80,19 @@ console.error("로그인 에러:", error);
               </S.CheckboxLabel>
             </S.CheckboxWrapper>
             
-            <S.Button type="submit">
+            <S.Button type="submit" $fullWidth $variant="primary">
               Login
             </S.Button>
 
             <S.Divider />
             
-            <S.SocialButton type="button" $provider="google">
-              <i className="fab fa-google fa-fw"></i> Login with Google
-            </S.SocialButton>
+            <S.Button type="button" $fullWidth $variant="kakao" >
+              <i className="fab fa-google fa-fw"></i> Login with kakao
+            </S.Button>
             
-            <S.SocialButton type="button" $provider="insta">
+            <S.Button type="button" $fullWidth $variant="insta" >
               <i className="fab fa-facebook-f fa-fw"></i> Login with Insta
-            </S.SocialButton>
+            </S.Button>
           </S.Form>
           
           <S.Divider />

@@ -252,9 +252,14 @@ export default function Member() {
                                 value={formData.address}
                                 readOnly
                             />
-                            <S.SearchButton type="button" onClick={handleAddressSearch}>
+                            <S.Button 
+                            type="button"                            
+                            onClick={handleAddressSearch}
+                            $variant="primary"
+                            $width="small"
+                            >
                                 주소검색
-                            </S.SearchButton>
+                            </S.Button>
                         </S.AddressWrapper>
 
                         <S.Input
@@ -264,17 +269,26 @@ export default function Member() {
                             value={formData.detailAddress}
                             onChange={handleChange}
                         />
-                        <S.Button type="submit">Register Account</S.Button>
+                        <S.Button type="submit"
+                        $fullWidth $variant="primary"
+                        >Register Account</S.Button>
 
                         <S.Divider />
 
-                        <S.SocialButton $provider="insta" onClick={handleInstargramLogin}>
+                        <S.Button 
+                        $fullWidth
+                        $variant="insta"
+                        onClick={handleInstargramLogin}>
                             Register with Instagram
-                        </S.SocialButton>
+                        </S.Button>
 
-                        <S.SocialButton $provider="kakao" onClick={handleKakaoLogin}>
+                        <S.Button 
+                        onClick={handleKakaoLogin}
+                        $fullWidth
+                        $variant="kakao"
+                        >
                             Register with Kakao
-                        </S.SocialButton>
+                        </S.Button>
                     </S.Form>
 
                     <S.Divider />
