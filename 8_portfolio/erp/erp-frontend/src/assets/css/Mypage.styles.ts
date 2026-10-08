@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { BoxShadow, FlexColumn } from "./common/Common.styles";
+import { BoxShadow, FlexColumn, FlexColumnStart } from "./common/Common.styles";
 
 //mypage
 export const CalendarLayout = styled.div`
@@ -23,7 +23,7 @@ export const AsideContainer = styled.div`
 width:100%;
 height:100%;
 padding:24px 0;
-${FlexColumn};
+${FlexColumnStart};
 background-color:#fff;
 `;
 export const MenuSection = styled.div`

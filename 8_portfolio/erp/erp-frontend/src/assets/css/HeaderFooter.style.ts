@@ -1,7 +1,7 @@
 "use client";
 import styled from "styled-components";
 import Link from "next/link";
-import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, Fw700, Pointer, TransitionAll } from "./common/Common.styles";
+import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, Fw700, Pointer, TransitionAll, W100 } from "./common/Common.styles";
 export * from './Button.styles';
 /*헤더 */
 export const HeaderContainer = styled.header`
@@ -76,6 +76,7 @@ display:none;
 export const StyledLink = styled(Link)``;
 /*푸터*/
 export const FooterContainer = styled.footer`
+${W100};
 background-color:#f8fafc;
 border-top:1px solid #e2e8f0;
 padding:1.5rem 2.285rem;

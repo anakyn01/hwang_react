@@ -25,6 +25,12 @@ display:flex;
 justify-content:flex-start;
 align-items:center;
 `;
+export const FlexColumnStart = css`
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+`;
+
 export const FlexEnd = css`
 display:flex;
 justify-content:flex-end;

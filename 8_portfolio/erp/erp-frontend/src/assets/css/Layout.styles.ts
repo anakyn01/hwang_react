@@ -1,17 +1,20 @@
 import styled from "styled-components";
-import { FlexColumn, Vh100 } from "./common/Common.styles";
+import { FlexColumn, H100, Vh100, W100 } from "./common/Common.styles";
 
 export const PageWrapper = styled.div`
 ${FlexColumn};
 ${Vh100};
 `;
 export const TopArea = styled.div`
+${W100};
 position:sticky;
 top:0;
 z-index:100;
 `;
 export const MainContent = styled.div`
-display:flex; flex:1;
+display:flex; 
+${W100};
+${H100};
 `;
 export const LnbWrapper = styled.aside`
 width:250px;
