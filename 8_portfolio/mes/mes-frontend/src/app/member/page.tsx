@@ -94,7 +94,7 @@ const response =
 await axios.post("http://localhost:4000/api/auth/register", formData);
 if(response.data.success){
     alert("회원가입이 완료되었습니다!");
-    router.push("/login");
+    router.push("/");
 }    
 
 }catch(error: any){

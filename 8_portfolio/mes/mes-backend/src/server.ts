@@ -136,6 +136,46 @@ sequelize.sync({force: false})//서버를 구동할때마다 테이블 드롭하
   console.error('',err);
 })
 
+//로그인 API (새로 추가됨)
+app.post('/api/auth/login', async(req, res) => {
+  try{
+const {email, password} = req.body;
 
+// 이메일 또는 비밀번호 누락 체크
+if(!email || !password){
+return res.status(400).json({ success:false, message:'이메일과 비밀번호를 입력해주세요.'});
+}
+
+const user = await User.findOne({where:{email}});
+//사용자가 아닌경우
+if (!user) {
+  return res.status(401).json({
+    success:false, message:'존재하지 않는 이메일이거나 비밀번호가 틀렸습니다.'
+  })
+}
+
+const token = jwt.sign(
+  {id:user.id, email:user.email},
+  JWT_SECRET,
+  { expiresIn: '2h'}
+);
+//토큰과 간단한 사용자 정보 응답
+return res.status(200).json({
+  success:true,
+  message:'로그인 성공',
+  user:{
+    firstName:user.firstName,
+    lastName:user.lastName,
+    email:user.email
+  }
+});
+  }catch(err){
+console.error(err);
+return res.status(500).json({
+  success:false,
+  message:'서버 오류가 발생했습니다'
+});
+  }
+});
 
 
