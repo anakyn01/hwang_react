@@ -32,16 +32,37 @@ public class MissingPostService {
 
     //실종 신고글 작성(로그인 유저 정보 반영)
     // 실종 신고글 작성 (파일 및 로그인 유저 정보 반영)
+    // 실종 신고글 작성 (DTO, 파일, 유저 이메일 수신)
     @Transactional
     public MissingPostResponseDto createPost(
-            MissingPostRequestDto requestDto, MultipartFile file, String username){
-
-        System.out.println("========== [서비스 계층 진입] ==========");
-        System.out.println("전달받은 title: " + (requestDto != null ? requestDto.getTitle() : "requestDto가 NULL입니다"));
-        System.out.println("전달받은 username: " + username);
-
-        Member member = memberRepository.findByName(username)
+            MissingPostRequestDto requestDto,
+            MultipartFile file,
+            String username
+    ){
+        // 1. 현재 로그인한 유저의 이메일을 기반으로 DB에서 유저 정보를 조회
+        Member member = memberRepository.findByEmail(username)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저 입니다"));
+
+        // 2. 파일이 존재할 경우 서버에 저장하고 URL을 DTO의 mediaUrls에 추가
+        if (file != null && !file.isEmpty()) {
+            try {
+                String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                String uploadDir = System.getProperty("user.dir") + "/uploads/";
+                java.nio.file.Path path = java.nio.file.Paths.get(uploadDir + filename);
+
+                java.nio.file.Files.createDirectories(path.getParent());
+                java.nio.file.Files.write(path, file.getBytes());
+
+                String imageUrl = "http://localhost:8080/uploads/" + filename;
+
+                if (requestDto.getMediaUrls() == null) {
+                    requestDto.setMediaUrls(new java.util.ArrayList<>());
+                }
+                requestDto.getMediaUrls().add(imageUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         MissingPost post = new MissingPost();
         post.setTitle(requestDto.getTitle());
@@ -52,34 +73,12 @@ public class MissingPostService {
         post.setWeight(requestDto.getWeight());
         post.setColor(requestDto.getColor());
         post.setRescueLocation(requestDto.getRescueLocation());
+        post.setMediaUrls(requestDto.getMediaUrls());
         post.setStatus(PostStatus.MISSING);
         post.setAuthor(member);
         post.setCreatedAt(LocalDateTime.now());
 
-        if (file != null && !file.isEmpty()) {
-            try {
-                String projectPath = System.getProperty("user.dir") + "/uploads/";
-                File uploadDir = new File(projectPath);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdirs();
-                }
-
-                String originalFilename = file.getOriginalFilename();
-                String savedFileName = UUID.randomUUID().toString() + "_" + originalFilename;
-
-                File saveFile = new File(projectPath, savedFileName);
-                file.transferTo(saveFile);
-
-                String fileUrl = "/uploads/" + savedFileName;
-                post.setMediaUrls(List.of(fileUrl));
-                System.out.println("파일 저장 완료 경로: " + fileUrl);
-            } catch (IOException e) {
-                throw new RuntimeException("파일 업로드에 실패했습니다.", e);
-            }
-        }
-
         MissingPost savePost = missingPostRepository.save(post);
-        System.out.println("========== [DB 저장 완료 ID: " + savePost.getId() + "] ==========");
         return new MissingPostResponseDto(savePost);
     }
 

@@ -185,11 +185,13 @@ name="address"
 value={formData.address}
 readOnly
 />  
-<S.SearchButton
+<S.Button
 type="button"
 onClick={handleAddressSearch}
+$size="small"
+$variant="primary"
 >
-주소검색</S.SearchButton>  
+주소검색</S.Button>  
 </S.AddressWrapper>
 
 <S.Input 
@@ -199,23 +201,25 @@ name="detailAddress"
 value={formData.detailAddress}
 onChange={handleChange}
 />
-<S.Button type="submit">
+<S.Button type="submit" $variant="primary">
 Register Account
 </S.Button>
 
 <S.Divider/>
 
-<S.SocialButton 
-$provider="insta"
+<S.Button 
+$variant="insta"
+$fullWidth
 onClick={handleInstargramLogin}>
 Register with Instargram    
-</S.SocialButton>
+</S.Button>
 
-<S.SocialButton 
-$provider="kakao"
+<S.Button 
+$variant="kakao"
+$fullWidth
 onClick={handleKakaoLogin}>
 Register with Instargram    
-</S.SocialButton>
+</S.Button>
 </S.Form>
 
 <S.Divider/>

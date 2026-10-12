@@ -22,29 +22,17 @@ public class MissingPostController {
     // ❌ private final ObjectMapper objectMapper; (이 필드를 삭제합니다!)
 
     // 1. 실종 신고 글 작성 API (POST /api/missing-posts)
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    // 1. 실종 신고 글 작성 API (정석적인 @RequestPart 활용)
+    @PostMapping
     public ResponseEntity<MissingPostResponseDto> createPost(
-            @RequestParam("dto") String dtoJson,
+            @RequestPart("dto") MissingPostRequestDto requestDto,
             @RequestPart(value = "file", required = false) MultipartFile file,
             Principal principal
     ) {
-        // 💡 이 로그들이 백엔드 콘솔(IntelliJ 등)에 찍히는지 확인해보세요!
-        System.out.println("=== 1. 컨트롤러 진입 성공 ===");
-        System.out.println("받은 dtoJson: " + dtoJson);
-        System.out.println("받은 file 이름: " + (file != null ? file.getOriginalFilename() : "파일 없음"));
-        System.out.println("로그인 유저: " + (principal != null ? principal.getName() : "로그인 정보 없음 (Principal Null)"));
 
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            MissingPostRequestDto requestDto = objectMapper.readValue(dtoJson, MissingPostRequestDto.class);
-
-            MissingPostResponseDto response = service.createPost(requestDto, file, principal.getName());
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            System.out.println("=== 파싱 또는 처리 에러 발생 ===");
-            e.printStackTrace();
-            throw new RuntimeException("DTO 파싱 실패: " + e.getMessage(), e);
-        }
+        // 💡 service.createPost에 requestDto, file, principal.getName() 3개를 정확히 전달합니다.
+        MissingPostResponseDto response = service.createPost(requestDto, file, principal.getName());
+        return ResponseEntity.ok(response);
     }
 
     // 2. 무한 스크롤 조회 API (GET /api/missing-posts?cursorId=10&size=10)

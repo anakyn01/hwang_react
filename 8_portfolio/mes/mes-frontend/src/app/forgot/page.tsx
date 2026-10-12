@@ -30,7 +30,7 @@ export default function ForgotPassword() {
               placeholder="Enter Email Address..." 
             />
             
-            <S.Button type="submit">
+            <S.Button type="submit" $variant="primary">
               Reset Password
             </S.Button>
           </S.Form>

@@ -45,44 +45,44 @@ export const ModalSingle = ({
     }
   };
 
-  // 글 등록 API 전송 핸들러
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const data = new FormData();
-      
-      // 💡 JSON 문자열이 제대로 만들어졌는지 확인
-      const jsonString = JSON.stringify(formData);
-      console.log("프론트에서 보낼 JSON:", jsonString);
+  e.preventDefault();
+  
+  // 1. 토큰 존재 여부 확실히 체크
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('로그인이 필요합니다. 다시 로그인해주세요.');
+    return;
+  }
 
-      data.append('dto', new Blob([jsonString], { type: 'application/json' }));
+  try {
+    const data = new FormData();
+    data.append('dto', new Blob([JSON.stringify(formData)], { type: 'application/json' }));
 
-      if (selectedFile) {
-        console.log("프론트에서 보낼 파일:", selectedFile.name);
-        data.append('file', selectedFile); 
-      }
-
-      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-
-      const response = await axios.post('http://localhost:8080/api/missing-posts', data, {
-        withCredentials: true,
-
-        headers: {
-          // 💡 인증 토큰을 헤더에 반드시 포함해야 합니다!
-          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-        }
-      });
-
-      console.log("서버 응답 성공:", response.data);
-      alert('실종 신고가 등록되었습니다.');
-      onSuccess();
-      onClose();
-    } catch (error: any) {
-      console.error('등록 실패 상세 에러:', error.response || error);
-      alert('글 등록에 실패했습니다');
+    if (selectedFile) {
+      data.append('file', selectedFile);
     }
-  };
 
+    // 2. 백엔드로 명시적인 주소와 헤더 전달
+    const response = await axios.post('http://localhost:8080/api/missing-posts', data, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+        // 주의: multipart/form-data는 Content-Type을 직접 적지 않아야 브라우저가 boundary를 잡아줍니다.
+      },
+      withCredentials: true
+    });
+
+    console.log('등록 성공 응답:', response.data);
+    alert('실종 신고가 등록되었습니다.');
+    onSuccess();
+    onClose();
+  } catch (error: any) {
+    console.error('등록 상세 실패 에러:', error);
+    // 백엔드에서 날려준 구체적인 에러 메시지가 있다면 출력
+    const errorMsg = error.response?.data || error.message;
+    alert(`글 등록에 실패했습니다: ${errorMsg}`);
+  }
+};
   return (
     <S.ModalOverlay>
       <S.ModalContent>

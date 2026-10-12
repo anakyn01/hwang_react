@@ -1,0 +1,341 @@
+import styled from "styled-components";
+import Link from "next/link";
+import { Absolute, BgWhite, BoxShadow, W100, H100, TransitionAll, FlexColumn, Fixed, FlexCenter, FlexBetween, Relative } from "./common/Common.style";
+
+export const CalTopMargin = styled.div`
+  margin-top: 2rem;
+`;
+
+export const CalendarWrapper = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  ${BgWhite}
+  ${BoxShadow}
+`;
+
+export const CalHeader = styled.h2`
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #333;
+`;
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+`;
+
+
+
+export const Tooltip = styled.div`
+  visibility: hidden;
+  ${Absolute}
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  ${TransitionAll}
+`;
+
+// $ 기호(Transient Props)를 사용하여 DOM으로 속성이 전달되는 것을 방지합니다.
+interface DayCellProps {
+  $isEmpty?: boolean;
+  $isToday?: boolean;
+  $isHoliday?: boolean;
+  $isSunday?: boolean;   // 추가됨
+  $isSaturday?: boolean; // 추가됨
+}
+
+
+
+export const CalendarLayout = styled.div`
+  display: flex;
+  gap: 24px;
+  
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+`;
+
+export const LeftPanel = styled.div`
+  width: 320px;
+  flex-shrink: 0;
+  
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+`;
+
+export const RightPanel = styled.div`
+  flex: 1;
+  min-width: 0;
+`;
+
+export const AsideContainer = styled.div`
+  ${W100}
+  
+  ${H100}
+  padding: 24px 0;
+  display: flex;
+  ${FlexColumn}
+  background-color: #ffffff;
+`;
+
+export const MenuSection = styled.div`
+  margin-bottom: 24px;
+`;
+
+export const SectionTitle = styled.h3`
+  padding: 0 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+`;
+
+export const MenuList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+export const MenuItem = styled(Link)`
+  display: block;
+  padding: 10px 24px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: #f1f5f9;
+    color: #2563eb;
+    border-right: 3px solid #2563eb;
+  }
+`;
+
+export const DayName = styled.div`
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding-bottom: 10px;
+  color: #666;
+
+  &:nth-child(1) { color: #ff4d4f; } /* 1번째 자식인 일요일 빨간색 */
+  &:nth-child(7) { color: #1890ff; } /* 7번째 자식인 토요일 파란색 */
+`;
+
+// 주말 색상 처리를 위한 타입 추가
+interface DayCellProps {
+  $isEmpty?: boolean;
+  $isToday?: boolean;
+  $isHoliday?: boolean;
+  $isSunday?: boolean;   // 추가됨
+  $isSaturday?: boolean; // 추가됨
+}
+
+export const DayCell = styled.div<DayCellProps>`
+${Relative};
+${FlexColumn};
+  justify-content: center;
+  height: 80px;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: ${({ $isEmpty }) => ($isEmpty ? "transparent" : "#fafafa")};
+  pointer-events: ${({ $isEmpty }) => ($isEmpty ? "none" : "auto")};
+  
+  /* 색상 우선순위: 1. 공휴일/일요일(빨강) -> 2. 토요일(파랑) -> 3. 평일(검정) */
+  color: ${({ $isHoliday, $isSunday, $isSaturday }) => {
+    if ($isHoliday || $isSunday) return "#ff4d4f"; 
+    if ($isSaturday) return "#1890ff";
+    return "#333";
+  }};
+  
+  font-weight: ${({ $isToday }) => ($isToday ? "bold" : "normal")};
+  border: ${({ $isToday }) => ($isToday ? "2px solid #1890ff" : "1px solid transparent")};
+
+  &:hover {
+    background-color: ${({ $isEmpty }) => ($isEmpty ? "transparent" : "#f0f0f0")};
+  }
+  cursor:pointer;
+`;
+
+//일정모달
+export const ModalOverlay = styled.div`
+${Fixed};
+top:0; left:0;
+background:rgba(0,0,0,.8);
+width:100%; height:100%;
+z-index:99999;
+${FlexCenter};
+`;
+export const ModalContainer =styled.div`
+background:#fff;
+width:400px;
+padding:24px;
+border-radius:8px;
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
+`;
+export const ModalHeader = styled.div`
+${FlexBetween};
+margin-bottom:1rem;
+`;
+export const ModalTitle = styled.h3`
+font-size:1.2rem;
+color:#333;
+margin:0;
+`;
+export const CloseButton = styled.button`
+background:transparent;
+border:none;
+font-size:2rem; font-weight:300;
+line-height:1; 
+cursor:pointer;
+color:#666;
+${FlexCenter};
+transform:rotate(45deg);
+${TransitionAll};
+&:hover{
+color:#333;
+transform:rotate(135deg);
+}
+`;
+export const ModalBody = styled.div``;
+export const FormGroup = styled.div`
+${FlexColumn};
+gap:8px;
+margin-bottom:1rem;
+`;
+export const Select = styled.select`
+padding:8px;
+border:1px solid #d1d3e2;
+border-radius:4px;
+outline:none;
+font-size:0.9rem;
+`;
+export const TextArea = styled.textarea`
+padding:8px;
+border:1px solid #d1d3e2;
+border-radius:4px;
+outline:none;
+resize:none;
+height:80px;
+`;
+export const ButtonGroup = styled.div`
+display:flex;
+gap:8px;
+justify-content:flex-end;
+margin-top:16px;
+& > button{
+width:auto !important;
+min-width:80px;
+padding:8px 16px !important;
+flex:none;
+}
+`;
+export const ScheduleList = styled.ul`
+list-style:none;
+padding:0;
+margin:16px 0 0 0;
+max-height:150px;
+overflow-y:auto;
+border-top:1px solid #eee;
+`;
+export const ScheduleItem = styled.li`
+${FlexColumn};
+padding:12px 0;
+border-bottom:1px solid #eee;
+gap:8px;
+`;
+export const ScheduleHeader = styled.div`
+${FlexBetween};
+font-size:0.85rem;
+color:#666;
+`;
+export const Badge = styled.span<{$status:"대기"|"진행"|"완료"}>`
+padding:4px 8px;
+border-radius:12px;
+font-size:0.75rem;
+font-weight:bold;
+color:white;
+background-color:${({ $status}) =>
+$status === "완료" ? "#10b981" :
+$status === "진행" ? "#3B82f6" : "#f59e0b"};
+`;
+
+export const ScheduleDot = styled.div`
+width:6px;
+height:6px;
+background-color:#3b82f6;
+border-radius:50%;
+margin-top:4px;
+`;
+
+// 커스텀 셀렉트 박스 컨테이너
+export const CustomSelectContainer = styled.div`
+${Relative};
+${W100};
+z-index:100;
+`;
+
+export const SelectTrigger = styled.div`
+padding:10px 12px;
+border:1px solid #d1d3e2;
+border-radius:6px;
+background-color:#fff;
+font-size:0.9rem;
+cursor:pointer;
+${FlexBetween};
+color:#333;
+&:hover{
+border-color:#bac8f3;
+}
+`;
+
+//드롭다운 리스트 영역
+export const SelectList = styled.ul`
+${Absolute};
+top:100%;
+left:0;
+width:100%;
+margin:4px 0 0 0;
+padding:0;
+list-style:none;
+${BgWhite};
+border:1px solid #e2e8f0;
+border-radius:6px;
+${BoxShadow};
+z-index:50;
+overflow:hidden;
+`;
+interface SelectItemprops {
+  $isSelected?: boolean;
+}
+
+//드롭다운 개별 항목
+export const SelectItem = styled.li<SelectItemprops>`
+padding:10px 12px;
+font-size:0.9rem;
+cursor:pointer;
+color:${({ $isSelected }) => ($isSelected ? '#4e73df' :'#475569')};
+background-color:${({ $isSelected}) => ($isSelected ? '#f8f9fc' :'transparent')};
+font-weight:${({ $isSelected }) => ($isSelected ? 'bold' :'normal')};
+&:hover{
+background-color:#f1f5f9;
+}
+`;

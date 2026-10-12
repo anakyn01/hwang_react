@@ -1,9 +1,8 @@
 import styled from "styled-components";
+import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, Ohidden, Pointer, TransitionAll } from "./common/Common.style";
 
 export const HeaderContainer = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+${FlexBetween};
   padding: 0 24px;
   height: 64px;
   background-color: #1e293b;
@@ -16,7 +15,7 @@ export const Logo = styled.div`
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.5px;
-  cursor: pointer;
+${Pointer};
 `;
 
 export const DesktopNav = styled.nav`
@@ -41,8 +40,7 @@ export const NavLink = styled.a`
 `;
 
 export const UserSection = styled.div`
-  display: flex;
-  align-items: center;
+${FlexCenter};
   gap: 16px;
 
   @media (max-width: 768px) {
@@ -79,18 +77,17 @@ export const MobileMenuToggle = styled.button`
 `;
 
 export const MobileNav = styled.nav<{ $isOpen: boolean }>`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
+${FlexColumn};
+${Absolute};
   top: 64px;
   left: 0;
   width: 100%;
   background-color: #334155;
   padding: ${({ $isOpen }) => ($isOpen ? "16px 24px" : "0 24px")};
   max-height: ${({ $isOpen }) => ($isOpen ? "300px" : "0")};
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+${Ohidden};
+${TransitionAll};
+${BoxShadow};
   z-index: 50;
 
   & > a {
@@ -111,9 +108,7 @@ export const FooterContainer = styled.footer`
   border-top: 1px solid #e2e8f0;
   padding: 24px 32px;
   color: #64748b;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+${FlexColumn};
   gap: 16px;
 
   @media (min-width: 768px) {

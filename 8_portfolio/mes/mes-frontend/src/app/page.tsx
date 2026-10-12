@@ -33,21 +33,29 @@ Remember Me
 </S.CheckboxLabel>
 </S.CheckboxWrapper>
 
-<S.Button type="submit">
+<S.Button type="submit" $variant="primary"
+$fullWidth
+$size="large"
+>
 Login
 </S.Button>
 
 <S.Divider/>
 
-<S.SocialButton type="button" $provider="google">
+<S.Button type="button" $variant="kakao"
+$fullWidth
+$size="large"
+>
 <i className="fab fa-google fa-fw"></i>
-Login with Google  
-</S.SocialButton>
+카카오로 로그인
+</S.Button>
 
-<S.SocialButton type="button" $provider="insta">
+<S.Button type="button" $variant="insta"
+$size="large"
+>
 <i className="fab fa-facebook-f fa-fw"></i>
 Login with Insta  
-</S.SocialButton>
+</S.Button>
     </S.Form>
 <S.Divider/>
 

@@ -1,9 +1,9 @@
 "use client";
 import styled from "styled-components";
+import { FlexColumn } from "./common/Common.style";
 
 export const PageWrapper = styled.div`
-display:flex;
-flex-direction:column;
+${FlexColumn};
 min-height:100vh;
 `;
 export const MainContent = styled.main`
