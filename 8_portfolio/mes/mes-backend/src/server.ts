@@ -28,7 +28,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'aB3$fG9!zXqW#mK7*vL2@pN5$sD8%yH1';
 app.post('/api/auth/register', async(req, res) => {
 //DB 커넥션을 finally 블록에서도 닫을 수 있도록 
 // try 블록 바깥에 변수를 미리 선언합니다.
-let connection;
+//let connection;
 
 try{
 //클라이언트(Next.js)가 보낸 요청 본문(req.body)에서 회원가입에 필요한 정보들을 구조분해 할당으로 추출
@@ -42,20 +42,19 @@ if(!email || !password) {
 return res.status(400).json({ success:false, message:'이메일과 비밀번호는 필수입니다.'});  
 }
 //설정된 정보(dbConfig)를 바탕으로 오라클 DB와 연결(Connection)을 맺습니다.
-connection = await oracledb.getConnection(dbConfig);
+//connection = await oracledb.getConnection(dbConfig);
 
 //입력한 이메일이 이미 데이터베이스에 존재하는지 
 // 확인하기 위해 조회 쿼리를 실행합니다.
-const checkResult = await connection.excute(
+/*const checkResult = await connection.excute(
 `SELECT COUNT(*) AS cnt FROM users WHERE email = :email`,
 {email},
 {outFormat:oracledb.OUT_FORMAT_OBJECT}
-);
+);*/
 //조회 결과 개수가 0보다 크다면 이미 가입된 이메일이 존재한다는 뜻입니다.
-if (checkResult.rows[0].CNT > 0){
-return res.status(409).json({success:false,
-  message:'이미 존재하는 이메일 입니다'
-})  
+const existingUser = await User.findOne({where:{email}});
+if (existingUser){
+return res.status(409).json({success:false,message:'이미 존재하는 이메일 입니다'}); 
 }
 //비밀번호를 평문으로 저장하면 위험하므로, 
 // bcrypt를 이용해 안전하게 암호화(해싱)합니다.
@@ -63,25 +62,14 @@ const salt = await bcrypt.genSalt(10);
 //원본 비밀번호와 salt를 합쳐서 해시화된 비밀번호를 만듭니다
 const hashedPassword = await bcrypt.hash(password, salt);
 //오라클 DB에 회원 정보를 삽입(INSERT)하는 SQL 쿼리문입니다
-const query = `
-INSERT INTO users(
-id, first_name, last_name, email, password,
-company_name, position, tel, address, detail_address,
-gender, created_at
-) VALUES (
- 
- :firstName, :lastName, :email, :password,
- :companyName, :position, :tel, :address, :detailAddress,
- :gender, SYSDATE
-)
-`;
-//위에서 작성한 쿼리에 바인드 객체를 매핑하여 실행합니다
-await connection.excute(query,{
-  firstName, lastName, email,
-  password: hashedPassword,
-  companyName, position, tel,
-  address, detailAddress, gender
-},{ autoCommit:true});
+
+
+await User.create({
+ firstName, lastName, email, 
+ password:hashedPassword,
+ companyName, position, tel, address, detailAddress,
+ gender
+});
 
 return res.status(201).json({
   success:true,
@@ -94,19 +82,7 @@ return res.status(500).json({
 success:false,
 message:'서버 오류가 발생했습니다'  
 });
-
-} finally {
-//성공하든 실패하든 데이터베이스 커넥션 누수를 
-// 방지하기 위해 마지막에 무조건 실행되는 블록입니다
-if(connection){
-  try{
-await connection.close();
-  }catch(err){
-console.error(err);
-  }
-}
-}
-
+} 
 });
 
 
