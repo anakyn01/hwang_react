@@ -34,3 +34,20 @@ font-size:0.8rem;
 color:#6e707e;
 cursor:pointer;
 `;
+
+export const Select = styled.select`
+padding:8px;
+border:1px solid #d1d3e2;
+border-radius:4px;
+outline:none;
+font-size:0.9rem;
+`;
+export const TextArea = styled.textarea`
+width:100%;
+padding:8px;
+border:1px solid #d1d3e2;
+border-radius:4px;
+outline:none;
+resize:none;
+height:80px;
+`;

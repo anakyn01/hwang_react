@@ -1,5 +1,5 @@
 "use client";
-import * as  S from '@/assets/css/HeaderFooter.style';
+import * as  S from '@/assets/css/Style.style';
 import { useState } from "react";
 
 export const Header = () => {
@@ -26,7 +26,9 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
       {/* 데스크탑 유저 섹션 */}
       <S.UserSection>
         <span>관리자님 환영합니다</span>
-        <S.LogoutButton>로그아웃</S.LogoutButton>
+        <S.Button $size="small" 
+        $variant="danger"
+        >로그아웃</S.Button>
       </S.UserSection>
 
       {/* 모바일 햄버거 버튼 */}

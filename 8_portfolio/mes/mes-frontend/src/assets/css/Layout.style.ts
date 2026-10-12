@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexColumn } from "./common/Common.style";
+import { FlexColumn, W100 } from "./common/Common.style";
 
 export const PageWrapper = styled.div`
 ${FlexColumn};
@@ -13,11 +13,13 @@ export const TopArea = styled.div`
 `;
 
 export const MainContent = styled.div`
+${W100};
   display: flex;
   flex: 1;
 `;
 
 export const LnbWrapper = styled.aside`
+padding-top:40px;
   width: 250px;
   background-color: #ffffff;
   border-right: 1px solid #e2e8f0;

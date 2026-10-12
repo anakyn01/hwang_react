@@ -3,7 +3,7 @@ import { FlexCenter, W100, Pointer, InlineFlex, TransitionAll, Fw900, Nowrap } f
 
 // 버튼에 전달할 Props의 타입 정의
 interface ButtonProps{
-$variant?: "primary" | "danger" | "outline" | "ghost" | "insta" | "kakao" | "white";
+$variant?: "primary" | "secondary" | "danger" | "outline" | "ghost" | "insta" | "kakao" | "white";
 $size?:"small"|"medium"|"large";
 $fullWidth?:boolean;
 $width?:string;    
@@ -65,6 +65,13 @@ background-color: #2563eb !important;
 color:white;
 border:none;
 &:hover{background-color: #1d4ed8;}
+`; 
+
+case "secondary":return css`
+background-color: #9fa2a8 !important;
+color:white;
+border:none;
+&:hover{background-color: #9fa2a8;}
 `; 
 
 case "insta":return css`

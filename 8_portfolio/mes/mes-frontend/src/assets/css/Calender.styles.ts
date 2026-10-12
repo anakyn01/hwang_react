@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { Absolute, BgWhite, BoxShadow, W100, H100, TransitionAll, FlexColumn, Fixed, FlexCenter, FlexBetween, Relative } from "./common/Common.style";
+import { Absolute, BgWhite, BoxShadow, W100, H100, TransitionAll, FlexColumn, Fixed, FlexCenter, FlexBetween, Relative, FlexColumnStart } from "./common/Common.style";
 
 export const CalTopMargin = styled.div`
   margin-top: 2rem;
@@ -84,28 +84,7 @@ export const RightPanel = styled.div`
   min-width: 0;
 `;
 
-export const AsideContainer = styled.div`
-  ${W100}
-  
-  ${H100}
-  padding: 24px 0;
-  display: flex;
-  ${FlexColumn}
-  background-color: #ffffff;
-`;
 
-export const MenuSection = styled.div`
-  margin-bottom: 24px;
-`;
-
-export const SectionTitle = styled.h3`
-  padding: 0 24px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #94a3b8;
-  margin-bottom: 8px;
-  letter-spacing: 0.05em;
-`;
 
 export const MenuList = styled.ul`
   list-style: none;
@@ -221,21 +200,7 @@ ${FlexColumn};
 gap:8px;
 margin-bottom:1rem;
 `;
-export const Select = styled.select`
-padding:8px;
-border:1px solid #d1d3e2;
-border-radius:4px;
-outline:none;
-font-size:0.9rem;
-`;
-export const TextArea = styled.textarea`
-padding:8px;
-border:1px solid #d1d3e2;
-border-radius:4px;
-outline:none;
-resize:none;
-height:80px;
-`;
+
 export const ButtonGroup = styled.div`
 display:flex;
 gap:8px;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import Link from "next/link";
-import { FlexCenter, W100 } from "../common/Common.style";
+import { FlexCenter, W100, FlexColumn, FlexColumnStart, H100 } from "../common/Common.style";
 
 export const Container = styled.div`
 width:100vw;
@@ -95,4 +95,25 @@ margin-bottom: 1.5rem;
 line-height: 1.5;
 `;
 
+export const AsideContainer = styled.div`
+  ${W100};  
+  ${H100};
+  padding: 24px 0;
+  ${FlexColumnStart};
+  background-color: #ffffff;
+`;
+
+export const MenuSection = styled.div`
+${W100};
+margin-bottom: 24px;
+`;
+
+export const SectionTitle = styled.h3`
+  padding: 0 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+`;
 

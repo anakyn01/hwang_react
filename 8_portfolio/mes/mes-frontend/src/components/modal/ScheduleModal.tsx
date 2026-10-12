@@ -138,13 +138,17 @@ onChange={(e) => setFormContent(e.target.value)}
 
 <S.ButtonGroup>
     <S.Button
-onClick={handleSave}    
+onClick={handleSave}  
+$size="small"  
+$variant="primary"
     >
 {editingId ? "수정" :"등록"}        
     </S.Button>
-<S.SearchButton
+<S.Button
 onClick={onClose}
->닫기</S.SearchButton>    
+$size="small"  
+$variant="secondary"
+>닫기</S.Button>    
 </S.ButtonGroup>
 
 <S.ScheduleList>
@@ -159,13 +163,15 @@ onClick={onClose}
 <div className="">{sch.content}</div> 
 <S.ButtonGroup>
 
-<S.SmallButton
+<S.Button
 onClick={() => handleEdit(sch)}
->수정</S.SmallButton>
+$variant="primary"
+>수정</S.Button>
 
-<S.SmallButton
+<S.Button
 onClick={() => handleDelete(sch.id)}
->삭제</S.SmallButton>
+$variant="danger"
+>삭제</S.Button>
 </S.ButtonGroup>      
     </S.ScheduleItem>
 ))}    

@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, Ohidden, Pointer, TransitionAll } from "./common/Common.style";
+import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, Ohidden, Pointer, TransitionAll, W100 } from "./common/Common.style";
 
 export const HeaderContainer = styled.header`
+width:100vw;
 ${FlexBetween};
   padding: 0 24px;
   height: 64px;
@@ -104,6 +105,7 @@ ${BoxShadow};
 `;
 
 export const FooterContainer = styled.footer`
+${W100};
   background-color: #f8fafc;
   border-top: 1px solid #e2e8f0;
   padding: 24px 32px;
