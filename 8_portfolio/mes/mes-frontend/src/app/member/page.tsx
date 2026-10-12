@@ -51,17 +51,57 @@ gender:"",
 
 const handleChange = 
 (e:React.ChangeEvent<HTMLInputElement>) => {
-
+const {name, value} = e.target;
+setFormData((prev) => ({
+...prev,
+[name]: value,
+}));
 }
 
 const handleAddressSearch = 
 (e:React.MouseEvent<HTMLButtonElement>) =>{
-
+//새로고침방지
+e.preventDefault();
+if(typeof window !== "undefined" && window.daum){
+new window.daum.Postcode({
+oncomplete:(data: any) => {
+// 도로명 주소 또는 지번 주소 선택 시 address 상태 업데이트
+const fullAddress = data.roadAddress || data.jibunAddress;
+setFormData((prev) => ({
+...prev,
+address:fullAddress,
+}));   
+},    
+}).open();    
+}else{
+   alert("주소 검색 스크립트가 아직 로드되지 않았습니다. 잠시 후 다시 시도해주세요."); 
 }
-
+}
+//백앤드 API 연동
 const handleSubmit = 
 async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    //비밀번호 확인 검증
+    if(formData.password !== formData.repeatPassword){
+        alert("비밀번호가 일치하지 않습니다");
+        return;
+    }
+
+    //node로 데이터 전송
+    try{
+const response =
+await axios.post("http://localhost:4000/api/auth/register", formData);
+if(response.data.success){
+    alert("회원가입이 완료되었습니다!");
+    router.push("/login");
+}    
+
+}catch(error: any){
+const errorMessage =
+error.response?.data?.message || "회원가입 중 오류가 발생했습니다.";
+alert(errorMessage);
+}
 }
 return(
     <S.Container>

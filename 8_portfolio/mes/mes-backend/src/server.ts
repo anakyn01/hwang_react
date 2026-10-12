@@ -1,9 +1,12 @@
 const express = require('express');
-const oracledb = require('oracledb');
+//const oracledb = require('oracledb');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
+
+const sequelize = require('./db');
+const User = require('./model/User');
 
 const app = express();
 app.use(express.json());
@@ -12,13 +15,13 @@ origin:'http://localhost:3000',
 credentials:true    
 }));
 
-//오라클 db연결 설정
+/*오라클 db연결 설정
 oracledb.outOfDateChecking = false;
 const dbConfig = {
 user: process.env.DB_USER || 'MES_USR',
 password:process.env.DB_PASSWORD || '1234',
 connectString:process.env.DB_CONNECTION_STRING || 'localhost:1521/XE'
-};
+};*/
 const JWT_SECRET = process.env.JWT_SECRET || 'aB3$fG9!zXqW#mK7*vL2@pN5$sD8%yH1';
 
 //회원가입 api
@@ -147,9 +150,15 @@ return res.status(200).json({success:true, user:req.user});
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
-console.log(`Server running on port ${PORT}`);
-});
+sequelize.sync({force: false})//서버를 구동할때마다 테이블 드롭하고 새로만듬
+.then(() => {
+  console.log('');
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}).catch(err => {
+  console.error('',err);
+})
 
 
 
