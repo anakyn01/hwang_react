@@ -117,15 +117,26 @@ export const SectionTitle = styled.h3`
   letter-spacing: 0.05em;
 `;
 
-export const LineCard = styled.div`
+export const LineCard = styled.div<{ $isWarning?:boolean}>`
 padding:.9rem;
 border:1px solid #ddd;
 border-radius: .5rem;
+
+background: ${(props) => (props.$isWarning ? "#fff5f5" : "#f9f9f9")};
 background:#f9f9f9;
 `;
 //상태 텍스트
-export const StatusBadge = styled.span<{ $isRunning: boolean}>`
-color: ${(props) => (props.$isRunning ? "#617a9c" : "red")};
+export const StatusBadge = 
+styled.span<{ $isRunning?: boolean; $isWarning?:boolean; }>`
+color: ${(props) => {
+  if (props.$isWarning === true) return "red";
+  if (props.$isRunning !== undefined ){
+    return props.$isRunning ? "#617a9c" : "red";
+  };
+  //3. 기본값 (SCM NORMAL 등): 차분한 블루톤
+  return "#617a9c";
+}};
+  
 font-weight:bold;
 `;
 

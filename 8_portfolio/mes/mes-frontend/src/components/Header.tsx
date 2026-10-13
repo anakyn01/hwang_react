@@ -1,14 +1,21 @@
 "use client";
 import * as  S from '@/assets/css/Style.style';
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 
 export const Header = () => {
 
 const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const router = useRouter();
 
   const toggleMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
+
+  const handleLogoutClick = () => {
+    alert("성공적으로 로그아웃 되었습니다");
+    router.push("/admin/logout");
+  }
 
     return(
         <>
@@ -29,6 +36,7 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
         <span>관리자님 환영합니다</span>
         <S.Button $size="small" 
         $variant="danger"
+        onClick={handleLogoutClick}
         >로그아웃</S.Button>
       </S.UserSection>
 
@@ -45,7 +53,7 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
         <a href="/admin/cleanroom">클린룸 & 설비</a>
         <a href="/admin/cleanroom">실시간 통합 관제</a>
         <a href="/admin/analytics" style={{ color: "#93c5fd" }}>내 정보</a>
-        <a href="/admin/profile" style={{ color: "#fca5a5" }}>로그아웃</a>
+        <a href="/admin/logout" style={{ color: "#fca5a5" }}>로그아웃</a>
       </S.MobileNav>
     </S.HeaderContainer>     
         </>
