@@ -250,20 +250,29 @@ return res.status(500).json({
 //4.비전 품질 검사 API (/quality)
 app.get('/api/quality/inspections', verifyToken, async(req, res) => {
   try{
-const = await .findall({});
-return res.status(200).json({});
+const inspections = await QualityInspection.findall({
+  limit:50, order:[['INSPECTED_AT', 'DESC']]
+});
+return res.status(200).json({
+  success:true, inspections //누락됨
+});
   }catch(err){
-return res.status(500).json({success:false, message:''});
+return res.status(500).json({success:false, 
+  message:'품질 검사 이력 조회 실패'});
   }
 })
 
 app.post('/api/quality/inspections', verifyToken, async(req, res) => {
   try{
-const {} = req.body;
-const = await .create({});
-return res.status(201).json({sucess:true, });
+const { serialNumber, inspectionType, 
+  result, defectReason, inspector} = req.body;
+const inspection = await QualityInspection.create({
+  serialNumber, inspectionType, result, defectReason, inspector
+});
+return res.status(201).json({sucess:true, inspection});
   }catch(err){
- return res.status(500).json({success:false, message:''});   
+ return res.status(500).json({
+  success:false, message:'품질 검사 결과 등록 실패'});   
   }
 })
 
@@ -271,39 +280,69 @@ return res.status(201).json({sucess:true, });
 //5. 클린룸 및 설비 제어 API (/cleanroom)
 app.get('/api/equipment/status', verifyToken, async(req, res) => {
   try{
-const = await .findall({});
-return res.status(200).json({});
+const equipments = await Equipment.findall({});
+return res.status(200).json({success:true, equipments});
   }catch(err){
-return res.status(500).json({success:false, message:''});
+return res.status(500).json({
+  success:false, message:'설비 상태 조회 실패'});
   }
-})
+});
 
 app.post('/api/equipment/status', verifyToken, async(req, res) => {
   try{
-const {} = req.body;
-const = await .create({});
-return res.status(201).json({sucess:true, });
+const { equipmentName, cleanroomZone, 
+  temperature, humidity, status } = req.body;
+const equipment = await Equipment.create({
+  equipmentName, cleanroomZone, 
+  temperature, humidity, status
+});
+return res.status(201).json({sucess:true, equipment});
   }catch(err){
-return res.status(500).json({success:false, message:''});    
+return res.status(500).json({
+  success:false, message:'설비 상태 등록 실패'});    
   }
 })
 
 //6. 실시간 통합 관제(생산 실적 및 수율) API (/analytics)
 app.get('/api/analytics/records', verifyToken, async(req, res) => {
   try{
-const = await .findall({});
-return res.status(200).json({});
+const records = await ProductionRecord.findall();
+return res.status(200).json({success:true, records});
   }catch(err){
-return res.status(500).json({success:false, message:''});
+return res.status(500).json({
+  success:false, message:'통합 관제 데이터 조회 실패'});
   }
-})
+});
 
 app.post('/api/analytics/records', verifyToken, async(req, res) => {
   try{
-const {} = req.body;
-const = await .create({});
-return res.status(201).json({sucess:true, });
+/*
+// 1. 요청 본문(req.body)에서 스마트팩토리 라인명, 
+// 목표 생산량, 실제 양품 생산량, 불량 대수를 비구조화 
+// 할당으로 추출합니다.
+*/    
+const {lineName, targetCount, actualCount, defectCount} = req.body;
+
+//2. 해당 공정에서 생산된 총 수량
+// (전체 생산 수 = 실제 양품 수 + 불량 대수)을 계산하여 
+// total 변수에 담습니다.
+const total = actualCount + defectCount;
+/* 3. 총 생산 수(total)가 0보다 클 경우 
+전체 생산량 대비 양품 수의 비율을 계산하고
+(소수점 둘째 자리까지 반올림 후 숫자로 변환), 
+0이면 0으로 인한 에러(Division by zero)를 
+방지하기 위해 기본 수율 100.0%를 부여합니다.*/
+const yieldRate =
+total > 0 ? Number(((actualCount / total) * 100)
+.toFixed(2)) : 100.0;
+//Sequelize의 ORM 메서드인 `create`를 사용
+const record = await ProductionRecord.create({
+lineName, targetCount, actualCount, defectCount, 
+yieldRate
+});
+return res.status(201).json({sucess:true, record});
   }catch(err){
-return res.status(500).json({success:false, message:''});    
+return res.status(500).json({success:false, 
+  message:'통합 관제 데이터 등록 실패'});    
   }
 })
