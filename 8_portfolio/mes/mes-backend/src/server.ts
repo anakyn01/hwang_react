@@ -7,6 +7,11 @@ require('dotenv').config();
 
 const sequelize = require('./db');
 const User = require('./model/User');
+const ProcessLine = require('./model/ProcessLine');
+const ComponentSCM = require('./model/ComponentSCM');
+const QualityInspection = require('./model/QualityInspection');
+const Equipment = require('./model/Equipment');
+const ProductionRecord = require('./model/ProductionRecord');
 
 const app = express();
 app.use(express.json());
@@ -178,4 +183,127 @@ return res.status(500).json({
   }
 });
 
+//2. 라인 공정 제어 API (/process)
+app.get('/api/process/lines', verifyToken, async (req, res ) => {
+  try{
+const lines =
+await ProcessLine.findAll();
+return res.status(200).json({
+  success:true, lines
+});
+  } catch (err) {
+return res.status(500).json({
+  success:false, message:'공정 라인 조회 실패'
+});
+  }
+});
 
+app.post('/api/process/lines', verifyToken, async(req, res ) =>{
+  try{
+const {lineName, processType, currentProduct, operator} = req.body;
+const newLine = await ProcessLine.create({
+  lineName, processType, currentProduct, operator
+});
+return res.status(201).json({
+  success:true, line:newLine
+})  
+//하나 이상의 새 리소스가 생성 되었음을 나타냄
+}catch(err){
+return res.status(500).json({
+  success:false, message:'공정 라인 등록 실패'
+});  
+  }
+});
+
+//3. 핵심 부품 SCM API (/components)
+app.get('/api/scm/components', verifyToken, async (req, res) => {
+  try{
+const components =
+await ComponentSCM.findAll();
+return res.status(200).json({
+  success:true, components
+});
+  }catch(err){
+return res.status(500).json({
+  success:false, message:'SCM 자재 조회 실패'
+}); 
+  }
+});
+
+app.post('/api/scm/components', verifyToken, async (req, res) => {
+  try{
+const {componentName, category, stockQuantity, minThreshold,supplier} =req.body;
+const status = stockQuantity <= minThreshold ? 'WARNING' : 'NORMAL';
+const component = await ComponentSCM.create({
+componentName, category, stockQuantity, minThreshold, status  
+});  
+return res.status(201).json({
+  success:true, component
+});
+}catch(err){
+return res.status(500).json({
+  success:false, message:'SCM 자재 등록 실패'
+}); 
+  }
+});
+
+//4.비전 품질 검사 API (/quality)
+app.get('/api/quality/inspections', verifyToken, async(req, res) => {
+  try{
+const = await .findall({});
+return res.status(200).json({});
+  }catch(err){
+return res.status(500).json({success:false, message:''});
+  }
+})
+
+app.post('/api/quality/inspections', verifyToken, async(req, res) => {
+  try{
+const {} = req.body;
+const = await .create({});
+return res.status(201).json({sucess:true, });
+  }catch(err){
+ return res.status(500).json({success:false, message:''});   
+  }
+})
+
+
+//5. 클린룸 및 설비 제어 API (/cleanroom)
+app.get('/api/equipment/status', verifyToken, async(req, res) => {
+  try{
+const = await .findall({});
+return res.status(200).json({});
+  }catch(err){
+return res.status(500).json({success:false, message:''});
+  }
+})
+
+app.post('/api/equipment/status', verifyToken, async(req, res) => {
+  try{
+const {} = req.body;
+const = await .create({});
+return res.status(201).json({sucess:true, });
+  }catch(err){
+return res.status(500).json({success:false, message:''});    
+  }
+})
+
+//6. 실시간 통합 관제(생산 실적 및 수율) API (/analytics)
+app.get('/api/analytics/records', verifyToken, async(req, res) => {
+  try{
+const = await .findall({});
+return res.status(200).json({});
+  }catch(err){
+return res.status(500).json({success:false, message:''});
+  }
+})
+
+app.post('/api/analytics/records', verifyToken, async(req, res) => {
+  try{
+const {} = req.body;
+const = await .create({});
+return res.status(201).json({sucess:true, });
+  }catch(err){
+return res.status(500).json({success:false, message:''});    
+  }
+})
