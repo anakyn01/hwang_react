@@ -1,19 +1,39 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { Absolute, BgWhite, BoxShadow, W100, H100, TransitionAll, FlexColumn, Fixed, FlexCenter, FlexBetween, Relative, FlexColumnStart } from "./common/Common.style";
+import { Absolute, BgWhite, BoxShadow, W100, H100, TransitionAll, FlexColumn, Fixed, FlexCenter, FlexBetween, Relative, FlexColumnStart, Ohidden } from "./common/Common.style";
 
 export const CalTopMargin = styled.div`
-  margin-top: 2rem;
+margin-top: 2rem;
 `;
 
-export const CalendarWrapper = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  ${BgWhite}
-  ${BoxShadow}
+export const CalendarAll = styled.div`
+${FlexBetween};
+width:1400px;
+max-width:1400px;
+margin:0 auto;
+padding:0 2.5rem;
+
+${Relative};
+gap:1.125rem;
+`;
+
+export const CalendarWrapper = styled.div<{ $isBlurred? : boolean}>`
+width:600px;  
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+border: 1px solid #e0e0e0;
+border-radius: 12px;
+min-height:660px;
+${BgWhite}
+${BoxShadow}
+max-width: ${(props) => (props.$isBlurred ? "380px" : "480px")};
+z-index: ${(props) => (props.$isBlurred ? "1" : "2")};
+filter: ${(props) => (props.$isBlurred ? "blur(4px)" : "none")};
+opacity: ${(props) => (props.$isBlurred ? "0.3" : "1")};
+pointer-events: ${(props) => (props.$isBlurred ? "none" : "auto")};
+transform: ${(props) => (props.$isBlurred ? "scale(0.75)" : "scale(1)")};
+${TransitionAll};
 `;
 
 export const CalHeader = styled.h2`
@@ -303,4 +323,22 @@ font-weight:${({ $isSelected }) => ($isSelected ? 'bold' :'normal')};
 &:hover{
 background-color:#f1f5f9;
 }
+`;
+
+export const LeftDirection = styled.div`
+flex:0 1 20rem;
+${FlexCenter};
+${Ohidden};
+`;
+
+export const CurrentDirection = styled.div`
+flex:0 1 30rem;
+${FlexCenter};
+${Ohidden};
+`;
+
+export const RightDirection = styled.div`
+flex:0 1 20rem;
+${FlexCenter};
+${Ohidden};
 `;

@@ -9,12 +9,12 @@ return(
     <>
     <Layout>
 <S.CalendarLayout>
-    <S.LeftPanel>
-        <SmallCalendar/>
-    </S.LeftPanel>
-    <S.RightPanel>
+   
+
+  
+    
         <Calendar/>
-    </S.RightPanel>
+   
 </S.CalendarLayout>
     </Layout>
     </>

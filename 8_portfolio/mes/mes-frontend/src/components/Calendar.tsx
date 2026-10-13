@@ -15,17 +15,14 @@ interface Schedule {
   createdAt:string;
 }
  
-export const Calendar = ({year = Temporal.Now.plainDateTimeISO().year,
-month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으로 가져오도록 추가    
+export const Calendar = ({
+  year = Temporal.Now.plainDateTimeISO().year,
+  month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으로 가져오도록 추가    
 }:{year?:number, month?: number;}) => {
-  // 1. 해당 연/월의 1일을 명시적으로 직접 생성 (가장 안전한 방식)
-  const targetYearMonth = Temporal.PlainYearMonth.from({ year, month });
-  const firstDayDate = Temporal.PlainDate.from({ year, month, day: 1 });
   
-  // 2. 일요일(7)을 배열 인덱스(0)로 변환
-  const firstDayIndex = firstDayDate.dayOfWeek === 7 ? 0 : firstDayDate.dayOfWeek;
-  // 3. 이번 달의 총 일수 추출
-  const daysInMonth = firstDayDate.daysInMonth;
+  // 💡 [추가] 사용자가 좌우 화살표로 달력을 넘길 수 있도록 연도/월 상태(state)를 관리합니다.
+  const [currentYear, setCurrentYear] = useState(year);
+  const [currentMonth, setCurrentMonth] = useState(month);
 
   const [holidays, setHolidays] = useState<Holiday[]>([]);
 
@@ -34,81 +31,150 @@ month = Temporal.Now.plainDateISO().month, // 현재 달(예: 9월)을 자동으
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // 💡 [변경] props나 상태가 바뀔 때 해당 연도의 공휴일을 불러오도록 currentYear 연동
   useEffect(() => {
-    fetchHolidays(year).then(setHolidays);
-  }, [year, month]);
+    fetchHolidays(currentYear).then(setHolidays);
+  }, [currentYear]);
 
   const today = Temporal.Now.plainDateISO();
-  const isThisMonth = today.year === year && today.month === month;
 
-  const getHoliday = (day: number) => holidays.find((h) => h.date === day);
+  // 💡 [추가] 이전 달과 다음 달의 연도/월을 계산하는 헬퍼 함수
+  const getPrevMonth = (y: number, m: number) => {
+    if (m === 1) return { year: y - 1, month: 12 };
+    return { year: y, month: m - 1 };
+  };
 
-const hanldleDayClick = (day: number) => {
-  setSelectedDate(day);
-  setIsModalOpen(true);
-};
+  const getNextMonth = (y: number, m: number) => {
+    if (m === 12) return { year: y + 1, month: 1 };
+    return { year: y, month: m + 1 };
+  };
 
-  const days = [];
+  const prevYM = getPrevMonth(currentYear, currentMonth);
+  const nextYM = getNextMonth(currentYear, currentMonth);
 
-  // 앞부분 빈 칸 채우기
-  for (let i = 0; i < firstDayIndex; i++) {
-    days.push(<S.DayCell key={`empty-${i}`} $isEmpty />);
-  }
+  // 💡 [추가] 화살표 클릭 시 월을 이동시키는 핸들러 함수
+  const handlePrevMonthClick = () => {
+    const prev = getPrevMonth(currentYear, currentMonth);
+    setCurrentYear(prev.year);
+    setCurrentMonth(prev.month);
+  };
 
-  // 실제 날짜 채우기
-  for (let d = 1; d <= daysInMonth; d++) {
-    const holiday = getHoliday(d);
-    const currentDayOfWeek = (firstDayIndex + d - 1) % 7;
-    const isSunday = currentDayOfWeek === 0;
-    const isSaturday = currentDayOfWeek === 6;
+  const handleNextMonthClick = () => {
+    const next = getNextMonth(currentYear, currentMonth);
+    setCurrentYear(next.year);
+    setCurrentMonth(next.month);
+  };
 
-  // 해당 날짜에 등록된 일정이 있는지 확인 (파란 점 표시용)
-  const hasSchedule = schedules.some((sch) => sch.date === d);  
+  // 💡 [추가] 특정 연/월의 달력 그리드 배열을 만들어주는 공통 렌더링 함수
+  const renderCalendarGrid = (targetYear: number, targetMonth: number, isBlurred: boolean = false) => {
+    const firstDayDate = Temporal.PlainDate.from({ year: targetYear, month: targetMonth, day: 1 });
+    const firstDayIndex = firstDayDate.dayOfWeek === 7 ? 0 : firstDayDate.dayOfWeek;
+    const daysInMonth = firstDayDate.daysInMonth;
+    const isThisMonth = today.year === targetYear && today.month === targetMonth;
 
-    days.push(
-      <S.DayCell
-        key={d}
-        $isToday={isThisMonth && today.day === d}
-        $isHoliday={!!holiday}
-        $isSunday={isSunday}     // 일요일 여부 전달
-        $isSaturday={isSaturday} // 토요일 여부 전달
-        onClick={() => hanldleDayClick(d)}
+    const days = [];
 
-      >
-        <span>{d}</span> {/* flex 구조에서 텍스트가 씹히지 않도록 span으로 감쌈 */}
-        {holiday && <S.Tooltip>{holiday.name}</S.Tooltip>}
-        {holiday?.name === "성탄절" && <span style={{ marginTop: "4px" }}>🎄</span>}
-      {holiday?.name.includes("추석") && <span>🌕</span>}
-      {hasSchedule && <S.ScheduleDot/>}
-      </S.DayCell>
-    );
-  }
-    
-    return(
-        <>
-    <S.CalTopMargin >
-      <S.CalendarWrapper>
-        <S.CalHeader>{year}년 {month}월</S.CalHeader>
+    // 앞부분 빈 칸 채우기
+    for (let i = 0; i < firstDayIndex; i++) {
+      days.push(<S.DayCell key={`empty-${targetYear}-${targetMonth}-${i}`} $isEmpty />);
+    }
+
+    // 실제 날짜 채우기
+    for (let d = 1; d <= daysInMonth; d++) {
+      const holiday = holidays.find((h) => h.date === d && targetMonth === currentMonth); // 중앙 달력 기준 공휴일 매핑
+      const currentDayOfWeek = (firstDayIndex + d - 1) % 7;
+      const isSunday = currentDayOfWeek === 0;
+      const isSaturday = currentDayOfWeek === 6;
+
+      // 해당 날짜에 등록된 일정이 있는지 확인 (파란 점 표시용 - 중앙 달력만 공유)
+      const hasSchedule = !isBlurred && schedules.some((sch) => sch.date === d);  
+
+      days.push(
+        <S.DayCell
+          key={`${targetYear}-${targetMonth}-${d}`}
+          $isToday={isThisMonth && today.day === d}$isHoliday={!isBlurred && !!holiday}
+          $isSunday={isSunday}$isSaturday={isSaturday} 
+          // 💡 블러 처리된 좌우 달력은 클릭해도 메인 일정 모달이 뜨지 않도록 방지
+          onClick={() => {
+            if (!isBlurred) hanldleDayClick(d);
+          }}
+          style={isBlurred ? { cursor: "default" } : {}}
+        >
+          <span>{d}</span>
+          {!isBlurred && holiday && <S.Tooltip>{holiday.name}</S.Tooltip>}
+          {!isBlurred && holiday?.name === "성탄절" && <span style={{ marginTop: "4px" }}>🎄</span>}
+          {!isBlurred && holiday?.name.includes("추석") && <span>🌕</span>}
+          {!isBlurred && hasSchedule && <S.ScheduleDot/>}
+        </S.DayCell>
+      );
+    }
+
+    return (
+      <S.CalendarWrapper $isBlurred={isBlurred}>
+        <S.CalHeader>{targetYear}년 {targetMonth}월</S.CalHeader>
         <S.Grid>
           {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
             <S.DayName key={day}>{day}</S.DayName>
           ))}
           {days}
         </S.Grid>
-        
-      </S.CalendarWrapper>  
+      </S.CalendarWrapper>
+    );
+  };
+
+  const hanldleDayClick = (day: number) => {
+    setSelectedDate(day);
+    setIsModalOpen(true);
+  };
+    
+  return(
+    <>
+      <S.CalTopMargin>
+        {/* 💡 [추가] 좌우 화살표와 3분할 뷰를 감싸는 컨테이너 구조 */}
+        <S.CalendarAll>
+          
+          {/* 왼쪽 화살표 버튼 */}
+          <S.Button $variant="leftArrow"
+            onClick={handlePrevMonthClick}           
+          >
+            ◀
+          </S.Button>
+
+          {/* 1. 왼쪽 달력 (이전 달 - 블러 처리) */}
+          <S.LeftDirection>
+            {renderCalendarGrid(prevYM.year, prevYM.month, true)}
+          </S.LeftDirection>
+
+          {/* 2. 중앙 달력 (현재 선택된 달 - 메인 조작 및 일정 등록 가능) */}
+          <S.CurrentDirection>
+            {renderCalendarGrid(currentYear, currentMonth, false)}
+          </S.CurrentDirection>
+
+          {/* 3. 오른쪽 달력 (다음 달 - 블러 처리) */}
+          <S.RightDirection>
+            {renderCalendarGrid(nextYM.year, nextYM.month, true)}
+          </S.RightDirection>
+
+          {/* 오른쪽 화살표 버튼 */}
+          <S.Button
+            onClick={handleNextMonthClick}
+  $variant="rightArrow"
+          >
+            ▶
+          </S.Button>
+
+        </S.CalendarAll>
       </S.CalTopMargin> 
 
       {/* 분리한 스케줄 모달 컴포넌트 렌더링 */} 
       <ScheduleModal
-isOpen={isModalOpen}
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        month={month}
+        month={currentMonth}
         selectedDate={selectedDate}
         schedules={schedules}
         setSchedules={setSchedules}      
-      
       />
-        </>
-    )
-}
+    </>
+  );
+};

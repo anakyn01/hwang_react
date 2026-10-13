@@ -111,9 +111,12 @@ $variant="primary"
 const isWarning = item.status === "WARNING";
 return(
    <S.LineCard key={item.id} $isWarning={isWarning}>
-      <strong>{item.componentName}</strong>({item.category}) - 공급사:{item.supplier}
+      <p><strong>{item.componentName}</strong></p>
+      <p>({item.category})</p>
+      <p>공급사:{item.supplier}</p>
 
-<p>재고:{item.stockQuantity}개 (안전기준:{item.minThreshold}) | 상태:{" "}    
+<p>재고:{item.stockQuantity}개 (안전기준:{item.minThreshold}) </p>
+<p>상태:{" "}    
    <S.StatusBadge  $isWarning={isWarning}>
       {item.status}
    </S.StatusBadge>

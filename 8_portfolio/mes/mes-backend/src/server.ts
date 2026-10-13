@@ -242,7 +242,8 @@ app.post('/api/scm/components', verifyToken, async (req, res) => {
 const {componentName, category, stockQuantity, minThreshold,supplier} =req.body;
 const status = stockQuantity <= minThreshold ? 'WARNING' : 'NORMAL';
 const component = await ComponentSCM.create({
-componentName, category, stockQuantity, minThreshold, status  
+componentName, category, stockQuantity, minThreshold, status,
+supplier  
 });  
 return res.status(201).json({
   success:true, component

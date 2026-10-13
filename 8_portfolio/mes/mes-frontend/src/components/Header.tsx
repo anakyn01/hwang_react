@@ -17,10 +17,15 @@ const router = useRouter();
     router.push("/admin/logout");
   }
 
+  const handleAdminClick = () => {
+    router.push("/admin");
+  }
     return(
         <>
 <S.HeaderContainer>
-      <S.Logo> Apple iPhone Smart MES</S.Logo>
+      <S.Logo
+      onClick={handleAdminClick}
+      > Apple iPhone Smart MES</S.Logo>
 
       {/* 데스크탑 네비게이션 */}
       <S.DesktopNav>

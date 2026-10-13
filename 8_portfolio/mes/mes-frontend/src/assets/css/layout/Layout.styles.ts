@@ -118,6 +118,8 @@ export const SectionTitle = styled.h3`
 `;
 
 export const LineCard = styled.div<{ $isWarning?:boolean}>`
+width:230px;
+max-width:230px;
 padding:.9rem;
 border:1px solid #ddd;
 border-radius: .5rem;

@@ -1,9 +1,10 @@
 import styled,{css} from "styled-components";
-import { FlexCenter, W100, Pointer, InlineFlex, TransitionAll, Fw900, Nowrap } from './common/Common.style';
+import { FlexCenter, W100, Pointer, InlineFlex, TransitionAll, Fw900, Nowrap, BoxShadow } from './common/Common.style';
 
 // 버튼에 전달할 Props의 타입 정의
 interface ButtonProps{
-$variant?: "primary" | "secondary" | "danger" | "outline" | "ghost" | "insta" | "kakao" | "white";
+$variant?: "primary" | "secondary" | "danger" | "outline" | "ghost" 
+| "insta" | "kakao" | "white" | "leftArrow" | "rightArrow";
 $size?:"small"|"medium"|"large";
 $fullWidth?:boolean;
 $width?:string;    
@@ -94,6 +95,32 @@ border:none;
 color:inherit;
 &:hover{opacity: .7;}
 `; 
+
+case "leftArrow": return css `
+position: absolute; 
+left: -10px; 
+z-index: 10;
+padding: 10px 15px; 
+${Pointer};
+font-size: 1.2rem; 
+background: #fff;
+border: 1px solid #ddd;
+border-radius: 50%;
+${BoxShadow};
+`;
+
+case "rightArrow": return css `
+position: absolute; 
+right: 0px; 
+z-index: 10;
+padding: 12px 16px; 
+${Pointer};
+font-size: 1.2rem; 
+background: #fff;
+border: 1px solid #ddd;
+border-radius: 50%;
+${BoxShadow};
+`
     }
 }}
 `;
@@ -123,6 +150,8 @@ display:block;
 }
 
 `;
+
+
 
 
 
