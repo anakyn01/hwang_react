@@ -167,7 +167,7 @@ if (!user) {
 const token = jwt.sign(
   {id:user.id, email:user.email},
   JWT_SECRET,
-  { expiresIn: '2h'}
+  { expiresIn: '48h'}
 );
 //토큰과 간단한 사용자 정보 응답
 return res.status(200).json({
