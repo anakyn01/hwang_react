@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import * as S from '../../css/style.styles';
 import Header from '../components/Header';
@@ -7,7 +7,6 @@ export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // 1. 일반 로그인 핸들러
     const handleLogin = async () => {
         if (!email || !password) {
             alert('이메일과 비밀번호를 입력해주세요.');
@@ -22,25 +21,24 @@ export default function LoginPage() {
             });
 
             if (res.ok) {
-                const text = await res.text();
-                const userData = text ? JSON.parse(text) : {};
+                // 백엔드가 보낸 순수 토큰 문자열을 그대로 받습니다.
+                const token = await res.text();
                 
-                // 💡 백엔드가 보낸 구조: { token: "...", member: { id, email, nickname, ... } }
-                if (userData.token) {
-                    localStorage.setItem('token', userData.token);
-                }
-                
-                // 💡 회원 정보 객체(member)만 따로 저장합니다.
-                if (userData.member) {
-                    localStorage.setItem('user', JSON.stringify(userData.member));
-                    alert(`환영합니다, ${userData.member.nickname || '회원'}님!`);
-                } else {
-                    alert('환영합니다!');
-                }
-                
-                window.location.href = "/";
-            }
+                console.log('=== 백엔드 로그인 토큰 응답 ===', token);
 
+                if (token && token.length > 10) {
+                    localStorage.setItem('token', token);
+                    alert('로그인 성공!');
+                    window.location.href = "/";
+                } else {
+                    alert(`로그인 실패: 유효하지 않은 토큰입니다. (응답: ${token})`);
+                }
+
+            } else {
+                const errorText = await res.text();
+                console.error('로그인 실패 응답:', errorText);
+                alert(`로그인 실패: ${errorText || '이메일과 비밀번호를 확인해주세요.'}`);
+            }
 
         } catch (error) {
             console.error('로그인 에러:', error);
@@ -48,7 +46,6 @@ export default function LoginPage() {
         }
     };
 
-    // 💡 핵심 수정 2: handleLogin 함수 바깥으로 올바르게 분리했습니다!
     const handleKakaoLogin = () => {
         window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
     };
