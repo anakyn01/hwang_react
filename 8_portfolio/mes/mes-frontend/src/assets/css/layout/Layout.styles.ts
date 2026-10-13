@@ -117,3 +117,15 @@ export const SectionTitle = styled.h3`
   letter-spacing: 0.05em;
 `;
 
+export const LineCard = styled.div`
+padding:.9rem;
+border:1px solid #ddd;
+border-radius: .5rem;
+background:#f9f9f9;
+`;
+//상태 텍스트
+export const StatusBadge = styled.span<{ $isRunning: boolean}>`
+color: ${(props) => (props.$isRunning ? "#617a9c" : "red")};
+font-weight:bold;
+`;
+
