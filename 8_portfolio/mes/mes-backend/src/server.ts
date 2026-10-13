@@ -102,6 +102,8 @@ const verifyToken = (req, res, next) => {
   // "Bearer 토큰값" 형태의 문자열에서 공백을 기준으로 쪼개어 실제 토큰 문자열만 추출합니다.
   const token = authHeader.split(' ')[1];
   
+  console.log("전달받은 토큰 값:", token);
+
   try{
     const decoded = jwt.verify(token, JWT_SECRET);
     /*다음 라우트(API) 함수에서 인증된 사용자 정보를 
@@ -115,6 +117,9 @@ const verifyToken = (req, res, next) => {
 */
 next();
   }catch(err){
+
+console.error("JWT 검증 실패 원인:", err.message);
+
 return res.status(403).json({success:false, 
  message:'유효하지 않거나 만료된 토큰입니다'   
 })
@@ -168,6 +173,8 @@ const token = jwt.sign(
 return res.status(200).json({
   success:true,
   message:'로그인 성공',
+  //
+  token,
   user:{
     firstName:user.firstName,
     lastName:user.lastName,
@@ -250,7 +257,7 @@ return res.status(500).json({
 //4.비전 품질 검사 API (/quality)
 app.get('/api/quality/inspections', verifyToken, async(req, res) => {
   try{
-const inspections = await QualityInspection.findall({
+const inspections = await QualityInspection.findAll({
   limit:50, order:[['INSPECTED_AT', 'DESC']]
 });
 return res.status(200).json({
@@ -280,7 +287,7 @@ return res.status(201).json({sucess:true, inspection});
 //5. 클린룸 및 설비 제어 API (/cleanroom)
 app.get('/api/equipment/status', verifyToken, async(req, res) => {
   try{
-const equipments = await Equipment.findall({});
+const equipments = await Equipment.findAll({});
 return res.status(200).json({success:true, equipments});
   }catch(err){
 return res.status(500).json({
@@ -306,7 +313,7 @@ return res.status(500).json({
 //6. 실시간 통합 관제(생산 실적 및 수율) API (/analytics)
 app.get('/api/analytics/records', verifyToken, async(req, res) => {
   try{
-const records = await ProductionRecord.findall();
+const records = await ProductionRecord.findAll();
 return res.status(200).json({success:true, records});
   }catch(err){
 return res.status(500).json({
