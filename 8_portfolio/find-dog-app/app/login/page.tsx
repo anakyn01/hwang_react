@@ -20,26 +20,33 @@ export default function LoginPage() {
                 body: JSON.stringify({ email, password }),
             });
 
-            if (res.ok) {
-                // 백엔드가 보낸 순수 토큰 문자열을 그대로 받습니다.
-                const token = await res.text();
-                
-                console.log('=== 백엔드 로그인 토큰 응답 ===', token);
+          if (res.ok) {
+                const text = await res.text();
+                let data: any = {};
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    data = text;
+                }
 
-                if (token && token.length > 10) {
-                    localStorage.setItem('token', token);
+                // data가 객체면 data.token을, 순수 문자열이면 data 자체를 토큰으로 사용
+                let token = typeof data === 'string' ? data : data.token;
+
+                if (token) {
+                    const cleanToken = token.startsWith('Bearer ') ? token.substring(7) : token;
+                    localStorage.setItem('token', cleanToken);
+                    
+                    // 💡 백엔드에서 받아온 닉네임도 따로 저장해줍니다!
+                    if (data.nickname) {
+                        localStorage.setItem('nickname', data.nickname);
+                    }
+                    
                     alert('로그인 성공!');
                     window.location.href = "/";
                 } else {
-                    alert(`로그인 실패: 유효하지 않은 토큰입니다. (응답: ${token})`);
+                    alert('로그인 실패: 유효하지 않은 토큰입니다.');
                 }
-
-            } else {
-                const errorText = await res.text();
-                console.error('로그인 실패 응답:', errorText);
-                alert(`로그인 실패: ${errorText || '이메일과 비밀번호를 확인해주세요.'}`);
             }
-
         } catch (error) {
             console.error('로그인 에러:', error);
             alert('서버와 연결할 수 없습니다. 백엔드 서버가 켜져 있는지 확인해 주세요.');

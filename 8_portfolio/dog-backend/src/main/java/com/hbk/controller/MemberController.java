@@ -48,28 +48,30 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
     }
 
+    // 4. 로그인 API
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Member loginData){
-        System.out.println("\n========== [1] 로그인 컨트롤러 진입 ==========");
-        System.out.println("프론트에서 넘어온 이메일: " + loginData.getEmail());
-
+    public ResponseEntity<?> login(@RequestBody Member loginData){
         Optional<Member> memberOpt = memberRepository.findByEmail(loginData.getEmail());
 
         if(memberOpt.isPresent()){
             Member member = memberOpt.get();
-            System.out.println("========== [2] DB에서 회원 찾음 ==========");
 
             if(member.getPassword().equals(loginData.getPassword())){
                 String token = jwtTokenProvider.createToken(member.getEmail());
-                System.out.println("========== [3] 토큰 생성 완료: " + token);
-                return ResponseEntity.ok(token);
-            } else {
-                System.out.println("========== [X] 비밀번호 틀림 ==========");
-            }
-        } else {
-            System.out.println("========== [X] DB에 해당 이메일 없음 ==========");
-        }
 
+                // 💡 객체 직렬화 에러를 완벽하게 피하기 위해 단순한 키-값 구조로 전달합니다.
+                Map<String, String> responseData = new HashMap<>();
+                responseData.put("token", token);
+
+                // 닉네임이 비어있을 경우를 대비한 안전 장치
+                String nickname = (member.getNickname() != null && !member.getNickname().isEmpty())
+                        ? member.getNickname()
+                        : "회원";
+                responseData.put("nickname", nickname);
+
+                return ResponseEntity.ok(responseData);
+            }
+        }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이메일 또는 비밀번호가 일치하지 않습니다");
     }
 
