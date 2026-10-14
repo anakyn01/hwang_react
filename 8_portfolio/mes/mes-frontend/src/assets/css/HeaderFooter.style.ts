@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, MainBg, Ohidden, Pointer, TransitionAll, W100 } from "./common/Common.style";
+import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, MainBg, Ohidden, Pointer, SeconBg, TransitionAll, W100 } from "./common/Common.style";
 
 export const HeaderContainer = styled.header`
 width:100vw;
@@ -106,10 +106,10 @@ ${BoxShadow};
 
 export const FooterContainer = styled.footer`
 ${W100};
-  background-color: #f8fafc;
+  ${SeconBg};
   border-top: 1px solid #e2e8f0;
   padding: 24px 32px;
-  color: #64748b;
+  color: #0c0f13;
 ${FlexColumn};
   gap: 16px;
 
@@ -135,7 +135,7 @@ export const FooterLinks = styled.div`
   font-size: 0.875rem;
 
   a {
-    color: #475569;
+    color: inherit;
     text-decoration: none;
     transition: color 0.2s;
 

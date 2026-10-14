@@ -31,9 +31,18 @@ defectReason:"", inspector:"AI-Vision-Unit-01"
 
 const fetchInspections = async () => {
    try{
+//토큰
 
+const token = localStorage.getItem("token");
+
+const res = 
+await axios.get("http://localhost:4000/api/quality/inspections",{
+    headers:{Authorization:`Bearer ${token}`}
+});
+
+if (res.data.success) setInspections(res.data.inspections);
    }catch(err){
-
+console.error("품질 검사 조회 실패", err);
    }
 }
 
@@ -42,11 +51,20 @@ useEffect(() => {fetchInspections();},[]);
 const handleSubmit = async (e: React.FormEvent) => {
    e.preventDefault();
    try{
-
+//
+const token = localStorage.getItem("token");
+//post
+await axios.post("http://localhost:4000/api/quality/inspections", form,{
+    headers:{Authorization:`Bearer ${token}`}
+});
+//모달 팝업 만든걸로 처리
+//초기화 다른사람 이나 내가 다시 써야..
+setForm({ serialNumber:"", inspectionType:"VISION_SCRATCH", 
+    result:"PASS", defectReason:"", inspector:"AI-Vision-unit-01"});
    }catch(err){
-
+//커스텀 모달창으로 처리
    }
-}
+};
 
     return(
  <Layout>

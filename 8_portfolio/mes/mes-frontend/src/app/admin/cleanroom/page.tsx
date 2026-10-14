@@ -20,9 +20,17 @@ const [form, setForm] = useState({ equipmentName: "", cleanroomZone: "Zone A (Cl
 
 const fetchEquipments = async ()  => {
    try{
+const token =
+localStorage.getItem("token");
+const res =
+await axios.get("http://localhost:4000/api/equipment/status",{
+    headers:{Authorization:`Bearer ${token}`}
+});
+
+if(res.data.success) setEquipments(res.data.equipments);
 
    }catch (err){
-
+//모달창 alert 처리
    }
 }
 
@@ -31,9 +39,15 @@ useEffect(() => {fetchEquipments();}, []);
 const handleSubmit = async (e:React.FormEvent) => {
    e.preventDefault();
    try{
-
+const token =
+localStorage.getItem("token");
+await axios.post("http://localhost:4000/api/equipment/status", form,{
+    headers:{Authorization:`Bearer ${token}`}
+});
+//여러분이 만든..
+fetchEquipments();
    }catch(err){
-      
+//여러분이 만든..     
    }
 }
 

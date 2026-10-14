@@ -152,3 +152,7 @@ margin:0 auto;
 export const MainBg = css`
 background-color: #1e293b;
 `;
+
+export const SeconBg = css`
+background-color: #687790;
+`;

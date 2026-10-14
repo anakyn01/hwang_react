@@ -23,9 +23,16 @@ useState({ lineName: "", targetCount: 1000, actualCount: 980, defectCount: 20 })
 
 const fetchRecords = async () => {
    try{
+const token =
+localStorage.getItem("token");
 
+const res = await axios.get("http://localhost:4000/api/analytics/records",{
+    headers:{Authorization:`Bearer ${token}`}
+});
+
+if(res.data.success) setRecords(res.data.records);
    }catch(err){
-
+//customModal
    }
 }
 
@@ -34,9 +41,16 @@ useEffect(() => {fetchRecords();},[]);
 const handleSubmit = async (e:React.FormEvent) => {
    e.preventDefault();
    try{
+const token =
+localStorage.getItem("token");
 
+await axios.post("http://localhost:4000/api/analytics/records", form,{
+    headers:{Authorization:`Bearer ${token}`}
+});
+//customModal
+fetchRecords();
    }catch(err){
-
+//customModal
    }
 }
 
