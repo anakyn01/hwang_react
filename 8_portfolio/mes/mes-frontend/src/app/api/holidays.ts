@@ -1,6 +1,6 @@
 import { Holiday } from "../type/holiday";
 
-export const fetchHolidays = async (year:number) : Promise<Holiday[]> =>{
+export const fetchHolidays = async (year:number, month?:number) : Promise<Holiday[]> =>{
 if (month === 9) {
     return [
       { date: 24, name: "추석 연휴" },

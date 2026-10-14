@@ -1,5 +1,5 @@
 import styled,{css} from "styled-components";
-import { FlexCenter, W100, Pointer, InlineFlex, TransitionAll, Fw900, Nowrap, BoxShadow } from './common/Common.style';
+import { FlexCenter, W100, Pointer, InlineFlex, TransitionAll, Fw900, Nowrap, BoxShadow, MainBg } from './common/Common.style';
 
 // 버튼에 전달할 Props의 타입 정의
 interface ButtonProps{
@@ -62,7 +62,7 @@ border:1px solid #d1d3e2;
 `;
 
 case "primary":return css`
-background-color: #2563eb !important;
+${MainBg};
 color:white;
 border:none;
 &:hover{background-color: #1d4ed8;}

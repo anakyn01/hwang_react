@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, Ohidden, Pointer, TransitionAll, W100 } from "./common/Common.style";
+import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, MainBg, Ohidden, Pointer, TransitionAll, W100 } from "./common/Common.style";
 
 export const HeaderContainer = styled.header`
 width:100vw;
 ${FlexBetween};
   padding: 0 24px;
   height: 64px;
-  background-color: #1e293b;
+${MainBg};
   color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;

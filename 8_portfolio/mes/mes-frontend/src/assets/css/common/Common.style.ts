@@ -148,3 +148,7 @@ top:0; left:0; right:0;
 export const Mauto = css`
 margin:0 auto;
 `;
+
+export const MainBg = css`
+background-color: #1e293b;
+`;

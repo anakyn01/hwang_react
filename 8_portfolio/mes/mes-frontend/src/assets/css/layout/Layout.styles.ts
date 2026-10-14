@@ -117,16 +117,42 @@ export const SectionTitle = styled.h3`
   letter-spacing: 0.05em;
 `;
 
-export const LineCard = styled.div<{ $isWarning?:boolean}>`
+export const LineCard = styled.div<{ $isWarning?:boolean; $isPass?: boolean;}>`
 width:230px;
 max-width:230px;
 padding:.9rem;
 border:1px solid #ddd;
 border-radius: .5rem;
 
-background: ${(props) => (props.$isWarning ? "#fff5f5" : "#f9f9f9")};
-background:#f9f9f9;
-`;
+background: ${(props) => {
+
+  // 1. 경고(WARNING) 상태일 때: 붉은빛 그라데이션 + 미세한 사선 패턴/효과 조합
+        if (props.$isWarning) {
+            return `
+                linear-gradient(135deg, rgba(255, 245, 245, 0.9) 0%, rgba(255, 227, 227, 0.95) 100%),
+                radial-gradient(circle at top right, rgba(255, 0, 0, 0.05) 0%, transparent 60%)
+            `;
+        }
+        
+        // 2. 통과(PASS) 상태일 때: 초록빛 그라데이션 + 은은한 광채 효과 조합
+        if (props.$isPass) {
+            return `
+                linear-gradient(135deg, rgba(240, 255, 244, 0.9) 0%, rgba(209, 250, 229, 0.95) 100%),
+                radial-gradient(circle at top right, rgba(0, 200, 0, 0.05) 0%, transparent 60%)
+            `;
+        }
+
+return `#f9f9f9`;
+}}`;
+
+//단색일때
+/* 💡 그라데이션 없이 깔끔한 단색 상태로 조건별 배경 적용 
+    background: ${(props) => {
+        if (props.$isWarning) return "#fff5f5"; // SCM 경고 상태 (연한 빨간색)
+        if (props.$isPass) return "#f0fff4";    // 품질 검사 PASS 상태 (연한 초록색)
+        return "#f9f9f9";                      // 평상시 기본 상태
+    }};*/
+
 //상태 텍스트
 export const StatusBadge = 
 styled.span<{ $isRunning?: boolean; $isWarning?:boolean; }>`
