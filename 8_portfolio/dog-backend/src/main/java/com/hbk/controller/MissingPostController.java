@@ -1,11 +1,10 @@
 package com.hbk.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper; // 임포트 유지
 import com.hbk.dto.MissingPostRequestDto;
 import com.hbk.dto.MissingPostResponseDto;
 import com.hbk.service.MissingPostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,18 +18,18 @@ import java.util.List;
 public class MissingPostController {
 
     private final MissingPostService service;
-    // ❌ private final ObjectMapper objectMapper; (이 필드를 삭제합니다!)
 
-    // 1. 실종 신고 글 작성 API (POST /api/missing-posts)
-    // 1. 실종 신고 글 작성 API (정석적인 @RequestPart 활용)
+    // 1. 실종 신고 글 작성 API (DTO와 파일, 로그인 유저 정보를 서비스로 전달)
     @PostMapping
-    public ResponseEntity<MissingPostResponseDto> createPost(
+    public ResponseEntity<?> createPost(
             @RequestPart("dto") MissingPostRequestDto requestDto,
             @RequestPart(value = "file", required = false) MultipartFile file,
             Principal principal
     ) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 정보가 없습니다. 다시 로그인해주세요.");
+        }
 
-        // 💡 service.createPost에 requestDto, file, principal.getName() 3개를 정확히 전달합니다.
         MissingPostResponseDto response = service.createPost(requestDto, file, principal.getName());
         return ResponseEntity.ok(response);
     }

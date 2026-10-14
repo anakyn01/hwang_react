@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import * as S from '../../css/style.styles';
 import Header from '../components/Header';
@@ -7,7 +7,6 @@ export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // 1. 일반 로그인 핸들러
     const handleLogin = async () => {
         if (!email || !password) {
             alert('이메일과 비밀번호를 입력해주세요.');
@@ -21,34 +20,39 @@ export default function LoginPage() {
                 body: JSON.stringify({ email, password }),
             });
 
-            if (res.ok) {
+          if (res.ok) {
                 const text = await res.text();
-                const userData = text ? JSON.parse(text) : {};
-                
-                // 💡 백엔드가 보낸 구조: { token: "...", member: { id, email, nickname, ... } }
-                if (userData.token) {
-                    localStorage.setItem('token', userData.token);
+                let data: any = {};
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    data = text;
                 }
-                
-                // 💡 회원 정보 객체(member)만 따로 저장합니다.
-                if (userData.member) {
-                    localStorage.setItem('user', JSON.stringify(userData.member));
-                    alert(`환영합니다, ${userData.member.nickname || '회원'}님!`);
+
+                // data가 객체면 data.token을, 순수 문자열이면 data 자체를 토큰으로 사용
+                let token = typeof data === 'string' ? data : data.token;
+
+                if (token) {
+                    const cleanToken = token.startsWith('Bearer ') ? token.substring(7) : token;
+                    localStorage.setItem('token', cleanToken);
+                    
+                    // 💡 백엔드에서 받아온 닉네임도 따로 저장해줍니다!
+                    if (data.nickname) {
+                        localStorage.setItem('nickname', data.nickname);
+                    }
+                    
+                    alert('로그인 성공!');
+                    window.location.href = "/";
                 } else {
-                    alert('환영합니다!');
+                    alert('로그인 실패: 유효하지 않은 토큰입니다.');
                 }
-                
-                window.location.href = "/";
             }
-
-
         } catch (error) {
             console.error('로그인 에러:', error);
             alert('서버와 연결할 수 없습니다. 백엔드 서버가 켜져 있는지 확인해 주세요.');
         }
     };
 
-    // 💡 핵심 수정 2: handleLogin 함수 바깥으로 올바르게 분리했습니다!
     const handleKakaoLogin = () => {
         window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
     };
