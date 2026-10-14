@@ -1,25 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import type { Metadata } from "next";
-// 💡 기존에 만들어둔 스타일 파일을 불러옵니다 (경로/파일명이 다르다면 맞춰주세요)
-import * as S from "@/assets/css/Style.style"; 
 import { AlertModal } from "@/components/modal/AlertModal";
 import axios from "axios";
-
-/*export const metadata: Metadata = {
-  title: "비밀번호 찾기",
-};*/
+import Link from "next/link";
 
 export default function ForgotPassword() {
-
-const [email, setEmail] = useState("");
-
-  // 💡 알림 모달의 오픈 여부와 메시지 상태
+  const [email, setEmail] = useState("");
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  // 💡 비밀번호 재설정 이메일 전송 요청 핸들러
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -30,12 +20,10 @@ const [email, setEmail] = useState("");
     }
 
     try {
-      // 필요 시 백엔드 비밀번호 찾기 API 엔드포인트와 연동하세요 (예: /api/auth/forgot)
       await axios.post("http://localhost:4000/api/auth/forgot", { email });
-
       setAlertMessage("비밀번호 재설정 링크가 이메일로 전송되었습니다.");
       setIsAlertOpen(true);
-      setEmail(""); // 입력창 초기화
+      setEmail("");
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "요청 처리 중 오류가 발생했습니다.";
       setAlertMessage(errorMessage);
@@ -43,58 +31,64 @@ const [email, setEmail] = useState("");
     }
   };
 
-
-
-
   return (
-<S.Container>
-      <S.Card>
+    <div className="min-h-screen bg-blue-600 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-4xl w-full flex flex-col md:flex-row">
         
         {/* 좌측 이미지 영역 */}
-        <S.ImageColumn />
+        <div className="hidden md:block md:w-1/2 bg-gray-100 bg-cover bg-center" />
 
         {/* 우측 패스워드 찾기 폼 영역 */}
-        <S.FormColumn>
-          <S.Title>Forgot Your Password?</S.Title>
+        <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+            Forgot Your Password?
+          </h1>
           
-          <S.Description>
+          <p className="text-sm text-gray-600 mb-6 leading-relaxed">
             We get it, stuff happens. Just enter your email address below 
             and we'll send you a link to reset your password!
-          </S.Description>
+          </p>
           
-          <S.Form onSubmit={handleSubmit}>
-            <S.Input 
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input 
               type="email" 
               id="exampleInputEmail" 
               placeholder="Enter Email Address..." 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400"
             />
             
-            <S.Button type="submit" $variant="primary">
+            <button 
+              type="submit" 
+              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md text-sm"
+            >
               Reset Password
-            </S.Button>
-          </S.Form>
+            </button>
+          </form>
           
-          <S.Divider />
+          <hr className="my-6 border-gray-200" />
           
-          <S.StyledLink href="/member">
-            Create an Account!
-          </S.StyledLink>
-          <S.StyledLink href="/"> 
-            Already have an account? Login!
-          </S.StyledLink>
-          
-        </S.FormColumn>
+          <div className="space-y-2 text-center md:text-left text-sm">
+            <div>
+              <Link href="/member" className="text-blue-600 hover:underline">
+                Create an Account!
+              </Link>
+            </div>
+            <div>
+              <Link href="/" className="text-blue-600 hover:underline">
+                Already have an account? Login!
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      </S.Card>
-
-      {/* 💡 비밀번호 찾기 요청 성공/실패 시 렌더링될 커스텀 알림 모달 */}
       <AlertModal 
         isOpen={isAlertOpen}
         message={alertMessage}
         onClose={() => setIsAlertOpen(false)}
       />
-    </S.Container>
+    </div>
   );
 }
