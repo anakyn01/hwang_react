@@ -6,6 +6,7 @@ export * from './layout/Layout.styles';
 export * from './Calender.styles';
 export * from './Button.styles';
 export * from './HeaderFooter.style';
+export * from './Modal.styles';
 
 
 

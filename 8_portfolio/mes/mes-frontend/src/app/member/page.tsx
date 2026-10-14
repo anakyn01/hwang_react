@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter} from "next/navigation";
 import Script from "next/script";
 import * as S from "@/assets/css/Style.style";
+import { AlertModal } from "@/components/modal/AlertModal";
 
 const handleInstargramLogin = () => {
 
@@ -49,6 +50,12 @@ detailAddress:"",
 gender:"",
 });
 
+//add
+// 💡 알림 모달의 오픈 여부와 메시지, 가입 성공 시 라우팅을 위한 플래그 상태
+const [isAlertOpen, setIsAlertOpen] = useState(false);
+const [alertMessage, setAlertMessage] = useState("");
+const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
+
 const handleChange = 
 (e:React.ChangeEvent<HTMLInputElement>) => {
 const {name, value} = e.target;
@@ -74,7 +81,10 @@ address:fullAddress,
 },    
 }).open();    
 }else{
-   alert("주소 검색 스크립트가 아직 로드되지 않았습니다. 잠시 후 다시 시도해주세요."); 
+//alert("주소 검색 스크립트가 아직 로드되지 않았습니다. 잠시 후 다시 시도해주세요."); 
+setAlertMessage("주소 검색 스크립트가 아직 로드되지 않았습니다. 잠시 후 다시 시도해주세요.");
+setIsRegisterSuccess(false);
+setIsAlertOpen(true);
 }
 }
 //백앤드 API 연동
@@ -84,7 +94,10 @@ async (e:React.FormEvent<HTMLFormElement>) => {
 
     //비밀번호 확인 검증
     if(formData.password !== formData.repeatPassword){
-        alert("비밀번호가 일치하지 않습니다");
+        //alert("비밀번호가 일치하지 않습니다");
+        setAlertMessage("비밀번호가 일치하지 않습니다");
+        setIsRegisterSuccess(false);
+        setIsAlertOpen(true);
         return;
     }
 
@@ -93,16 +106,32 @@ async (e:React.FormEvent<HTMLFormElement>) => {
 const response =
 await axios.post("http://localhost:4000/api/auth/register", formData);
 if(response.data.success){
-    alert("회원가입이 완료되었습니다!");
-    router.push("/");
+    /*alert("회원가입이 완료되었습니다!");
+    router.push("/");*/
+setAlertMessage("회원가입이 완료되었습니다!");
+setIsRegisterSuccess(true);
+setIsAlertOpen(true);
 }    
 
 }catch(error: any){
 const errorMessage =
 error.response?.data?.message || "회원가입 중 오류가 발생했습니다.";
-alert(errorMessage);
+//alert(errorMessage);
+setAlertMessage(errorMessage);
+setIsRegisterSuccess(false);
+setIsAlertOpen(true);
 }
-}
+};
+
+//확인 누른후 추가
+// 💡 모달이 닫힐 때 가입 성공 상태였다면 로그인 페이지로 이동시킵니다.
+const handleModalClose = () => {
+    setIsAlertOpen(false);
+    if (isRegisterSuccess) {
+        router.push("/");
+    }
+};
+
 return(
     <S.Container>
 {/* Next.js Script 컴포넌트를 사용한 비동기 로드 */}
@@ -273,7 +302,15 @@ Already have an account? Login!
 </S.StyledLink>
 
 </S.FormColumn>
-</S.Card>        
+</S.Card> 
+
+{/* 💡 회원가입 성공/실패 시 렌더링될 커스텀 알림 모달 */}
+<AlertModal 
+isOpen={isAlertOpen}
+message={alertMessage}
+onClose={handleModalClose}
+/>
+
     </S.Container>
 )
 

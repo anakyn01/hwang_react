@@ -49,33 +49,9 @@ ${FlexCenter};
   }
 `;
 
-export const LogoutButton = styled.button`
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  font-weight: bold;
 
-  &:hover {
-    background-color: #dc2626;
-  }
-`;
 
-export const MobileMenuToggle = styled.button`
-  display: none;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 1.75rem;
-  cursor: pointer;
 
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
 
 export const MobileNav = styled.nav<{ $isOpen: boolean }>`
 ${FlexColumn};

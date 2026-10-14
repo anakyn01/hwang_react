@@ -174,65 +174,9 @@ ${FlexColumn};
   cursor:pointer;
 `;
 
-//일정모달
-export const ModalOverlay = styled.div`
-${Fixed};
-top:0; left:0;
-background:rgba(0,0,0,.8);
-width:100%; height:100%;
-z-index:99999;
-${FlexCenter};
-`;
-export const ModalContainer =styled.div`
-background:#fff;
-width:400px;
-padding:24px;
-border-radius:8px;
-box-shadow:0 4px 12px rgba(0,0,0,0.15);
-`;
-export const ModalHeader = styled.div`
-${FlexBetween};
-margin-bottom:1rem;
-`;
-export const ModalTitle = styled.h3`
-font-size:1.2rem;
-color:#333;
-margin:0;
-`;
-export const CloseButton = styled.button`
-background:transparent;
-border:none;
-font-size:2rem; font-weight:300;
-line-height:1; 
-cursor:pointer;
-color:#666;
-${FlexCenter};
-transform:rotate(45deg);
-${TransitionAll};
-&:hover{
-color:#333;
-transform:rotate(135deg);
-}
-`;
-export const ModalBody = styled.div``;
-export const FormGroup = styled.div`
-${FlexColumn};
-gap:8px;
-margin-bottom:1rem;
-`;
 
-export const ButtonGroup = styled.div`
-display:flex;
-gap:8px;
-justify-content:flex-end;
-margin-top:16px;
-& > button{
-width:auto !important;
-min-width:80px;
-padding:8px 16px !important;
-flex:none;
-}
-`;
+
+
 export const ScheduleList = styled.ul`
 list-style:none;
 padding:0;
@@ -252,16 +196,7 @@ ${FlexBetween};
 font-size:0.85rem;
 color:#666;
 `;
-export const Badge = styled.span<{$status:"대기"|"진행"|"완료"}>`
-padding:4px 8px;
-border-radius:12px;
-font-size:0.75rem;
-font-weight:bold;
-color:white;
-background-color:${({ $status}) =>
-$status === "완료" ? "#10b981" :
-$status === "진행" ? "#3B82f6" : "#f59e0b"};
-`;
+
 
 export const ScheduleDot = styled.div`
 width:6px;

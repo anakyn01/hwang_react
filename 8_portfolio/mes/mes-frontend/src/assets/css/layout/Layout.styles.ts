@@ -168,3 +168,14 @@ color: ${(props) => {
 font-weight:bold;
 `;
 
+export const Badge = styled.span<{$status:"대기"|"진행"|"완료"}>`
+padding:4px 8px;
+border-radius:12px;
+font-size:0.75rem;
+font-weight:bold;
+color:white;
+background-color:${({ $status}) =>
+$status === "완료" ? "#10b981" :
+$status === "진행" ? "#3B82f6" : "#f59e0b"};
+`;
+
