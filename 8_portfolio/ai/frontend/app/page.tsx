@@ -17,6 +17,8 @@ MDBBtn,
 MDBSpinner,
 } from "mdb-react-ui-kit";
 
+import ReactMarkdown from "react-markdown";
+
 /*메세지 타입 정의
 TypeScript를 사용하여 'Message'라는 데이터의 형태(타입)를 정의
 이렇게 하면 코드 작성 중 실수를 방지할 수 있습
@@ -38,7 +40,7 @@ export default function Home(){
         //화면이 처음 켜졌을 때 보여줄 기본 AI 인사말을 설정
         {
             id:1,
-            text:"안녕하세요! 노원구 맛집 AI 에이전트 입니다. 어떤 맛집을 찾고 계신가요?",
+            text:"안녕하세요! 무엇이든 물어보실 수 있는 AI 어시스턴트입니다. 오늘 어떤 도움이 필요하신가요?",
             sender:"ai",
         }
     ]);
@@ -189,10 +191,14 @@ color:msg.sender === "user" ? "white" : "black",
 maxWidth:"70%",
 }}
 >
-    <p className="small mb-0" style={{lineHeight:"1.5", 
+    {/*<p className="small mb-0" style={{lineHeight:"1.5", 
         whiteSpace:"pre-wrap"}}>
         {msg.text}
-    </p>
+    </p>*/}
+
+<div className="small mb-0" style={{ lineHeight: "1.6" }}>
+    <ReactMarkdown>{msg.text}</ReactMarkdown>
+</div>
 
 </div>
 
