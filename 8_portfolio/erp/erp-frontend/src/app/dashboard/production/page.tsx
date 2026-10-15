@@ -1,6 +1,7 @@
 "use client";
 
-import {useState} from "react";
+import {useState, useEffect, use} from "react";
+import axios from "axios";
 import { Layout } from "@/components/Layout";
 import '@/assets/css/styles.scss'; //일반적인 방법
 import styles from "./Production.module.scss";
@@ -17,11 +18,49 @@ dueDate:string;
 export default function production(){
 
 const [orders, setOrders] = useState<ProductionOrder[]>([
-{ id: "PRD-2023-001", productName: "알루미늄 프레임 A형", quantity: 500, status: "progress", progress: 65, dueDate: "2023-11-20" },
+/*{ id: "PRD-2023-001", productName: "알루미늄 프레임 A형", quantity: 500, status: "progress", progress: 65, dueDate: "2023-11-20" },
 { id: "PRD-2023-002", productName: "공업용 모터 250W", quantity: 120, status: "planning", progress: 0, dueDate: "2023-11-25" },
 { id: "PRD-2023-003", productName: "제어용 메인보드 v2", quantity: 300, status: "completed", progress: 100, dueDate: "2023-11-15" },
-{ id: "PRD-2023-004", productName: "스틸 하우징 케이스", quantity: 1000, status: "progress", progress: 30, dueDate: "2023-12-01" },
+{ id: "PRD-2023-004", productName: "스틸 하우징 케이스", quantity: 1000, status: "progress", progress: 30, dueDate: "2023-12-01" },*/
 ]);
+
+useEffect(()=>{fetchOrders();},[]);
+
+const fetchOrders = async () => {
+    try {
+      const token = localStorage.getItem("jwtToken"); // 실제 로그인 시 저장하는 키값으로 변경
+      const response = await axios.get("http://localhost:8080/api/production/orders", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setOrders(response.data);
+    } catch (error) {
+      console.error("오더 목록 로딩 오류:", error);
+    }
+  };
+
+const handleAddOrder = async () => {
+  const newOrderData = {
+    id: `PRD-2023-999`, 
+    productName: "테스트 신규 모터",
+    quantity: 100,
+    status: "planning",
+    progress: 0,
+    dueDate: "2023-12-31"
+  };
+
+  try {
+    const token = localStorage.getItem("jwtToken"); // 로그인 토큰 꺼내기
+    const response = await axios.post("http://localhost:8080/api/production/orders", newOrderData, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    
+    setOrders([...orders, response.data]);
+    alert("신규 오더가 성공적으로 DB에 저장되었습니다!");
+  } catch (error) {
+    console.error("등록 중 오류 발생:", error);
+    alert("등록에 실패했습니다.");
+  }
+};
 
 //상태에 따른 뱃지 색상 및 텍스트 반환 함수
 const getBadgeStyle = (status: string) => {
@@ -37,10 +76,19 @@ return(
 <Layout>
 <div className="container-fluid mw1400">
 
+<div className="d-flex justify-content-between align-items-center mb-4">
+
 <h2 className="mb-4 fw-bold text-dark">
 생산 관리    
 </h2>
 
+<button
+className="btn btn-primary fw-bold"
+onClick={handleAddOrder}
+>
++ 신규 오더 등록
+</button>
+</div>
 <div className="row mb-4 g-3">
     <div className="col-md-4">
         <div className="card border-0 shadow-sm h-100">
