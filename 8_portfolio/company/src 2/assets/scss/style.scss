@@ -1,0 +1,127 @@
+@import "reset"; //초기화 css
+
+
+//nest가 문제가 되어서..
+html{
+    font-size:16px;
+}
+body{
+    //
+    max-width:1200px;
+    margin-left:auto; 
+    margin-right:auto;//가운데 정렬
+    //화면 전체에 색상 칠하기
+    background:#e6f4f8;
+}
+
+img{//이프로젝트에서 이미지태그가 4~5개 들어가는데
+    //각각에 크기가 다르기 때문에 기본크기를 잡아주는것이다
+    width:100%; //가로크기는 100%;
+    max-width:100%; //유동픽셀 최대크기가 100% 브라우저가 면적이 변동될때 거기에 가로폭을 마춤
+    //반대가 고정픽셀 min-with:100%인데 이거 브라우저크기가 늘어나거나 줄어들거나 크기가 
+    height:auto;//높이를 자동 알아서 맞춤
+    vertical-align:middle; //세로정렬을 가운데로
+}
+
+header{
+            padding:32px;
+
+                .style-logo{
+                width:12rem;
+                display:block; 
+                //해당 엘리먼트가 무조건 한줄로 차지 하는 디스플레이 명령어
+                //아래는 가운데 정렬
+                margin-left:auto; margin-right: auto;
+                }
+                .style-nav{
+                    ul{
+                        li{
+                            a{
+                            color:#2F322A; 
+                            text-align:center;
+                            display:block;
+                            text-transform:uppercase;
+                            padding:8px;
+
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+        .hero{
+        //백그라운드로 이미지 발생
+        background-image:url(images/hero.jpg); 
+        background-size:cover;
+        //마진이나 페딩값에 따라 배경에 면적이 좌우되는 방법
+        padding:20px 20px 50px 20px;//상 우 하 좌   위아래 좌우 20px 30px
+        //패딩이 3자리 일때 20px위 30px왼쪽 오른쪽 40px
+        color:#fff;   
+
+        }
+   
+        .button{
+        border:2px #fff solid;//테두리는 2px 단색선
+        padding:8px 30px; //위아래 8px 좌우 30px
+        color:white; 
+        border-radius:30px; //각진모퉁이를 둥글둥글하게           
+        }
+        h1{
+        font-size:57px; text-transform:uppercase;
+        font-weight:200; margin-bottom: 60px;    
+        }
+        h2{
+        font-size:30px; text-transform:uppercase;
+        font-weight:200; margin-bottom: 23px;    
+        }  
+        h3{
+        font-size:16px;
+        font-weight:200; margin-bottom: 35px;    
+        }
+        h4{
+        font-size:16px;
+        font-weight:200; margin-bottom: 35px;    
+        }
+        p{
+        font-size:16px;
+        font-weight:400; margin-bottom: 35px;    
+        }
+        .info-box-tan{
+        background-color: #b9a88e;
+        color:#fff;
+        padding:30px 20px 60px;
+        text-align:center;
+        }
+        .info-box-dark{
+        background-color: #2d2d35;
+        //배경 색깔만 바뀝니다
+        color:#fff;
+        padding:30px 20px 60px;
+        text-align:center;
+        }
+        footer{
+            padding:10px;
+            .footer-text{
+            font-size:13px; margin-bottom:5px;
+            text-align:center;
+            }
+        }
+
+        .row:before, .row:after{
+        content:"";
+        display:table;
+        }
+        .row:after{
+            clear:both;
+        }
+        .col{
+            width:100%;
+        }
+
+
+//모바일 중심이기 때문에 미디어쿼리가 둔 부부분은 가장 밑에  둡니다
+@import "pad";
+@import "pc";
+//어제 잠깐 보여드렸던 @use

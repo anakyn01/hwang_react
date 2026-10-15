@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <title>자바스크립트 조건문</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+<h1>true, false, comparisons</h1>
+<mark id="t1"></mark><br/>
+<mark id="t2"></mark><br/>
+<mark id="t3"></mark><br/>
+<mark id="t4"></mark><br/>
+<mark id="t5"></mark><br/>
+<p>
+- 0존재하지 안아서 값이 없어 false
+- 1 존재하기 때문에 true
+- 비교연산자
+8=='8'숫자8과 문자열 8은 같다
+타입까지 고려하여 엄격하게 같음
+8 === 8
+그리하여 비교연산자를 쓰면서 T,F따진다
+반대급부
+8 != 7 => 틀린것이 진실
+8 != 8 => false
+</p>
+        </div>
+        <div class="col-md-4">
+<h1>Logical</h1>
+<mark id="n1"></mark>
+<p>
+- AND && 두개의 조건이 충족하면 참
+- or || 둘중에 하나만 성립하면 참
+- NOT ! 아니면 참
+</p>
+        </div>
+        <div class="col-md-4">
+<h1>JS논리 구조 테스트</h1>
+<div class="input-group">
+<input type="number" 
+id="scoreInput" 
+placeholder="점수를 입력하세요"
+class="form-control"
+>
+<button 
+onclick="checkGrade()"
+class="btn btn-success"
+>확인하기</button>
+</div>
+
+<p id="result">여기에 결과가 나옵니다</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+<h1>조건문</h1>
+<mark id="h"></mark><br>
+<p>
+- 조건문을 사용하면 각 조건에 따라 다른 동작을 수행할수 있습니다
+- 조건이 참인지 거짓인지에 따라 다른 코드를 실행합니다
+- if
+- if...else
+- if..else if...else 
+- 참고로 python은 if elif else
+- switch 조건이 많을때
+- ternary (?:)
+</p>            
+        </div>
+        <div class="col-md-4">
+<h1>switch : <small>if가 중첩되면 코드가 보기 어렵다 그럴때(선택지가 많을때)스위치사용</small></h1>
+<mark id="whatday"></mark>
+<h3>Syntax</h3>
+<code>
+switch(expression){
+    case x:
+      break;
+    case y:
+      break;
+    default:
+}
+</code>
+        </div>
+        <div class="col-md-4">
+<h1>삼항연산자</h1>
+<mark id="age"></mark>
+
+<p>syntax</p>
+<code>
+(condition) ? expression1 : expression2
+</code>
+        </div>
+    </div>
+</div>   
+
+<script src="js/condition.js"></script>
+</body>
+</html>

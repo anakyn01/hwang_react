@@ -1,0 +1,13 @@
+{
+  "c_stdlib": "vs",
+  "channel_targets": "defaults",
+  "lz4_c": "1.9",
+  "target_platform": "win-64",
+  "cxx_compiler": "vs2019",
+  "c_stdlib_version": "2019.11",
+  "libzlib": "1",
+  "zstd": "1.5",
+  "xz": "5",
+  "vc": "14",
+  "c_compiler": "vs2019"
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수학객체</title>
+</head>
+<body>
+<h1>and so on</h1>
+<pre>
+삼각함수 
+Math.sin(x) : 사인값 0 ~ 파도처럼 올라갔다가 내려 곡선을 그림
+Math.cos(x) : 코사인값 1 ~ 파도처럼 올라갔다가 내려 곡선을 그림
+핵심 여기서x는 라디안(Radian)단위의 각도 일반적인 360도 대신 2파이를
+한바퀴로 계산
+
+Math.min() and .max() :최대 최소
+Math.random() : 랜덤 0이상 1미만의 실수(소수점)을 무작위로 생성
+
+로그함수
+Math.log() : 자연로그(밑이 e)
+Math.log2() : 2를 몇번 곱해야 이 숫자가 될까?
+Math.log10() : 밑이 10인로그
+</pre>
+
+<h1>Math.abs() : 절대값 양수</h1>
+<p>Math.abs(-4.7)</p>
+
+<h1>Math.pow() : 거듭제곱</h1>
+<p>Math.pow(8,2)</p>
+
+<h1>Math.sign(x)</h1>
+<pre>
+숫자의 부호(sign)가 무엇인지 딱잘라 말해주는 도구
+정확히 얼마인지 중요하지 않고
+오직 플러스인가? 마이너스인가? 아니면0인가?
+만 확인하고 싶을때
+결과값은 항상 1, -1, 0 세가지중 하나만 나옵니다
+
+1.결과값 규칙
+양수(positive) 1을 리턴
+Math.sign(5) -> 1
+음수(Negative)
+Math.sign(-5) -> -1
+zero(0)
+Math.sign(0) -> 0
+
+-1 0 1
+게임에서 캐릭터가 오른쪽으로 가는지 왼쪽으로 가는지 확인할때
+</pre>
+
+<h1>Number to Integer</h1> 
+<p id="m1"></p>
+<pre>
+숫자의 소수점을 처리하는 숫자 다듬기 4총사
+예시로 4.6과 4.3이라는 숫자가 잇다고 가정할때
+                      4.6    4.3
+Math.round(x)  반올림  5      4
+Math.ceil(x)   올림    5      5
+Math.floor(x)  내림    4      4
+Math.trunc(x)  버림    4      4
+</pre>   
+<h1>Constants</h1>
+<pre>
+- 기하학 및 기본 상수 - 
+Math.E [오일러의 수, 약2.718]:
+자연로그의 밑이고 복리계산이나 확률분포 성장을 계산할때 중요합니다
+
+Math.PI[원주율 약3.14159] : 원의 둘레를 지름으로 나눈값
+웹사이트에서 원형 그래프를 그리거나 각도 계산을 할때 필수
+
+Math.SQRT2 [루트2, 약 1.414]:  2의 제곱근
+1:1비율인 정사각형의 대각선 길이를 구할때 사용됩니다
+
+Math.SQRT1_2 [루트 0.5 약 0.707] 1/2(0.5)의 제곱근 :
+
+- 로그(Logarithm) 상수[데이터의 단위가 너무 크거나 급격한 변화를 다룰때-
+Math.LN2 : 2의 자연로그
+Math.LN10 : 10의 자연로그
+Math.LOG2E : 밑이 2인 e의 로그값 (컴퓨터과학 비트단위)등에 쓰입니다
+Math.LOG10E : 밑이 10인 e의 로그값
+
+수학에서 밑(Base)이라는 단어는 기초가 되는 아래쪽 숫자
+거듭제곱과 로그에서 핵심적인 역활을 합니다
+
+1.거듭제곱에서 밑
+2<sup>3</sup> 는 2을 3번 곱한다는 뜻
+아래에 크게 서있는 숫자 2가 밑 무엇을 곱할것인가?
+지수(Exponent)위에 작게 써있는것 
+
+2.Logarithm
+log<sub>2</sub>8
+</pre>  
+<script src="js/math.js"></script>  
+</body>
+</html>

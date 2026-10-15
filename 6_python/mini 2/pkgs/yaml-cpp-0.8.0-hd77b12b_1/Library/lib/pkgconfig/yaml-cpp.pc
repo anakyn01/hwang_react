@@ -1,0 +1,11 @@
+prefix=C:/b/abs_14_rhzemyc/croot/yaml-cpp-split_1714514162675/_h_env/Library
+exec_prefix=${prefix}
+includedir=C:/b/abs_14_rhzemyc/croot/yaml-cpp-split_1714514162675/_h_env/Library/include
+libdir=C:/b/abs_14_rhzemyc/croot/yaml-cpp-split_1714514162675/_h_env/Library/lib
+
+Name: Yaml-cpp
+Description: A YAML parser and emitter for C++
+Version: 0.8.0
+Requires:
+Libs: -L${libdir} -lyaml-cpp
+Cflags: -I${includedir}

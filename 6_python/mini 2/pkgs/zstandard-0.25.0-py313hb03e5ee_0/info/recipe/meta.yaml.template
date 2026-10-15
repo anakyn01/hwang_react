@@ -1,0 +1,73 @@
+{% set name = "zstandard" %}
+{% set version = "0.25.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 7713e1179d162cf5c7906da876ec2ccb9c3a9dcbdffef0cc7f70c3667a205f0b
+  patches:
+    - use_system_zstd.patch
+
+build:
+  skip: true  # [py<39]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ stdlib('c') }}
+  host:
+    - python
+    - cffi >=2.0.0b   # [py>=314]
+    - cffi >=1.17,<2  # [py<314]
+    - pip
+    - packaging
+    - setuptools >=77.0.0
+    - zstd 1.5.7
+  run:
+    - python
+    - cffi >=2.0.0b   # [py>=314]
+    - cffi >=1.17,<2  # [py<314]
+    # The system zstd library and headers must match what python-zstandard is coded against exactly.
+    # https://github.com/indygreg/python-zstandard/blob/0.22.0/zstd/zstd.h#L110
+    # https://github.com/indygreg/python-zstandard/blob/0.22.0/setup_zstd.py#L38-L40
+    - {{ pin_compatible("zstd", max_pin="x.x.x") }}
+
+test:
+  source_files:
+    - tests
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    # E  AssertionError: Items in the second set but not the first: multi_compress_to_buffer, multi_decompress_to_buffer
+    # Test incorrectly checks for private symbol APIs availability unconditionally. Those APIs aren't available when
+    # using external zstd. See footnote: https://python-zstandard.readthedocs.io/en/latest/installing.html
+    - pytest -vv --deselect=tests/test_module_attributes.py::TestModuleAttributes::test_features tests
+  imports:
+    - zstandard
+
+about:
+  home: https://github.com/indygreg/python-zstandard
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file:
+    - LICENSE
+    - zstd/LICENSE
+  summary: Zstandard bindings for Python
+  description: |
+    This project provides Python bindings for interfacing with the Zstandard compression library.
+    A C extension and CFFI interface are provided.
+  doc_url: https://python-zstandard.readthedocs.io
+  dev_url: https://github.com/indygreg/python-zstandard
+
+extra:
+  recipe-maintainers:
+    - rmax
+    - xhochy

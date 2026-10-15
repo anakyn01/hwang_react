@@ -1,0 +1,166 @@
+import styled from "styled-components";
+import Link from "next/link";
+import { FlexStart, Fw700 } from "../common/Common.styles";
+
+
+export const Container = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:2rem;
+background-color: ${(props:any) => props.theme?.colors?.background || "#536692"};
+`;
+export const Card = styled.div`
+display:flex;
+width:100%;
+max-width:1200px;
+background:#fff;
+border-radius:0.35rem;
+box-shadow:0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+overflow:hidden;
+`;
+export const ImageColumn = styled.div`
+width:41.66667%;
+background:url("");
+@media(max-width:992px){
+display:none;
+}
+`;
+export const FormColumn = styled.div`
+width:58.33333%;
+padding:3rem;
+@media(max-width: 992px){
+width:100%;
+}
+`;
+export const Title = styled.h1`
+text-align:center;
+font-size:1.5rem;
+color:#3a3b45;
+margin-bottom:1.5rem;
+font-weight:400;
+`;
+export const TitleStart = styled.h1`
+${FlexStart};
+font-size:1.5rem;
+color:#3a3b45;
+margin-bottom:1.5rem;
+${Fw700};
+small{
+text-indent:0.5rem;
+color:#666;
+}
+`;
+export const Form = styled.form`
+display:flex; flex-direction:column;
+gap:1rem;
+`;
+export const Row = styled.div`
+display:flex;
+gap:1rem;
+@media(max-width: 768px){
+flex-direction:column;
+}
+`;
+export const Col = styled.div`
+flex:1;
+`;
+export const Input = styled.input`
+width:100%;
+padding:0.8rem 1rem;
+border:1px solid #d1d3e2;
+border-radius:10rem;
+outline:none;
+transition:border-color 0.15s ease-in-out;
+&:focus{
+border-color:#bac8f3;
+box-shadow:0 0 0 0.2rem rgba(78,115,223,0.25);
+}
+&[readonly]{
+background-color:#eaecf4;
+}
+`;
+export const RadioGroup=styled.div`
+display:flex;
+align-items:center;
+gap:1rem;
+padding:0 1rem;
+`;
+export const RadioLabel=styled.label`
+display:flex; align-items:center;
+gap:0.3rem;
+font-size:.9rem;
+color:#6e707e;
+cursor:pointer;
+`;
+export const AddressWrapper = styled.div`
+display:flex;
+gap:0.5rem;
+`;
+
+
+
+
+export const CheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+export const CheckboxLabel = styled.label`
+  font-size: 0.8rem;
+  color: #6e707e;
+  cursor: pointer;
+`;
+
+export const Description = styled.p`
+text-align:center;
+font-size:0.875rem;
+color:#6e707e;
+margin-bottom:1.5rem;
+line-height:1.5;
+`;
+
+//padding 들어간 레이아웃
+export const P5 = styled.div`
+padding:3.125rem;
+`;
+export const P4 = styled.div`
+padding:2.5rem;
+`;
+export const P3 = styled.div`
+padding:1.875rem;
+`;
+export const P2= styled.div`
+padding:1.25rem;
+`;
+export const P1 = styled.div`
+padding:0.625rem;
+`;
+
+export const Mt1 = styled.div`
+margin-top:1rem;
+`;
+
+export const StyledLink = styled(Link)`
+display:block;
+text-align:center;
+font-size:0.875rem;
+color:#4e73df;
+text-decoration:none;
+margin-bottom:0.5rem;
+&:hover{
+text-decoration:underline;
+color:#224abe;
+}
+`;
+
+export const Divider = styled.hr`
+margin:1.5rem 0;
+border:0;
+border-top:1px solid rgba(0,0,0,0.1);
+`;
+

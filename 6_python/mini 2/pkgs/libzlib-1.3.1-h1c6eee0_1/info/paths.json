@@ -1,0 +1,17 @@
+{
+  "paths": [
+    {
+      "_path": "Library/bin/zlib.dll",
+      "path_type": "hardlink",
+      "sha256": "1516c687787a052317a612afe60d522582fd333cb1075bb3e8387ffb60bff0c2",
+      "size_in_bytes": 101704
+    },
+    {
+      "_path": "zlib.dll",
+      "path_type": "hardlink",
+      "sha256": "74db91bbc59b23545fd1960ea323f9211fc74434e77e0944056b00d6b05976da",
+      "size_in_bytes": 101704
+    }
+  ],
+  "paths_version": 1
+}

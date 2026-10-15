@@ -1,0 +1,38 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // 1.디렉토리 설정
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // 모듈 및 호환성 설정 변경
+    // TypeORM과 ts-node환경에서는 commonjs가 ㄱ장 안정적 입니다
+    "module": "commonjs",
+    "target": "ES2022",
+    "types": ["node"],
+    // Express등 CommonJs 모듈을 ES6처럼 자연스럽게 import 하기위해 필수
+    "esModuleInterop":true,
+    //TypeORM필수 설정
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+  
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    
+    "strict": true,
+    //"jsx": "react-jsx",
+    //"verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+  },
+  "include":["src/**/*"]
+}

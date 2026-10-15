@@ -1,0 +1,66 @@
+# This file created by conda-build 25.9.0
+# meta.yaml template originally from:
+# C:\Users\task_176176799949046\libxml2-feedstock\recipe, last modified Wed Oct 29 20:15:08 2025
+# ------------------------------------------------
+
+package:
+  name: libxml2
+  version: 2.13.9
+source:
+  url: https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.13.9/libxml2-v2.13.9.tar.gz
+  sha256: 8d5fa142a3ea8727db1f7988b01f75b9fad8d311b8e0505e38e9d6a42a720085
+  patches:
+    - 0002-Make-and-install-a-pkg-config-file-on-Windows.patch
+build:
+  number: '0'
+  run_exports:
+    - libxml2 >=2.13.9,<2.14.0a0
+  string: h6201b9f_0
+requirements:
+  build:
+    - vs2019_win-64 19.29.30159 hd50ca63_10
+    - vs_win-64 2019.11 hd50ca63_10
+    - vswhere 3.1.7 haa95532_0
+  host:
+    - libiconv 1.16 h2bbff1b_3
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - zlib 1.2.13 h500123d_2
+  run:
+    - libiconv >=1.16,<2.0a0
+    - ucrt >=10.0.20348.0
+    - vc >=14.2,<15
+    - vc14_runtime >=14.29.30133
+    - zlib >=1.2.13,<2.0a0
+test:
+  files:
+    - test.xml
+  commands:
+    - xmllint test.xml
+about:
+  home: https://gitlab.gnome.org/GNOME/libxml2/
+  license: MIT
+  license_family: MIT
+  license_file: Copyright
+  summary: The XML C parser and toolkit of Gnome
+  description: 'Though libxml2 is written in C a variety of language
+
+    bindings make it available in other environments.
+
+    '
+  doc_url: https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
+  dev_url: https://gitlab.gnome.org/GNOME/libxml2/
+extra:
+  recipe-maintainers:
+    - chenghlee
+    - gillins
+    - jakirkham
+    - jschueller
+    - mingwandroid
+    - msarahan
+    - ocefpaf
+    - scopatz
+  final: true
+  copy_test_source_files: true

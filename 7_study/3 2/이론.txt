@@ -1,0 +1,26 @@
+네트워크
+- 엄청난 양의 데이터를 한 사이트에 집중적으로 보냄
+- 네트워크의 일부를 불능 상태로 만드는 공격
+- 여러 호스트가 특정 대상에게 다량의 ICMP Echo Reply 를 
+보내게 하여 서비스거부(DoS)를 유발시키는 보안공격
+- 공격 대상 호스트는 다량으로 유입되는 패킷으로 
+인해 서비스 불능 상태에 빠진다.
+
+스머프(Smurf) 또는 스머핑(Smurfing)
+
+Gof디자인 패턴
+( 행위 )패턴은 클래스나 객체들이 
+서로 상호작용하는 방법이나 책임 분배 방법을 정의
+- 객체들 간의 통신 방법을 정의하고 알고리즘을 
+캡슐화하여 객체 간의 결합도를 낮춘다.
+- 이 패턴에는 Chain of Responsibility나 
+Command 또는 Observer 패턴이 있다.
+
+url구조
+foo://localhost:8080/over/there?name=ferret#nose
+
+query : name=ferret
+path : over/there?
+scheme:foo
+authority:localhost:8080
+fragment:#nose

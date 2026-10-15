@@ -1,0 +1,11 @@
+{
+  "paths": [
+    {
+      "_path": "Library/bin/libmpdec-4.dll",
+      "path_type": "hardlink",
+      "sha256": "81ff8522e6267db6e90ce68eb68eed1e3f8a508d536f68fbf70d9cee8a2a0e9d",
+      "size_in_bytes": 213264
+    }
+  ],
+  "paths_version": 1
+}

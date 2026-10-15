@@ -1,0 +1,27 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "ipywidgets >=7.5.1,<9"
+  ],
+  "depends": [
+    "markdown-it-py >=2.2.0",
+    "pygments >=2.13.0,<3.0.0",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "rich-14.2.0-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "098632335698839505bc680c928fb38f",
+  "name": "rich",
+  "platform": "win32",
+  "sha256": "54308fc64559dac4eb2f486594c826aaa7ba33d984392c6ee59850491c494a4b",
+  "size": 604180,
+  "subdir": "win-64",
+  "timestamp": 1760375703000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/rich-14.2.0-py313haa95532_0.conda",
+  "version": "14.2.0"
+}

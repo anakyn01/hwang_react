@@ -1,0 +1,11 @@
+{
+  "bzip2": "1",
+  "c_stdlib_version": "2019.11",
+  "zlib": "1.2",
+  "target_platform": "win-64",
+  "pcre2": "10.42",
+  "re2": "2024",
+  "channel_targets": "defaults",
+  "c_stdlib": "vs",
+  "c_compiler": "vs2019"
+}

@@ -1,0 +1,97 @@
+{
+  "paths": [
+    {
+      "_path": "Library/bin/libcurl.dll",
+      "path_type": "hardlink",
+      "sha256": "877244ed5efd34ef6fd010b473fee311224b85dbb86ec7d4cf63528594bd341d",
+      "size_in_bytes": 763208
+    },
+    {
+      "_path": "Library/include/curl/curl.h",
+      "path_type": "hardlink",
+      "sha256": "1045dcd3354a9d93f081ccf792385a62f23de8bb621f3500f4de9e8e896fbfcc",
+      "size_in_bytes": 135048
+    },
+    {
+      "_path": "Library/include/curl/curlver.h",
+      "path_type": "hardlink",
+      "sha256": "b6a61f46b3da4f4aa69aabc7def7f27061ee871d37cddbc6431056f7d0607e39",
+      "size_in_bytes": 3056
+    },
+    {
+      "_path": "Library/include/curl/easy.h",
+      "path_type": "hardlink",
+      "sha256": "0283eb957a2eca067f9e51d7e0e8d8d8deb08bd8fbf42b226719d26e65f363e2",
+      "size_in_bytes": 4005
+    },
+    {
+      "_path": "Library/include/curl/header.h",
+      "path_type": "hardlink",
+      "sha256": "1c3f495166cdf8ec5f44d3f4bdfa6d9b8aea47a24b07e630aad81d455e5ec68e",
+      "size_in_bytes": 2918
+    },
+    {
+      "_path": "Library/include/curl/mprintf.h",
+      "path_type": "hardlink",
+      "sha256": "a79657fa15db71e732bcb58bc4645ab65bdb3222767f34be5bab56aa0d4f4cc9",
+      "size_in_bytes": 3078
+    },
+    {
+      "_path": "Library/include/curl/multi.h",
+      "path_type": "hardlink",
+      "sha256": "634bf1bf301f61769421817ea8d36b046f0f6af70d170977d5855dcd6805ef34",
+      "size_in_bytes": 20921
+    },
+    {
+      "_path": "Library/include/curl/options.h",
+      "path_type": "hardlink",
+      "sha256": "32fe87f843367d25a9db91a47386652402f08c9668617b4c51295ef31d93f8b0",
+      "size_in_bytes": 2402
+    },
+    {
+      "_path": "Library/include/curl/stdcheaders.h",
+      "path_type": "hardlink",
+      "sha256": "d7588b86814a35ffc3766ff6242e6f6705e04401fc9c208a195caff3503af81c",
+      "size_in_bytes": 1362
+    },
+    {
+      "_path": "Library/include/curl/system.h",
+      "path_type": "hardlink",
+      "sha256": "2a52778aad619ad5734c5989838bd20d7ce89cd52be17f5032695c61fcfcb09f",
+      "size_in_bytes": 14955
+    },
+    {
+      "_path": "Library/include/curl/typecheck-gcc.h",
+      "path_type": "hardlink",
+      "sha256": "ae01889e2c178d962e804010a25f06592decabb2753219dad259fc945d5917e1",
+      "size_in_bytes": 57764
+    },
+    {
+      "_path": "Library/include/curl/urlapi.h",
+      "path_type": "hardlink",
+      "sha256": "e2c777560ac0a7e11acca528d5401503d7b2f7c5e00f1aa9323bba4d3dc2f094",
+      "size_in_bytes": 5851
+    },
+    {
+      "_path": "Library/include/curl/websockets.h",
+      "path_type": "hardlink",
+      "sha256": "43b93bb4b7121178aef33182ed11356948d9ed78fe41e92bae005d06eb76e1c4",
+      "size_in_bytes": 3193
+    },
+    {
+      "_path": "Library/lib/libcurl.lib",
+      "path_type": "hardlink",
+      "sha256": "dc4249645513b662194471a628502669a2fa037d5290cf5742b89b2c5af07b34",
+      "size_in_bytes": 22274
+    },
+    {
+      "_path": "Library/lib/pkgconfig/libcurl.pc",
+      "file_mode": "text",
+      "path_type": "hardlink",
+      "prefix_placeholder": "C:/Users/task_177429916378933/croot/curl-split_1774299432862/_h_env",
+      "sha256": "ba2d496567b8aee8fb24abccfd9edd954bc243cb98d75099960f0457e7ebed6d",
+      "size_in_bytes": 2259
+    }
+  ],
+  "paths_version": 1
+}

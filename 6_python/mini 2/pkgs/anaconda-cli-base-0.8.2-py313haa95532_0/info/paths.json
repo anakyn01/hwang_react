@@ -1,0 +1,167 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base-0.8.2.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base-0.8.2.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "7fa342fe437bb30a7779b67b067988b3945d719616f659aec3e2b70debca14e5",
+      "size_in_bytes": 11379
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base-0.8.2.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "072b73a016c9aae582e862d88626460f1129fa2561a1a7e0bd2b4ab38d9a5877",
+      "size_in_bytes": 2078
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base-0.8.2.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base-0.8.2.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "41c708c5adba6e097513ab8ccb9f1d7865a2fb469e22491a9e01dcc64da459fc",
+      "size_in_bytes": 87
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base-0.8.2.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "e4cf00b31863d2311e944db651f3e5c63e9750cc27c700fa72a5a54f26e2ef8d",
+      "size_in_bytes": 107
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base-0.8.2.dist-info/entry_points.txt",
+      "path_type": "hardlink",
+      "sha256": "4eec739164e7cdc3b9fef7e0b0ecb793faf873a7f89ccab844916e5b5d7e9ba9",
+      "size_in_bytes": 113
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base-0.8.2.dist-info/licenses/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "e00a583d4671a8cf2f781b7770f857bd2f43386a21e5f5de4188fe6ea2002258",
+      "size_in_bytes": 1544
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "3bda46d77b3f790324e3351b228ac717600d4476e92ecc8c574a79791f454d89",
+      "size_in_bytes": 253
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "872e2cf2a7bbfe7e5df0c0ff28c699f9319fe75a740dd021962211068c185b13",
+      "size_in_bytes": 448
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__pycache__/_version.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "ed057853e1218e85ccf44e0a2d23a5eace4fbe4ce2d854a39269e32607d9193e",
+      "size_in_bytes": 598
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__pycache__/cli.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "46c45694d10a45ba8731c9f929a51d38178c6c147e10048e4affbbf72bf827e5",
+      "size_in_bytes": 10444
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__pycache__/config.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "441497658bbe9f9737a9fe2e7fdd45e0a7a94d9ac45653b8c5061db3ce29fbac",
+      "size_in_bytes": 17322
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__pycache__/console.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "ff855d91071a8d7f2bc992ee2f7c79ee2367ba792c77c6f1addb17429944e39c",
+      "size_in_bytes": 3292
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__pycache__/deprecations.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "c4cf8c46b4f2264c5d1655f32690a62536d2bda1be0ded21988534ff21ded201",
+      "size_in_bytes": 16037
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__pycache__/exceptions.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "ac4fc4405f4acffec047fc9b01ac8f6083eaa62a0e3c4d6f547006deda734d59",
+      "size_in_bytes": 2069
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/__pycache__/plugins.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "be927391eb321a608ac5749a5f36f6ec5d5f9834ab668d38714c4c547182c414",
+      "size_in_bytes": 12690
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/_version.py",
+      "path_type": "hardlink",
+      "sha256": "a66fcaf2d4e06736511bfaa111e88f0e5601609c5253aa1161c5b5811fa3f44b",
+      "size_in_bytes": 544
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/cli.py",
+      "path_type": "hardlink",
+      "sha256": "ba798671a34ca974b87c3aa26e9bb1e4e31cbfd49bbdc36890116588b70f2bf7",
+      "size_in_bytes": 9392
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/config.py",
+      "path_type": "hardlink",
+      "sha256": "563ad294ea9e399428c94490c9dc5196d8c629495ce79fc1a4680d3f702a919e",
+      "size_in_bytes": 14281
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/console.py",
+      "path_type": "hardlink",
+      "sha256": "36d4f8155c4c994378c18dd17b204fedf84898bf1b52f34e476a25bcb13e18f4",
+      "size_in_bytes": 2763
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/deprecations.py",
+      "path_type": "hardlink",
+      "sha256": "d208e4152677eaa6b1eb6bb5ee3a2b518f89ecc4f31220c208858c577e31c91b",
+      "size_in_bytes": 15347
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/exceptions.py",
+      "path_type": "hardlink",
+      "sha256": "fb216445c531b665e82569afd743e8b4b37f370d205039d97c2cd7149342c1a2",
+      "size_in_bytes": 854
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/plugins.py",
+      "path_type": "hardlink",
+      "sha256": "ef4bafcd6c12ff36b15ffad5cfb917a0bca1004777ee9d5278e32e995488f5c3",
+      "size_in_bytes": 11426
+    },
+    {
+      "_path": "Lib/site-packages/anaconda_cli_base/py.typed",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Scripts/anaconda-script.py",
+      "path_type": "hardlink",
+      "sha256": "f803a638982c2efed742475babedf495c5688724d2373882e96e68c1bbb55547",
+      "size_in_bytes": 213
+    },
+    {
+      "_path": "Scripts/anaconda.exe",
+      "path_type": "hardlink",
+      "sha256": "f24d102084620e54fe68d07f6e9169118b283f8d33d0c8f4b974c2e05a306059",
+      "size_in_bytes": 54032
+    }
+  ],
+  "paths_version": 1
+}

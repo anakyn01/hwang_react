@@ -1,0 +1,113 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "cb5e8e7e5f4a3988e1063c142c60dc2df75605f4c46515e776e3aca6df976e14",
+      "size_in_bytes": 11325
+    },
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "0d98879e4225b1cb7b3c5aee610931d56fdfc97680705e2d3beb2d10ddb1ea12",
+      "size_in_bytes": 6975
+    },
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "ddf850626131b3a9ae7eb7921bba754cd9d1a2fd3488743e62d099e9988da222",
+      "size_in_bytes": 1267
+    },
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "195f5a3138703ffe28342b6f102d9e737a9462eb6059e033925ae8ff49b85894",
+      "size_in_bytes": 91
+    },
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "202e43a2ae54d7e9f93d4192f44c84357071fa2c722fbfb5889d1219ed034f64",
+      "size_in_bytes": 114
+    },
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/entry_points.txt",
+      "path_type": "hardlink",
+      "sha256": "dce6e3a9031b875c5e410c2c5ad81b7c33433030fe11b8204753a3ff3f2cf617",
+      "size_in_bytes": 46
+    },
+    {
+      "_path": "Lib/site-packages/distro-1.9.0.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "8a475efd5fd711d481a9a19de6d12b88dff0cd81cb8135ffcd5b65b062c7bf04",
+      "size_in_bytes": 7
+    },
+    {
+      "_path": "Lib/site-packages/distro/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "d9f1e317e49f80fbe3c8d67588787fc23a96751fd8a393831f0642d232c13e17",
+      "size_in_bytes": 981
+    },
+    {
+      "_path": "Lib/site-packages/distro/__main__.py",
+      "path_type": "hardlink",
+      "sha256": "6eef5ddd389fa0a72264572a441bb2815dc64ae4e19d50ff9b620ae1ccfde95b",
+      "size_in_bytes": 64
+    },
+    {
+      "_path": "Lib/site-packages/distro/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "06ff146e4644967fb183a03a3f3a98667ac68586355577edcbbb55738b2950f1",
+      "size_in_bytes": 903
+    },
+    {
+      "_path": "Lib/site-packages/distro/__pycache__/__main__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "f1cd32de042d9e688c05f382dedf085792f943846ccc6554b275508576a966fc",
+      "size_in_bytes": 237
+    },
+    {
+      "_path": "Lib/site-packages/distro/__pycache__/distro.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "d0c948e9404b6477ff3366aec3941beaebba5cb48146ad2a2e4cb6ac4e9245f1",
+      "size_in_bytes": 52084
+    },
+    {
+      "_path": "Lib/site-packages/distro/distro.py",
+      "path_type": "hardlink",
+      "sha256": "5ea6de7da7008434f8cebfedae76c0d79798f2f74ae064e08609af506ac433fe",
+      "size_in_bytes": 49430
+    },
+    {
+      "_path": "Lib/site-packages/distro/py.typed",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Scripts/distro-script.py",
+      "path_type": "hardlink",
+      "sha256": "3c5be0a683cb6bc6da3599dbcaeb22d65f062c7ee905bba72e216f1f6f5aadc5",
+      "size_in_bytes": 207
+    },
+    {
+      "_path": "Scripts/distro.exe",
+      "path_type": "hardlink",
+      "sha256": "f24d102084620e54fe68d07f6e9169118b283f8d33d0c8f4b974c2e05a306059",
+      "size_in_bytes": 54032
+    }
+  ],
+  "paths_version": 1
+}

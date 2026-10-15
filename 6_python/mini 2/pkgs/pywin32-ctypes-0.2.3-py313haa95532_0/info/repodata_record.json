@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "pywin32-ctypes-0.2.3-py313haa95532_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "30781774436ef59055d817435eabbd29",
+  "name": "pywin32-ctypes",
+  "platform": "win32",
+  "sha256": "a04a371e453c389cd70a0bcc7bdb543feaafd9ed9af6ba630060b49badbd9624",
+  "size": 55951,
+  "subdir": "win-64",
+  "timestamp": 1768296662000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pywin32-ctypes-0.2.3-py313haa95532_0.conda",
+  "version": "0.2.3"
+}

@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "hd77b12b_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "vc >=14.1,<15.0a0",
+    "vs2015_runtime >=14.16.27012,<15.0a0"
+  ],
+  "fn": "yaml-cpp-0.8.0-hd77b12b_1.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "f90bd3c9e348fc821d2699721773225f",
+  "name": "yaml-cpp",
+  "platform": "win32",
+  "sha256": "0cc485708dd5d8d00b8c9293f4c0a854adfdf8ca48b512afc1ece5764751177b",
+  "size": 2166174,
+  "subdir": "win-64",
+  "timestamp": 1714514387000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/yaml-cpp-0.8.0-hd77b12b_1.conda",
+  "version": "0.8.0"
+}

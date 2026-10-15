@@ -1,0 +1,16 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "license": "Apache-2.0 or BSD-2-Clause",
+  "license_family": "Apache",
+  "name": "packaging",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1775004274536,
+  "version": "26.0"
+}

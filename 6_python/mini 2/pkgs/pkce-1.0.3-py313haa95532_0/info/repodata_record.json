@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "pkce-1.0.3-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "1dea692228d870c3278e9797ddc0589a",
+  "name": "pkce",
+  "platform": "win32",
+  "sha256": "891ecf91eb86227f847743d2519f9f8c3ff70386d56b0d0507c5dc557392b101",
+  "size": 10112,
+  "subdir": "win-64",
+  "timestamp": 1729049247000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pkce-1.0.3-py313haa95532_0.conda",
+  "version": "1.0.3"
+}

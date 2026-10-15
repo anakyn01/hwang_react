@@ -1,0 +1,17 @@
+{
+  "arch": "x86_64",
+  "build": "h2b21627_2",
+  "build_number": 2,
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "libffi",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1777296713086,
+  "version": "3.4.8"
+}

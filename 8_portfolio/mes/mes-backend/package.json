@@ -1,0 +1,35 @@
+{
+  "name": "mes-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@prisma/client": "^6.19.3",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
+    "prisma": "^6.19.3",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "oracledb": "^7.0.1",
+    "reflect-metadata": "^0.2.2",
+    "sequelize": "^6.37.8",
+    "typeorm": "^1.1.0"
+  }
+}

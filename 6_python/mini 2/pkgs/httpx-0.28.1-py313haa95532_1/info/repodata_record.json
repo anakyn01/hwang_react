@@ -1,0 +1,33 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "click >=8.0.0,<9.0.0a0",
+    "zstandard >=0.18.0",
+    "pygments >=2.0.0,<3.0.0a0",
+    "socksio >=1.0.0,<2.0.0a0",
+    "h2 >=3.0.0,<5.0.0a0"
+  ],
+  "depends": [
+    "anyio",
+    "certifi",
+    "httpcore 1.*",
+    "idna",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "httpx-0.28.1-py313haa95532_1.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "55a5ebf53109994a5ac8a2f802bd8f43",
+  "name": "httpx",
+  "platform": "win32",
+  "sha256": "110311c08a60e70198900b6aa5a35e7b1f2175bd3109e0a56610b75d0ea3f20f",
+  "size": 242095,
+  "subdir": "win-64",
+  "timestamp": 1760447587000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/httpx-0.28.1-py313haa95532_1.conda",
+  "version": "0.28.1"
+}
