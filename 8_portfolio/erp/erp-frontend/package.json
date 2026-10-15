@@ -16,6 +16,7 @@
     "react": "19.2.8",
     "react-bootstrap": "^2.10.10",
     "react-dom": "19.2.8",
+    "sass": "^1.105.1",
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
