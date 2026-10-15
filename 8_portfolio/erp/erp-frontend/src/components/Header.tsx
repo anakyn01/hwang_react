@@ -31,10 +31,11 @@ export const Header = () => {
 
       {/* 데스크탑 네비게이션 */}
       <S.DesktopNav>
-        <S.NavLink href="/production">생산관리</S.NavLink>
-        <S.NavLink href="/material">자재관리</S.NavLink>
-        <S.NavLink href="/quality">품질관리</S.NavLink>
-        <S.NavLink href="/equipment">설비관리</S.NavLink>
+        <S.NavLink href="/dashboard">대시보드</S.NavLink>
+        <S.NavLink href="/dashboard/production">생산관리</S.NavLink>
+        <S.NavLink href="/dashboard/inventory">재고관리</S.NavLink>
+        <S.NavLink href="/dashboard/hr">인사관리</S.NavLink>
+        <S.NavLink href="/dashboard/settings">기준정보</S.NavLink>
       </S.DesktopNav>
 
       {/* 데스크탑 유저 섹션 */}
