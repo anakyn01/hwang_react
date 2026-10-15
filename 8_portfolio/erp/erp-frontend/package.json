@@ -20,6 +20,7 @@
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -29,6 +30,15 @@
     "eslint-config-next": "16.3.4",
     "postcss": "^8.5.30",
     "tailwindcss": "^4.3.3",
+=======
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.4",
+    "tailwindcss": "^4",
+>>>>>>> 22c3fff17fb57f93f7f021f3b1250f6d651ac4d9
     "typescript": "^5"
   }
 }

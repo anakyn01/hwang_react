@@ -32,7 +32,10 @@ export const Header = () => {
       {/* 데스크탑 네비게이션 */}
       <S.DesktopNav>
         <S.NavLink href="/dashboard">대시보드</S.NavLink>
+<<<<<<< HEAD
         <S.NavLink href="/dashboard/calender">캘린더</S.NavLink>
+=======
+>>>>>>> 22c3fff17fb57f93f7f021f3b1250f6d651ac4d9
         <S.NavLink href="/dashboard/production">생산관리</S.NavLink>
         <S.NavLink href="/dashboard/inventory">재고관리</S.NavLink>
         <S.NavLink href="/dashboard/hr">인사관리</S.NavLink>

@@ -2,6 +2,7 @@
 
 import {useState} from "react";
 import { Layout } from "@/components/Layout";
+<<<<<<< HEAD
 import {Container, Row, Col, Card, Table, Badge, 
 Button, InputGroup, Form} from "react-bootstrap";
 import '@/assets/css/styles.scss';
@@ -145,6 +146,13 @@ className="d-flex justify-content-between align-items-center mb-4">
 
 
     </Container>
+=======
+
+export default function inventory(){
+return(
+<Layout>
+    <></>
+>>>>>>> 22c3fff17fb57f93f7f021f3b1250f6d651ac4d9
 </Layout>
 );
 }

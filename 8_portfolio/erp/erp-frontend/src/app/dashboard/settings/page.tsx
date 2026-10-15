@@ -2,6 +2,7 @@
 
 import {useState} from "react";
 import { Layout } from "@/components/Layout";
+<<<<<<< HEAD
 import styles from "@/assets/sass/Settings.module.scss";
 
 export default function settings(){
@@ -62,6 +63,13 @@ return(
         </div>
 
     </div>
+=======
+
+export default function settings(){
+return(
+<Layout>
+    <></>
+>>>>>>> 22c3fff17fb57f93f7f021f3b1250f6d651ac4d9
 </Layout>
 );
 }
