@@ -1,7 +1,5 @@
-<<<<<<< HEAD
+
 import "./globals.css"; //테일윈드 사용할 경우
-=======
->>>>>>> 22c3fff17fb57f93f7f021f3b1250f6d651ac4d9
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./lib/registy";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
@@ -19,11 +17,9 @@ title: {
 export default function RootLayout({ children }: Readonly<{children:React.ReactNode;
   }>) {
   return (
-<<<<<<< HEAD
+
     <html lang="ko" className="h-full">
-=======
-    <html lang="ko">
->>>>>>> 22c3fff17fb57f93f7f021f3b1250f6d651ac4d9
+
       <head>
 {/* 부트스트랩 CDN 추가 */}
         <link
@@ -31,7 +27,6 @@ export default function RootLayout({ children }: Readonly<{children:React.ReactN
           rel="stylesheet"
         />
       </head>
-<<<<<<< HEAD
 <body className="h-full m-0 bg-gray-50 text-gray-900 antialiased">
         {/*<StyledComponentsRegistry>
           <ThemeProviderWrapper>*/}
@@ -42,18 +37,7 @@ export default function RootLayout({ children }: Readonly<{children:React.ReactN
      
           {/*</ThemeProviderWrapper>
         </StyledComponentsRegistry>*/}
-=======
-      <body>
-        <StyledComponentsRegistry>
-          <ThemeProviderWrapper>
-     
-            <ConditionalLayout>
-          {children}
-          </ConditionalLayout>
-     
-          </ThemeProviderWrapper>
-        </StyledComponentsRegistry>
->>>>>>> 22c3fff17fb57f93f7f021f3b1250f6d651ac4d9
+
         </body>
     </html>
   );
