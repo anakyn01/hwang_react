@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 
 import { Inter } from "next/font/google";
 
+import {Providers} from "./providers";
+
 
 //add
 const inter = Inter({ subsets:["latin"]});
@@ -38,7 +40,9 @@ export default function RootLayout({
         />      
     </head>
       <body className="h-full m-0 bg-gray-50 text-gray-900 antialiased">
-        {children}
+        <Providers>
+          {children}
+          </Providers>
       </body>
     </html>
   );
