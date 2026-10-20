@@ -4,8 +4,8 @@ import React,{useRef, useEffect, useCallback} from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {RootState, AppDispatch} from "@/store/store";
-import {setInputText, setIsLoading, setShowMap, addMessage
-} from "@/store/chatSlice";
+import {setInputText, setIsLoading, setShowMap, addMessage, 
+  setPlaces} from "@/store/chatSlice";
 
 import ReactMarkdown from "react-markdown";
 //무조건 시간 관련된건 템포럴로..
@@ -17,7 +17,7 @@ export default function Chat() {
     const dispatch = useDispatch<AppDispatch>();
 
     //Redux 스토어의 상태(state)를 안전하게 구독(select)하여 가져오기
-    const {messages, inputText, isLoading, showMap} = 
+    const {messages, inputText, isLoading, showMap, places} = 
     useSelector((state:RootState) => state.chat
     );
 
@@ -44,12 +44,12 @@ const handleSend = useCallback(async () => {
     //1.사용자가 입력한 쿼리 저장 및 메시지 객체 생성
      const userQuery = inputText;
 //템포럴일때..다른 패턴.
-const uniqueId = 
+const userMsgId = 
 Temporal.Now.instant().epochMilliseconds;
 
      const newUserMessage = {
         //id:Date.now() 옛날방식,
-        id:uniqueId,
+        id:userMsgId,
         text:userQuery,
         sender:"user" as const,
      };
@@ -76,14 +76,14 @@ Temporal.Now.instant().epochMilliseconds;
      // 아니면 숨깁니다(false).
      dispatch(setShowMap(isLocationQuery));
 
-     try{
+     try{ //누구에게 불러옴?
 const response =
 await fetch("http://localhost:8000/api/chat",{
     method:"POST",
     headers:{
         "Content-type":"application/json",
     },
-    body:JSON.stringify({messages:userQuery}),
+    body:JSON.stringify({message:userQuery}),
 });
 
 if(!response.ok){
@@ -93,19 +93,39 @@ if(!response.ok){
 const data =
 await response.json();
 
+//AI 응답 시점의 새로운 Temporal 타임스탬프를 생성하여 ID 중복 방지!
+//sql 에서 중복을 제거하는 대표적인 방법은 조회시 중복제거 DISTINCT
+//데이터의 id의 중복을 제거하기 위해 => 데이터의 정확성을 확보, 시스템 성능을 최적화 하기 위해
+//저장 공간을 효율적으로 사용하기 위함
+//데이터 무결성 => 결과외곡 방지, 의사 결정오류 방지
+//데이터 이상 현상 방지 : 수정삭제 오류차단 데이터가 중복 저장되 있으면..
+//특정정보를 수정하거나 삭제할때..일부는 반영되고 일부는 누락
+const aiMsgId = Temporal.Now.instant().epochMilliseconds;
+
 //백엔드에서 받은 AI 답변을 Redux 상태에 추가
 dispatch(
     addMessage({
-        id:uniqueId,
+        id:aiMsgId,
         text:data.reply,
         sender:"ai",
     })
 );
+// 지도표시여부와 장소목록 을 Redux에 반영
+if (typeof data.show_map === "boolean"){
+  dispatch(setShowMap(data.show_map || isLocationQuery));
+}
+//정적메서드에 전달된 어레이가 어레이인지 아닌지..
+if(Array.isArray(data.places)){
+  dispatch(setPlaces(data.places));
+}
+
      }catch(error){
 console.error("통신에러: ", error);
+//
+const errorMsgId = Temporal.Now.instant().epochMilliseconds;
 dispatch(
     addMessage({
-        id:uniqueId,
+        id:errorMsgId,
         text:"백엔드 서버와 연결할 수 없습니다",
         sender:"ai",
     })
@@ -245,13 +265,15 @@ rounded-full font-medium shadow-inner
 
           {/* 2) 다음맵(카카오맵) 연동 영역 (맛집/학원 등 장소 검색 질문일 때만 화면에 나타남) */}
           {showMap && (
-            <div className="w-full sm:w-1/2 h-64 sm:h-full bg-slate-200 relative flex flex-col items-center justify-center p-6 text-center border-t sm:border-t-0 sm:border-l border-slate-200 animate-fadeIn">
-              <div className="absolute inset-0 bg-slate-100 flex flex-col items-center justify-center p-6">
-                <div className="text-5xl mb-3">📍</div>
-                <h3 className="text-lg font-bold text-slate-700">다음맵(카카오맵) 연동 구역</h3>
-                <p className="text-sm text-slate-500 mt-1 max-w-sm">
-                  맛집이나 학원 검색 결과에 맞춰 등록된 업체(기본 핀)와 미등록 업체(커스텀 아이콘)가 지도상에 마커로 표시됩니다.
-                </p>
+            <div className="w-full sm:w-1/2 h-64 sm:h-full bg-slate-200 relative flex flex-col p-6 border-t sm:border-t-0 sm:border-l border-slate-200 overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center space-x-2">
+                <span className="text-2xl" >🗺️</span>
+                <h3 className="text-lg font-bold text-slate-700">
+                  다음맵(카카오맵) 연동 구역
+                </h3>
+                </div>
+
                 
                 {/* 지도를 강제로 닫고 일반 채팅 화면으로 돌아가기 버튼 */}
                 <button
@@ -261,6 +283,42 @@ rounded-full font-medium shadow-inner
                   지도 닫기 (채팅만 보기)
                 </button>
               </div>
+{/* 마커 범례 안내 (다음맵 등록 vs 미등록 아이콘 구분) */}
+<div className="flex space-x-4 mb-4 p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-600 shadow-sm">
+  
+  <div className="flex items-center space-x-1.5">
+    <span className="text-base">🔵</span>
+    <span className="font-semibold text-blue-700">
+    다음맵 등록 업체 (공식 핀)  
+    </span>
+  </div>
+
+  <div className="flex items-center space-x-1.5">
+    <span className="text-base"></span>
+    <span className="font-semibold text-orange-600">
+    미등록/AI 추천 업체 (커스텀 아이콘)
+    </span>    
+  </div>
+</div>
+
+{/* 백앤드에서 받아온 places배열 데이터 기반으로 등록 */}
+<div className="flex-1 space-y-3">
+  {places.length > 0 ? (
+    places.map((place, index) =>(
+    <div key={index} className="p-4 bg-white reounded-xl border border-slate-200 shadow-sm hover:shadow-md transition flex items-start space-x-3 text-left">
+      <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-lg shadow-sm 
+        ${
+          place.is_registered
+? "bg-blue-100 text-blue-600 border border-blue-300"
+: "bg-orange-100 text-orange-600 border border-orange-300"
+        }`}>
+        {places.is_registered ? "🔵" : "🟠"}
+      </div>
+    </div>
+    ))
+  ):()}
+</div>
+
             </div>
           )}
 
