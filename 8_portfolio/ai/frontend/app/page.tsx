@@ -294,7 +294,7 @@ rounded-full font-medium shadow-inner
   </div>
 
   <div className="flex items-center space-x-1.5">
-    <span className="text-base"></span>
+    <span className="text-base">🟠</span>
     <span className="font-semibold text-orange-600">
     미등록/AI 추천 업체 (커스텀 아이콘)
     </span>    
