@@ -312,7 +312,7 @@ rounded-full font-medium shadow-inner
 ? "bg-blue-100 text-blue-600 border border-blue-300"
 : "bg-orange-100 text-orange-600 border border-orange-300"
         }`}>
-        {places.is_registered ? "🔵" : "🟠"}
+        {place.is_registered ? "🔵" : "🟠"}
       </div>
 
 <div className="flex-1">

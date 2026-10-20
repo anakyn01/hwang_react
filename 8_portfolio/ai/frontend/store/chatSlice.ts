@@ -5,7 +5,6 @@ Redux Toolkit을 사용하여
 */
 import {createSlice, PayloadAction
     } from "@reduxjs/toolkit"
-import { createCombinedPayloadAtDepth } from "next/dist/server/app-render/instant-validation/instant-validation";
 //메시지 데이터 타입 정의
 interface Message {
 id:number; text:string;
