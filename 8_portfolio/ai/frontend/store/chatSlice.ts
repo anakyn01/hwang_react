@@ -31,6 +31,8 @@ inputText:string;
 isLoading:boolean;
 showMap:boolean;
 places:PlaceInfo[];
+mobileView:"chat" | "map";
+selectedDistrict:string;//선택된 구에 전역상태
 }  
 
 //초기 상태값 설정
@@ -46,6 +48,8 @@ const initialState: ChatState = {
     isLoading: false,
     showMap: false,
     places:[],
+    mobileView:"chat",
+    selectedDistrict:"노원구",
 };
 
 export const chatSlice = createSlice({
@@ -71,11 +75,25 @@ state.messages.push(action.payload);
 setPlaces:(state, action:PayloadAction<PlaceInfo[]>) => {
 state.places = action.payload;
 },
+setMobileView:(state, action:PayloadAction<"chat" | "map">) => {
+state.mobileView = action.payload;
+},
+setSelectedDistrict:(state, action:PayloadAction<string>) => {
+state.selectedDistrict=action.payload;
+},
 },   
 });
 
 // 컴포넌트에서 dispatch할 수 있도록 액션 내보내기
-export const {setInputText, setIsLoading, setShowMap, addMessage, setPlaces} =chatSlice.actions;
+export const {
+    setInputText, 
+    setIsLoading, 
+    setShowMap, 
+    addMessage, 
+    setPlaces,
+    setMobileView,
+    setSelectedDistrict
+} =chatSlice.actions;
 
 // 스토어 등록을 위한 리듀서 내보내기
 export default chatSlice.reducer;

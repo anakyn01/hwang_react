@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import List, Optional
 from dotenv import load_dotenv
 
-from app import ai_reply
+#from app import ai_reply
 
 # [수정 1] 불필요하게 자동완성된 from groq.types.chat import chat_completion 제거
 
