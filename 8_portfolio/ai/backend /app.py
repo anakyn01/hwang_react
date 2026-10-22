@@ -3,81 +3,142 @@ import time
 
 st.set_page_config(
     page_title="AI",
-    page_icon="",
+    page_icon="🤖",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
 # css
 st.markdown("""
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <style>
-    /* 전체 배경 및 폰트 컬러 통일 */
+header[data-testid="stHeader"]{
+background:transparent !important;
+}
+.block-container{
+padding-top:2.5rem !important;
+padding-bottom:2rem !important;
+max-width:1360px !important;
+}
+
     .stApp {
-        background: linear-gradient(135deg, #0a0e17 0%, #111827 50%, #0d111a 100%);
-        color: #e2e8f0;
+        background: linear-gradient(135deg, #0a0e17 0%, #111827 50%, #0d111a 100%) !important;
+        color: #f8fafc !important;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
+    div[data-testid="stHorizontalBlock"]{
+    align-items:center !important;
+    }
+    div[data-testid="stSelectbox"],
+    div[data-testid="stTextInput"],
+    div[data-testid="stFormSubmitButton"],
+    div.stButton{
+    margin-bottom:0px !important;
+    padding-bottom:0px !important;
+    }
+    div[data-testid="stSelectbox"] > div,
+    div[data-testid="stTextInput"] > div{
+    margin-bottom:0px !important;
+    }
     
-    /* 상단 헤더 글래스모피즘 박스 */
-    .custom-header {
-        background: rgba(23, 34, 59, 0.6);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 16px 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    div[data-baseweb="select"] > div{
+    background:#17223b !important;
+    border:1px solid rgba(255,255,255, 0.15) !important;
+    border-radius: 1rem !important;
+    height:50px !important;
+    min-height:50px !important;
+    padding:0 16px !important;
+    box-sizing:border-box !important;
+    display:flex !important;
+    align-items:center !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+    }
+    div[data-baseweb="select"] span,
+    div[data-baseweb="select"] div{
+    color:#fde047 !important;
+    font-weight:700 !important;
+    font-size:14px !important;
+    }
+    div[data-baseweb="select"] svg{
+    fill: #fde047 !important;
+    }
+    div[data-baseweb="popover"]ul{
+    background-color:#131b2e !important;
+    border:1px solid rgba(255,255,255,0.15) !important;
+    border-radius:0.75rem !important;
+    }
+    div[data-baseweb="popover"]li{
+    color:#f8fafc !important;
+    }
+    div[data-baseweb="popover"]li:hover{
+    background-color:#1e2c4f !important;
+    color:#fde047 !important;
+    }
+    
+    div[data-testid="stVerticalBlockBorderWrapper"]{
+    background-color: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(12px) !important;
+    border:1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius:1rem !important;
+    padding:1.25rem !important;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35) !important;
+    }
+    
+    div[data-testid="stForm"]{
+    border:none !important;
+    padding:0 !important;
+    margin-top: 12px !important;
+    background: transparent !important;
+    }
+    
+    div[data-baseweb="input"]{
+    background-color: #131b2e !important;
+    border:1px solid rgba(255,255,255, 0.15) !important;
+    border-radius:1rem !important;
+    height:50px !important;
+    padding:0 18px !important;
+    display:flex !important;
+    align-items:center !important;
+    box-shadow: 0 0 0 2px rgba(253, 224, 71, 0.25) !important;
+    }
+    div[data-baseweb="input"]:focus-within{
+    border-color: #fde047 !important;
+    box-shadow: 0 0 0 2px rgba(253, 224, 71, 0.25) !important;
+    }
+    div[data-baseweb="base-input"]{
+    background-color: transparent !important;
+    }
+    div[data-baseweb="input"] input{
+    background-color: transparent !important;
+    color: #fff !important;
+    font-size:14px !important;
+    height:50px !important;
+    padding:0 !important;
+    }
+    div[data-baseweb="input"] input::placeholder{
+    color:#94a3b8 !important;
+    opacity:1 !important;
+    }
+    div[data-testid="stFormSubmitButton"] button,
+    div.stButton > button{
+    
+    background-color:#fde047 !important;
+    border:none !important;
+    border-radius:1rem !important;
+    height:50px !important;
+    min-height:50px !important;
+    width:100% !important;
+    display:flex !important;
+    align-items:center !important;
+    box-shadow:0 4px 14px rgba(253,224, 71, 0.3) !important;
+    transition:all 0.2s ease !important;
     }
 
-    /* 토스트 형태의 장소 카드 스타일 */
-    .place-card {
-        background: rgba(23, 34, 59, 0.7);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 16px;
-        margin-bottom: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-    }
-    .place-card:hover {
-        background: rgba(23, 34, 59, 0.9);
-    }
-
-    /* 전송 버튼을 노란색/크림 계열로 커스텀 */
-    .stButton button {
-        background-color: #fde047 !important;
-        color: #0d111a !important;
-        font-weight: bold !important;
-        border-radius: 16px !important;
-        border: none !important;
-        padding: 0.6rem 1.2rem !important;
-        box-shadow: 0 4px 12px rgba(253, 224, 71, 0.2);
-        transition: all 0.2s ease;
-    }
-    .stButton button:hover {
-        background-color: #facc15 !important;
-    }
-
-    /* 입력창(Text Input) 글래스모피즘 적용 */
-    .stTextInput input {
-        background-color: rgba(13, 17, 26, 0.8) !important;
-        color: #e2e8f0 !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 16px !important;
-        padding: 12px !important;
-    }
-    .stTextInput input:focus {
-        border-color: #fde047 !important;
-        box-shadow: 0 0 0 2px rgba(253, 224, 71, 0.2) !important;
-    }
     </style>
 """, unsafe_allow_html=True)
 
-#3. 세션상태 초기화
+# 3. 세션상태 초기화
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "assistant", "content": "안녕하세요! 지역 맛집이나 학원을 물어보세요. AI 어시스턴트입니다!"}
@@ -92,7 +153,7 @@ if "selected_district" not in st.session_state:
 if "places" not in st.session_state:
     st.session_state.places = []
 
-#4. 상단 레이아웃 구성
+# 4. 상단 레이아웃 구성
 col_logo, col_select, col_badge = st.columns([2.5, 1.2, 1.3])
 
 with col_logo:
@@ -129,21 +190,21 @@ with col_badge:
     """, unsafe_allow_html=True)
 
 st.markdown("<hr style='border: 0; height: 1px; background: rgba(255,255,255,0.05); margin: 10px 0 20px 0;'>",
-                unsafe_allow_html=True)
+            unsafe_allow_html=True)
 
-#5 중앙 메인 레이아웃
+# 5 중앙 메인 레이아웃
 if st.session_state.show_map:
     chat_col, map_col = st.columns([1, 1], gap="medium")
 else:
     chat_col = st.container()
 
-#좌측영역
+# 좌측영역
 with (chat_col if not st.session_state.show_map else chat_col):
     chat_container = st.container(height=500)
     with chat_container:
-        #기존 대화 기록 순회 출력
+        # 기존 대화 기록 순회 출력
         for message in st.session_state.messages:
-            with st.chat_message(message["role"], avatar="" if message["role"] == "assistant" else "👤"):
+            with st.chat_message(message["role"], avatar="🤖" if message["role"] == "assistant" else "👤"):
                 st.markdown(message["content"])
     # 하단 입력 폼 (텍스트 입력 및 전송 버튼)
     with st.form(key="chat_form", clear_on_submit=True):
@@ -158,11 +219,11 @@ with (chat_col if not st.session_state.show_map else chat_col):
             submit_btn = st.form_submit_button("전송")
         # 전송 버튼 클릭 시 동작 로직
         if submit_btn and user_input.strip():
-            #1 사용자 질문 세션에 추가
+            # 1 사용자 질문 세션에 추가
             st.session_state.messages.append({"role": "user", "content": user_input})
             # 2. 키워드 분석을 통해 지도 모드 판단
             lower_q = user_input.lower()
-            is_location = any(k in lower_q for k in["맛집", "학원", "식당", "카페", "추천", "근처"])
+            is_location = any(k in lower_q for k in ["맛집", "학원", "식당", "카페", "추천", "근처"])
             st.session_state.show_map = is_location
 
             # 3. AI 응답 생성 시뮬레이션 (실제 구현 시 Groq API 연동 가능)
@@ -192,22 +253,22 @@ with (chat_col if not st.session_state.show_map else chat_col):
                     st.session_state.places = []
 
             #  AI 답변 세션에 추가 후 새로고침
-            st.session_state.messages.append({"role":"assistant","content":ai_reply})
+            st.session_state.messages.append({"role": "assistant", "content": ai_reply})
             st.rerun()
-#우측영역
+# 우측영역
 if st.session_state.show_map:
     with map_col:
         st.markdown(f"""
 <div style="background: rgba(13, 17, 26, 0.8); backdrop-filter: blur(12px); border-radius: 16px; padding: 16px; height: 570px; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); position: relative; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.4);">
-                
-                
+
+
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; z-index: 10;">
                     <div style="background: rgba(15, 23, 42, 0.8); padding: 8px 14px; border-radius: 12px; font-size: 12px; font-weight: bold; color: #fff; border: 1px solid rgba(255,255,255,0.1);">
                         📍 {st.session_state.selected_district} 추천 장소 지도
                     </div>
                 </div>
-                
-                
+
+
                 <div style="position: absolute; inset: 0; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(10,14,23,0.9) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1;">
                     <div style="font-size: 48px; margin-bottom: 8px; animation: pulse 2s infinite;">🗺️</div>
                     <div style="font-size: 11px; font-family: monospace; color: #93c5fd; background: rgba(19, 27, 46, 0.9); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
@@ -220,7 +281,7 @@ if st.session_state.show_map:
             st.session_state.show_map = False
             st.rerun()
 
-        #토스트 형태의 장소 카드리스트 렌더링 영역
+        # 토스트 형태의 장소 카드리스트 렌더링 영역
         st.markdown(
             "<div style='position: relative; z-index: 10; flex: 1; overflow-y: auto; margin-top: 10px; padding-right: 4px;'>",
             unsafe_allow_html=True)
@@ -254,6 +315,7 @@ if st.session_state.show_map:
             """, unsafe_allow_html=True)
 
         st.markdown("</div></div>", unsafe_allow_html=True)
+
 
 
 
