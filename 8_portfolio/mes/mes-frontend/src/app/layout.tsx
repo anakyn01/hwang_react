@@ -3,7 +3,7 @@ import "@/globals.css";
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./lib/registry";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
-
+import {ReduxProvider} from "@/store/ReduxProvider";
 import * as S from '@/assets/css/LayoutWrapper.style';
 import ConditionalLayout from "@/components/ConditionalLayout";
 
@@ -25,11 +25,11 @@ export default function RootLayout({ children,
       <StyledComponentsRegistry>
           <ThemeProviderWrapper>
           
-          
+          <ReduxProvider>
             <ConditionalLayout>
             {children}
             </ConditionalLayout>
-           
+          </ReduxProvider>
         
           </ThemeProviderWrapper>
         </StyledComponentsRegistry>

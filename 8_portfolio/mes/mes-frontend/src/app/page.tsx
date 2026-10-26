@@ -2,6 +2,8 @@
 import {useState} from "react";
 import axios from "axios";
 import { useRouter} from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setLogin } from "@/store/authSlice";
 
 
 //import type {Metadata} from "next";
@@ -14,7 +16,7 @@ import { AlertModal } from "@/components/modal/AlertModal"; // 💡 알림 모�
 
 export default function Home() {
 const router = useRouter();
-
+const dispatch = useDispatch();
 //1. 로그인 폼 상태 관리
 const [formData, setFormData] = useState({
   email:"", password:"",
@@ -54,12 +56,12 @@ try{
     email, password,
   });
 
-  if(response.data.success){
+  if(response.status === 200){
     //alert("로그인 성공 !");
-
+const token = response.data.token;
     // 서버에서 발급한 JWT 토큰을 로컬 스토리지에 저장
-    localStorage.setItem("token", response.data.token);
-
+    dispatch(setLogin(token));
+axios.defaults.headers.common["Authorization"]=`Bearer ${token}`;
     //
 setAlertMessage("로그인 성공 !");
 setIsLoginSuccess(true);

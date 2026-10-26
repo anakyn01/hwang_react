@@ -3,6 +3,8 @@
 import {useState} from "react";
 import axios from "axios";
 import { useRouter} from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setLogin } from "@/store/authSlice";
 import Script from "next/script";
 import * as S from "@/assets/css/Style.style";
 import { AlertModal } from "@/components/modal/AlertModal";
@@ -36,6 +38,8 @@ declare global{
 
 export default function Member(){
     const router = useRouter();
+    const dispatch = useDispatch();
+
 const [formData, setFormData] = useState<FormData>({
 firstName: "",
 lastName : "",
@@ -105,12 +109,25 @@ async (e:React.FormEvent<HTMLFormElement>) => {
     try{
 const response =
 await axios.post("http://localhost:4000/api/auth/register", formData);
-if(response.data.success){
+if(response.status === 200 || response.status === 201){
     /*alert("회원가입이 완료되었습니다!");
     router.push("/");*/
+
 setAlertMessage("회원가입이 완료되었습니다!");
+
+const token = 
+response.data.token;
+if(token){
+dispatch(setLogin({token}));
+axios.defaults.headers.common["Authorization"]=
+`Bearer ${token}`;
 setIsRegisterSuccess(true);
 setIsAlertOpen(true);
+}else{
+router.push("/");
+}
+
+
 }    
 
 }catch(error: any){
