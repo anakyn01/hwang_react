@@ -4,6 +4,12 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 interface AuthState{
     token: string | null; //JWT 토큰 문자열이 들어가거나 없으면 null
     isAuthenticated:boolean; //로그인 여부를 나타내는 불리언 값
+    userInfo:{
+    email:string;
+    firstName:string;
+    lastName:string;
+    companyName:string;    
+    } | null;
 }
 
 /*
@@ -20,6 +26,7 @@ const initialState: AuthState = {
     // 토큰 존재 여부를 판별하여 초기 로그인 상태(true/false)를 결정
     isAuthenticated: typeof window !== 
     "undefined" ? !!localStorage.getItem("token") : false,
+    userInfo:null,
 };
 
 //인증 관련 전역 상태와 
@@ -29,16 +36,20 @@ export const authSlice = createSlice({
     initialState,
     reducers:{// 상태를 변경하는 함수(액션)들을 정의하는 객체
         //로그인 성공
-        setLogin:(state, action:PayloadAction<string>) => {
-            state.token = action.payload;
+        setLogin:(state, action:PayloadAction<{token:string; userInfo?:any}>) => {
+            state.token = action.payload.token;
             state.isAuthenticated = true;
-            localStorage.setItem("token", action.payload);
+            if (action.payload.userInfo){
+                state.userInfo = action.payload.userInfo;
+            }
+            localStorage.setItem("token", action.payload.token);
         },
         //로그아웃
         setLogout:(state) => {
             state.token=null;
-            state.isAuthenticated = false;            
-            localStorage.removeItem
+            state.isAuthenticated = false; 
+            state.userInfo = null;           
+            localStorage.removeItem("token");
         },
     },
 });

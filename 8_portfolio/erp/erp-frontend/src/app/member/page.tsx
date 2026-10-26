@@ -3,6 +3,10 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+//
+import { useDispatch } from "react-redux";
+import { setLogin } from "@/store/authSlice";
+
 import Script from "next/script";
 import * as S from "@/assets/css/Style.style";
 
@@ -36,6 +40,8 @@ declare global {
 
 export default function Member() {
     const router = useRouter();
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState<FormData>({
         firstName: "",
         lastName: "",
@@ -101,11 +107,28 @@ export default function Member() {
 
         try {
             // Spring Boot 서버로 POST 요청 (CORS 설정 및 포트에 맞게 URL 수정 필요)
-            const response = await axios.post("http://127.0.0.1:8080/api/members/register", formData);
+            const response = 
+            await axios.post("http://127.0.0.1:8080/api/members/register", formData);
             
             if (response.status === 200 || response.status === 201) {
                 alert("회원가입이 완료되었습니다!");
-                router.push("/"); // 로그인 페이지로 이동
+
+//만약 백엔드에서 가입과 동시에 토큰을 내려준다면 바로 전역 상태(Redux)에 저장
+const token = 
+response.data.token;
+if(token){
+    dispatch(setLogin({token}));
+    axios.defaults.headers.common["Authorization"]=
+    `Bearer ${token}`;
+    router.push("/dashboard"); // 로그인 페이지로 이동
+} else {
+    router.push("/");//토큰이 없다면 로그인 페이지로 이동
+}
+
+
+
+
+                
             }
         } catch (error) {
             console.error("회원가입 에러:", error);
