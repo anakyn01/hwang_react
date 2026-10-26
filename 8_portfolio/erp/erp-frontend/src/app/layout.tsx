@@ -5,6 +5,9 @@ import StyledComponentsRegistry from "./lib/registy";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
 // 💡 방금 만든 조건부 레이아웃 컴포넌트를 불러옵니다
 import ConditionalLayout from "@/components/ConditionalLayout";
+import { ReduxProvider } from "@/store/ReduxProvider";
+
+
 
 export const metadata: Metadata = {
 title: {
@@ -30,11 +33,11 @@ export default function RootLayout({ children }: Readonly<{children:React.ReactN
 <body className="h-full m-0 bg-gray-50 text-gray-900 antialiased">
         {/*<StyledComponentsRegistry>
           <ThemeProviderWrapper>*/}
-     
-          <ConditionalLayout>
-          {children}
-          </ConditionalLayout>
-     
+          <ReduxProvider>
+                <ConditionalLayout>
+                {children}
+                </ConditionalLayout>
+          </ReduxProvider>
           {/*</ThemeProviderWrapper>
         </StyledComponentsRegistry>*/}
 

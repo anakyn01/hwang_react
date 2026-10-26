@@ -5,7 +5,11 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { AlertModal } from "@/components/modal/AlertModal";
 
-import type { Metadata } from "next";
+//전역상태 관리시에
+import { useDispatch } from "react-redux";
+import { setLogin } from "@/store/authSlice";
+
+
 import * as S from "@/assets/css/Style.style";
 
 /*export const metadata: Metadata = {
@@ -15,6 +19,8 @@ import * as S from "@/assets/css/Style.style";
 export default function Home() {
 
   const router = useRouter();
+  //
+  const dispatch = useDispatch();
   
   // 입력값 상태 관리
   const [email, setEmail] = useState("");
@@ -40,10 +46,12 @@ password,
 if (response.status === 200) {
         // 1. 백엔드에서 발급한 JWT 토큰을 localStorage에 저장
         const token = response.data.token;
-        localStorage.setItem("token", token);
+        //localStorage.setItem("token", token);
+        dispatch(setLogin(token));
 
         // 2. 이후 모든 axios 요청 헤더에 JWT 토큰을 자동 포함하도록 설정
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.defaults.headers.common["Authorization"] = 
+        `Bearer ${token}`;
 
         //alert("로그인 성공!");
         setModalMessage("로그인 성공");
@@ -79,7 +87,7 @@ const handleCloseModal = () => {
               id="exampleInputEmail" 
               placeholder="Enter Email Address..." 
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e:any) => setEmail(e.target.value)}
               required
             />
             
@@ -88,7 +96,7 @@ const handleCloseModal = () => {
               id="exampleInputPassword" 
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e:any) => setPassword(e.target.value)}
               required
             />
             
