@@ -133,14 +133,6 @@ background-color: #facc15 !important;
 transform: translateY(-1px);
 }
 
-
-.bs-glass-box {
-background: #17223b;
-border: 1px solid rgba(255, 255, 255, 0.15);
-border-radius: 1rem;
-height: 50px;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
 .bs-chat-bubble-ai {
 background: #17223b;
 border: 1px solid rgba(255, 255, 255, 0.1);
@@ -206,6 +198,7 @@ font-size:11px;
 .fs13{
 font-size:13.5px;
 }
+.fs13y{color: #fde047; font-size: 13px;}
 .fs15{
 font-size:15px;
 }
@@ -233,4 +226,53 @@ background: #0f172a;
 }
 .mt12{
     margin-top:12px;
+}
+/* 상단 헤더의 컬럼 전체 수직 중앙 정렬 강제 */
+div[data-testid="stHorizontalBlock"] {
+    align-items: center !important;
+}
+/* ★ 상단 헤더 컬럼들의 수직 정렬 및 셀렉트박스 불필요한 상단 여백 제거 */
+div[data-testid="stHorizontalBlock"] > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 셀렉트박스 컨테이너 자체를 50px 높이의 플렉스 박스로 고정하여 배지와 높이 일치 */
+div.stSelectbox {
+    height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 0px !important;
+}
+
+div.stSelectbox > div[data-baseweb="select"] {
+    background-color: #17223b !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 1rem !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* 상태 배지(.bs-glass-box)와 높이(50px) 및 정렬 완벽 동기화 */
+.bs-glass-box {
+    background: #17223b;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 1rem;
+    height: 50px !important;
+    min-height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.mt10{
+margin-top:-15px !important;
+}
+.mt10up{
+margin-top:4px !important;
 }

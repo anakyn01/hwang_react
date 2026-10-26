@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="bs-glass-box d-flex align-items-center justify-content-center px-3 fw-bold fs13y mt10" >
+{% if show_map %}
+<i class="fa-solid fa-map me-2"></i><span>지도 연동 활성화</span>
+{% else %}
+<div class="mt10up">
+<i class="fa-solid fa-comments me-2"></i><span>AI 대화 모드</span>
+</div>
+{% endif %}
+</div>

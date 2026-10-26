@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% if role == "assistant" %}
+<div class="d-flex align-items-end gap-2 mb-3 justify-content-start">
+    <div class="d-flex align-items-center justify-content-center rounded-3 shadow-sm">
+        <i class="fa-solid fa-robot fs15"></i>
+    </div>
+    <div class="bs-chat-bubble-ai mw82">
+        {{ content|safe}}
+    </div>
+</div>
+{% else %}
+<div class="d-flex align-items-end gap-2 mb-3 justify-content-end">
+    <div class="bs-chat-bubble-user mw82">
+        {{ content|safe}}
+    </div>
+</div>
+{% endif %}
