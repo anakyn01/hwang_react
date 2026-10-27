@@ -1,7 +1,11 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../store/store';
+import { loadUserFromStorage, logoutUser } from '../redux/userSlice';
+
 import * as S from '../../css/style.styles';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -25,33 +29,22 @@ import {
 } from '@mui/icons-material';
 
 export default function MyPage(){
-    // 💡 1. 토큰 유무로 진짜 로그인 상태를 관리합니다.
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    // 💡 2. 닉네임 기본값을 설정합니다.
-    const [nickname, setNickname] = useState('회원');
+    const dispatch = useDispatch<AppDispatch>();
+
+    // Redux Store 상태 조회
+    const { isLoggedIn, nickname } = useSelector((state: RootState) => state.user);
 
     useEffect(() => {
-        // 로컬 스토리지에서 'token' 확인
-        const token = localStorage.getItem('token');
-        if (token) {
-            setIsLoggedIn(true);
-        }
-
-        // 💡 로컬 스토리지에서 'nickname'을 꺼내서 상태(State)에 넣어줍니다.
-        const storedNickname = localStorage.getItem('nickname');
-        if (storedNickname) {
-            setNickname(storedNickname);
-        }
-    }, []);
+        // 컴포넌트 마운트 시 로컬스토리지에서 유저 정보 로드
+        dispatch(loadUserFromStorage());
+    }, [dispatch]);
 
     // 로그아웃 기능
     const handleLogout = () => {
-        localStorage.removeItem('token'); 
-        localStorage.removeItem('nickname'); // 💡 로그아웃 시 닉네임도 싹 지워줍니다.
-        setIsLoggedIn(false);
+        dispatch(logoutUser());
         alert('로그아웃 되었습니다');
         window.location.href = "/login";
-    }
+    };
 
     return(
         <>
@@ -88,7 +81,6 @@ export default function MyPage(){
                 <S.LoginLayout>
                     <S.List>
                         <S.H3Size16>마이메뉴</S.H3Size16>
-                        {/* 💡 3. 로그인이 안 되어 있을 때(!isLoggedIn)만 '로그인' 리스트를 보여줍니다. */}
                         {!isLoggedIn && (
                             <ListItem icon={<PersonIcon sx={{color:'#666'}}/>} text="로그인" link="/login" />
                         )}

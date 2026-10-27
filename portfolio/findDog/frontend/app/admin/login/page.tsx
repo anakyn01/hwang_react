@@ -1,26 +1,24 @@
 'use client';
 
-import React, { useState} from "react";
-import { useRouter} from 'next/navigation';
-import Link from 'next/link';
+import React from "react";
+import { useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { setAdminEmail, setAdminPassword, submitAdminLogin } from '../../redux/adminLoginSlice';
 
-import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import * as S from '../DashBoard.styled';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 
-// 💡 3. Next.js 페이지는 기본적으로 export default function 형태로 내보내야 합니다.
 export default function LoginPage() {
-    
-    // 💡 4. useNavigate() 대신 useRouter()를 사용합니다.
     const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>();
 
-    // 사용자가 입력할 이메일과 비밀번호를 담을 바구니(상태)를 만듭니다.
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // Redux Store 상태 조회
+    const { email, password, isLoading } = useSelector((state: RootState) => state.adminLogin);
 
-    // 로그인 버튼을 누를때 실행되는 함수
+    // 로그인 버튼을 누를 때 실행되는 함수
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
@@ -29,25 +27,14 @@ export default function LoginPage() {
             return;
         }
         
-        try {
-            const response = await axios.post('http://localhost:8080/api/admin/login', {
-                email, password
-            },{ withCredentials:true});
-            
-            alert(`${response.data.name}님, ${response.data.message}`);
+        const resultAction = await dispatch(submitAdminLogin({ email, password }));
 
-            // 로그인 후 저장된 이름이 보이게 브라우저 저장소(localStorage)에 저장
-            localStorage.setItem('userName', response.data.name);
-
-            // 💡 5. navigate('/admin') 대신 router.push('/admin')으로 이동합니다.
+        if (submitAdminLogin.fulfilled.match(resultAction)) {
+            const data = resultAction.payload;
+            alert(`${data.name}님, ${data.message}`);
             router.push('/admin');
-            
-        } catch (error: any) {
-            if (error.response && error.response.data) {
-                alert(error.response.data.message);
-            } else {
-                alert('로그인중 오류가 발생했습니다');
-            }
+        } else {
+            alert(resultAction.payload || '로그인 중 오류가 발생했습니다');
         }
     };
 
@@ -75,7 +62,7 @@ export default function LoginPage() {
                                                                 className="form-control-user"
                                                                 placeholder="Enter Email Address..."
                                                                 value={email}
-                                                                onChange={(e) => setEmail(e.target.value)}
+                                                                onChange={(e) => dispatch(setAdminEmail(e.target.value))}
                                                                 required
                                                             />
                                                         </div>
@@ -86,7 +73,7 @@ export default function LoginPage() {
                                                                 className="form-control-user"
                                                                 placeholder="Password"
                                                                 value={password}
-                                                                onChange={(e) => setPassword(e.target.value)}
+                                                                onChange={(e) => dispatch(setAdminPassword(e.target.value))}
                                                                 required
                                                             />
                                                         </div>
@@ -110,13 +97,14 @@ export default function LoginPage() {
                                                                     variant="primary"
                                                                     type="submit"
                                                                     className="btn-user btn-block w-100 my-3"
+                                                                    disabled={isLoading}
                                                                 >
-                                                                    Login
+                                                                    {isLoading ? '로그인 중...' : 'Login'}
                                                                 </Button>
 
                                                                 <Button
                                                                     variant="primary"
-                                                                    type="submit"
+                                                                    type="button"
                                                                     className="btn-user btn-google btn-block w-100 mb-2"
                                                                 >
                                                                     <FontAwesomeIcon icon={faGoogle} className="fa-fw" />
@@ -125,7 +113,7 @@ export default function LoginPage() {
 
                                                                 <Button
                                                                     variant="primary"
-                                                                    type="submit"
+                                                                    type="button"
                                                                     className="btn-user btn-facebook btn-block w-100 mb-2"
                                                                 >
                                                                     <FontAwesomeIcon icon={faFacebookF} className="fa-fw" />
@@ -145,5 +133,5 @@ export default function LoginPage() {
                 </Container>
             </S.Background>
         </>
-    )
+    );
 }
