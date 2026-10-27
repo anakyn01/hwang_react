@@ -1,0 +1,48 @@
+{
+  "name": "ruamel.yaml.clib",
+  "version": "0.2.14",
+  "build": "py313hb9a58be_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "ruamel.yaml.clib-0.2.14-py313hb9a58be_0.conda",
+  "md5": "cac6a4b727d18eb086ea401e817043af",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/ruamel.yaml.clib-0.2.14-py313hb9a58be_0.conda",
+  "sha256": "3ca28bf6841518b5004d899bd726b3f0230fd1ebfee34a9c336e6dc0cb41523c",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1762530153000,
+  "size": 108685,
+  "requested_spec": "pkgs/main/win-64::ruamel.yaml.clib==0.2.14=py313hb9a58be_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\ruamel.yaml.clib-0.2.14-py313hb9a58be_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\ruamel.yaml.clib-0.2.14-py313hb9a58be_0",
+  "files": [
+    "Lib/site-packages/_ruamel_yaml.cp313-win_amd64.pyd",
+    "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/INSTALLER",
+    "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/METADATA",
+    "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/RECORD",
+    "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/REQUESTED",
+    "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/WHEEL",
+    "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/direct_url.json",
+    "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/licenses/LICENSE",
+    "Lib/site-packages/ruamel_yaml_clib-0.2.14.dist-info/top_level.txt"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\ruamel.yaml.clib-0.2.14-py313hb9a58be_0",
+    "type": 1
+  }
+}

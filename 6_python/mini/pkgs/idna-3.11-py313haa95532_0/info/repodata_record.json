@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "idna-3.11-py313haa95532_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "426a9add5ed691e72c893059ee0485fd",
+  "name": "idna",
+  "platform": "win32",
+  "sha256": "8264d301462d3eb44c813da4c4e092fc2f32b257ef5692a00573ac4c0346d920",
+  "size": 203986,
+  "subdir": "win-64",
+  "timestamp": 1761912082000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/idna-3.11-py313haa95532_0.conda",
+  "version": "3.11"
+}

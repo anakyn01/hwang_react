@@ -1,0 +1,15 @@
+Lib/site-packages/typing_inspection-0.4.2.dist-info/INSTALLER
+Lib/site-packages/typing_inspection-0.4.2.dist-info/METADATA
+Lib/site-packages/typing_inspection-0.4.2.dist-info/RECORD
+Lib/site-packages/typing_inspection-0.4.2.dist-info/REQUESTED
+Lib/site-packages/typing_inspection-0.4.2.dist-info/WHEEL
+Lib/site-packages/typing_inspection-0.4.2.dist-info/direct_url.json
+Lib/site-packages/typing_inspection-0.4.2.dist-info/licenses/LICENSE
+Lib/site-packages/typing_inspection/__init__.py
+Lib/site-packages/typing_inspection/__pycache__/__init__.cpython-313.pyc
+Lib/site-packages/typing_inspection/__pycache__/introspection.cpython-313.pyc
+Lib/site-packages/typing_inspection/__pycache__/typing_objects.cpython-313.pyc
+Lib/site-packages/typing_inspection/introspection.py
+Lib/site-packages/typing_inspection/py.typed
+Lib/site-packages/typing_inspection/typing_objects.py
+Lib/site-packages/typing_inspection/typing_objects.pyi

@@ -1,0 +1,20 @@
+{
+  "c_stdlib_version": "2022.14",
+  "spdlog": "1",
+  "libmamba": "2.3",
+  "cxx_compiler": "vs2022",
+  "c_stdlib": "vs",
+  "yaml_cpp": "0.8",
+  "c_compiler": "vs2022",
+  "target_platform": "win-64",
+  "reproc": "14",
+  "zstd": "1.5",
+  "bzip2": "1",
+  "simdjson": "3.10",
+  "fmt": "12",
+  "libcurl": "8",
+  "reproc_cpp": "14",
+  "openssl": "3",
+  "channel_targets": "defaults",
+  "libarchive": "3.8"
+}

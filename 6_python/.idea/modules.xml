@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/6_python.iml" filepath="$PROJECT_DIR$/.idea/6_python.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/anaconda-auth.iml" filepath="$PROJECT_DIR$/.idea/anaconda-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/anyio.iml" filepath="$PROJECT_DIR$/.idea/anyio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/click.iml" filepath="$PROJECT_DIR$/.idea/click.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cryptography.iml" filepath="$PROJECT_DIR$/.idea/cryptography.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/example_plugin.iml" filepath="$PROJECT_DIR$/.idea/example_plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pandas.iml" filepath="$PROJECT_DIR$/.idea/pandas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pydantic_core.iml" filepath="$PROJECT_DIR$/.idea/pydantic_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/requests.iml" filepath="$PROJECT_DIR$/.idea/requests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tqdm.iml" filepath="$PROJECT_DIR$/.idea/tqdm.iml" />
+    </modules>
+  </component>
+</project>

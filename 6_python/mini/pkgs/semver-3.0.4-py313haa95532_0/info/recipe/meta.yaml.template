@@ -1,0 +1,55 @@
+{% set name = "semver" %}
+{% set version = "3.0.4" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: afc7d8c584a5ed0a11033af086e8af226a9c0b206f313e0301f8dd7b6b589602
+
+build:
+  skip: true  # [py<37]
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  entry_points:
+    - pysemver = semver.cli:main
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools >=61
+  run:
+    - python
+
+test:
+  source_files:
+    - tests
+  imports:
+    - semver
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
+    - pysemver -h
+
+about:
+  home: https://github.com/python-semver/python-semver
+  license: BSD-3-Clause
+  license_file: LICENSE.txt
+  license_family: BSD
+  summary: Python package to work with Semantic Versioning
+  description: |
+    A Python module for semantic versioning. Simplifies comparing versions.
+  dev_url: https://github.com/python-semver/python-semver
+  doc_url: https://github.com/python-semver/python-semver
+
+extra:
+  recipe-maintainers:
+    - rmax
+    - carlodri

@@ -1,0 +1,110 @@
+{% set version = "0.14.2" %}
+
+package:
+  name: anaconda-cloud-auth-split
+  version: {{ version }}
+
+source:
+  url: https://github.com/anaconda/anaconda-auth/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 043ecbb5de7f1ef13ba3edd001c48c9b51bd9ba4dfdbbe0f70aa3c40fb4910d4
+
+build:
+  number: 0
+  skip: true  # [py<310]
+
+outputs:
+  - name: anaconda-auth
+    build:
+      script:
+        - python -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+        # Do not use python -m ... here to avoid unnecessary imports
+        - python ./src/anaconda_auth/_conda/config.py --install
+      entry_points:
+      - conda-token = anaconda_auth._conda.conda_token:cli
+    requirements:
+      host:
+        - python
+        - hatchling
+        - hatch-vcs >=0.3
+        - pip
+        - setuptools-scm >=7.1
+      run:
+        - python
+        - anaconda-cli-base >=0.8.1
+        - cryptography >=3.4.0
+        - keyring
+        - pkce
+        - pydantic
+        - pyjwt
+        - python-dotenv
+        - requests
+        - semver <4
+        - httpx
+      run_constrained:
+        # Added through past PRs, given upstream maintainer advice
+        - conda >=23.9.0
+        - conda-token >=0.7.0
+        - anaconda-cloud-auth >={{ version }}
+    test:
+      source_files:
+        - pyproject.toml
+      requires:
+        - pip
+        - conda
+      imports:
+        - anaconda_auth
+      commands:
+        - pip check
+        - python -c "from anaconda_auth import __version__; assert __version__ == '{{ version }}'"
+        - python -m anaconda_auth._conda.config --verify
+  - name: anaconda-cloud-auth
+    requirements:
+      host:
+        - python
+        - {{ pin_subpackage("anaconda-auth", exact=True) }}
+      run:
+        - python
+        - {{ pin_subpackage("anaconda-auth", exact=True) }}
+    test:
+      source_files:
+        - pyproject.toml
+      imports:
+        - anaconda_auth
+        - anaconda_cloud_auth
+      requires:
+        - pip
+        - pytest
+        - pytest-mock
+        - responses
+        - types-requests
+        - conda >=23.9.0  # Match with run_constrained above
+      commands:
+        - pip check
+        - anaconda -h
+        - anaconda -V
+        - anaconda cloud --help
+        - anaconda cloud -V
+        - python -c "from anaconda_cloud_auth import __version__; assert __version__ == \"{{ version }}\""
+        - conda-token -h
+        - conda token -h
+
+about:
+  home: https://www.anaconda.com
+  doc_url: https://anaconda.github.io/anaconda-auth/
+  dev_url: https://github.com/anaconda/anaconda-auth
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: A client auth library for Anaconda.cloud APIs
+  description: |
+    A client library for Anaconda.cloud APIs to authenticate and securely store API keys.
+    This package also provides a requests client class that handles loading the API key
+    for requests made to Anaconda Cloud services.
+
+extra:
+  recipe-maintainers:
+    - albertdefusco
+    - mattkram
+  skip-lints:
+    - wrong_output_script_key
+    - host_section_needs_exact_pinnings

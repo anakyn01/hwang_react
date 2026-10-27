@@ -1,0 +1,48 @@
+{
+  "name": "libffi",
+  "version": "3.4.8",
+  "build": "h2b21627_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "libffi-3.4.8-h2b21627_2.conda",
+  "md5": "69ce09a0b01c764627f0f1b0272bad48",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libffi-3.4.8-h2b21627_2.conda",
+  "sha256": "df0ee82af2a982e25d6592fd9dab2e1fcc9314708156888a45f1f5af3c6ce324",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1777296713000,
+  "size": 120596,
+  "requested_spec": "pkgs/main/win-64::libffi==3.4.8=h2b21627_2",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\libffi-3.4.8-h2b21627_2.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\libffi-3.4.8-h2b21627_2",
+  "files": [
+    "Library/bin/ffi-7.dll",
+    "Library/bin/ffi-8.dll",
+    "Library/bin/ffi.dll",
+    "Library/include/ffi.h",
+    "Library/include/ffitarget.h",
+    "Library/lib/ffi.lib",
+    "Library/lib/libffi.dll.lib",
+    "Library/lib/libffi.lib",
+    "Library/lib/pkgconfig/libffi.pc",
+    "Library/share/libffi/libffiTargets-release.cmake",
+    "Library/share/libffi/libffiTargets.cmake"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\libffi-3.4.8-h2b21627_2",
+    "type": 1
+  }
+}

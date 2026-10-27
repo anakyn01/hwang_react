@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "hc89ec93_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "fn": "libiconv-1.18-hc89ec93_0.conda",
+  "license": "LGPL-2.1-only",
+  "md5": "53c556b8109eaab09231874106a025f3",
+  "name": "libiconv",
+  "platform": "win32",
+  "sha256": "73e19e873fad84ca239ccfd53a51830a8004a14b388a9d30a8c09ce3b8b386a2",
+  "size": 703101,
+  "subdir": "win-64",
+  "timestamp": 1771491956000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libiconv-1.18-hc89ec93_0.conda",
+  "version": "1.18"
+}

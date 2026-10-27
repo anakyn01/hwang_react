@@ -1,0 +1,53 @@
+{
+  "name": "more-itertools",
+  "version": "11.0.2",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "more-itertools-11.0.2-py313haa95532_0.conda",
+  "md5": "a9c2f9cee250f2234d101764cc460021",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/more-itertools-11.0.2-py313haa95532_0.conda",
+  "sha256": "01086735ceed2314244ec297539f24f49b1d3a9a3091d250648e85e32f5450a6",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1775819464000,
+  "size": 172450,
+  "requested_spec": "pkgs/main/win-64::more-itertools==11.0.2=py313haa95532_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\more-itertools-11.0.2-py313haa95532_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\more-itertools-11.0.2-py313haa95532_0",
+  "files": [
+    "Lib/site-packages/more_itertools-11.0.2.dist-info/INSTALLER",
+    "Lib/site-packages/more_itertools-11.0.2.dist-info/METADATA",
+    "Lib/site-packages/more_itertools-11.0.2.dist-info/RECORD",
+    "Lib/site-packages/more_itertools-11.0.2.dist-info/REQUESTED",
+    "Lib/site-packages/more_itertools-11.0.2.dist-info/WHEEL",
+    "Lib/site-packages/more_itertools-11.0.2.dist-info/direct_url.json",
+    "Lib/site-packages/more_itertools-11.0.2.dist-info/licenses/LICENSE",
+    "Lib/site-packages/more_itertools/__init__.py",
+    "Lib/site-packages/more_itertools/__init__.pyi",
+    "Lib/site-packages/more_itertools/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/more_itertools/__pycache__/more.cpython-313.pyc",
+    "Lib/site-packages/more_itertools/__pycache__/recipes.cpython-313.pyc",
+    "Lib/site-packages/more_itertools/more.py",
+    "Lib/site-packages/more_itertools/more.pyi",
+    "Lib/site-packages/more_itertools/py.typed",
+    "Lib/site-packages/more_itertools/recipes.py",
+    "Lib/site-packages/more_itertools/recipes.pyi"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\more-itertools-11.0.2-py313haa95532_0",
+    "type": 1
+  }
+}

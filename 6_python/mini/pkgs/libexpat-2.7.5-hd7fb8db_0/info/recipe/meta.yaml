@@ -1,0 +1,67 @@
+# This file created by conda-build 26.1.0
+# ------------------------------------------------
+
+package:
+  name: libexpat
+  version: 2.7.5
+source:
+  url: https://github.com/libexpat/libexpat/releases/download/R_2_7_5/expat-2.7.5.tar.bz2
+  sha256: 386a423d40580f1e392e8b512b7635cac5083fe0631961e74e036b0a7a830d77
+build:
+  number: '0'
+  run_exports:
+    - libexpat >=2.7.5,<3.0a0
+  noarch: false
+  noarch_python: false
+  python_version_independent: false
+  string: hd7fb8db_0
+requirements:
+  build:
+    - vs2022_win-64 19.44.35207 hc920ad0_10
+    - vs_win-64 2022.14 hc920ad0_10
+    - vswhere 3.1.7 haa95532_0
+  run_constrained:
+    - expat 2.7.5.*
+  host:
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+  run:
+    - ucrt >=10.0.20348.0
+    - vc >=14.3,<15
+    - vc14_runtime >=14.44.35208
+test:
+  requires:
+    - pkg-config
+  commands:
+    - if not exist %LIBRARY_BIN%\libexpat.dll exit 1
+about:
+  home: https://libexpat.github.io
+  license: MIT
+  license_family: MIT
+  license_file: COPYING
+  summary: Expat XML parser library in C
+  description: 'Expat is a stream-oriented XML parser library written in C.
+
+    Expat excels with files too large to fit RAM, and where performance
+
+    and flexibility are crucial.
+
+    '
+  dev_url: https://github.com/libexpat/libexpat
+  doc_url: https://libexpat.github.io/doc
+extra:
+  recipe-maintainers:
+    - kwilcox
+    - mingwandroid
+    - msarahan
+    - ocefpaf
+    - pelson
+    - scopatz
+  final: true
+  copy_test_source_files: true
+  remote_url: https://github.com/AnacondaRecipes/expat-feedstock
+  sha: 9bb130168f895a729176b818946295722313a1cb
+  task_id: e3AmnUqsTCavV2EJhXl8rg
+  task_run_id: '0'
+  pbp_graph_uuid: 6260a7fd-2fe3-49aa-9113-ad6647dd4ea6

@@ -1,0 +1,71 @@
+# This file created by conda-build 25.9.0
+# meta.yaml template originally from:
+# C:\Users\task_176829651200310\pywin32-ctypes-feedstock\recipe, last modified Tue Jan 13 09:29:38 2026
+# ------------------------------------------------
+
+package:
+  name: pywin32-ctypes
+  version: 0.2.3
+source:
+  url: https://pypi.org/packages/source/p/pywin32-ctypes/pywin32-ctypes-0.2.3.tar.gz
+  sha256: d162dc04946d704503b2edc4d55f3dba5c1d539ead017afa00142c38b9885755
+build:
+  number: '0'
+  script: C:\\Users\\task_176829651200310\\croot\\pywin32-ctypes_1768296624234\\_h_env\\python.exe
+    -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir
+    -vv
+  string: py313haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.12.2 haa95532_0
+    - libexpat 2.7.3 h885b0b7_4
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - libzlib 1.3.1 h02ab6af_0
+    - openssl 3.0.18 h543e019_0
+    - pip 25.3 pyhc872135_0
+    - python 3.13.11 h260b955_100_cp313
+    - python_abi 3.13 3_cp313
+    - setuptools 80.9.0 py313haa95532_0
+    - sqlite 3.51.1 hda9a48d_0
+    - tk 8.6.15 hf199647_0
+    - tzdata 2025b h04d1e81_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - wheel 0.45.1 py313haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.3.1 h02ab6af_0
+  run:
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+test:
+  imports:
+    - win32ctypes
+  requires:
+    - pip
+    - pytest
+    - pywin32
+  commands:
+    - pip check
+    - pytest --pyargs win32ctypes.tests  --deselect=test_win32cred.py::TestCred::test_enumerate_all
+about:
+  home: https://github.com/enthought/pywin32-ctypes
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE.txt
+  summary: A limited subset of pywin32 re-implemented using ctypes (or cffi)
+  description: 'A reimplementation of pywin32 that is pure python. The default behaviour
+
+    will try to use cffi (>= 1.3.0), if available, and fall back to using ctypes.
+
+    '
+  doc_url: https://pywin32-ctypes.readthedocs.io
+  dev_url: https://github.com/enthought/pywin32-ctypes
+extra:
+  recipe-maintainers:
+    - ccordoba12
+  final: true
+  copy_test_source_files: true

@@ -1,0 +1,36 @@
+{
+  "name": "erp-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@js-temporal/polyfill": "^0.5.1",
+    "@reduxjs/toolkit": "^2.13.0",
+    "axios": "^1.20.0",
+    "bootstrap": "^5.3.8",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "19.2.8",
+    "react-redux": "^9.3.0",
+    "sass": "^1.105.1",
+    "styled-components": "^6.5.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.6.1",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.4",
+    "postcss": "^8.5.30",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5"
+  }
+}

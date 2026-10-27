@@ -1,0 +1,77 @@
+{
+  "paths": [
+    {
+      "_path": "site-packages/conda_anaconda_telemetry-0.3.0.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry-0.3.0.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "0f08c92b3fad865721081f2c8b33a614a2af9cd9a03f2a9e51f5d2bd35b133bc",
+      "size_in_bytes": 3787
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry-0.3.0.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "7022b2a6b4b27b164d942b2c6f30181cb7f94809672834ad0aaa5778cf35b440",
+      "size_in_bytes": 1364
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry-0.3.0.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry-0.3.0.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724",
+      "size_in_bytes": 87
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry-0.3.0.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "9db048b1cb7ae854f3cf77621c4fac3014bb456b9d463a1ad18c7071c2d30951",
+      "size_in_bytes": 84
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry-0.3.0.dist-info/entry_points.txt",
+      "path_type": "hardlink",
+      "sha256": "31162e8ee8e56095821750cf2fcf1d6f40a077dc0bb900134429e9a6b190c1fc",
+      "size_in_bytes": 66
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry-0.3.0.dist-info/licenses/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "9e504431070dd8a4cc8c021042d1bea065a71cae71ba7841e1d26ce7d2596b5a",
+      "size_in_bytes": 1544
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "d09702cb8b481fa9b3f9137be0a7062fe3a711139cd10ecace05ab379834fb28",
+      "size_in_bytes": 983
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry/_version.py",
+      "path_type": "hardlink",
+      "sha256": "006986fcbc74fbdced170ffb77d9986da62e0bed9a6f1135a17394340636f586",
+      "size_in_bytes": 511
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry/hooks.py",
+      "path_type": "hardlink",
+      "sha256": "4654a71f92477b9742f9cbced4cb7e651a38a12709b82e3cc0734570a16e0e44",
+      "size_in_bytes": 9058
+    },
+    {
+      "_path": "site-packages/conda_anaconda_telemetry/py.typed",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    }
+  ],
+  "paths_version": 1
+}

@@ -1,0 +1,39 @@
+import styled from "styled-components";
+import { FlexColumn, W100 } from "./common/Common.style";
+
+export const PageWrapper = styled.div`
+${FlexColumn};
+  min-height: 100vh;
+`;
+
+export const TopArea = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 100;
+`;
+
+export const MainContent = styled.div`
+${W100};
+  display: flex;
+  flex: 1;
+`;
+
+export const LnbWrapper = styled.aside`
+padding-top:40px;
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const ContentArea = styled.main`
+  flex: 1;
+  padding: 32px;
+  background-color: #f8fafc;
+  overflow-y: auto;
+  min-width: 0;
+`;

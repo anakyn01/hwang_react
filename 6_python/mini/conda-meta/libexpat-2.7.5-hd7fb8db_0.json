@@ -1,0 +1,52 @@
+{
+  "name": "libexpat",
+  "version": "2.7.5",
+  "build": "hd7fb8db_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "libexpat-2.7.5-hd7fb8db_0.conda",
+  "md5": "ea2ebdfc4a16a5cbc06d09a374f62f34",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libexpat-2.7.5-hd7fb8db_0.conda",
+  "sha256": "e30d43671816e39e4b1d49120cd25ee0a38080f207bc7e230c8abf4eeae347f5",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "constrains": [
+    "expat 2.7.5.*"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1774555907000,
+  "size": 123312,
+  "requested_spec": "pkgs/main/win-64::libexpat==2.7.5=hd7fb8db_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\libexpat-2.7.5-hd7fb8db_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\libexpat-2.7.5-hd7fb8db_0",
+  "files": [
+    "Library/bin/expat.dll",
+    "Library/bin/libexpat.dll",
+    "Library/include/expat.h",
+    "Library/include/expat_config.h",
+    "Library/include/expat_external.h",
+    "Library/lib/cmake/expat-2.7.5/expat-config-version.cmake",
+    "Library/lib/cmake/expat-2.7.5/expat-config.cmake",
+    "Library/lib/cmake/expat-2.7.5/expat-release.cmake",
+    "Library/lib/cmake/expat-2.7.5/expat.cmake",
+    "Library/lib/expat.lib",
+    "Library/lib/libexpat.lib",
+    "Library/share/doc/expat/AUTHORS",
+    "Library/share/doc/expat/changelog"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\libexpat-2.7.5-hd7fb8db_0",
+    "type": 1
+  }
+}

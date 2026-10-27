@@ -1,0 +1,42 @@
+{
+  "name": "sqlite",
+  "version": "3.51.2",
+  "build": "hee5a0db_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "sqlite-3.51.2-hee5a0db_0.conda",
+  "md5": "b273f421592da633715a1c28058d0ea9",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/sqlite-3.51.2-hee5a0db_0.conda",
+  "sha256": "d9d5f8b3ba4afcf43baca9386ae69f3b7b0f1d30f35ced10bc52d61fe0d1cd28",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "constrains": [],
+  "license": "blessing",
+  "license_family": "Other",
+  "timestamp": 1773313787000,
+  "size": 938682,
+  "requested_spec": "pkgs/main/win-64::sqlite==3.51.2=hee5a0db_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\sqlite-3.51.2-hee5a0db_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\sqlite-3.51.2-hee5a0db_0",
+  "files": [
+    "Library/bin/sqlite3.dll",
+    "Library/bin/sqlite3.exe",
+    "Library/include/sqlite3.h",
+    "Library/include/sqlite3ext.h",
+    "Library/lib/sqlite3.lib"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\sqlite-3.51.2-hee5a0db_0",
+    "type": 1
+  }
+}

@@ -1,0 +1,80 @@
+{% set name = "certifi" %}
+{% set version = "2026.04.22" %}
+{% set normalized_version = ".".join(version.split(".") | map("int") | map("string")) %}
+
+{% set pip_version = "25.0.1" %}
+{% set setuptools_version = "75.8.0" %}
+{% set wheel_version = "0.45.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ normalized_version }}
+
+source:
+  - url: https://github.com/certifi/python-certifi/archive/refs/tags/{{ version }}.tar.gz
+    sha256: b0d792990086c46a5884cf011957c3a01f9139af199eb9f4f7a3c5db228b0edb
+    folder: {{ name }}
+  # Download bootstrapped wheels into their respective source directories
+  - url: https://pypi.org/packages/py3/p/pip/pip-{{ pip_version }}-py3-none-any.whl
+    sha256: c46efd13b6aa8279f33f2864459c8ce587ea6a1a59ee20de055868d8f7688f7f
+    folder: boostrap_wheels
+  - url: https://pypi.org/packages/py3/s/setuptools/setuptools-{{ setuptools_version }}-py3-none-any.whl
+    sha256: e3982f444617239225d675215d51f6ba05f845d4eec313da4418fdbb56fb27e3
+    folder: boostrap_wheels
+  - url: https://pypi.org/packages/py3/w/wheel/wheel-{{ wheel_version }}-py3-none-any.whl
+    sha256: 708e7481cc80179af0e556bbf0cc00b8444c7321e2700b8d8580231d13017248
+    folder: boostrap_wheels
+
+build:
+  number: 0
+  skip: true  # [py<37]
+  script_env:
+    # Add bootstrapped wheels to `PYTHONPATH` so Python can find them for the build
+    - >-
+      PYTHONPATH={{ os.sep.join([SRC_DIR|default("."), "boostrap_wheels"]) ~ os.pathsep ~ os.environ.get("PYTHONPATH", "") }}
+  script:
+    - cd certifi
+    - {{ PYTHON }} -m pip install . --ignore-installed --no-deps --no-build-isolation -vv
+
+requirements:
+  host:
+    - python
+  run:
+    - python
+
+test:
+  source_files:
+    - certifi/certifi/tests
+  imports:
+    - certifi
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ normalized_version }}')"
+    - pytest -vv certifi/certifi/tests
+
+about:
+  home: https://certifi.io
+  license: MPL-2.0
+  license_file: certifi/LICENSE
+  license_family: Other
+  summary: Python package for providing Mozilla's CA Bundle.
+  description: |
+    Certifi is a curated collection of Root Certificates for validating the
+    trustworthiness of SSL certificates while verifying the identity of TLS
+    hosts.
+  doc_url: https://github.com/certifi/python-certifi/blob/master/README.rst
+  dev_url: https://github.com/certifi/python-certifi
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - pelson
+    - sigmavirus24
+    - ocefpaf
+    - mingwandroid
+  skip-lints:
+    # As we are bootstrapping this build we do not require python build tools
+    - missing_python_build_tool

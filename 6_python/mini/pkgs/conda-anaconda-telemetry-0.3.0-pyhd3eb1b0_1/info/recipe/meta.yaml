@@ -1,0 +1,124 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Fri Aug 22 17:29:43 2025
+# ------------------------------------------------
+
+package:
+  name: conda-anaconda-telemetry
+  version: 0.3.0
+source:
+  sha256: 01044e9d7cc51eab3fa70e0ffa0b7638e20c90ce00e1b346e97d94288d1111fc
+  url: https://github.com/anaconda/conda-anaconda-telemetry/archive/0.3.0.tar.gz
+build:
+  noarch: python
+  number: '1'
+  script: /croot/conda-anaconda-telemetry_1755883788794/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pl/bin/python
+    -m pip install . --no-deps --no-build-isolation -vv
+  string: pyhd3eb1b0_1
+requirements:
+  build:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - c-ares 1.19.1 h5eee18b_0
+    - ca-certificates 2025.7.15 h06a4308_0
+    - curl 8.14.1 h14366f7_1
+    - expat 2.7.1 h6a678d5_0
+    - gettext 0.21.0 hedfda30_2
+    - git 2.45.2 pl5402h72990fb_2
+    - icu 73.1 h6a678d5_0
+    - libcurl 8.14.1 hc1efc7f_1
+    - libev 4.33 h7f8727e_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libnghttp2 1.57.0 h2d74bed_0
+    - libssh2 1.11.1 h251f7ec_0
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libxcb 1.17.0 h9b100fa_0
+    - libxml2 2.13.8 hfdd30dd_0
+    - lz4-c 1.9.4 h6a678d5_1
+    - ncurses 6.5 h7934f7d_0
+    - openssl 3.0.17 h5eee18b_0
+    - pcre2 10.42 hebb0a14_1
+    - perl 5.40.2 0_h5eee18b_perl5
+    - pthread-stubs 0.3 h0ce48e5_1
+    - tk 8.6.15 h54e0aa7_0
+    - xorg-libx11 1.8.12 h9b100fa_1
+    - xorg-libxau 1.0.12 h9b100fa_0
+    - xorg-libxdmcp 1.1.5 h9b100fa_0
+    - xorg-xorgproto 2024.1 h5eee18b_1
+    - xz 5.6.4 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+    - zstd 1.5.6 hc292b87_0
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2025.7.15 h06a4308_0
+    - expat 2.7.1 h6a678d5_0
+    - hatch-vcs 0.4.0 py39h06a4308_0
+    - hatchling 1.27.0 py39h06a4308_0
+    - importlib-metadata 8.5.0 py39h06a4308_0
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libxcb 1.17.0 h9b100fa_0
+    - ncurses 6.5 h7934f7d_0
+    - openssl 3.0.17 h5eee18b_0
+    - packaging 25.0 py39h06a4308_0
+    - pathspec 0.12.1 py39h06a4308_0
+    - pip 25.1 pyhc872135_2
+    - pluggy 1.5.0 py39h06a4308_0
+    - pthread-stubs 0.3 h0ce48e5_1
+    - python 3.9.23 he99959a_0
+    - readline 8.3 hc2a1206_0
+    - setuptools 78.1.1 py39h06a4308_0
+    - setuptools-scm 8.3.1 py39h06a4308_1
+    - sqlite 3.50.2 hb25bd0a_1
+    - tk 8.6.15 h54e0aa7_0
+    - tomli 2.2.1 py39h06a4308_0
+    - trove-classifiers 2025.5.9.12 py39h06a4308_0
+    - typing-extensions 4.12.2 py39h06a4308_0
+    - typing_extensions 4.12.2 py39h06a4308_0
+    - tzdata 2025b h04d1e81_0
+    - wheel 0.45.1 py39h06a4308_0
+    - xorg-libx11 1.8.12 h9b100fa_1
+    - xorg-libxau 1.0.12 h9b100fa_0
+    - xorg-libxdmcp 1.1.5 h9b100fa_0
+    - xorg-xorgproto 2024.1 h5eee18b_1
+    - xz 5.6.4 h5eee18b_1
+    - zipp 3.21.0 py39h06a4308_0
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - conda >=24.11
+    - python >=3.9
+test:
+  commands:
+    - pip check
+    - python -m conda --version
+  imports:
+    - conda_anaconda_telemetry
+    - conda_anaconda_telemetry.hooks
+  requires:
+    - pip
+about:
+  description: Anaconda Telemetry for conda adds helps us understand how conda is
+    being used.
+  dev_url: https://github.com/anaconda/conda-anaconda-telemetry
+  doc_source_url: https://github.com/anaconda/conda-anaconda-telemetry/blob/0.3.0/README.md
+  home: https://github.com/anaconda/conda-anaconda-telemetry
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Anaconda Telemetry conda plugin
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 8053c301-0789-4608-86d2-5c7ef0f8b3e1
+  recipe-maintainers:
+    - jezdez
+    - travishathaway
+  remote_url: git@github.com:AnacondaRecipes/conda-anaconda-telemetry-feedstock.git
+  sha: 7560739847d77b618fbdec503005ab9ba496ee07

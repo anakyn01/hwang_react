@@ -1,0 +1,16 @@
+<div class="bs-place-card">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 class="m-0 fw-bold text-white fs15">{{ place.name }}</h5>
+        <!-- [수정완료] style 속성 따옴표 쌍 맞춤 -->
+        <span class="badge rounded-pill px-2 py-1 fs10" style="background: {{ badge_bg }}; color: {{ badge_color }};">
+            {{ badge_text }}
+        </span>
+    </div>
+    <!-- [수정완료] Python 스타일 {place['address']} 대신 Jinja2 {{ place.address }} 문법 사용 -->
+    <div class="text-secondary mb-2 fs12" style="color: #cbd5e1 !important;">
+        <i class="fa-solid fa-location-dot text-danger me-1"></i> {{ place.address }} ({{ place.category }})
+    </div>
+    <div class="p-2 px-3 rounded-3 fs12 place">
+        {{ place.description }}
+    </div>
+</div>

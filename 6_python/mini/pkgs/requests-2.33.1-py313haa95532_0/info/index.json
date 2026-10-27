@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "constrains": [
+    "chardet >=3.0.2,<8",
+    "pysocks >=1.5.6,!=1.5.7"
+  ],
+  "depends": [
+    "certifi >=2023.5.7",
+    "charset-normalizer >=2,<4",
+    "idna >=2.5,<4",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "urllib3 >=1.26,<3"
+  ],
+  "license": "Apache-2.0",
+  "license_family": "Apache",
+  "name": "requests",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1775066185516,
+  "version": "2.33.1"
+}

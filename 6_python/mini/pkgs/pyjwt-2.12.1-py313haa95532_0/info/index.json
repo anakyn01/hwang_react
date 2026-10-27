@@ -1,0 +1,19 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "constrains": [
+    "cryptography >=3.4.0"
+  ],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "pyjwt",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1773773869078,
+  "version": "2.12.1"
+}

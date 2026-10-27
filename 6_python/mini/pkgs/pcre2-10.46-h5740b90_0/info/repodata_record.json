@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "h5740b90_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "bzip2 >=1.0.8,<2.0a0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133",
+    "zlib >=1.2.13,<2.0a0"
+  ],
+  "fn": "pcre2-10.46-h5740b90_0.conda",
+  "license": "BSD-3-Clause WITH PCRE2-exception",
+  "license_family": "BSD",
+  "md5": "ce7492b4ef08cfdeb0fc35ab5447ccf4",
+  "name": "pcre2",
+  "platform": "win32",
+  "sha256": "d54ea3169c090404ca6d9d154adf842d61ca7a0bf1e277a10c02e245f186b934",
+  "size": 1317213,
+  "subdir": "win-64",
+  "timestamp": 1759825896000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pcre2-10.46-h5740b90_0.conda",
+  "version": "10.46"
+}

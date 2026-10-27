@@ -1,0 +1,10 @@
+{
+  "update_version": "14",
+  "target_platform": "win-64",
+  "vsyear": "2022",
+  "channel_targets": "defaults",
+  "runtime_version": "14.44.35208",
+  "cl_version": "19.44.35207",
+  "cross_target_platform": "win-64",
+  "vsver": "17"
+}

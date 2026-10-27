@@ -1,0 +1,16 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "license": "MPL-2.0",
+  "license_family": "Other",
+  "name": "certifi",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1776971281138,
+  "version": "2026.4.22"
+}

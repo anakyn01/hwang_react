@@ -1,0 +1,9 @@
+libdir=C:/miniconda3/conda-bld/libsolv-suite_1760357054041/_h_env/Library/lib
+includedir=C:/miniconda3/conda-bld/libsolv-suite_1760357054041/_h_env/Library/include
+
+Name: libsolvext
+Description: Library for reading repositories
+Version: 0.7.30
+Requires: libsolv
+Libs: -L${libdir} -lsolvext
+Cflags: -I${includedir}

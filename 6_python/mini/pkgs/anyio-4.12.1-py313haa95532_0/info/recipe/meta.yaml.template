@@ -1,0 +1,70 @@
+{% set name = "anyio" %}
+{% set version = "4.12.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 41cfcc3a4c85d3f05c932da7c26d0201ac36f72abd4435ba90d0464a3ffed703
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<39]
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools-scm >=6.4
+    - setuptools >=77
+  run:
+    - python
+    - exceptiongroup >=1.0.2  # [py<311]
+    - idna >=2.8
+    - typing_extensions >=4.5  # [py<313]
+  run_constrained:
+    - trio >=0.31.0  #[py<310]
+    - trio >=0.32.0  #[py>=310]
+
+test:
+  source_files:
+    - tests
+    - pyproject.toml
+  requires:
+    - hypothesis >=4.0
+    - pip
+    - psutil >=5.9
+    - pytest >=7.0
+    - pytest-mock >=3.14
+    - pytest-timeout
+    - tomli
+    - trio
+    - trustme
+    - uvloop >=0.21.0  # [unix]
+    - exceptiongroup >=1.2.0
+  imports:
+    - anyio
+  commands:
+    - pip check
+    - pytest -v -m "not network" tests
+
+about:
+  home: https://github.com/agronholm/anyio
+  description: |
+    AnyIO is an asynchronous networking and concurrency library that works on top of
+    either asyncio or trio. It implements trio-like structured concurrency (SC) on top of
+    asyncio and works in harmony with the native SC of trio itself.
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: High level compatibility layer for multiple asynchronous event loop implementations on Python
+  dev_url: https://github.com/agronholm/anyio
+  doc_url: https://anyio.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - CJ-Wright
+    - bollwyvl

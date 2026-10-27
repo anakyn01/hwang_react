@@ -1,0 +1,20 @@
+$primary-color: #0066cc;
+$text-main: #1d1d1f;
+$text-muted: #86868b;
+$bg-light: #f5f5f7;
+$border-color: rgba(0,0,0, .08);
+$border-radius:.8rem;
+
+@mixin flex-between{
+display:flex;
+justify-content: space-between;
+align-items:center;    
+}
+
+@mixin card-layout {
+background-color: #fff;
+border-radius: $border-radius;  
+border: 1px solid $border-color;
+padding:2rem;
+box-shadow: 0 4px 12px rgba(0,0,0, .03);  
+}

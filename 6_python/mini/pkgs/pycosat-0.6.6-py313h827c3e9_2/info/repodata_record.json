@@ -1,0 +1,25 @@
+{
+  "arch": "x86_64",
+  "build": "py313h827c3e9_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "vc >=14.2,<15.0a0",
+    "vs2015_runtime >=14.29.30133,<15.0a0"
+  ],
+  "fn": "pycosat-0.6.6-py313h827c3e9_2.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "31fe82cdc830f79c27346b9e66342d2a",
+  "name": "pycosat",
+  "platform": "win32",
+  "sha256": "df4e2759d0dfd24b3e6e00dabfa6583b01c865db0527a0cb4ba21d67ca767b95",
+  "size": 92654,
+  "subdir": "win-64",
+  "timestamp": 1736869076000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pycosat-0.6.6-py313h827c3e9_2.conda",
+  "version": "0.6.6"
+}

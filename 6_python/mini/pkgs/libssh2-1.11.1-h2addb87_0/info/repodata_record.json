@@ -1,0 +1,25 @@
+{
+  "arch": "x86_64",
+  "build": "h2addb87_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "openssl >=3.0.15,<4.0a0",
+    "vc >=14.2,<15.0a0",
+    "vs2015_runtime >=14.29.30133,<15.0a0",
+    "zlib >=1.2.13,<2.0.0a0"
+  ],
+  "fn": "libssh2-1.11.1-h2addb87_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "d8ae56ee95db60cbd5f8f8ff63ed1f63",
+  "name": "libssh2",
+  "platform": "win32",
+  "sha256": "ff2d46c586844c88b62ef6bb1419f89690a9e4db714ed2cdb3589ffdd0d8ef9e",
+  "size": 319541,
+  "subdir": "win-64",
+  "timestamp": 1732891385000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libssh2-1.11.1-h2addb87_0.conda",
+  "version": "1.11.1"
+}

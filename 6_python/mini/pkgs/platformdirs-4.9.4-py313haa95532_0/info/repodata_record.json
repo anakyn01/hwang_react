@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "platformdirs-4.9.4-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "c73cb48e85b2d4c9f6bee9b364adb4d4",
+  "name": "platformdirs",
+  "platform": "win32",
+  "sha256": "7c422f786db266a90afe84e10bc2cd2547118032fd46cbc590ef343de0fd411c",
+  "size": 54633,
+  "subdir": "win-64",
+  "timestamp": 1773653037000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/platformdirs-4.9.4-py313haa95532_0.conda",
+  "version": "4.9.4"
+}

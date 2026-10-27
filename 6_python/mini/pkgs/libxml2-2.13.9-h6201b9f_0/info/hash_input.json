@@ -1,0 +1,11 @@
+{
+  "channel_targets": "defaults",
+  "libxml2": "2.13",
+  "c_compiler": "vs2019",
+  "libiconv": "1",
+  "zlib": "1.2",
+  "c_stdlib_version": "2019.11",
+  "c_stdlib": "vs",
+  "VERBOSE_AT": "V=1",
+  "target_platform": "win-64"
+}

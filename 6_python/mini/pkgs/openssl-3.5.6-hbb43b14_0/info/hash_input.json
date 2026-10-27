@@ -1,0 +1,8 @@
+{
+  "channel_targets": "defaults",
+  "c_stdlib_version": "2022.14",
+  "openssl": "3",
+  "target_platform": "win-64",
+  "c_compiler": "vs2022",
+  "c_stdlib": "vs"
+}

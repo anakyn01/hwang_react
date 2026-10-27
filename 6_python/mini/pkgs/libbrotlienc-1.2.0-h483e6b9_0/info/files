@@ -1,0 +1,3 @@
+Library/bin/brotlienc.dll
+Library/lib/brotlienc.lib
+Library/lib/pkgconfig/libbrotlienc.pc

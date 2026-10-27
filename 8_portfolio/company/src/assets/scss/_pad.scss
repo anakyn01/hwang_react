@@ -1,0 +1,61 @@
+@media (min-width: 768px){
+	
+	body {
+		max-width: 778px;
+	}
+	
+	.style-nav ul li {
+		display: inline-block;
+	}
+	
+	.style-nav ul {
+		text-align: center;
+	}
+	
+	h1 {
+		font-size: 40px;
+		margin-bottom: 90px;
+	}
+	
+	h2 {
+		margin-bottom: 16px;
+	}
+	
+	.col-md-one-half {
+		width: 50%;
+	}
+	
+	.col {
+		float: left;
+		padding: 0px 7px 14px;
+	}
+}
+
+/*@media (min-width:768px){//최소 768px이상부터 태블릿일때
+ 
+
+        body{
+           max-width:778px; 
+           .style-nav{
+            ul{
+                text-align: center;
+                li{
+                display:inline-block;                    
+                }
+            }
+           }
+           h1{font-size:40px; margin-bottom:90px;}
+           h2{margin-bottom:16px;}
+      
+        }
+
+       .col-md-one-half{
+            //모바일에서 사용하지 x 여기에 표기하니 이해상도에서 보입니다
+            width:50%;
+           }
+           .col{
+           float:left;
+           padding:0px 7px 14px;
+           }
+
+}*/

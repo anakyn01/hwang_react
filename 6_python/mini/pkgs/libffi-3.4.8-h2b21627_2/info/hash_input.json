@@ -1,0 +1,9 @@
+{
+  "c_stdlib_version": "2022.14",
+  "target_platform": "win-64",
+  "channel_targets": "defaults",
+  "cxx_compiler": "vs2022",
+  "c_compiler": "vs2022",
+  "libffi": "3",
+  "c_stdlib": "vs"
+}
