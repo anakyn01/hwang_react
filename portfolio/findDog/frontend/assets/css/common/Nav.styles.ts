@@ -18,18 +18,25 @@ transform:translateX(-50%);
 `;
 
 interface NavItemProps {
-  active?: boolean;
+  $active?: boolean;
 }
 
 export const NavItem = styled.div<NavItemProps>`
-  ${FlexColumn}
+  ${FlexColumn};
   gap: 0.125rem;
-  ${Pointer}
+  ${Pointer};
+
+color: ${(props) => (props.$active ? '#ff8c00' : '#999')};
+
+    svg {
+        font-size: 24px;
+        margin-bottom: 4px;
+    }
 
   span {
     font-size: 0.75rem;
-    color: ${props => (props.active ? '#ff7a00' : '#888')};
-    font-weight: ${props => (props.active ? '700' : '400')};
+    color: ${props => (props.$active ? '#ff7a00' : '#888')};
+    font-weight: ${props => (props.$active ? '700' : '400')};
   }
 `;
 

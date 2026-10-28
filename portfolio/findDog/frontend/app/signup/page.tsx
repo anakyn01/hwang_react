@@ -361,7 +361,7 @@ export default function SignupPage() {
                 <S.BaseBtn onClick={() => setIsOpenPostcode(true)} $variant="primary" $mainColor='#ccc' $width="25%">
                   주소검색
                 </S.BaseBtn>
-              </S.AlignItemsContext>
+              </S.AlignItemsCenter>
 
               <S.FormControl
                 type="text"

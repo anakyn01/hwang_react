@@ -36,13 +36,16 @@ export default function LoginPage() {
     return (
         <>
             <S.AppWrapper>
-                <S.ContainerColumn>
+                {/* 💡 1. ContainerColumn 대신 Container를 사용하여 480px 중앙 프레임 안에 맞춥니다. */}
+                <S.Container>
                     <Header
                         title="로그인"
                         onBackClick={() => window.history.back()}
                     />
                     <S.Mt70></S.Mt70>
-                    <S.Column>
+                    
+                    {/* 💡 2. Column 대신 LayOutPadding으로 감싸서 인풋창 양옆에 예쁜 여백을 줍니다. */}
+                    <S.LayOutPadding>
                         <S.FormControl
                             type="email"
                             placeholder='이메일'
@@ -50,36 +53,40 @@ export default function LoginPage() {
                             onChange={(e) => dispatch(setEmail(e.target.value))}
                         />
 
+                        <br /> {/* 인풋창 사이 간격 */}
+
                         <S.FormControl
                             type="password"
                             placeholder='비밀번호'
                             value={password}
                             onChange={(e) => dispatch(setPassword(e.target.value))}
                         />
-                        <S.BtnBottomWrap>
-                            <S.BaseBtn
-                                $variant='primary'
-                                onClick={handleLogin}
-                                disabled={isLoading}
-                            >
-                                {isLoading ? '로그인 중...' : 'Login'}
-                            </S.BaseBtn>
-                            <br />
-                            <S.BaseBtn
-                                $variant='kakao'
-                                onClick={handleKakaoLogin}
-                            >
-                                카카오톡으로 간편하게 시작하기    
-                            </S.BaseBtn>
-                            <br />
-                            <S.BaseBtn
-                                $variant='local'
-                            >
-                                Apple로 로그인
-                            </S.BaseBtn>
-                        </S.BtnBottomWrap>
-                    </S.Column>
-                </S.ContainerColumn>
+                    </S.LayOutPadding>
+
+                    {/* 버튼 영역은 레이아웃 패딩 밖으로 빼거나 하단에 고정되게 둡니다 */}
+                    <S.BtnBottomWrap>
+                        <S.BaseBtn
+                            $variant='primary'
+                            onClick={handleLogin}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? '로그인 중...' : 'Login'}
+                        </S.BaseBtn>
+                        <br />
+                        <S.BaseBtn
+                            $variant='kakao'
+                            onClick={handleKakaoLogin}
+                        >
+                            카카오톡으로 간편하게 시작하기    
+                        </S.BaseBtn>
+                        <br />
+                        <S.BaseBtn
+                            $variant='local'
+                        >
+                            Apple로 로그인
+                        </S.BaseBtn>
+                    </S.BtnBottomWrap>
+                </S.Container>
             </S.AppWrapper>        
         </>
     );
