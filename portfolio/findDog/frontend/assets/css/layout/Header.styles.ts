@@ -1,10 +1,15 @@
 import styled, {css} from 'styled-components';
-import { FlexBetween, FlexCenter, Fw500, Pointer, Sticky, W100 } from '../common/Common.styles';
+import { Fixed, FlexBetween, FlexCenter, Fw500, Pointer, Sticky, W100 } from '../common/Common.styles';
 
 export const Header = styled.header`
-${Sticky};
-  /* 💡 fixed 대신 sticky를 사용하여 컨테이너 내부 상단에 딱 붙게 함 */
+${Fixed};
+
   top: 0;
+  left:50%;
+  transform:translateX(-50%);
+
+  
+  margin: 0 auto;
   z-index: 9999;
   ${W100};
   max-width: 480px; /* 💡 컨테이너 최대 크기와 일치시킴 */

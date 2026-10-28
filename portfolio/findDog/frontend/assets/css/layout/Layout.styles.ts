@@ -3,7 +3,8 @@ import {
   Relative, BgWhite, BoxShadow, 
   FlexBetween, FlexCenter, W100, Fixed, 
   Ohidden, FlexStart,
-  FlexColumn 
+  FlexColumn, 
+  Grid
 } from '../common/Common.styles';
 
 
@@ -136,3 +137,62 @@ export const TabContainer = styled.div`
   border-bottom: 1px solid #eee;
   background-color: #fff;
 `;
+
+//관리자
+export const PageWrapper = styled.div`
+padding: 20px;
+`;
+
+export const GridWrap = styled.div`
+${Grid};
+grid-template-columns:repeat(4, 1fr);
+gap:20px;
+`;
+export const GridWrap3 = styled.div`
+${Grid};
+grid-template-columns:repeat(3, 1fr);
+gap:30px;
+`;
+
+//layout
+export const SpaceBetween = styled.div`
+display:flex; justify-content:space-between;
+align-items:center;  margin-bottom:15px;
+`;
+
+export const MenuRow = styled.div`
+${FlexCenter};
+gap:10px; 
+margin-bottom:10px; 
+`;
+
+//다음 우편번호 컴포넌트를 감싸는 박스
+export const PostcodeWrapper = styled.div`
+width:400px; max-width:90%; background:white;
+padding:20px; border-radius:8px; 
+box-shadow:0 4px 12px rgba(0,0,0, .2);
+
+/*닫기 버튼을 감싸는 영역*/
+.close-btn-wrap{
+text-align:right;
+margin-bottom:10px;
+}
+`;
+
+export const PageHeader = styled.div`
+display:flex; align-items:center;
+justify-content:space-between;
+margin-bottom:1.5rem;
+h1{
+font-size:1.75rem;
+font-weight:400;
+color:#5a5c69;
+margin:0;
+}
+`;
+
+export const GridRow = styled.div`
+display:flex; flex-wrap:wrap;
+margin-right:-0.75rem; margin-left:-0.75rem;
+`;
+

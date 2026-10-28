@@ -183,3 +183,105 @@ export const ToggleBtn = styled.button<{ $isOn: boolean}>`
     box-shadow: 0 2px 4px rgba(0,0,0,.2);
   }
 `;
+
+export const Button = styled.button<{ variant?: 'primary' | 'danger' | 'success'}>`
+padding:8px 15px;
+border:none;
+border-radius:4px;
+color:white;
+cursor:pointer;
+font-weight:bold;
+
+background-color: ${({variant}) => variant === 'danger' ? '#e74a3b' : variant === 'success' ? '#1cc88a' :'#4e73df'};
+&:hover{
+opacity:0.9;
+}
+`;
+
+export const SaveButtonWrap = styled.div`
+text-align:right;
+margin-top:20px;
+`;
+
+export const ButtonPrimary = styled.button<{ variant?: 'primary' | 'danger' | 'success'}>`
+padding:10px 30px;
+font-size:16px;
+color:white;
+border:none;
+border-radius:10px;
+
+background-color: ${({variant}) => variant === 'danger' ? '#e74a3b' : variant === 'success' ? '#1cc88a' :'#4e73df'};
+&:hover{
+opacity:0.9;
+}
+`;
+
+export const Exit = styled.button<{ variant?: 'primary' | 'danger' | 'success'}>`
+top:0; right:0;
+padding:5px 10px;
+font-size:16px;
+color:white;
+border:none;
+border-radius:10px;
+
+background-color: ${({variant}) => variant === 'danger' ? '#e74a3b' : variant === 'success' ? '#1cc88a' :'#4e73df'};
+&:hover{
+opacity:0.9;
+}
+`;
+
+//버튼
+interface ColorBtnProps {
+  bgColor?: 'red' | 'yellow' | 'green' | 'purple';
+}
+// 🎨 선택된 색상에 따라 배경색(Hex 코드)을 반환하는 함수
+const getBgColor = (color?: string) => {
+  switch(color) {
+    case 'red' : return '#dc3545';
+    case 'yellow' : return '#ffc107';
+    case 'green' : return '#28a745';
+    case 'purple':return '#6f42c1';
+    default: return '#dc3545';    
+  }
+}
+
+//Typo
+interface StatusProps {
+  statusColor?:'blue'|'red'|'green'|'gray';
+}
+
+const getStatusColor = (color?: string) => {
+  switch(color) {
+    case 'red' : return '#dc3545';
+    case 'yellow' : return '#ffc107';
+    case 'green' : return '#28a745';
+    case 'purple':return '#6f42c1';
+    default: return '#dc3545';    
+  }
+}
+
+export const StatusText = styled.span<StatusProps>`
+color: ${({ statusColor}) => getStatusColor(statusColor)};
+font-weight:bold;
+`;
+
+// 🖋️ 선택된 색상에 따라 글자색을 반환하는 함수 
+// (노란색 배경에는 검정 글씨가 잘 보입니다)
+const getTextColor = (color?: string) => {
+  if(color === 'yellow') return '#212529';
+  return '#fff';
+}
+
+export const ColorButton = styled.button<ColorBtnProps>`
+padding:8px 15px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+font-weight:bold;
+background-color:${({bgColor}) => getBgColor(bgColor)};
+color:${({bgColor}) => getTextColor(bgColor)};
+transition: opacity 0.2s ease-in-out;
+&:hover{
+opacity:0.8;
+}
+`;

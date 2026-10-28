@@ -47,3 +47,11 @@ ${Nowrap};
   }
 `;
 
+export const BottomInfo = styled.div`
+width:100%; height:200px;
+background-color:#f5f5f5;
+display:flex; 
+align-items:center;
+justify-content:center;
+color:#999;
+`;

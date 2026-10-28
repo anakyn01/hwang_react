@@ -58,17 +58,7 @@ ${BgWhite};
 outline:none;
 ${Pointer};
 `;
-export const TextArea = styled.textarea`
-${W100};
-padding:.8rem;
-border:1px solid #e1e1e1;
-border-radius:.5rem;
-outline:none;
-resize:none;
-font-family:inherit;
-${TransitionAll};
-&:focus{border-color:#ff6b6b;}
-`;
+
 export const SubmitButton = styled.button`
 ${W100};
 background: #ff6b6b;
@@ -84,18 +74,7 @@ ${TransitionAll};
 &:hover{background: #fa5252;}
 `;
 
-export const Input = styled.input`
-${W100};
-padding:0.75rem;
-border:1px solid #e1e1e1;
-border-radius:.5rem;
-font-size:.8rem;
-outline:none;
-${TransitionAll};
-&:focus{
-border-color:#ff6b6b;
-}
-`;
+
 
 export const FileInputWrapper = styled.div`
 ${FlexColumn};
@@ -124,10 +103,16 @@ border:1px solid #ccc; padding:10px;
 margin-top:10px; border-radius:8px;
 `;
 
-export const Exit = styled.div`
-text-align:right;
-${Pointer};
-font-weight:bold;
-margin-bottom:10px; 
-color:#666;
+
+
+
+//다음 우편번호 모달 배경(어둡게 처리)
+export const ModalBackground = styled.div`
+position:fixed; top:0; left:0;
+width:100%; height:100%; 
+background:rgba(0, 0, 0, 0.5);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999;
 `;

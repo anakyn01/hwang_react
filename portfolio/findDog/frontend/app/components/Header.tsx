@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import * as S from '../../ assets/css/style.styles';
+import * as S from '@/assets/css/style.styles';
 import { NotificationsOutlined as NotificationsNoneIcon } from '@mui/icons-material';
 
 interface HeaderProps {
@@ -19,29 +19,12 @@ export default function Header({ title, onBackClick, isMain }: HeaderProps) {
         }
     };
 
+    // 💡 1. 메인 페이지용 헤더
     if (isMain) {
         return (
-            <S.Header style={{ 
-                // 💡 상단 고정을 위한 핵심 CSS
-                position: 'sticky', 
-                top: 0, 
-                zIndex: 999, 
-                backgroundColor: '#fff', // 스크롤 시 뒤에 글씨가 안 비치도록 하얀 배경 필수
-
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center', 
-                padding: '16px 20px',
-                borderBottom: '1px solid #f0f0f0' // 스크롤 시 콘텐츠와 구분되도록 연한 선 추가
-            }}>
-                <S.Logo style={{ 
-                    color: '#ff8c00', 
-                    fontSize: '22px', 
-                    fontWeight: 'bold',
-                    margin: 0
-                }}>
-                    어서찾아주개
-                </S.Logo>
+            // 만들어두신 S.Header에 이미 sticky와 max-width가 적용되어 있습니다.
+            <S.Header>
+                <S.Logo>어서찾아주개</S.Logo>
                 <NotificationsNoneIcon 
                     sx={{ cursor: 'pointer', color: '#222', fontSize: '28px' }} 
                 />
@@ -49,29 +32,20 @@ export default function Header({ title, onBackClick, isMain }: HeaderProps) {
         );
     }
 
+    // 💡 2. 서브 페이지용 헤더
+    // S.Header를 공통으로 씌워서 상단 고정과 480px 레이아웃이 깨지지 않게 잡습니다.
     return (
-        <S.TopFlexBasic style={{ 
-            // 💡 상단 고정을 위한 핵심 CSS
-            position: 'fixed', 
-            top: 0, 
-            zIndex: 999, 
-            backgroundColor: '#fff', 
-
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            padding: '16px 20px',
-            borderBottom: '1px solid #f0f0f0'
-        }}>
-            <S.Back onClick={handleBack} style={{ cursor: 'pointer', width: '60px' }}>
+        <S.Header>
+            <S.Back onClick={handleBack} style={{ width: '60px' }}>
                 &lt; 뒤로
             </S.Back>
             
+            {/* 텍스트 중앙 정렬을 위해 플렉스(flex: 1) 공간 배분만 남겼습니다 */}
             <S.H5Bold style={{ flex: 1, textAlign: 'center', margin: 0 }}>
                 {title}
             </S.H5Bold>
             
             <S.None style={{ width: '60px' }} />
-        </S.TopFlexBasic>
+        </S.Header>
     );
 }

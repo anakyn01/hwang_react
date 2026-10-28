@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from '../../store/store';
 import { setSourceType, updateRecommendedField, parseAnimalUrl, submitRecommendedAnimal } from '../../redux/recommendedAdminSlice';
 
 import { Layout } from '../../components/layout/Layout';
-import * as A from "../DashBoard.styled";
+import * as A from '@/assets/css/style.styles';
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 
 export default function RecommendedAnimalAdmin(){

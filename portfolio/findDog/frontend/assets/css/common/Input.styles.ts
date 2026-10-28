@@ -72,3 +72,59 @@ export const FilterSelect = styled.select`
   flex-shrink: 0;
 ${Pointer};
 `;
+
+export const FormGroup = styled.div`
+margin-bottom:15px; 
+display:flex;
+flex-direction:column;
+label{
+font-weight:bold;
+margin-bottom:8px;
+color:#555;
+}
+`;
+export const Input = styled.input`
+padding:10px;
+border:1px solid #ccc;
+border-radius:4px;
+font-size:14px;
+${W100};
+max-width:400px;
+`;
+export const RadioGroup = styled.div`
+${FlexCenter};
+gap:15px; 
+
+
+/* 중첩된 label 지우고 하나로 합침 */
+  label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 라디오 버튼과 글씨 사이 간격 */
+    cursor: pointer;
+    white-space: nowrap; /* 글씨가 좁아져도 밑으로 줄바꿈되지 않게 방지 */
+  }
+
+  /* 라디오 버튼이 선처럼 늘어나는 현상 방지 */
+  input[type="radio"] {
+    width: auto; 
+    margin: 0;
+  }
+
+
+}
+`;
+
+export const FileUpload = styled.input`
+width:100%; font-size:12px;
+`
+
+export const TextArea = styled.textarea`
+width:100%;
+height:80px;
+padding:10px;
+border:1px solid #ccc;
+border-radius:4px; 
+resize:none;
+`;

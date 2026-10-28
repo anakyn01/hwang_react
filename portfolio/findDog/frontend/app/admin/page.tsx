@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Layout } from '../components/layout/Layout';
-import * as A from "./DashBoard.styled";
+import * as A from '@/assets/css/style.styles';
 
 
 export default function DashBoard(){

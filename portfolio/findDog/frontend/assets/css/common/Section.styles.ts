@@ -8,8 +8,11 @@ background-color:${(props) => (props.$bgLight ? '#f8f9fa':'#fff')};
 margin-top:${(props) => (props.$bgLight ? '8px':'0')};
 `;
 
-export const SectionTitle = styled.h6`
-font-weight:bold; margin:0;
+
+export const SectionTitle=styled.h3`
+font-size:1.2rem; color:#4e73df;
+margin-bottom:15px; border-bottom:1px solid #eee;
+padding-bottom:10px;
 `;
 
 export const RecommendSection = styled.section`

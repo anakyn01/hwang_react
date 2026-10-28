@@ -32,3 +32,31 @@ export const AnimalImgBox = styled.div`
     object-fit: cover; 
   }
 `;
+
+export const BlogImgWrap = styled.div`
+border:1px solid #ddd;
+padding:10px; 
+text-align:center;
+position:relative;
+`;
+
+export const NoneImage = styled.div`
+width:100%; height:150px; background-color:#f5f5f5;
+display:flex; align-items:center;
+justify-content:center; 
+margin-bottom:10px;
+color:#999;
+`;
+
+export const BlogImg = styled.img`
+width:100%; height:200px;
+object-fit:cover;
+`;
+
+export const MapPreview = styled.div`
+width:100%; height:400px; background-color:#eaeaea;
+display:flex; align-items:center; 
+justify-content:center; 
+border-radius:5px; 
+overflow:hidden;
+`;

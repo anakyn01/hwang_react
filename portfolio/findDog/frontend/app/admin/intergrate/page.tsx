@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from '../../store/store';
 import { setBoardType, updateIntegrateField, submitIntegrateContent } from '../../redux/integrateAdminSlice';
 
 import { Layout } from '../../components/layout/Layout';
-import * as A from "../DashBoard.styled";
+import * as A from "@/assets/css/style.styles";
 import {Row, Col, Card, Form, Button} from "react-bootstrap";
 
 export default function Intergrate(){

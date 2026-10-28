@@ -8,7 +8,7 @@ import { setAdminEmail, setAdminPassword, submitAdminLogin } from '../../redux/a
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebookF } from '@fortawesome/free-brands-svg-icons';
-import * as S from '../DashBoard.styled';
+import * as S from '@/assets/css/style.styles';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 
 export default function LoginPage() {

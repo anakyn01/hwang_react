@@ -39,3 +39,9 @@ ${Fw400};
 letter-spacing:-0.03rem;
 color:#333;
 `;
+
+
+export const PageTitle = styled.h1`
+font-size:1.75rem; color:#5a5c69;
+margin-bottom:1.5rem;
+`;

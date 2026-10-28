@@ -10,7 +10,7 @@ import {
     MenuBook as MenuBookIcon,
     PersonOutlined as PersonOutlineIcon,
 } from '@mui/icons-material';
-import * as S from '../../ assets/css/style.styles';
+import * as S from '@/assets/css/style.styles';
 
 export default function Footer(){
     return(

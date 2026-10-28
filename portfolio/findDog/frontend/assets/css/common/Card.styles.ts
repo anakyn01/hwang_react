@@ -100,3 +100,50 @@ export const RecommendCard = styled.div`
   width: 140px;
   flex-shrink: 0;
 `;
+
+export const CardHeader = styled.div`
+padding:0.75rem 1.25rem;
+margin-bottom:0; 
+background-color:#f8f9fc;
+border-bottom:1px solid #e3e6f0;
+h6{
+margin:0; font-weight:bold;
+color:#4e73df;
+}
+`;
+
+export const StatCard = styled.div<{$borderColor?:string}>`
+position:relative;
+display:flex;
+flex-direction:column;
+min-width:0;
+word-wrap:break-word;
+background-color:#fff;
+background-clip:border-box;
+border:1px solid #e3e6f0;
+border-radius:0.35rem;
+border-left:
+0.25rem solid ${(props) => props.$borderColor || '#e3e6f0'};
+box-shadow:0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+height:100%;
+padding:0.5rem 0;
+`;
+
+
+export const CardColumn = styled.div`
+flex: 0 0 25%;
+/*
+flex-grow: 0; 여유 공간이 있어도 커지지 않음
+flex-shrink: 0; 공간이 부족해도 줄어들지 않음
+flex-basis: 25%; 기본 너비는 부모의  25%
+*/
+max-width:25%;
+padding-right:0.75rem;
+padding-left:0.75rem;
+margin-bottom:1.5rem;
+
+@media (max-width: 1200px) {flex:0 0 50%; max-width:50%;}
+@media (max-width: 768px) {flex:0 0 100%; max-width:100%;}
+`;
+
+

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 import { loadUserFromStorage, logoutUser } from '../redux/userSlice';
 
-import * as S from '../../ assets/css/style.styles';
+import * as S from '@/assets/css/style.styles';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 

@@ -17,7 +17,7 @@ import {
   PlayArrow as PlayArrowIcon
 } from '@mui/icons-material';
 
-import * as S from '../ assets/css/style.styles';
+import * as S from '@/assets/css/style.styles';
 import Header from './components/Header';
 import Footer from './components/Footer';
 

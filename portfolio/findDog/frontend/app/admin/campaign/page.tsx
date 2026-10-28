@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from '../../store/store';
 import { updateCampaignField, setMediaType, submitCampaign } from '../../redux/campaignAdminSlice';
 
 import { Layout} from "../../components/layout/Layout";
-import * as A from "../DashBoard.styled";
+import * as A from '@/assets/css/style.styles';
 import {Row, Col, Card, Form, Button} from "react-bootstrap";
 
 export default function AdoptionCampaignAdmin(){
