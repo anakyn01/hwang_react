@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { X } from 'lucide-react';
-import * as S from '@/css/style.styles';
+import * as S from '@/ assets/css/style.styles';
 
 interface ModalProps {
   isOpen: boolean;

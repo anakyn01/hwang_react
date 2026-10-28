@@ -17,7 +17,8 @@ import {
   PlayArrow as PlayArrowIcon
 } from '@mui/icons-material';
 
-import * as S from '../css/style.styles';
+import * as S from '../ assets/css/style.styles';
+import Header from './components/Header';
 import Footer from './components/Footer';
 
 const campaignHashtags = ['#제주입양', '#임시보호', '#치료지원'];
@@ -54,12 +55,11 @@ export default function HomePage() {
 
   return (
     <>
+    
       <S.AppWrapper>    
+        <Header isMain={true}/>
         <S.Container>
-          <S.Header>
-            <S.Logo>어서찾아주개</S.Logo>
-            <NotificationsNoneIcon fontSize="large"/>
-          </S.Header>
+
           <S.Mt70/>
           
           <S.Banner>

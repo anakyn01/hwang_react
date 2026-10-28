@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BgWhite, BoxShadow, Fixed, FlexBetween, FlexCenter, FlexColumn, Fw700, H100, Pointer, TransitionAll, W100, Fw600 } from '../common/Common.styles';
+import { BgWhite, BoxShadow, Fixed, FlexBetween, FlexCenter, FlexColumn, Fw700, H100, Pointer, TransitionAll, W100, Fw600, FlexStart } from '../common/Common.styles';
 
 export const ModalOverlay = styled.div`
 ${Fixed};
@@ -107,4 +107,27 @@ border:1px solid #e1e1e1;
 font-size:.8rem;
 background:#fafafa;
 }
+`;
+
+export const ModalBg= styled.div`
+${Fixed};
+top:0; left:0; right:0; bottom:0;
+background-color:rgba(0,0,0,.6);
+z-index:999;
+${FlexStart};
+padding:10vh;
+`;
+
+export const Modal = styled.div`
+${BgWhite};
+border:1px solid #ccc; padding:10px;
+margin-top:10px; border-radius:8px;
+`;
+
+export const Exit = styled.div`
+text-align:right;
+${Pointer};
+font-weight:bold;
+margin-bottom:10px; 
+color:#666;
 `;

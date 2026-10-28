@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 import { fetchStories, setActiveTab, setSubTab, toggleAlert, setDummyStories } from '../redux/storySlice';
 
-import * as S from '@/css/style.styles';
+import * as S from '@/ assets/css/style.styles';
 
 // MUI 아이콘
 import {

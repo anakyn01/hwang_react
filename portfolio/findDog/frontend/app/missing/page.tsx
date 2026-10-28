@@ -9,7 +9,7 @@ import { MapPin, Calendar, Plus } from 'lucide-react';
 import { NotificationsNone as NotificationsNoneIcon } from '@mui/icons-material';
 
 import { ModalSingle } from '../modal/ModalSingle';
-import * as S from '@/css/style.styles';
+import * as S from '@/ assets/css/style.styles';
 import Footer from '@/app/components/Footer';
 
 export default function MissingReportPage() {

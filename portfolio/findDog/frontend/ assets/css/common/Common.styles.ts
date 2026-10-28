@@ -37,6 +37,9 @@ flex:1;
 export const Fixed = css`
 position: fixed;
 `;
+export const Sticky = css`
+position: sticky
+`;
 export const Absolute = css`
 position:absolute;`;
 export const Relative = css`
