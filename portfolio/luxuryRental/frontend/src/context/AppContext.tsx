@@ -1,7 +1,6 @@
 import React, { useState, createContext, useContext, type ReactNode } from 'react';
 
-// 🚨 'SHOP_LIKE' 가 추가되었습니다.
-export type ViewState = 'SHOP_MAIN' | 'SHOP_ADMIN' | 'RECRUIT_APP' | 'SHOP_CATEGORY' | 'SHOP_SELL' | 'SHOP_LIKE';
+export type ViewState = 'SHOP_MAIN' | 'SHOP_ADMIN' | 'RECRUIT_APP' | 'SHOP_CATEGORY' | 'SHOP_SELL';
 export type Role = 'STORE' | 'ADMIN';
 
 export interface RecruitRequest {
@@ -20,6 +19,11 @@ export interface Product {
 
 interface AppContextType {
   currentView: ViewState; setCurrentView: React.Dispatch<React.SetStateAction<ViewState>>;
+  
+  // 🚨 오버레이 상태 통제용 (null | 'SEARCH' | 'LOGIN')
+  activeOverlay: 'SEARCH' | 'LOGIN' | null;
+  setActiveOverlay: React.Dispatch<React.SetStateAction<'SEARCH' | 'LOGIN' | null>>;
+  
   role: Role; setRole: React.Dispatch<React.SetStateAction<Role>>;
   requests: RecruitRequest[]; setRequests: React.Dispatch<React.SetStateAction<RecruitRequest[]>>;
   messages: Message[]; setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
@@ -31,6 +35,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [currentView, setCurrentView] = useState<ViewState>('SHOP_MAIN');
+  const [activeOverlay, setActiveOverlay] = useState<'SEARCH' | 'LOGIN' | null>(null); // 통합 오버레이 상태
   const [role, setRole] = useState<Role>('STORE');
   const [requests, setRequests] = useState<RecruitRequest[]>([
     { id: 1, storeName: '강남본점', date: '2026-10-31', section: '홀 서빙', time: '10:00 - 15:00', breakTime: '30분', required: 2, hired: 1, status: '채용중', applicants: ['김철수'] }
@@ -46,8 +51,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AppContext.Provider value={{ 
-      currentView, setCurrentView, role, setRole, requests, setRequests, 
-      messages, setMessages, workerDB, products, setProducts 
+      currentView, setCurrentView, activeOverlay, setActiveOverlay,
+      role, setRole, requests, setRequests, messages, setMessages, workerDB, products, setProducts 
     }}>
       {children}
     </AppContext.Provider>
