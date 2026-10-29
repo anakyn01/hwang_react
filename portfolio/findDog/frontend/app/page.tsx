@@ -73,6 +73,8 @@ export default function HomePage() {
             <S.BannerImage/>
           </S.Banner>
 
+          
+
           <S.QuickMenu>
             {['소개','입양 캠페인','포인기부','지원/혜택','스토어'].map((menu, idx) =>(
               <S.MenuIconWrapper key={idx}>
@@ -83,6 +85,8 @@ export default function HomePage() {
               </S.MenuIconWrapper>    
             ))}
           </S.QuickMenu>
+
+          <S.Divider/>
 
           {/* 이달의 추천 입양 동물 */}
           <S.Section>
@@ -120,6 +124,8 @@ export default function HomePage() {
               )}
             </S.HorizontalScroll>
           </S.Section>
+
+          <S.Divider/>
 
           {/* 입양 캠페인 */}
           <S.Section>
@@ -166,6 +172,7 @@ export default function HomePage() {
             </S.HorizontalScroll>
           </S.Section>
 
+<S.Divider/>
           {/* 유튜브 */}
           <S.Section>
             <S.SectionHeader>
@@ -184,6 +191,7 @@ export default function HomePage() {
             </MDBRow>
           </S.Section>
 
+<S.Divider/>
           {/* 펠로우 소식 */}
           <S.Section>
             <S.SectionHeader>
@@ -202,6 +210,7 @@ export default function HomePage() {
             </MDBRow>
           </S.Section>
 
+<S.Divider/>
           {/* 도움이 필요해요 */}
           <S.Section>
             <S.SectionHeader>
