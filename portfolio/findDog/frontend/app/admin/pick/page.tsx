@@ -9,7 +9,7 @@ import { setSourceType, updateRecommendedField, parseAnimalUrl, submitRecommende
 import { Layout } from '../../components/layout/Layout';
 // 💡 앞서 정의한 쿨그레이 믹스인 및 레이아웃 요소 임포트
 import { coolGray, adminInput, adminPrimaryBtn, adminOutlineBtn } from '@/assets/css/admin/Admin.styles';
-import { PageHeading, AdminDataCard } from '../../components/layout/layout.styled';
+import { PageHeading, AdminDataCard } from '../../../assets/css/admin/layout.styled';
 
 // ==========================================
 // 💡 폼(Form) 전용 스타일드 컴포넌트 정의

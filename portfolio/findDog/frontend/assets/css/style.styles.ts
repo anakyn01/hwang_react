@@ -42,12 +42,6 @@ export * from './client/MissingReport.styles';
 export * from './client/Shelter.styled';
 export * from './client/Term.styles';
 
-
-
-
-
-
-
 export const None = styled.div`
 width:40px;
 height:auto;
@@ -57,10 +51,12 @@ export const List = styled.div``;
 export const TextCenter = styled.div``;
 export const AlignItemsContext = styled.div``;
 
-
-
-
 export * from './modal/Modal.styles';
+
+
+export * from './admin/AdminLayout.styles';
+export * from './admin/Sidebar.styled';
+export * from './admin/Topbar.styled';
 
 
 

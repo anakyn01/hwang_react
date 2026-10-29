@@ -9,7 +9,7 @@ import {
     ContentWrapper, 
     MainContent, 
     ContainerFluid 
-} from "./layout.styled";
+} from "../../../assets/css/admin/layout.styled";
 
 interface LayoutProps {
     children: React.ReactNode;

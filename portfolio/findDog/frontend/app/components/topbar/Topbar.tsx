@@ -4,7 +4,7 @@
 import React, {useState, useEffect} from "react";
 import { useRouter } from "next/navigation";
 import {TopbarContainer, TopbarSearch, TopbarProfile,
-TopbarNavbar, InputGroup, SearchInput, InputGroupAppend, SearchButton} from './Topbar.styled';
+TopbarNavbar, InputGroup, SearchInput, InputGroupAppend, SearchButton} from '../../../assets/css/admin/Topbar.styled';
 import { AddIcCall } from "@mui/icons-material";
 
 export const Topbar:React.FC = () => {

@@ -68,7 +68,8 @@ const FloatingInput = styled(S.FormControl)`
   }
 `;
 
-const AnimatedInput = ({ type, name, label, value, onChange, readOnly, onClick }: any) => {
+// 💡 onKeyDown 프롭스 추가
+const AnimatedInput = ({ type, name, label, value, onChange, readOnly, onClick, onKeyDown }: any) => {
   const [isFocused, setIsFocused] = useState(false);
   const isActive = isFocused || value.length > 0;
 
@@ -80,6 +81,7 @@ const AnimatedInput = ({ type, name, label, value, onChange, readOnly, onClick }
         name={name}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown} // 💡 키보드 이벤트 연결
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         placeholder={label} 
@@ -200,6 +202,13 @@ export default function SignupPage() {
       });
     } else {
       showAlert(`회원가입에 실패했습니다: ${resultAction.payload}`, 'error');
+    }
+  };
+
+  // 💡 엔터키 입력 감지 핸들러
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
     }
   };
 
@@ -326,7 +335,15 @@ export default function SignupPage() {
               </AnimItem>
 
               <AnimItem $delay={0.9} className='mb-5'>
-                <AnimatedInput type="text" name="detailAddress" label="상세 주소" value={formData.detailAddress} onChange={handleChange} />
+                {/* 💡 마지막 상세 주소 인풋에 엔터(Enter) 키 감지 이벤트 추가 */}
+                <AnimatedInput 
+                  type="text" 
+                  name="detailAddress" 
+                  label="상세 주소" 
+                  value={formData.detailAddress} 
+                  onChange={handleChange} 
+                  onKeyDown={handleKeyDown} 
+                />
               </AnimItem>
 
               {isOpenPostcode && (
