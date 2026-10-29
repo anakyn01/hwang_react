@@ -26,7 +26,7 @@ export default function Header({ title, onBackClick, isMain }: HeaderProps) {
             <S.Header>
                 <S.Logo>어서찾아주개</S.Logo>
                 <NotificationsNoneIcon 
-                    sx={{ cursor: 'pointer', color: '#222', fontSize: '28px' }} 
+                    sx={{ cursor: 'pointer', color: '#8a4e4b', fontSize: '28px' }} 
                 />
             </S.Header>
         );
@@ -36,12 +36,12 @@ export default function Header({ title, onBackClick, isMain }: HeaderProps) {
     // S.Header를 공통으로 씌워서 상단 고정과 480px 레이아웃이 깨지지 않게 잡습니다.
     return (
         <S.Header>
-            <S.Back onClick={handleBack} style={{ width: '60px' }}>
+            <S.Back onClick={handleBack} >
                 &lt; 뒤로
             </S.Back>
             
             {/* 텍스트 중앙 정렬을 위해 플렉스(flex: 1) 공간 배분만 남겼습니다 */}
-            <S.H5Bold style={{ flex: 1, textAlign: 'center', margin: 0 }}>
+            <S.H5Bold >
                 {title}
             </S.H5Bold>
             

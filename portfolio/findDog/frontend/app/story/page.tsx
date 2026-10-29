@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useEffect } from 'react';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 import { fetchStories, setActiveTab, setSubTab, toggleAlert, setDummyStories } from '../redux/storySlice';
-
 import * as S from '@/assets/css/style.styles';
 
 // MUI 아이콘
@@ -15,6 +15,7 @@ import {
   ChevronRight as ChevronRightIcon
 } from '@mui/icons-material';
 import { Plus, MessageSquare, Share2, Eye } from 'lucide-react';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function StoryPage(){
@@ -68,15 +69,14 @@ export default function StoryPage(){
 
   return(
     <S.AppWrapper>
+
+  {/* 상단 헤더 */}
+        <Header title="스토리" />
+
       <S.Container>
         
-        {/* 상단 헤더 */}
-        <S.Header>
-          <S.Logo>어서찾아주개</S.Logo>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <NotificationsNoneIcon fontSize="large" style={{ cursor: 'pointer' }} />
-          </div>
-        </S.Header>
+      
+
 
         {/* 1차 탭 메뉴 */}
         <S.TabContainer>

@@ -10,6 +10,7 @@ import { NotificationsNone as NotificationsNoneIcon } from '@mui/icons-material'
 
 import { ModalSingle } from '../modal/ModalSingle';
 import * as S from '@/assets/css/style.styles';
+import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 
 export default function MissingReportPage() {
@@ -33,10 +34,7 @@ export default function MissingReportPage() {
 
   return (
     <S.Container>
-      <S.Header>
-        <S.Logo>어서찾아주개</S.Logo>
-        <NotificationsNoneIcon fontSize="large"/>
-      </S.Header>
+<Header title="실종 / 제보" />
 
       {/* 카드 리스트 영역 */}
       <S.CardGrid>

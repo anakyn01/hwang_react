@@ -1,5 +1,15 @@
 import {css} from 'styled-components';
 
+export const MainBg = css`
+background: #f8d6cb;
+`;
+export const MainColor = css`
+color: #8c524d;
+`;
+export const MainDarkColor = css`
+color: #8c524d;
+`;
+
 export const FlexCenter = css`
 display:flex;
 justify-content:center;

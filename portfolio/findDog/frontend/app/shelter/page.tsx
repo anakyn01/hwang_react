@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from '../store/store';
 import { fetchShelterAnimals, setActiveTab, toggleAlert } from '../redux/shelterSlice';
 
 import * as A from '@/assets/css/style.styles';
+import Header from '@/app/components/Header';
 import Footer from '../components/Footer';
 
 //MUI
@@ -41,11 +42,10 @@ export default function Shelter(){
   return(
     <>
       <A.AppWrapper>
+<Header title="보호소" />
+
         <A.Container>
-          <A.Header>
-            <A.Logo>어서찾아주개</A.Logo>
-            <NotificationsNoneIcon fontSize="large"/>
-          </A.Header>
+
            
           <A.TabContainer>
             {['보호동물', '보호소 찾기', '추천 입양 동물'].map((tab) =>(

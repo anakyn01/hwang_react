@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components';
-import { Fixed, MainMaxWidth, Mauto, BgWhite, FlexAround, FlexColumn, Pointer, W100 } from './Common.styles';
+import { Fixed, MainMaxWidth, Mauto, BgWhite, FlexAround, FlexColumn, Pointer, W100, MainBg } from './Common.styles';
 
 export const BottomNav = styled.nav`
 ${W100};
@@ -11,7 +11,7 @@ transform:translateX(-50%);
   ${MainMaxWidth};
   ${Mauto};
   height: 3.75rem;
-  ${BgWhite};
+  ${MainBg};
   border-top: 1px solid #eee;
   ${FlexAround};
   z-index: 999999;
@@ -23,19 +23,19 @@ interface NavItemProps {
 
 export const NavItem = styled.div<NavItemProps>`
   ${FlexColumn};
-  gap: 0.125rem;
+  gap: 0.0005rem;
   ${Pointer};
 
-color: ${(props) => (props.$active ? '#ff8c00' : '#999')};
+color: ${(props) => (props.$active ? '#8c524d' : '#795c59')};
 
     svg {
-        font-size: 24px;
-        margin-bottom: 4px;
+        font-size: 20px;
+        margin-bottom: 0.05px;
     }
 
   span {
-    font-size: 0.75rem;
-    color: ${props => (props.$active ? '#ff7a00' : '#888')};
+    font-size: 0.65rem;
+    color: ${props => (props.$active ? '#8c524d' : '#795c59')};
     font-weight: ${props => (props.$active ? '700' : '400')};
   }
 `;
