@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
@@ -9,6 +9,7 @@ import { loadUserFromStorage, logoutUser } from '../redux/userSlice';
 import * as S from '@/assets/css/style.styles';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { CustomAlert } from '../components/CustomAlert'; // 💡 커스텀 알럿 임포트
 
 // 💡 MUI 아이콘 임포트
 import {
@@ -34,6 +35,18 @@ export default function MyPage(){
     // Redux Store 상태 조회
     const { isLoggedIn, nickname } = useSelector((state: RootState) => state.user);
 
+    // 💡 커스텀 알럿 상태 관리
+    const [alertConfig, setAlertConfig] = useState({
+      isOpen: false,
+      message: '',
+      type: 'info' as 'success' | 'error' | 'info',
+      onConfirm: () => {},
+    });
+
+    const closeAlert = () => {
+      setAlertConfig((prev) => ({ ...prev, isOpen: false }));
+    };
+
     useEffect(() => {
         // 컴포넌트 마운트 시 로컬스토리지에서 유저 정보 로드
         dispatch(loadUserFromStorage());
@@ -42,8 +55,17 @@ export default function MyPage(){
     // 로그아웃 기능
     const handleLogout = () => {
         dispatch(logoutUser());
-        alert('로그아웃 되었습니다');
-        window.location.href = "/login";
+        
+        // 💡 기본 alert 대신 CustomAlert 띄우기
+        setAlertConfig({
+            isOpen: true,
+            message: '로그아웃 되었습니다.',
+            type: 'success',
+            onConfirm: () => {
+                closeAlert();
+                window.location.href = "/login"; // 확인 버튼을 누르면 이동
+            }
+        });
     };
 
     return(
@@ -110,6 +132,14 @@ export default function MyPage(){
 
             </S.Container>
             <Footer/>
+
+            {/* 💡 커스텀 알럿 렌더링 영역 */}
+            <CustomAlert 
+                isOpen={alertConfig.isOpen} 
+                message={alertConfig.message} 
+                type={alertConfig.type} 
+                onConfirm={alertConfig.onConfirm} 
+            />
         </S.AppWrapper>        
         </>
     )

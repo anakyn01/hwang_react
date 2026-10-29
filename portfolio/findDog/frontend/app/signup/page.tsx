@@ -9,6 +9,7 @@ import * as S from '@/assets/css/style.styles';
 
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import Header from "../components/Header";
+import { CustomAlert } from '../components/CustomAlert'; // 💡 커스텀 알럿 임포트
 
 // ==========================================
 // 💡 1. 애니메이션 Keyframes 및 래퍼 정의
@@ -36,7 +37,7 @@ const AnimItem = styled.div<{ $delay: number; $isSlideDown?: boolean }>`
 const InputWrapper = styled.div`
   position: relative;
   width: 100%;
-  flex: 1; /* AlignItemsCenter 내부에서 버튼과 배치될 때 꽉 차게 설정 */
+  flex: 1;
 `;
 
 const FloatingLabel = styled.label<{ $isActive: boolean }>`
@@ -58,9 +59,7 @@ const FloatingInput = styled(S.FormControl)`
   padding: 14px 15px; 
   background-color: transparent; 
   
-  &::placeholder {
-    color: transparent; 
-  }
+  &::placeholder { color: transparent; }
   
   &:focus {
     outline: none !important;
@@ -69,7 +68,6 @@ const FloatingInput = styled(S.FormControl)`
   }
 `;
 
-// 회원가입용 확장된 플로팅 인풋 (name, readOnly, onClick 속성 추가)
 const AnimatedInput = ({ type, name, label, value, onChange, readOnly, onClick }: any) => {
   const [isFocused, setIsFocused] = useState(false);
   const isActive = isFocused || value.length > 0;
@@ -104,6 +102,26 @@ export default function SignupPage() {
   const [isOpenPostcode, setIsOpenPostcode] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
+
+  // 💡 커스텀 알럿 상태 관리
+  const [alertConfig, setAlertConfig] = useState({
+    isOpen: false,
+    message: '',
+    type: 'info' as 'success' | 'error' | 'info',
+    onConfirm: () => {},
+  });
+
+  const closeAlert = () => setAlertConfig(prev => ({ ...prev, isOpen: false }));
+
+  // 알럿 띄우기 공통 함수
+  const showAlert = (message: string, type: 'success' | 'error' | 'info' = 'info', customConfirm?: () => void) => {
+    setAlertConfig({
+      isOpen: true,
+      message,
+      type,
+      onConfirm: customConfirm || closeAlert,
+    });
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -140,46 +158,48 @@ export default function SignupPage() {
   };
 
   const handleGeneralSignup = () => dispatch(setStep(1));
-  const handleKakaoSignup = () => alert('카카오 로그인 연동 페이지로 이동합니다.');
+  const handleKakaoSignup = () => showAlert('카카오 로그인 연동 페이지로 이동합니다.', 'info');
 
   const handleCheckEmail = async () => {
-    if (!formData.email.trim()) return alert('이메일을 먼저 입력해 주세요.');
+    if (!formData.email.trim()) return showAlert('이메일을 먼저 입력해 주세요.', 'error');
     try {
       const res = await fetch(`http://localhost:8080/api/members/check-email?email=${formData.email}`);
       if (!res.ok) throw new Error('서버응답에러');
-      if (await res.json()) alert('이미 사용 중인 이메일입니다.');
-      else alert('사용 가능한 이메일입니다!');
+      if (await res.json()) showAlert('이미 사용 중인 이메일입니다.', 'error');
+      else showAlert('사용 가능한 이메일입니다!', 'success');
     } catch (error) {
-      alert('서버와 통신하는 중 문제가 발생했습니다.');
+      showAlert('서버와 통신하는 중 문제가 발생했습니다.', 'error');
     }
   };
 
   const handleCheckNickname = async () => {
-    if (!formData.nickname.trim()) return alert('닉네임을 먼저 입력해 주세요.');
+    if (!formData.nickname.trim()) return showAlert('닉네임을 먼저 입력해 주세요.', 'error');
     try {
       const res = await fetch(`http://localhost:8080/api/members/check-nickname?nickname=${formData.nickname}`);
       if (!res.ok) throw new Error('서버응답에러');
-      if (await res.json()) alert('이미 누군가 사용 중인 닉네임입니다.');
-      else alert('멋진 닉네임이네요! 사용 가능합니다.');
+      if (await res.json()) showAlert('이미 누군가 사용 중인 닉네임입니다.', 'error');
+      else showAlert('멋진 닉네임이네요! 사용 가능합니다.', 'success');
     } catch (error) {
-      alert('서버와 통신하는 중 문제가 발생했습니다.');
+      showAlert('서버와 통신하는 중 문제가 발생했습니다.', 'error');
     }
   };
 
   const handleSubmit = async () => {
     if (!formData.email || !formData.nickname || !formData.password || !formData.name || !formData.phone) {
-      return alert('필수 입력 사항을 모두 입력해 주세요.');
+      return showAlert('필수 입력 사항을 모두 입력해 주세요.', 'error');
     }
     if (formData.password !== formData.passwordConfirm) {
-      return alert('비밀번호가 일치하지 않습니다.');
+      return showAlert('비밀번호가 일치하지 않습니다.', 'error');
     }
 
     const resultAction = await dispatch(submitSignup({ formData, profileFile }));
     if (submitSignup.fulfilled.match(resultAction)) {
-      alert('어서찾아주개 회원이 되신 것을 환영합니다! 🎉');
-      window.location.href = '/login';
+      showAlert('어서찾아주개 회원이 되신 것을 환영합니다! 🎉', 'success', () => {
+        closeAlert();
+        window.location.href = '/login';
+      });
     } else {
-      alert(`회원가입에 실패했습니다: ${resultAction.payload}`);
+      showAlert(`회원가입에 실패했습니다: ${resultAction.payload}`, 'error');
     }
   };
 
@@ -193,7 +213,7 @@ export default function SignupPage() {
           />
           <S.Mt70 />
 
-          {/* STEP 0: 가입 방식 선택 (애니메이션 X) */}
+          {/* STEP 0: 가입 방식 선택 */}
           {step === 0 && (
             <S.TextCenter>
               <S.H3Title>어서찾아주개에 오신 것을 환영합니다!</S.H3Title>
@@ -206,7 +226,7 @@ export default function SignupPage() {
             </S.TextCenter>
           )}
 
-          {/* STEP 1: 약관동의 (애니메이션 X) */}
+          {/* STEP 1: 약관동의 */}
           {step === 1 && (
             <S.BasicLayout>
               <S.H3Title>약관에 동의하고 어서찾아주개 회원이 되어주세요 !</S.H3Title>
@@ -237,14 +257,16 @@ export default function SignupPage() {
               </S.MemberInfo>
               <S.BtnBottomWrap>
                 <S.BaseBtn $variant='primary' onClick={() => {
-                  if (!formData.agreeTerms || !formData.agreePrivacy || !formData.agreeAge) return alert('필수 약관에 모두 동의해 주세요.');
+                  if (!formData.agreeTerms || !formData.agreePrivacy || !formData.agreeAge) {
+                    return showAlert('필수 약관에 모두 동의해 주세요.', 'error');
+                  }
                   dispatch(setStep(3));
                 }}>다음으로</S.BaseBtn>
               </S.BtnBottomWrap>
             </S.BasicLayout>
           )}
 
-          {/* STEP 3: 정보 입력 (순차적 애니메이션 적용) */}
+          {/* STEP 3: 정보 입력 */}
           {step === 3 && (
             <S.LayOutPadding>
               <AnimItem $delay={0} $isSlideDown>
@@ -326,6 +348,14 @@ export default function SignupPage() {
             </S.LayOutPadding>
           )}
         </S.Container>
+
+        {/* 💡 커스텀 알럿 컴포넌트 렌더링 */}
+        <CustomAlert 
+          isOpen={alertConfig.isOpen} 
+          message={alertConfig.message} 
+          type={alertConfig.type} 
+          onConfirm={alertConfig.onConfirm} 
+        />
       </S.AppWrapper>
     </>
   );

@@ -8,6 +8,7 @@ import { setEmail, setPassword, submitLogin } from '../redux/loginSlice';
 import styled, { keyframes } from 'styled-components';
 import * as S from '@/assets/css/style.styles';
 import Header from '../components/Header';
+import { CustomAlert } from '../components/CustomAlert'; // 💡 커스텀 알럿 임포트
 
 // ==========================================
 // 💡 1. 애니메이션 Keyframes 정의
@@ -103,19 +104,50 @@ export default function LoginPage() {
 
   const { email, password, isLoading } = useSelector((state: RootState) => state.login);
 
+
+
+  // 💡 커스텀 알럿 상태 관리
+  const [alertConfig, setAlertConfig] = useState({
+    isOpen: false,
+    message: '',
+    type: 'info' as 'success' | 'error' | 'info',
+    onConfirm: () => {},
+  });
+
+  const closeAlert = () => {
+    setAlertConfig((prev) => ({ ...prev, isOpen: false }));
+  };
+
   const handleLogin = async () => {
     if (!email || !password) {
-      alert('이메일과 비밀번호를 입력해주세요.');
+      setAlertConfig({
+        isOpen: true,
+        message: '이메일과 비밀번호를 입력해주세요.',
+        type: 'error',
+        onConfirm: closeAlert,
+      });
       return;
     }
 
     const resultAction = await dispatch(submitLogin({ email, password }));
 
     if (submitLogin.fulfilled.match(resultAction)) {
-      alert('로그인 성공!');
-      router.push('/');
+      setAlertConfig({
+        isOpen: true,
+        message: '로그인 성공!',
+        type: 'success',
+        onConfirm: () => {
+          closeAlert();
+          router.push('/'); // 💡 확인 버튼 누르면 메인으로 이동
+        },
+      });
     } else {
-      alert(`로그인 실패: ${resultAction.payload}`);
+      setAlertConfig({
+        isOpen: true,
+        message: `로그인 실패: ${resultAction.payload}`,
+        type: 'error',
+        onConfirm: closeAlert,
+      });
     }
   };
 
@@ -193,6 +225,17 @@ export default function LoginPage() {
           </AnimItem>
         </S.BtnBottomWrap>
       </S.Container>
+
+
+      {/* 💡 커스텀 알럿 렌더링 영역 */}
+      <CustomAlert 
+        isOpen={alertConfig.isOpen} 
+        message={alertConfig.message} 
+        type={alertConfig.type} 
+        onConfirm={alertConfig.onConfirm} 
+      />
     </S.AppWrapper>
+
+    
   );
 }

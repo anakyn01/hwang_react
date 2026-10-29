@@ -40,7 +40,7 @@ export default function Header({ title, onBackClick, isMain }: HeaderProps) {
                     />
                     <NotificationsNoneIcon 
                         sx={{ cursor: 'pointer', color: '#8a4e4b', fontSize: '28px' }} 
-                        onClick={() => router.push('/notifications')} // 필요시 알림 페이지 경로로 수정
+                        onClick={() => router.push('/mypage')} // 필요시 알림 페이지 경로로 수정
                     />
                 </div>
             </S.Header>
