@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
 import StyledComponentsRegistry from "@/lib/registry";
 import { GlobalStyle} from "@/assets/css/GlobalStyles";
 import { Providers } from "./store/Providers";
-import { store } from "./store/store";
+
 
 export const metadata: Metadata = {
   title: "어서찾아주개",
@@ -43,8 +43,8 @@ export default function RootLayout({
       </head>
 
       <body id="page-top" className="bg-primary text-gray-800">
-        <GlobalStyle/>
         <StyledComponentsRegistry>
+        <GlobalStyle/>
           <Providers>
         {children}
         </Providers>
