@@ -21,9 +21,9 @@ color: #333;
 border: 1px solid #ccc;
 `,
 primary:css<BtnProps>`
-background-color: ${({ $mainColor}) => $mainColor || '#28a745'};
+background-color: ${({ $mainColor}) => $mainColor || '#eb8a12'};
 color:#fff;
-border:1px solid ${({ $mainColor }) => $mainColor || '#28a745'}
+border:1px solid ${({ $mainColor }) => $mainColor || '#eb8a12'}
 `
 };
 

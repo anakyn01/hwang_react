@@ -10,9 +10,12 @@ letter-spacing:-0.03rem;
 ${MainColor};
 `;
 export const H3Title = styled.h3`
+${TextCenter};
 ${Fw700};
 letter-spacing:-0.03rem;
 color:#333;
+${MainColor};
+font-size:1.4rem;
 `;
 export const H3Size16 = styled.h3`
 font-size:16px; 

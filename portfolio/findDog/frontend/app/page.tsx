@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from './store/store'; // 경로 수정 필요
+import { AppDispatch, RootState } from './store/store';
 import { 
   fetchAnimals, 
   fetchCampaigns, 
   fetchHomeExtras, 
   setActiveHashtag 
 } from './redux/homeSlice';
+
+import SplashScreen from './components/SplashScreen'; // 💡 스플래시 컴포넌트 임포트
 
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import {
@@ -46,6 +48,9 @@ const campaignHashtags = ['#제주입양', '#임시보호', '#치료지원'];
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
 
+  // 💡 스플래시 노출 여부를 관리하는 상태 (초기값 true)
+  const [showSplash, setShowSplash] = useState(true);
+
   // Redux Store 상태 조회
   const {
     animals,
@@ -57,6 +62,15 @@ export default function HomePage() {
     fellowNews,
     needHelps,
   } = useSelector((state: RootState) => state.home);
+
+  // 💡 컴포넌트 마운트 시 2초(2000ms) 타이머 작동
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2000);
+
+    return () => clearTimeout(timer); // 언마운트 시 메모리 누수 방지
+  }, []);
 
   // 컴포넌트 마운트 시 데이터 로드
   useEffect(() => {
@@ -72,6 +86,11 @@ export default function HomePage() {
   const handleHashtagClick = (tag: string) => {
     dispatch(setActiveHashtag(tag));
   };
+
+  // 💡 showSplash가 true일 때는 스플래시 화면만 렌더링
+  if (showSplash) {
+    return <SplashScreen />;
+  }
 
   return (
     <>

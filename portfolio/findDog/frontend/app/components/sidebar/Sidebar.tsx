@@ -3,6 +3,7 @@
 import React,{useState} from 'react';
 // 💡 길게 나열했던 스타일 컴포넌트들을 'S'라는 바구니(별칭) 하나로 깔끔하게 묶어옵니다!
 import * as S from './Sidebar.styled';
+import AdminLogoIcon from '../../components/AdminLogoIcon';
 
 export const Sidebar: React.FC = () => {
 
@@ -18,7 +19,7 @@ const handleToggle = () => {
             >
                 <S.SidebarBrand href="/" $isCollapsed={isCollapsed}>
                     <div className='sidebar-brand-icon rotate-n-15'>
-                        <i className='fas fa-laugh-wink'></i>
+                        <AdminLogoIcon />
                     </div>
                     <S.BrandText className='sidebar-brand-text mx-3'>
                         Admin <sup>2</sup>

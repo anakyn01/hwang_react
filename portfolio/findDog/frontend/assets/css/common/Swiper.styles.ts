@@ -99,16 +99,7 @@ export const ThumTitle = styled.h2`
   }
 `;
 
-export const MoreButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 13px;
-  color: #888;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 0;
-`;
+
 
 // 스와이퍼 바깥 여백 확보 (첫 카드가 살짝 여백을 갖도록)
 export const SwiperContainer = styled.div`
@@ -124,11 +115,7 @@ export const CardWrapper = styled.div`
   background-color: #f0f0f0;
 `;
 
-export const CardImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
+
 
 // 흰색 텍스트가 잘 보이도록 하단에 어두운 그라데이션 추가
 export const GradientOverlay = styled.div`

@@ -35,7 +35,7 @@ export const FormControl = styled.input`
 ${W100};
 padding:10px;
 border:1px solid #ccc;
-border-radius:5px;
+border-radius:15px;
 `;
 export const LabelGroup = styled.div`
 ${FlexCenter};
@@ -61,16 +61,30 @@ ${FlexCenter};
 `;
 
 export const FilterSelect = styled.select`
-  padding: 0 15px;
+  /* flex 대신 일반 블록 레벨의 패딩과 줄간격으로 정렬합니다 */
+  padding: 0 30px 0 15px; 
   height: 38px;
-  border: 1px solid #ddd;
+  line-height: 36px; /* border 두께를 뺀 높이와 맞춰 수직 중앙 정렬 */
+  
+  border: 1px solid #e0e0e0;
   border-radius: 20px;
   background-color: #fff;
   font-size: 0.9rem;
   color: #333;
   outline: none;
   flex-shrink: 0;
-${Pointer};
+  cursor: pointer;
+
+  /* 💡 브라우저 기본 화살표 숨기기 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* 💡 커스텀 화살표 이미지 삽입 (SVG) */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center; 
+  background-size: 16px; 
 `;
 
 export const FormGroup = styled.div`

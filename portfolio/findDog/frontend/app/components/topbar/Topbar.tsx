@@ -4,7 +4,7 @@
 import React, {useState, useEffect} from "react";
 import { useRouter } from "next/navigation";
 import {TopbarContainer, TopbarSearch, TopbarProfile,
-TopbarNavbar} from './Topbar.styled';
+TopbarNavbar, InputGroup, SearchInput, InputGroupAppend, SearchButton} from './Topbar.styled';
 import { AddIcCall } from "@mui/icons-material";
 
 export const Topbar:React.FC = () => {
@@ -52,7 +52,7 @@ className="navbar navbar-expand navbar-light topbar static-top">
 </button>
 
 {/*Topbar Search */}
-<TopbarSearch 
+{/*<TopbarSearch 
 className="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-search">
 <div className="input-group">
     <input type="text" 
@@ -65,6 +65,16 @@ className="d-none d-sm-inline-block form-inline my-2 my-md-0 mw-100 navbar-searc
         </button>
     </div>
 </div>
+</TopbarSearch>*/}
+<TopbarSearch>
+  <InputGroup>
+    <SearchInput type="text" placeholder="검색어를 입력하세요..." />
+    <InputGroupAppend>
+      <SearchButton type="button">
+        <i className="fas fa-search fa-sm"></i>Search
+      </SearchButton>
+    </InputGroupAppend>
+  </InputGroup>
 </TopbarSearch>
 
 {/*Topbar Navbar */}

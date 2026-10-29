@@ -31,6 +31,8 @@ export * from './common/Table.styles';
 export * from './common/Title.styles';
 export * from './common/Video.styles';
 export * from './common/Swiper.styles';
+export * from './common/Margin.styles';
+export * from './common/Splash.styles';
 
 export * from './client/Breed.styles';
 export * from './client/Campain.styles';
@@ -39,6 +41,8 @@ export * from './client/Location.styles';
 export * from './client/MissingReport.styles';
 export * from './client/Shelter.styled';
 export * from './client/Term.styles';
+
+
 
 
 

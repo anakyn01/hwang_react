@@ -66,15 +66,19 @@ export default function Shelter(){
             </A.FilterIconBtn>
 
             <A.FilterSelect defaultValue="3months">
+              <option value="3months">최근 1개월</option>
+              <option value="3months">최근 2개월</option>
               <option value="3months">최근 3개월</option>
             </A.FilterSelect>
 
             <A.FilterSelect defaultValue="allArea">
               <option value="allArea">모든 지역</option>
+              <option value="allArea">서울</option>
             </A.FilterSelect>
 
             <A.FilterSelect defaultValue="allAnimal">
               <option value="allAnimal">모든 동물</option>
+              <option value="allAnimal">강아지</option>
             </A.FilterSelect>
           </A.FilterContainer>
 
