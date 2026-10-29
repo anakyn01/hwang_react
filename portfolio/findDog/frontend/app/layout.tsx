@@ -42,7 +42,7 @@ export default function RootLayout({
         {/* <link href="/css/sb-admin-2.min.css" rel="stylesheet" /> */}
       </head>
 
-      <body id="page-top" className="bg-primary text-gray-800">
+      <body id="page-top" className="bg-secondary text-gray-800">
         <StyledComponentsRegistry>
         <GlobalStyle/>
           <Providers>

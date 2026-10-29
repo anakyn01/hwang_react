@@ -48,8 +48,8 @@ const campaignHashtags = ['#제주입양', '#임시보호', '#치료지원'];
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
 
-  // 💡 스플래시 노출 여부를 관리하는 상태 (초기값 true)
-  const [showSplash, setShowSplash] = useState(true);
+  // 💡 스플래시 노출 여부를 관리하는 상태 (초기값 false로 설정 후 useEffect에서 판별)
+  const [showSplash, setShowSplash] = useState(false);
 
   // Redux Store 상태 조회
   const {
@@ -63,13 +63,22 @@ export default function HomePage() {
     needHelps,
   } = useSelector((state: RootState) => state.home);
 
-  // 💡 컴포넌트 마운트 시 2초(2000ms) 타이머 작동
+  // 💡 컴포넌트 마운트 시 세션 스토리지 확인하여 스플래시 제어
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 2000);
+    const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
 
-    return () => clearTimeout(timer); // 언마운트 시 메모리 누수 방지
+    if (!hasSeenSplash) {
+      // 최초 접속 시: 스플래시 보여주고, 세션 스토리지에 기록 남기기
+      setShowSplash(true);
+      sessionStorage.setItem('hasSeenSplash', 'true');
+      
+      const timer = setTimeout(() => {
+        setShowSplash(false);
+      }, 2000); // 2초 후 스플래시 종료
+      
+      return () => clearTimeout(timer); // 언마운트 시 클리어
+    }
+    // 이미 본 경우 (hasSeenSplash === 'true') 에는 showSplash 상태가 false 그대로 유지됨
   }, []);
 
   // 컴포넌트 마운트 시 데이터 로드
@@ -94,7 +103,6 @@ export default function HomePage() {
 
   return (
     <>
-    
       <S.AppWrapper>    
         <Header isMain={true}/>
         <S.Container>
@@ -103,21 +111,16 @@ export default function HomePage() {
 
           <BannerCarousel/>
           
- 
-
-          
-
           <S.QuickMenu>
-  {quickMenus.map((menu, idx) => (
-    <S.MenuIconWrapper key={idx}>
-      <S.IconCircle>
-        {/* 기존의 고정된 아이콘 대신 객체에 담긴 아이콘을 렌더링합니다 */}
-        {menu.icon}
-      </S.IconCircle>
-      <S.MenuText>{menu.name}</S.MenuText>
-    </S.MenuIconWrapper>
-  ))}
-</S.QuickMenu>
+            {quickMenus.map((menu, idx) => (
+              <S.MenuIconWrapper key={idx}>
+                <S.IconCircle>
+                  {menu.icon}
+                </S.IconCircle>
+                <S.MenuText>{menu.name}</S.MenuText>
+              </S.MenuIconWrapper>
+            ))}
+          </S.QuickMenu>
 
           <S.Divider/>
 
@@ -207,7 +210,8 @@ export default function HomePage() {
             </S.HorizontalScroll>
           </S.Section>
 
-<S.Divider/>
+          <S.Divider/>
+          
           {/* 유튜브 */}
           <S.Section>
             <S.SectionHeader>
@@ -226,7 +230,8 @@ export default function HomePage() {
             </MDBRow>
           </S.Section>
 
-<S.Divider/>
+          <S.Divider/>
+          
           {/* 펠로우 소식 */}
           <S.Section>
             <S.SectionHeader>
@@ -245,7 +250,8 @@ export default function HomePage() {
             </MDBRow>
           </S.Section>
 
-<S.Divider/>
+          <S.Divider/>
+          
           {/* 도움이 필요해요 */}
           <S.Section>
             <S.SectionHeader>
