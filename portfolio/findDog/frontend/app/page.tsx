@@ -16,10 +16,30 @@ import {
   PetsOutlined as PetsOutlinedIcon,
   PlayArrow as PlayArrowIcon
 } from '@mui/icons-material';
+import { Dog, Cat, Rabbit, MapPin, Heart } from 'lucide-react';
 
 import * as S from '@/assets/css/style.styles';
 import Header from './components/Header';
 import Footer from './components/Footer';
+
+import BannerCarousel from './components/content/BannerCarousel';
+import ConnectsCarousel from './components/content/ConnectCarousel';
+
+// 1. 필요한 MUI 아이콘들을 상단에 import 합니다.
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'; // 소개
+import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'; // 입양 캠페인 (손 위에 하트)
+import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined'; // 포인기부 (저금통)
+import CardGiftcardOutlinedIcon from '@mui/icons-material/CardGiftcardOutlined'; // 지원/혜택 (선물상자)
+import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'; // 스토어 (상점)
+
+// 2. 렌더링할 메뉴 데이터를 객체 배열로 분리하여 정의합니다.
+const quickMenus = [
+  { name: '소개', icon: <InfoOutlinedIcon style={{ color: '#b5a196' }} /> },
+  { name: '입양 캠페인', icon: <VolunteerActivismOutlinedIcon style={{ color: '#b5a196' }} /> },
+  { name: '어서찾아주개 기부', icon: <SavingsOutlinedIcon style={{ color: '#b5a196' }} /> },
+  { name: '지원/혜택', icon: <CardGiftcardOutlinedIcon style={{ color: '#b5a196' }} /> },
+  { name: '스토어', icon: <StorefrontOutlinedIcon style={{ color: '#b5a196' }} /> },
+];
 
 const campaignHashtags = ['#제주입양', '#임시보호', '#치료지원'];
 
@@ -61,32 +81,28 @@ export default function HomePage() {
         <S.Container>
 
           <S.Mt70/>
+
+          <BannerCarousel/>
           
-          <S.Banner>
-            <S.BannerTitle>
-              유기동물 입양자라면<br/>
-              50%할인 혜택을 받으세요!
-            </S.BannerTitle>
-            <S.BannerSub>
-              목줄 | 리드줄 | 물그릇
-            </S.BannerSub>
-            <S.BannerImage/>
-          </S.Banner>
+ 
 
           
 
           <S.QuickMenu>
-            {['소개','입양 캠페인','포인기부','지원/혜택','스토어'].map((menu, idx) =>(
-              <S.MenuIconWrapper key={idx}>
-                <S.IconCircle>
-                  <PetsOutlinedIcon style={{ color:'#F28C28'}}/>
-                </S.IconCircle>
-                <S.MenuText>{menu}</S.MenuText>
-              </S.MenuIconWrapper>    
-            ))}
-          </S.QuickMenu>
+  {quickMenus.map((menu, idx) => (
+    <S.MenuIconWrapper key={idx}>
+      <S.IconCircle>
+        {/* 기존의 고정된 아이콘 대신 객체에 담긴 아이콘을 렌더링합니다 */}
+        {menu.icon}
+      </S.IconCircle>
+      <S.MenuText>{menu.name}</S.MenuText>
+    </S.MenuIconWrapper>
+  ))}
+</S.QuickMenu>
 
           <S.Divider/>
+
+          <ConnectsCarousel/>
 
           {/* 이달의 추천 입양 동물 */}
           <S.Section>
@@ -131,7 +147,7 @@ export default function HomePage() {
           <S.Section>
             <S.SectionHeader>
               <S.SectionTitle>입양 캠페인</S.SectionTitle>
-              <S.MoreButton>더보기 &gt;</S.MoreButton>   
+              <S.MoreButton>더보기  &gt;</S.MoreButton>   
             </S.SectionHeader>
 
             <S.HashtagScroll>

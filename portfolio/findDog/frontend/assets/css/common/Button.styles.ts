@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components';
-import { Absolute, ColorWhite, BorderNone, FlexCenter, Fw600, BoxShadow, Pointer, TransitionAll, Relative, Nowrap, Fw700 } from './Common.styles';
+import { Absolute, ColorWhite, BorderNone, FlexCenter,Fw600, Fw800, BoxShadow, Pointer, TransitionAll, Relative, Nowrap, Fw700,Fw200, IconColor } from './Common.styles';
 
 type ButtonVariant = 'kakao' | 'local' | 'primary';
 //컴포넌트가 받을 Props 정의
@@ -96,12 +96,13 @@ transform:translateX(-50%);
 
 
 export const HashtagBtn = styled.button<{$active?:boolean}>`
-background:${({$active}) => ($active ? '#f6931d' : '#eaecee')};
-color:${({ $active}) => ($active ? '#fff' : '#555')};
+background:${({$active}) => ($active ? '#eb8a12' : '#faf4f2')};
+color:${({ $active}) => ($active ? '#f7f2d8' : '#c1b6b6')};
 border:none;
 border-radius:20px;
 padding:6px 14px;
-${Fw700};
+font-size:0.775rem;
+${Fw800};
 ${Nowrap};
 ${Pointer};
 transition: all .2s ease-in-out;
@@ -133,7 +134,7 @@ export const FloatingWriteButton = styled.button`
 
 export const MoreButton = styled.span`
 font-size:12px; 
-color:#6c757d; 
+${IconColor}; 
 ${Pointer};
 `;
 
@@ -252,17 +253,19 @@ interface StatusProps {
 
 const getStatusColor = (color?: string) => {
   switch(color) {
-    case 'red' : return '#dc3545';
-    case 'yellow' : return '#ffc107';
-    case 'green' : return '#28a745';
-    case 'purple':return '#6f42c1';
-    default: return '#dc3545';    
+    case 'red' : return '#f66a78';
+    case 'yellow' : return '#fae299';
+    case 'green' : return '#a4f9b8';
+    case 'purple':return '#d2c1f2';
+    default: return '#938d8e';   
   }
 }
 
 export const StatusText = styled.span<StatusProps>`
 color: ${({ statusColor}) => getStatusColor(statusColor)};
-font-weight:bold;
+${Fw200};
+font-size:0.825rem;
+margin:0;
 `;
 
 // 🖋️ 선택된 색상에 따라 글자색을 반환하는 함수 

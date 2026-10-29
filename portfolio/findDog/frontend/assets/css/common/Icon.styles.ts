@@ -30,19 +30,23 @@ opacity:0.9;
 `;
 
 export const IconCircle = styled.div`
-width:50px; height:50px; border-radius:50%;
-background-color:#f8f9fa;
+width:50px; 
+height:50px; 
+border-radius:50%;
+background-color: #f8f0e5;
 ${FlexCenter};
 `;
 
 export const RegionCircle = styled.div`
-width:60px; 
-height:60px;
+width:50px; 
+height:50px;
 border-radius:50%; 
-border:1px solid #dee2e6;
+border:1px solid #fdfbef;
+background-color: #fdfbef;
 ${FlexCenter};
 flex-shrink:0;
 span{
 font-size:12px;
+color: #6a695c;
 }
 `;

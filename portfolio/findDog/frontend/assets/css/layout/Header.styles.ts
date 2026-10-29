@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components';
-import { Fixed, FlexBetween, FlexCenter, Fw500, MainBg, MainColor, Pointer, Sticky, W100 } from '../common/Common.styles';
+import { Fixed, FlexBetween, FlexCenter, Fw500, IconColor, MainBg, MainColor, MainDarkColor, Pointer, Sticky, W100 } from '../common/Common.styles';
 
 export const Header = styled.header`
 ${Fixed};
@@ -53,9 +53,8 @@ ${FlexBetween};
   padding-right: 20px;
   margin-bottom: 15px;
   .more-link {
-${FlexCenter};
     font-size: 0.85rem;
-    color: #888;
+    ${IconColor};
     text-decoration: none;
   }
 `;

@@ -30,6 +30,7 @@ export * from './common/Stat.styles';
 export * from './common/Table.styles';
 export * from './common/Title.styles';
 export * from './common/Video.styles';
+export * from './common/Swiper.styles';
 
 export * from './client/Breed.styles';
 export * from './client/Campain.styles';

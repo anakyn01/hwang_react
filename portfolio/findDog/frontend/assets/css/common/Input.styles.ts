@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components';
-import { Fw500,Relative,Pointer,TransitionAll,BgWhite,Circle,Absolute,BoxShadow, W100, FlexCenter } from '../common/Common.styles';
+import { Relative,Pointer,TransitionAll,BgWhite,Circle,Absolute,BoxShadow, W100, FlexCenter } from '../common/Common.styles';
 
 interface ToggleProps {
   active: boolean;

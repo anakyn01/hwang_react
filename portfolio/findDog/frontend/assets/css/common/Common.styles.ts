@@ -3,11 +3,20 @@ import {css} from 'styled-components';
 export const MainBg = css`
 background: #f8d6cb;
 `;
+export const MainBottomBg = css`
+background: #f4edea;
+`;
 export const MainColor = css`
-color: #8c524d;
+color: #665251;
 `;
 export const MainDarkColor = css`
 color: #8c524d;
+`;
+export const MainTitleColor = css`
+color: #665251;
+`;
+export const IconColor = css`
+color: #b5a196;
 `;
 
 export const FlexCenter = css`
@@ -83,6 +92,12 @@ text-overflow:ellipsis;
 `;
 export const Fw100 = css`
 font-weight: 100;
+`;
+export const Fw200 = css`
+font-weight: 200;
+`;
+export const Fw300 = css`
+font-weight: 300;
 `;
 export const Fw400 = css`
 font-weight: 400;

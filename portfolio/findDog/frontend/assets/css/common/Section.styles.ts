@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components';
-import { FlexBetween, FlexColumn, TextCenter, W100 } from './Common.styles';
+import { FlexColumn, Fw600, MainTitleColor, W100 } from './Common.styles';
 
 
 export const Section = styled.section<{$bgLight?:boolean}>`
@@ -10,9 +10,11 @@ margin-top:${(props) => (props.$bgLight ? '8px':'0')};
 
 
 export const SectionTitle=styled.h3`
-font-size:1.2rem; color:#4e73df;
-margin-bottom:15px; border-bottom:1px solid #eee;
-padding-bottom:10px;
+font-size:1.15rem; 
+${MainTitleColor}
+${Fw600};
+letter-spacing:-0.03rem;
+margin-bottom:0.9375rem; 
 `;
 
 export const RecommendSection = styled.section`
