@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'dart:ui'; // Glassmorphism(ImageFilter) 패키지
 import 'admin_login_screen.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
@@ -22,13 +23,30 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   String get _baseUrl {
     if (kIsWeb) return 'http://localhost:3000';
     if (defaultTargetPlatform == TargetPlatform.android) return 'http://10.0.2.2:3000';
-    return 'http://localhost:3000'; // iOS 에뮬레이터도 localhost 사용
+    return 'http://localhost:3000';
   }
 
   @override
   void initState() {
     super.initState();
     _fetchUsers();
+  }
+
+  // ✨ 상단 글래스룩 토스트 호출 함수
+  void _showTopGlassToast(BuildContext context, String message, {bool isError = false}) {
+    late OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (ctx) => TopSlidingToast(
+        message: message,
+        isError: isError,
+        onDismiss: () {
+          overlayEntry.remove();
+        },
+      ),
+    );
+
+    Overlay.of(context).insert(overlayEntry);
   }
 
   Future<void> _fetchUsers() async {
@@ -49,9 +67,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       print('서버 통신 오류: $e');
       setState(() => _isLoading = false);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('통신 오류: $e'), backgroundColor: Colors.redAccent),
-        );
+        _showTopGlassToast(context, '통신 오류: $e', isError: true);
       }
     }
   }
@@ -60,15 +76,11 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     try {
       final response = await http.patch(Uri.parse('$_baseUrl/api/admin/users/$userId/approve'));
       if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('$nickname 님 승인 완료!'), backgroundColor: Colors.green),
-        );
-        _fetchUsers(); // 승인 후 즉시 새로고침
+        _showTopGlassToast(context, '$nickname 님 수질 검사 통과(승인) 완료!', isError: false);
+        _fetchUsers(); 
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('승인 처리 중 통신 에러가 발생했습니다.')),
-      );
+      _showTopGlassToast(context, '승인 처리 중 통신 에러가 발생했습니다.', isError: true);
     }
   }
 
@@ -98,7 +110,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           : _users.isEmpty
               ? const Center(child: Text('가입한 회원이 없습니다.', style: TextStyle(color: Colors.white)))
               : Center(
-                  // 👉 [반응형 핵심] 태블릿과 PC에서 리스트가 가로로 무한정 늘어나지 않게 최대 800px로 고정
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 800),
                     child: ListView.builder(
@@ -184,7 +195,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                                     const Text('📸 등록된 사진', style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.bold)),
                                     const SizedBox(height: 12),
                                     
-                                    // 👉 [반응형 핵심] 사진들이 찌그러지지 않게 GridView와 유사한 고정 비율 레이아웃 적용
                                     Row(
                                       children: [
                                         _buildResponsiveImageBox(user['profile_image_main']),
@@ -223,40 +233,163 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     );
   }
 
-  // 👉 [수정됨] 에러 처리(errorBuilder)와 null 완벽 대응이 추가된 이미지 박스
   Widget _buildResponsiveImageBox(dynamic imagePath) {
-    // DB에서 null, 글자 "null", 빈 문자열("") 중 어떻게 넘어오더라도 다 걸러냅니다.
     final bool hasImage = imagePath != null && 
                           imagePath.toString().trim().isNotEmpty && 
                           imagePath.toString() != 'null';
 
     return Expanded(
       child: AspectRatio(
-        aspectRatio: 1, // 완벽한 정사각형 비율 유지
+        aspectRatio: 1,
         child: Container(
           decoration: BoxDecoration(
             color: const Color(0xFF1A1A24),
             borderRadius: BorderRadius.circular(12),
           ),
-          // ClipRRect를 사용해 이미지가 네모 박스 밖으로 삐져나가지 않게 둥글게 자릅니다.
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: hasImage
                 ? Image.network(
                     '$_baseUrl$imagePath',
                     fit: BoxFit.cover,
-                    // 👉 [핵심] 서버 통신은 됐으나 파일이 지워졌거나 깨졌을 때 빈칸 대신 '깨진 이미지 아이콘' 출력
                     errorBuilder: (context, error, stackTrace) {
-                      print('이미지 로드 실패: $_baseUrl$imagePath'); // 디버그 콘솔에서 원인 확인용
                       return const Center(
                         child: Icon(Icons.broken_image, color: Colors.white24, size: 32),
                       );
                     },
                   )
                 : const Center(
-                    // 처음부터 등록된 사진이 없을 때 보여줄 아이콘
                     child: Icon(Icons.image_not_supported, color: Colors.white24, size: 32),
                   ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ✨ 상단 슬라이드 다운 글래스룩 토스트 위젯 (파일 내 포함)
+class TopSlidingToast extends StatefulWidget {
+  final String message;
+  final bool isError;
+  final VoidCallback onDismiss;
+
+  const TopSlidingToast({
+    super.key,
+    required this.message,
+    required this.isError,
+    required this.onDismiss,
+  });
+
+  @override
+  State<TopSlidingToast> createState() => _TopSlidingToastState();
+}
+
+class _TopSlidingToastState extends State<TopSlidingToast>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _slideAnimation;
+  late final Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+
+    _slideAnimation = Tween<double>(begin: -100.0, end: 0.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
+    );
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
+    );
+
+    _controller.forward();
+
+    Future.delayed(const Duration(milliseconds: 2500), () async {
+      if (mounted) {
+        await _controller.reverse();
+        widget.onDismiss();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: MediaQuery.of(context).padding.top + 16,
+      left: 24,
+      right: 24,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 450),
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Transform.translate(
+                offset: Offset(0, _slideAnimation.value),
+                child: Opacity(
+                  opacity: _fadeAnimation.value,
+                  child: child,
+                ),
+              );
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF22222E).withValues(alpha: 0.85),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: widget.isError
+                          ? Colors.redAccent.withValues(alpha: 0.5)
+                          : const Color(0xFFFF4B93).withValues(alpha: 0.5),
+                      width: 1.5,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        widget.isError ? Icons.error_outline : Icons.check_circle_outline,
+                        color: widget.isError ? Colors.redAccent : const Color(0xFFFF4B93),
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Flexible(
+                        child: Text(
+                          widget.message,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),

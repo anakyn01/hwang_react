@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 
-// 👈 서버 통신용 도구 추가
+// 서버 통신용 도구
 import 'package:http/http.dart' as http;
-//JSON 변환용 도구 추가
+// JSON 변환용 도구
 import 'dart:convert';
-// 👈 File 객체 사용
+// File 객체 사용
 import 'dart:io';
-//이미지 피커
+// 이미지 피커
 import 'package:image_picker/image_picker.dart';
-//🚀 웹(kIsWeb) 및 플랫폼 자동 감지 도구
+// 웹(kIsWeb) 및 플랫폼 자동 감지 도구
 import 'package:flutter/foundation.dart';
+import 'dart:ui'; // Glassmorphism(ImageFilter) 패키지
 
-// 화면에 글씨를 치거나 버튼을 눌렀을 때 '모양이 변하는'
-// 화면을 만들기 위해 StatefulWidget을 사용합니다. (👈 주석 기호 // 추가)
 class SignupProfileScreen extends StatefulWidget {
-  const SignupProfileScreen({super.key}); // (👈 Key 대문자를 key 소문자로 수정)
+  const SignupProfileScreen({super.key});
   @override
   State<SignupProfileScreen> createState() => _SignupProfileScreenState();
 }
 
-// 실제로 화면의 모양을 그리고 상태(데이터)를 저장하는 핵심 공간입니다.
-class _SignupProfileScreenState extends State<SignupProfileScreen> {
-  /* 디자인 테마 색상 정의하기
-    0xFF는 투명도 100%를 의미하고, 뒤의 6자리는 헥스(HEX) 16진수 표기법 색상 코드
-    */
+class _SignupProfileScreenState extends State<SignupProfileScreen>
+    with SingleTickerProviderStateMixin {
+  // 디자인 테마 색상 정의
   final Color bgColor = const Color(0xFF12121A);
   final Color cardColor = const Color(0xFF22222E);
   final Color borderColor = const Color(0xFF38384A);
@@ -32,33 +29,33 @@ class _SignupProfileScreenState extends State<SignupProfileScreen> {
   final Color textColor = Colors.white;
   final Color subTextColor = const Color(0xFFA0A0B0);
 
-  //add 사용자가 입력한 글씨를 빼오기 위한 콘트롤러
-  final TextEditingController _emailController = 
-  TextEditingController();
+  // 🚀 현재 단계를 관리하는 변수 (1단계 / 2단계 / 3단계)
+  int _currentStep = 1;
 
-    final TextEditingController _passwordController = 
-  TextEditingController();
+  // 순차적 슬라이드 다운 애니메이션을 위한 컨트롤러
+  late final AnimationController _animController;
+  late final Animation<double> _step1SlideAnim;
+  late final Animation<double> _step1FadeAnim;
+  late final Animation<double> _step2SlideAnim;
+  late final Animation<double> _step2FadeAnim;
 
-  final TextEditingController _nicknameController = 
-  TextEditingController();
+  // 입력 컨트롤러들
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nicknameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
 
-   final TextEditingController _ageController = 
-  TextEditingController();
-
-   final TextEditingController _bioController = 
-  TextEditingController();
-
-  // 선택한 데이터를 기억하는 변수들 (상태관리)
+  // 선택한 데이터 상태관리
   String _selectedGender = '여성';
-  final List<String> _selectedInterests = ['카페', '영화', '독서'];
+  final List<String> _selectedInterests = ['카페', '영화', '독서', '음악', '운동']; // 초기값 5개 이상 충족
 
-//add 📸 선택한 사진을 담을 변수 (최대 3장)
-final List<XFile?> _selectedImages = [null, null, null];//여기수정
-final ImagePicker _picker = ImagePicker();
+  // 📸 선택한 사진을 담을 변수 (최대 3장)
+  final List<XFile?> _selectedImages = [null, null, null];
+  final ImagePicker _picker = ImagePicker();
 
-
-  // 📋 [3] 화면에 뿌려줄 관심사 버튼 데이터 목록
-  final List<Map<String, String>> _interestsData = [
+  // 📋 3단계에서 사용할 풍성해진 관심사 목록 데이터
+  final _interestsData = [
     {'icon': '☕', 'label': '카페'},
     {'icon': '🎬', 'label': '영화'},
     {'icon': '🎵', 'label': '음악'},
@@ -67,179 +64,256 @@ final ImagePicker _picker = ImagePicker();
     {'icon': '✈️', 'label': '여행'},
     {'icon': '🍳', 'label': '요리'},
     {'icon': '🎮', 'label': '게임'},
+    {'icon': '🎨', 'label': '예술'},
+    {'icon': '🐾', 'label': '반려동물'},
+    {'icon': '🍜', 'label': '맛집탐방'},
+    {'icon': '📷', 'label': '사진촬영'},
   ];
-//🌐 [핵심] 현재 접속한 기기가 무엇인지 파악해서 알아서 서버 주소를 맞춰줍니다!
-String get _apiUrl {
-  if (kIsWeb) {
-    return 'http://localhost:3000/api/signup';//크롬용 주소
-  } else if (defaultTargetPlatform == TargetPlatform.android){
-return 'http://10.0.2.2:3000/api/signup';//🤖 안드로이드 에뮬레이터용 주소
-  } else {
-    return 'http://localhost:3000/api/signup';
-    //🍎 아이폰 시뮬레이터용 주소
+
+  @override
+  void initState() {
+    super.initState();
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+
+    _step1SlideAnim = Tween<double>(begin: -30.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: const Interval(0.0, 0.6, curve: Curves.easeOut),
+      ),
+    );
+    _step1FadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: const Interval(0.0, 0.6, curve: Curves.easeOut),
+      ),
+    );
+
+    _step2SlideAnim = Tween<double>(begin: -30.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: const Interval(0.3, 1.0, curve: Curves.easeOut),
+      ),
+    );
+    _step2FadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: const Interval(0.3, 1.0, curve: Curves.easeOut),
+      ),
+    );
+
+    _animController.forward();
   }
-}
 
-//📸 갤러리 열어서 사진 고르기 함수
-Future<void> _pickImage(int index) async{
-  final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-if (pickedFile != null) {
-  setState(() {
-    _selectedImages[index] = pickedFile;
-    //고른 사진 화면에 표시
-  });
-}
-}
+  @override
+  void dispose() {
+    _animController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nicknameController.dispose();
+    _ageController.dispose();
+    _bioController.dispose();
+    super.dispose();
+  }
 
+  // 단계가 바뀔 때마다 애니메이션을 부드럽게 재실행
+  void _changeStep(int newStep) {
+    setState(() {
+      _currentStep = newStep;
+    });
+    _animController.reset();
+    _animController.forward();
+  }
 
-  //add 🚀 [추가됨] 백엔드로 회원가입 데이터를 쏘는 핵심 함수!
+  // 서버 주소 설정
+  String get _apiUrl {
+    if (kIsWeb) {
+      return 'http://localhost:3000/api/signup';
+    } else if (defaultTargetPlatform == TargetPlatform.android) {
+      return 'http://10.0.2.2:3000/api/signup';
+    } else {
+      return 'http://localhost:3000/api/signup';
+    }
+  }
+
+  // ✨ 상단 글래스룩 토스트 호출 함수
+  void _showTopGlassToast(BuildContext context, String message, {bool isError = false}) {
+    late OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (ctx) => TopSlidingToast(
+        message: message,
+        isError: isError,
+        onDismiss: () {
+          overlayEntry.remove();
+        },
+      ),
+    );
+
+    Overlay.of(context).insert(overlayEntry);
+  }
+
+  // 갤러리에서 사진 고르기
+  Future<void> _pickImage(int index) async {
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImages[index] = pickedFile;
+      });
+    }
+  }
+
+  // 백엔드로 최종 회원가입 데이터 전송
   Future<void> _signUpToBackend() async {
-    //1. 컨트롤러에서 글씨를 꺼냅니다.
-    final email = _emailController.text;//
+    final email = _emailController.text;
     final password = _passwordController.text;
     final nickname = _nicknameController.text;
     final ageText = _ageController.text;
     final bio = _bioController.text;
 
-    //2.필수값 검사 (빈칸 방지)
-    if(email.isEmpty || password.isEmpty || nickname.isEmpty || ageText.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-       const SnackBar(content:Text('닉네임과 나이를 입력해 주세요')),
-        );
-        return;
-    }
+    var request = http.MultipartRequest('POST', Uri.parse(_apiUrl));
 
-    //3.사진 null 검사 (빈칸 방지)
-    if(_selectedImages[0] == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-       const SnackBar(content:Text('대표 사진은 필수로 등록해야 합니다!')),
-        );
-        return;
-    }
-// 파일(사진)을 전송할 때는 일반 http.post 대신 MultipartRequest를 사용합니다.
-var request = http.MultipartRequest('POST', Uri.parse(_apiUrl));
-
-    //4. 텍스트 데이터 포장
     request.fields['email'] = email;
     request.fields['password'] = password;
     request.fields['nickname'] = nickname;
     request.fields['age'] = ageText;
-    request.fields['gender'] = _selectedGender == '남성' ? 'M' :'F';
+    request.fields['gender'] = _selectedGender == '남성' ? 'M' : 'F';
     request.fields['bio'] = bio;
+    request.fields['interests'] = jsonEncode(_selectedInterests);
 
-    //5 이미지 파일 포장 웹/모바일 겸용을 위해 바이트 단위(fromBytes)로 파일 전송
-    for(int i =0; i < _selectedImages.length; i++){
-      if(_selectedImages[i] != null) {
-//여기에 추가
-final bytes = await _selectedImages[i]!.readAsBytes();       
-request.files.add(
-http.MultipartFile.fromBytes(
-  'photos',
-  bytes,
-  filename:_selectedImages[i]!.name.isNotEmpty ? 
-  _selectedImages[i]!.name : 'photo_$i.jpg',
-  ),
-);
+    for (int i = 0; i < _selectedImages.length; i++) {
+      if (_selectedImages[i] != null) {
+        final bytes = await _selectedImages[i]!.readAsBytes();
+        request.files.add(
+          http.MultipartFile.fromBytes(
+            'photos',
+            bytes,
+            filename: _selectedImages[i]!.name.isNotEmpty
+                ? _selectedImages[i]!.name
+                : 'photo_$i.jpg',
+          ),
+        );
       }
-}try{
-var streamedResponse = await request.send();
-var response = await http.Response.fromStream(streamedResponse);
-final data = jsonDecode(response.body);
-if (response.statusCode == 200 && data['success'] == true){
-ScaffoldMessenger.of(context).showSnackBar(
-  SnackBar(content: Text(data['message'])));
-}else{
-ScaffoldMessenger.of(context).showSnackBar(
-  SnackBar(content: Text(data['message'] ?? '가입실패')));
-}
-} catch (e) {
-ScaffoldMessenger.of(context).showSnackBar(
-const SnackBar(content: Text('서버 통신 에러')));
-}
-}
+    }
 
+    try {
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+      final data = jsonDecode(response.body);
+      if (response.statusCode == 200 && data['success'] == true) {
+        _showTopGlassToast(context, data['message'], isError: false);
+      } else {
+        _showTopGlassToast(context, data['message'] ?? '가입실패', isError: true);
+      }
+    } catch (e) {
+      _showTopGlassToast(context, '서버 통신 에러', isError: true);
+    }
+  }
 
-  //// 📱 [4] 실제로 화면을 그리는 build 함수
+  // ⏭️ 다음 단계로 넘어갈 때 유효성 검사 로직
+  void _handleNextStep() {
+    if (_currentStep == 1) {
+      if (_selectedImages[0] == null) {
+        _showTopGlassToast(context, '대표 사진은 필수로 등록해야 합니다!', isError: true);
+        return;
+      }
+      if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+        _showTopGlassToast(context, '이메일과 비밀번호를 모두 입력해 주세요.', isError: true);
+        return;
+      }
+      _changeStep(2);
+    } else if (_currentStep == 2) {
+      if (_nicknameController.text.isEmpty || _ageController.text.isEmpty) {
+        _showTopGlassToast(context, '닉네임과 나이를 모두 입력해 주세요.', isError: true);
+        return;
+      }
+      _changeStep(3);
+    } else if (_currentStep == 3) {
+      if (_selectedInterests.length < 5) {
+        _showTopGlassToast(context, '관심사를 5개 이상 선택해 주세요!', isError: true);
+        return;
+      }
+      // 최종 가입 완료 서버 전송
+      _signUpToBackend();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
+      // ✨ 하단 고정 플로팅 버튼 영역 배치
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(24.0),
+        color: bgColor,
+        child: SafeArea(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 480),
+            child: _buildNextButton(),
+          ),
+        ),
+      ),
       body: SafeArea(
-        // 핸드폰의 노치(카메라 파인 부분)나 하단 바에 UI가 가려지지 않게 보호해줍니다.
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth:480),
-            child:Column(
-          // 위에서 아래로 위젯(화면 조각)들을 차곡차곡 쌓습니다
-          children: [
-            _buildTopBar(), // 맨 위에 뒤로가기 버튼과 분홍색 진행률 바를 그립니다.
-            Expanded(
-              // 남은 화면 공간을 꽉 채우라는 뜻입니다.
-              child: SingleChildScrollView(
-                // 내용이 길어지면 화면을 위아래로 스크롤(드래그)할 수 있게 해줍니다.
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 16.0,
+            constraints: const BoxConstraints(maxWidth: 480),
+            child: Column(
+              children: [
+                _buildTopBar(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                      vertical: 16.0,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildHeader(),
+                        const SizedBox(height: 32),
+                        
+                        // 🔄 단계별 화면 전환
+                        if (_currentStep == 1) _buildStep1Content(),
+                        if (_currentStep == 2) _buildStep2Content(),
+                        if (_currentStep == 3) _buildStep3Content(),
+
+                        const SizedBox(height: 20), // 하단 바와 겹치지 않게 여유 공간
+                      ],
+                    ),
+                  ),
                 ),
-                // 양옆과 위아래에 여백을 줍니다.
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  // 글씨나 박스들을 화면 왼쪽으로 정렬합니다.
-                  children: [
-                    _buildHeader(),
-                    const SizedBox(height: 32),
-                    _buildPhotoSection(),
-                    const SizedBox(height: 24),
-//추가
-                    _buildSectionTitle('이메일'),
-                    const SizedBox(height: 8),
-                    _buildTextField(controller: _emailController, hint: 'example@test.com'),
-                    const SizedBox(height: 16),
-                    _buildSectionTitle('비밀번호'),
-                    const SizedBox(height: 8),
-                    _buildTextField(controller: _passwordController, hint: '비밀번호 입력', obscureText: true),
-                    const SizedBox(height: 24),
-//추가 끝
-                    _buildNicknameSection(),
-                    const SizedBox(height: 24),
-                    _buildAgeAndGenderSection(),
-                    const SizedBox(height: 24),
-                    _buildBioSection(),
-                    const SizedBox(height: 24),
-                    _buildInterestsSection(),
-                    const SizedBox(height: 40),
-                    _buildNextButton(),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
-        ),
-      ),
-    ); // (👈 }; 로 잘못 닫혀있던 Scaffold 괄호를 ); 로 수정)
+    );
   }
 
-  //// 🧱 부품 1: 상단 앱바 (뒤로가기, 프로그레스 바)
+  // 상단 바 (뒤로가기 및 단계별 프로그레스 바)
   Widget _buildTopBar() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
       child: Row(
         children: [
-          // 뒤로가기 동그란 버튼 만들기
           Container(
             width: 40,
             height: 40,
             decoration: BoxDecoration(color: cardColor, shape: BoxShape.circle),
             child: IconButton(
               icon: Icon(Icons.arrow_back, color: textColor, size: 20),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                if (_currentStep > 1) {
+                  _changeStep(_currentStep - 1);
+                } else {
+                  Navigator.pop(context);
+                }
+              },
             ),
           ),
           const SizedBox(width: 16),
-          // 진행 상태 표시바
           Expanded(
             child: Stack(
               children: [
@@ -250,9 +324,8 @@ const SnackBar(content: Text('서버 통신 에러')));
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-                // 그 위에 덮이는 핑크/퍼플 그라데이션 선
                 FractionallySizedBox(
-                  widthFactor: 0.6,
+                  widthFactor: _currentStep / 3, // 단계에 따라 차오르는 바
                   child: Container(
                     height: 4,
                     decoration: BoxDecoration(
@@ -267,9 +340,8 @@ const SnackBar(content: Text('서버 통신 에러')));
             ),
           ),
           const SizedBox(width: 16),
-          // (👈 fontWeight: 파라미터명 누락 수정)
           Text(
-            '3 / 5',
+            '$_currentStep / 3',
             style: TextStyle(
               color: subTextColor,
               fontSize: 14,
@@ -281,13 +353,27 @@ const SnackBar(content: Text('서버 통신 에러')));
     );
   }
 
-  // 🧱 부품 2: 헤더 타이틀 ('나를 소개해요 ✨')
+  // 단계별 헤더 타이틀 변화
   Widget _buildHeader() {
+    String title = '';
+    String subtitle = '';
+
+    if (_currentStep == 1) {
+      title = '나를 소개해요 ✨';
+      subtitle = '프로필 사진과 기본 계정 정보를 입력해주세요';
+    } else if (_currentStep == 2) {
+      title = '기본 정보를 알려주세요 📝';
+      subtitle = '다른 회원들에게 보여질 프로필을 채워주세요';
+    } else {
+      title = '어떤 취향을 가지셨나요? 🎯';
+      subtitle = '마음에 드는 관심사를 5개 이상 선택해주세요';
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '나를 소개해요',
+          title,
           style: TextStyle(
             color: textColor,
             fontSize: 26,
@@ -296,108 +382,232 @@ const SnackBar(content: Text('서버 통신 에러')));
         ),
         const SizedBox(height: 8),
         Text(
-          '프로필 사진과 기본 정보를 입력해주세요',
+          subtitle,
           style: TextStyle(color: subTextColor, fontSize: 14),
         ),
       ],
     );
   }
 
-  // 🧱 부품 3: 프로필 사진 3장 등록하는 곳
-  Widget _buildPhotoSection() {
-    return SizedBox(
-      height: 150,
-      child: Row(
+  // 📌 1단계 화면 구성 (슬라이드 다운 적용)
+  Widget _buildStep1Content() {
+    return AnimatedBuilder(
+      animation: _animController,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _step1SlideAnim.value),
+          child: Opacity(
+            opacity: _step1FadeAnim.value,
+            child: child,
+          ),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(flex: 2, child: _buildPhotoBox(index:0, isMain:true)),
-          // 가장 큰 메인 사진 칸 (비율 2)
-          const SizedBox(width: 12),
-          Expanded(flex: 1, child: _buildPhotoBox(index:1, isMain:false)),
-          // 서브 사진 칸 1 (비율 1)
-          const SizedBox(width: 12),
-          Expanded(flex: 1, child: _buildPhotoBox(index:2, isMain:false)),
-          // 서브 사진 칸 2 (비율 1)
+          _buildPhotoSection(),
+          const SizedBox(height: 32),
+          _buildCustomAnimatedTextField(
+            controller: _emailController,
+            label: '이메일',
+            hint: 'example@test.com',
+          ),
+          const SizedBox(height: 24),
+          _buildCustomAnimatedTextField(
+            controller: _passwordController,
+            label: '비밀번호',
+            hint: '비밀번호 입력',
+            obscureText: true,
+          ),
         ],
       ),
     );
   }
 
-  // 메인 사진 등록 박스 디자인
-  Widget _buildPhotoBox({required int index, required bool isMain}) {
-    return GestureDetector(
-      onTap:() => _pickImage(index),
-      child:Container(
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: borderColor, width: 1.5),
-        //add
-        image: _selectedImages[index] != null
-        ? DecorationImage(
-          image: kIsWeb
-? NetworkImage(_selectedImages[index]!.path) as ImageProvider
-: FileImage(File(_selectedImages[index]!.path)),
-fit:BoxFit.cover,          
-          ) : null,
+  // 📌 2단계 화면 구성 (슬라이드 다운 적용)
+  Widget _buildStep2Content() {
+    return AnimatedBuilder(
+      animation: _animController,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _step1SlideAnim.value),
+          child: Opacity(
+            opacity: _step1FadeAnim.value,
+            child: child,
+          ),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildCustomAnimatedTextField(
+            controller: _nicknameController,
+            label: '닉네임',
+            hint: '별빛소나타',
+          ),
+          const SizedBox(height: 24),
+          _buildAgeAndGenderSection(),
+          const SizedBox(height: 24),
+          _buildCustomAnimatedTextField(
+            controller: _bioController,
+            label: '자기소개',
+            hint: '커피 한 잔과 함께 영화 이야기 나눌 사람을 찾아요 ☕',
+            maxLines: 3,
+          ),
+        ],
       ),
-      child: _selectedImages[index] == null
-      ? Center(
-        child: isMain
-          ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    );
+  }
+
+  // 📌 3단계 화면 구성 (슬라이드 다운 적용)
+  Widget _buildStep3Content() {
+    return AnimatedBuilder(
+      animation: _animController,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _step1SlideAnim.value),
+          child: Opacity(
+            opacity: _step1FadeAnim.value,
+            child: child,
+          ),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.camera_alt, color: subTextColor, size: 32),
-              const SizedBox(height: 8),
+              _buildSectionTitle('관심사 선택'),
               Text(
-                '대표 사진',
-                style: TextStyle(color: subTextColor, fontSize: 12),
+                '${_selectedInterests.length}개 선택됨 (최소 5개)',
+                style: TextStyle(
+                  color: _selectedInterests.length >= 5 ? pinkAccent : subTextColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
-          ) : Icon(Icons.add, color:subTextColor, size:28),
-      ):null,
-   ),
-    );
-  }
-
-  //서브 사진 등록 박스 디자인 (간단한 + 모양)
-  Widget _buildSubPhotoBox() {
-    return Container(
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: borderColor, width: 1.5),
+          ),
+          const SizedBox(height: 12),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _interestsData.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3, // 한 줄에 3개씩 배치
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 2.5,
+            ),
+            itemBuilder: (context, index) {
+              final interest = _interestsData[index];
+              bool isSelected = _selectedInterests.contains(interest['label']);
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (isSelected) {
+                      _selectedInterests.remove(interest['label']);
+                    } else {
+                      _selectedInterests.add(interest['label']!);
+                    }
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: isSelected ? pinkAccent.withValues(alpha: 0.15) : cardColor,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isSelected ? pinkAccent : Colors.transparent,
+                      width: 1.5,
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(interest['icon']!, style: const TextStyle(fontSize: 13)),
+                      const SizedBox(width: 6),
+                      Text(
+                        interest['label']!,
+                        style: TextStyle(
+                          color: isSelected ? pinkAccent : subTextColor,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
-      child: Center(child: Icon(Icons.add, color: subTextColor, size: 28)),
-    ); // (👈 에러 방지용 임시 빈 칸)
-  }
-
-  // 🧱 부품 4: 닉네임 입력 칸
-  Widget _buildNicknameSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('닉네임'),
-        const SizedBox(height: 8),
- _buildTextField(controller:_nicknameController, hint: '별빛소나타'),
-      ],
     );
   }
 
-  // 🧱 부품 5: 나이와 성별 입력 칸 (한 줄에 나란히 배치)
+  Widget _buildPhotoSection() {
+    return SizedBox(
+      height: 150,
+      child: Row(
+        children: [
+          Expanded(flex: 2, child: _buildPhotoBox(index: 0, isMain: true)),
+          const SizedBox(width: 12),
+          Expanded(flex: 1, child: _buildPhotoBox(index: 1, isMain: false)),
+          const SizedBox(width: 12),
+          Expanded(flex: 1, child: _buildPhotoBox(index: 2, isMain: false)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPhotoBox({required int index, required bool isMain}) {
+    return GestureDetector(
+      onTap: () => _pickImage(index),
+      child: Container(
+        decoration: BoxDecoration(
+          color: cardColor,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: borderColor, width: 1.5),
+          image: _selectedImages[index] != null
+              ? DecorationImage(
+                  image: kIsWeb
+                      ? NetworkImage(_selectedImages[index]!.path) as ImageProvider
+                      : FileImage(File(_selectedImages[index]!.path)),
+                  fit: BoxFit.cover,
+                )
+              : null,
+        ),
+        child: _selectedImages[index] == null
+            ? Center(
+                child: isMain
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.camera_alt, color: subTextColor, size: 32),
+                          const SizedBox(height: 8),
+                          Text('대표 사진', style: TextStyle(color: subTextColor, fontSize: 12)),
+                        ],
+                      )
+                    : Icon(Icons.add, color: subTextColor, size: 28),
+              )
+            : null,
+      ),
+    );
+  }
+
   Widget _buildAgeAndGenderSection() {
     return Row(
       children: [
-        //나이 입력창 (화면 비율 4 차지)
         Expanded(
           flex: 4,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSectionTitle('나이'),
-              const SizedBox(height: 8),
-              _buildTextField(
- controller: _ageController, hint: '27', isNumber: true),
-            ],
+          child: _buildCustomAnimatedTextField(
+            controller: _ageController,
+            label: '나이',
+            hint: '27',
+            isNumber: true,
           ),
         ),
         const SizedBox(width: 16),
@@ -419,15 +629,12 @@ fit:BoxFit.cover,
           ),
         ),
       ],
-    ); // (👈 에러 방지용 임시 빈 칸)
+    );
   }
 
-  // 성별 버튼 디자인 및 클릭 시 색상 변경 로직
   Widget _buildGenderButton(String gender) {
     bool isSelected = _selectedGender == gender;
-    //현재 내가 선택한 성별인지 확인합니다.
     return GestureDetector(
-      // 터치 이벤트를 감지하는 위젯입니다.
       onTap: () {
         setState(() => _selectedGender = gender);
       },
@@ -451,136 +658,50 @@ fit:BoxFit.cover,
           ),
         ),
       ),
-    ); // (👈 에러 방지용 임시 빈 칸)
-  }
-
-  // 🧱 부품 6: 자기소개 입력 칸
-  Widget _buildBioSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('자기소개'),
-        const SizedBox(height: 8),
-        _buildTextField(controller: _bioController, hint: '커피 한 잔과 함께 영화 이야기 나눌 사람을 찾아요 ☕', maxLines: 3),
-      ],
-    ); // (👈 에러 방지용 임시 빈 칸)
-  }
-
-  // 🧱 부품 7: 관심사 선택 칸 (Wrap 사용)
-  Widget _buildInterestsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('관심사'),
-        const SizedBox(height: 12),
-        //제목과 관심사 버튼들 사이에 12만큼 빈 공간(여백)을 줍니다.
-        Wrap(
-          //rap은 가로로 버튼을 채우다가 화면 끝에 닿으면 알아서 다음 줄로 넘어가는(자동 줄바꿈)
-          spacing: 10, // 가로로 나열될 버튼과 버튼 사이의 틈(간격)을 10으로 줍니다.
-          runSpacing: 10, // 줄이 바뀌었을 때 윗줄과 아랫줄 사이의 세로 틈(간격)을 10으로 줍니다.
-          children: _interestsData.map((interest) {
-            //_interestsData(카페, 영화 등 8개 데이터)를 하나씩 꺼내서 아래 모양의 버튼으로 만듭니다
-            bool isSelected = _selectedInterests.contains(interest['label']);
-            //이 관심사가 현재 내가 선택한 목록(_selectedInterests) 안에 들어있는지 확인합니다. (선택됐으면 true)
-            return GestureDetector(
-              //터치(클릭)를 감지하는 투명한 버튼 역할
-              onTap: () {
-                //사용자가 이 관심사를 손가락으로 탭(터치)했을 때 실행됩니다.
-                setState(() {
-                  // 화면을 다시 그려달라고 플러터에게 요청
-                  if (isSelected) {
-                    _selectedInterests.remove(interest['label']);
-                    //이미 선택된 걸 눌렀다면? 선택 목록에서 뺍니다.
-                  } else {
-                    _selectedInterests.add(interest['label']!);
-                    //// 아직 선택 안 된 걸 눌렀다면? 선택 목록에 넣습니다
-                  }
-                });
-              },
-              child: Container(
-                // 실제 눈에 보이는 알약 모양의 박스
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 10,
-                ),
-                //박스 안쪽으로 좌우 16, 상하 10만큼 쿠션(여백)을 줍니다.
-                decoration: BoxDecoration(
-                  // 박스의 배경색과 테두리를 꾸밉니다.
-                  color: isSelected ? pinkAccent.withValues(alpha: 0.15) : cardColor,
-                  //선택됐다면 연한 핑크색 바탕, 아니면 원래 어두운색을 칠합니다.
-                  border: Border.all(
-                    color: isSelected ? pinkAccent : Colors.transparent,
-                    width: 1.5,
-                  ),
-                  //// 선택됐다면 핑크색 선을 긋고, 아니면 테두리를 투명하게 숨깁니다.
-                ),
-                child: Row(
-                  // 박스 안에서 아이콘과 글씨를 가로(Row)로 나란히 둡니다.
-                  mainAxisSize: MainAxisSize.min,
-                  // 박스 크기를 내용물(글씨 길이)에 딱 맞게 꽉 조여줍니다.
-                  children: [
-                    Text(
-                      interest['icon']!,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    //데이터에서 아이콘(☕ 등)을 꺼내서 그립니다.
-                    const SizedBox(width: 6),
-                    //아이콘과 글씨 사이에 6만큼 아주 좁은 틈을 줍니다
-                    Text(
-                      interest['label']!,
-                      style: TextStyle(
-                        color: isSelected ? pinkAccent : subTextColor,
-                        //선택됐으면 핑크색 글씨, 아니면 회색 글씨로 보여줍니다.
-                        fontWeight: isSelected
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
     );
   }
 
-  // 🧱 부품 8: 하단 '다음 단계' 버튼
+  // 하단 플로팅 버튼 디자인 (2단계 슬라이드 다운 적용)
   Widget _buildNextButton() {
-    return Container(
-      // 커다란 버튼의 몸통을 만듭니다.
-      width: double.infinity, //가로 길이를 화면 양쪽 끝까지 꽉~ 차게 늘립니다.
-      height: 56, //버튼의 세로 높이를 56
-      decoration: BoxDecoration(
-        // 버튼 몸통을 예쁘게 꾸밉니다.
-        gradient: LinearGradient(colors: [pinkAccent, purpleAccent]),
-        borderRadius: BorderRadius.circular(16),
-        //모서리를 16만큼 둥글게 깎습니다.
-      ),
-      child: Material(
-        // 잉크가 톡! 퍼지는 애니메이션(리플 효과)을
-        color: Colors.transparent,
-        child: InkWell(
+    return AnimatedBuilder(
+      animation: _animController,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _step2SlideAnim.value),
+          child: Opacity(
+            opacity: _step2FadeAnim.value,
+            child: child,
+          ),
+        );
+      },
+      child: Container(
+        width: double.infinity,
+        height: 56,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [pinkAccent, purpleAccent]),
           borderRadius: BorderRadius.circular(16),
-          onTap: _signUpToBackend,
-          child: const Center(
-            child: Text(
-              '가입 완료 (다음단계)',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(16),
+            onTap: _handleNextStep,
+            child: Center(
+              child: Text(
+                _currentStep == 3 ? '가입 완료' : '다음 단계',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
         ),
       ),
-    ); // (👈 에러 방지용 임시 빈 칸)
+    );
   }
 
-  //공용도구1: 타이틀 (파라미터로 title을 받습니다)
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
@@ -589,54 +710,228 @@ fit:BoxFit.cover,
         fontSize: 15,
         fontWeight: FontWeight.bold,
       ),
-    ); // (👈 에러 방지용 임시 빈 칸)
+    );
   }
 
-  //공용도구2 컨트롤러 및 비밀번호 숨김(obscureText) 속성 연동
-  Widget _buildTextField({
-    //add
+  // ✨ 플레이스홀더 및 상단 라벨 애니메이션이 적용된 텍스트 필드
+  Widget _buildCustomAnimatedTextField({
     required TextEditingController controller,
+    required String label,
     required String hint,
     int maxLines = 1,
     bool isNumber = false,
     bool obscureText = false,
   }) {
-    return TextField(
-      controller: controller,
-      // 사용자가 화면의 키보드를 통해 글씨를 입력할 수 있는 필드(칸)
-      maxLines: maxLines,
-      /*위에서 넘겨받은 줄 수만큼 높이를 잡습니다.
-(자기소개는 3줄, 나이는 1줄)*/
-obscureText: obscureText,
-      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
-      //숫자를 적을 칸이면 '숫자 전용 키보드'를 띄우고, 아니면 '일반 문자 키보드'를 띄웁니다.
-      style: TextStyle(color: textColor, fontSize: 15),
-      decoration: InputDecoration(
-        //텍스트 입력창의 겉모양을 꾸며
-        hintText: hint,
-        hintStyle: TextStyle(color: subTextColor),
-        filled: true,
-        fillColor: cardColor,
-        contentPadding: const EdgeInsets.all(16),
-        //1. 가만히 있을 때 기본 테두리
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-        //모서리는 둥글게 하되, 겉에 선은 없앱니다.
-        // 2. 입력 가능할 때(화면에 보일 때) 테두리
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: borderColor, width: 1),
-        ),
-        // 3. 사용자가 입력하려고 터치했을 때(포커스) 테두리
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: pinkAccent, width: 1.5),
+    return StatefulBuilder(
+      builder: (context, setStateSB) {
+        controller.addListener(() {
+          if (mounted) setStateSB(() {});
+        });
+
+        return Focus(
+          onFocusChange: (hasFocus) {
+            setStateSB(() {});
+          },
+          child: Builder(
+            builder: (ctx) {
+              final bool isFocused = Focus.of(ctx).hasFocus;
+              final bool hasText = controller.text.isNotEmpty;
+              final bool isActive = isFocused || hasText;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AnimatedOpacity(
+                    opacity: isActive ? 0.0 : 1.0,
+                    duration: const Duration(milliseconds: 200),
+                    child: _buildSectionTitle(label),
+                  ),
+                  SizedBox(height: isActive ? 0 : 8),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      TextField(
+                        controller: controller,
+                        maxLines: maxLines,
+                        obscureText: obscureText,
+                        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+                        style: TextStyle(color: textColor, fontSize: 15),
+                        decoration: InputDecoration(
+                          hintText: isActive ? hint : '',
+                          hintStyle: TextStyle(color: subTextColor.withValues(alpha: 0.5)),
+                          filled: true,
+                          fillColor: cardColor,
+                          contentPadding: const EdgeInsets.all(16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: borderColor, width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: pinkAccent, width: 1.5),
+                          ),
+                        ),
+                      ),
+                      AnimatedPositioned(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeInOut,
+                        left: 16,
+                        top: isActive ? -10 : 16,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          color: isActive ? bgColor : Colors.transparent,
+                          child: Text(
+                            label,
+                            style: TextStyle(
+                              color: isActive ? pinkAccent : Colors.transparent,
+                              fontSize: isActive ? 12 : 0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+// ✨ 상단 슬라이드 다운 글래스룩 토스트 위젯
+class TopSlidingToast extends StatefulWidget {
+  final String message;
+  final bool isError;
+  final VoidCallback onDismiss;
+
+  const TopSlidingToast({
+    super.key,
+    required this.message,
+    required this.isError,
+    required this.onDismiss,
+  });
+
+  @override
+  State<TopSlidingToast> createState() => _TopSlidingToastState();
+}
+
+class _TopSlidingToastState extends State<TopSlidingToast>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _slideAnimation;
+  late final Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+
+    _slideAnimation = Tween<double>(begin: -100.0, end: 0.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
+    );
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
+    );
+
+    _controller.forward();
+
+    Future.delayed(const Duration(milliseconds: 2500), () async {
+      if (mounted) {
+        await _controller.reverse();
+        widget.onDismiss();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: MediaQuery.of(context).padding.top + 16,
+      left: 24,
+      right: 24,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 450),
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Transform.translate(
+                offset: Offset(0, _slideAnimation.value),
+                child: Opacity(
+                  opacity: _fadeAnimation.value,
+                  child: child,
+                ),
+              );
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF22222E).withValues(alpha: 0.85),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: widget.isError
+                          ? Colors.redAccent.withValues(alpha: 0.5)
+                          : const Color(0xFFFF4B93).withValues(alpha: 0.5),
+                      width: 1.5,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        widget.isError ? Icons.error_outline : Icons.check_circle_outline,
+                        color: widget.isError ? Colors.redAccent : const Color(0xFFFF4B93),
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Flexible(
+                        child: Text(
+                          widget.message,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
-
-  // (👈 중간에 닫혀있던 클래스 종료 괄호 `}` 를 맨 마지막으로 옮겼습니다.)
 }

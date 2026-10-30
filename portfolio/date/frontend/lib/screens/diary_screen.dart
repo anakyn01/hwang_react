@@ -1,13 +1,14 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
- class DiaryScreen extends StatefulWidget{
+class DiaryScreen extends StatefulWidget {
   const DiaryScreen({super.key});
 
   @override
   State<DiaryScreen> createState() => _DiaryScreenState();
- }
+}
 
- class _DiaryScreenState extends State<DiaryScreen> {
+class _DiaryScreenState extends State<DiaryScreen>
+    with SingleTickerProviderStateMixin {
   // 🎨 테마 색상 설정
   final Color bgColor = const Color(0xFF12121A);
   final Color cardColor = const Color(0xFF22222E);
@@ -15,16 +16,21 @@
   final Color purpleAccent = const Color(0xFFB635F7);
   final Color subTextColor = const Color(0xFFA0A0B0);
 
-  //상태관리 변수
-  int _selectedMoodIndex = 2;//기본 선택된 기분 (😊)
-  final int _selectedDateIndex = 3;//기본 선택된 날짜
+  // 🚀 순차적 슬라이드 다운 애니메이션을 위한 컨트롤러
+  late final AnimationController _animController;
+  late final Animation<double> _slideAnim;
+  late final Animation<double> _fadeAnim;
 
-  //이모지 리스트
-  final List<String> moods = ['😢', '😐', '😊', '😄', '🥰'];
+  // 상태관리 변수
+  int _selectedMoodIndex = 2; // 기본 선택된 기분 (😊)
+  int _selectedDateIndex = 3; // 기본 선택된 날짜
 
-  //주간 달력 데이터 (테스트용)
-  final List<Map<String, dynamic>> weekDates = [
-{'day': '월', 'date': '16', 'hasDiary': false},
+  // 이모지 리스트
+  final List moods = ['😢', '😐', '😊', '😄', '🥰'];
+
+  // 주간 달력 데이터 (테스트용)
+  final List weekDates = [
+    {'day': '월', 'date': '16', 'hasDiary': false},
     {'day': '화', 'date': '17', 'hasDiary': true},
     {'day': '수', 'date': '18', 'hasDiary': true},
     {'day': '목', 'date': '19', 'hasDiary': false},
@@ -34,70 +40,105 @@
   ];
 
   @override
-  Widget build(BuildContext context){
+  void initState() {
+    super.initState();
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+
+    _slideAnim = Tween<double>(begin: -30.0, end: 0.0).animate(
+      CurvedAnimation(parent: _animController, curve: Curves.easeOut),
+    );
+    _fadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animController, curve: Curves.easeIn),
+    );
+
+    _animController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
-backgroundColor: bgColor, 
-elevation: 0,
-title:const Text(
-  '나의 일기',
-  style:TextStyle(
-    fontSize:24, fontWeight:FontWeight.bold,
-    color:Colors.white),
-),
-actions: [
-  Container(
-    margin:const EdgeInsets.only(right:20, top:10, bottom:10),
-  decoration: BoxDecoration(
-    gradient: LinearGradient(
-      colors: [pinkAccent, purpleAccent],
-      begin:Alignment.centerLeft,
-      end:Alignment.centerRight,     
+        backgroundColor: bgColor,
+        elevation: 0,
+        title: const Text(
+          '나의 일기',
+          style: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 20, top: 10, bottom: 10),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [pinkAccent, purpleAccent],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: () {
+                  print("일기 작성 클릭됨");
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                  child: Center(
+                    child: Text(
+                      '+ 작성',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-borderRadius:BorderRadius.circular(20),
-  ),
-  child:Material(
-color:Colors.transparent,
-child:InkWell(
-borderRadius:BorderRadius.circular(20),
-onTap:(){
-print("일기 작성 클릭됨");
-},
-child:const Padding(
-  padding:EdgeInsets.symmetric(horizontal: 16, vertical:0),
-  child:Center(
-    child:Text(
-      '+ 작성',
-      style:TextStyle(
-        color:Colors.white,
-        fontWeight:FontWeight.bold,
-        fontSize:14),
-),
-),
-),
-),    
-),
-),
-],
-),
-body:SingleChildScrollView(
-  child:Column(
-crossAxisAlignment:CrossAxisAlignment.start,
-children: [
-_buildMoodSection(),
-Divider(color:cardColor, thickness:1, height:1),
-_buildCalendarSection(),
-_buildDiaryList(),
-const SizedBox(height: 40),  
-],
-),
-),
-);
-}
+      // 🚀 화면 전체에 슬라이드 다운 애니메이션 적용
+      body: AnimatedBuilder(
+        animation: _animController,
+        builder: (context, child) {
+          return Transform.translate(
+            offset: Offset(0, _slideAnim.value),
+            child: Opacity(
+              opacity: _fadeAnim.value,
+              child: child,
+            ),
+          );
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildMoodSection(),
+              Divider(color: cardColor, thickness: 1, height: 1),
+              _buildCalendarSection(),
+              _buildDiaryList(),
+              const SizedBox(height: 40),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-
-// 1️⃣ 오늘의 기분 선택 섹션
+  // 1️⃣ 오늘의 기분 선택 섹션
   Widget _buildMoodSection() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -140,53 +181,56 @@ const SizedBox(height: 40),
     );
   }
 
-Widget _buildCalendarSection(){
-  return Padding(
-padding: const EdgeInsets.symmetric(vertical:20),
-child:Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: List.generate(weekDates.length, (index){
-    final item = weekDates[index];
-bool isSelected = _selectedDateIndex == index;
-return GestureDetector(
-  onTap:(){
-    setState(() =>  _selectedDateIndex == index);      
-    },
-    child:Column(
-      children: [
-        Text(
-          item['day'],
-          style:TextStyle(
-color:isSelected ? Colors.white : subTextColor,
-fontSize:14,            
-),
-),
-const SizedBox(height:12),
-Container(
-  width:44, height:44,
-  decoration: BoxDecoration(
-    shape:BoxShape.circle,
-    gradient: isSelected ? LinearGradient(
-      colors: [pinkAccent, purpleAccent],
-      begin: Alignment.topLeft,
-      end:Alignment.bottomRight,
-      )
-      : null,
-  color:isSelected ? null : Colors.transparent,    
-  ),
-  child:Center(
-    child:Text(
-      item['date'],
-      style:TextStyle(
-        color:Colors.white,
-        fontSize:18,
-        fontWeight:
-isSelected ? FontWeight.bold : FontWeight.normal,
-),
-),
-),
-),
-const SizedBox(height: 6),
+  // 2️⃣ 주간 캘린더 섹션 (🛠️ 날짜 선택 버그 수정 완료)
+  Widget _buildCalendarSection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(weekDates.length, (index) {
+          final item = weekDates[index];
+          bool isSelected = _selectedDateIndex == index;
+          return GestureDetector(
+            onTap: () {
+              setState(() => _selectedDateIndex = index); // 👉 버그 수정완료 (= 대입 연산자)
+            },
+            child: Column(
+              children: [
+                Text(
+                  item['day'],
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : subTextColor,
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: isSelected
+                        ? LinearGradient(
+                            colors: [pinkAccent, purpleAccent],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          )
+                        : null,
+                    color: isSelected ? null : Colors.transparent,
+                  ),
+                  child: Center(
+                    child: Text(
+                      item['date'],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
                 // 일기가 있는 날짜 아래에 찍히는 핑크색 점
                 Container(
                   width: 4,
@@ -204,7 +248,7 @@ const SizedBox(height: 6),
     );
   }
 
-// 3️⃣ 일기 목록 섹션
+  // 3️⃣ 일기 목록 섹션
   Widget _buildDiaryList() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
