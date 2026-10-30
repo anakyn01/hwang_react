@@ -199,7 +199,8 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
   }
 
   Widget _buildLogo() {
-    return GestureDetector(
+    return Center(
+    child : GestureDetector(
       onLongPress: (){
         Navigator.push(
           context,
@@ -207,6 +208,7 @@ MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
 );
       },
       child: Row(
+        mainAxisSize: MainAxisSize.min, // 💡 로고 크기만큼만 공간을 차지하게 하여 정중앙에 오도록 함
         children: [
           Icon(Icons.auto_awesome, color: pinkAccent, size: 24),
           const SizedBox(width: 8),
@@ -221,29 +223,35 @@ MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
           ),
         ],
       ),
+    ),
     );
   }
 
-  //인사말 타이틀
+//인사말 타이틀 (가운데 정렬 완벽 적용)
   Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          '다시 만나서 \n 반가워요',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-            height: 1.3,
+    return SizedBox(
+      width: double.infinity, // 가로 폭을 화면 가득 채워야 중앙 정렬 기준점이 잡힙니다!
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center, // 💡 가로축 기준 가운데 정렬
+        children: [
+          const Text(
+            '다시 만나서 반가워요',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              height: 1.3,
+            ),
+            textAlign: TextAlign.center, // 💡 텍스트 자체도 가운데 정렬
           ),
-        ), //누락
-        const SizedBox(height: 12),
-        Text(
-          '로그인하고 새로운 인연을 만나보세요',
-          style: TextStyle(color: subTextColor, fontSize: 16),
-        ),
-      ],
+          const SizedBox(height: 12),
+          Text(
+            '로그인하고 새로운 인연을 만나보세요',
+            style: TextStyle(color: subTextColor, fontSize: 16),
+            textAlign: TextAlign.center, // 💡 텍스트 자체도 가운데 정렬
+          ),
+        ],
+      ),
     );
   }
 
@@ -474,7 +482,7 @@ const Text(
             style: TextStyle(color: subTextColor, fontSize: 14),
             children: [
               TextSpan(
-                text: '회원가입',
+                text: ' 회원가입 ',
                 style: TextStyle(
                   color: pinkAccent,
                   fontWeight: FontWeight.bold,

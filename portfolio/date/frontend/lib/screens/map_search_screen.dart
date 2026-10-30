@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // 💡 main.dart에 있는 DatingHomeScreen으로 넘어가기 위해 불러옵니다.
 import '../main.dart'; 
 
+
 // GPS 위치권한 패키지
 import 'package:geolocator/geolocator.dart';
 // 카카오 지도 웹뷰 패키지
@@ -253,7 +254,7 @@ final displayedUsers = _filteredUsers;
                                     // 기존 스와이프 매칭 화면으로 넘어가기
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => const DatingHomeScreen()), 
+                                      MaterialPageRoute(builder: (context) => DatingHomeScreen()), 
                                     );
                                   },
                                   child: const Text('주변 인연 찾기', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
