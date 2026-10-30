@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../services/bgm_player.dart'; // 💡 BgmPlayer 서비스 임포트
+
 //백엔드 서버와 통신하기 위한 패키지
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -23,7 +25,20 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+//1. 애니메이션 컨트롤을 위해 TickerProviderStateMixin을 추가했습니다.
+class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin{ //여기 위드 추가
+
+  // 🎬 [애니메이션 컨트롤러 및 각 단계별 애니메이션 선언]
+  late AnimationController _animController;
+  late Animation<Offset> _slide1;
+  late Animation<double> _fade1;
+  late Animation<Offset> _slide2;
+  late Animation<double> _fade2;
+  late Animation<Offset> _slide3;
+  late Animation<double> _fade3;
+  late Animation<Offset> _slide4;
+  late Animation<double> _fade4;
+
   //🎨 [1] 디자인 테마 색상 정의하기
   final Color bgColor = const Color(0xFF12121A);
   final Color cardColor = const Color(0xFF22222E);
@@ -38,6 +53,51 @@ class _LoginScreenState extends State<LoginScreen> {
   //사용자가 입력한 이메일과 비밀번호를 읽어오기 위한
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  //여기 애니메이션 때문에 추가
+  @override
+  void initState() {
+    super.initState();
+    
+    // 💡 2. 애니메이션 초기화 (총 1.2초 동안 진행)
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+
+    const beginOffset = Offset(0, 0.25); // 아래에서 살짝 올라옴
+    const endOffset = Offset.zero;
+
+    // 1단계: 로고 (0.0 ~ 0.4 구간)
+    _slide1 = Tween<Offset>(begin: beginOffset, end: endOffset).animate(CurvedAnimation(parent: _animController, curve: const Interval(0.0, 0.4, curve: Curves.easeOutCubic)));
+    _fade1 = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _animController, curve: const Interval(0.0, 0.4)));
+
+    // 2단계: 타이틀 (0.15 ~ 0.55 구간)
+    _slide2 = Tween<Offset>(begin: beginOffset, end: endOffset).animate(CurvedAnimation(parent: _animController, curve: const Interval(0.15, 0.55, curve: Curves.easeOutCubic)));
+    _fade2 = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _animController, curve: const Interval(0.15, 0.55)));
+
+    // 3단계: 이메일, 비밀번호, 옵션 (0.3 ~ 0.7 구간)
+    _slide3 = Tween<Offset>(begin: beginOffset, end: endOffset).animate(CurvedAnimation(parent: _animController, curve: const Interval(0.3, 0.7, curve: Curves.easeOutCubic)));
+    _fade3 = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _animController, curve: const Interval(0.3, 0.7)));
+
+    // 4단계: 로그인 버튼, 소셜 버튼, 회원가입 링크 (0.45 ~ 1.0 구간)
+    _slide4 = Tween<Offset>(begin: beginOffset, end: endOffset).animate(CurvedAnimation(parent: _animController, curve: const Interval(0.45, 1.0, curve: Curves.easeOutCubic)));
+    _fade4 = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _animController, curve: const Interval(0.45, 1.0)));
+
+    // 화면이 렌더링된 직후 애니메이션 자동 실행
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _animController.forward();
+    });
+  }
+
+  //추가
+  @override
+  void dispose() {
+    _animController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
   
   //접속 기기에 맞취 로그인 API 주소 자동세팅
   String get _apiUrl {
@@ -66,7 +126,7 @@ Future<void> _loginToBackend() async {
     final response = await http.post(
       Uri.parse(_apiUrl),
       headers: {'Content-Type':'application/json'},
-body:jsonEncode({'email':email, 'password':password}),
+      body:jsonEncode({'email':email, 'password':password}),
     );
     final data = jsonDecode(response.body);
 //로그인 성공 시 (상태가 ACTIVE)
@@ -74,17 +134,17 @@ if(response.statusCode == 200 && data['success'] == true){
   //if nest
   if (mounted) {
     final user = data['user'];
-if (user['phone_number'] == null || user['occupation'] == null){
-      Navigator.pushReplacement(
-context, 
-MaterialPageRoute(builder: (context) => SecondarySignupScreen(userId: user['id'])),
-      );
-}else{
-      Navigator.pushReplacement(
-context, MaterialPageRoute(builder: (context) => const RootScreen()),
-      );
-}
-  }
+      if (user['phone_number'] == null || user['occupation'] == null){
+            Navigator.pushReplacement(
+              context, 
+              MaterialPageRoute(builder: (context) => SecondarySignupScreen(userId: user['id'])),
+            );
+        }else{
+          Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const RootScreen()),
+          );
+        }
+       }
   //403 에러 (관리자 승인 대기 또는 영구정지)
 }else if(response.statusCode == 403) {
 //백엔드에서 보낸 메시지에 '수질 검사'가 포함되어 있다면 
@@ -93,19 +153,18 @@ if (data['message'] != null && data['message'].contains('수질 검사')){
   if(mounted) {
     Navigator.push(
       context,
-MaterialPageRoute(builder: (context) => 
-const PendingApprovalScreen()),      
+      MaterialPageRoute(builder: (context) => const PendingApprovalScreen()),      
     );
   }
 }else{
   //노쇼 3번으로 영구 정지(BANNED)된 경우 등은 빨간색 에러창 출력
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-content: Text(data['message'] ?? '접근할수 없는 계정 입니다'),
-backgroundColor: Colors.redAccent,
-duration: const Duration(seconds: 3),
-),
-);
+      content: Text(data['message'] ?? '접근할수 없는 계정 입니다'),
+      backgroundColor: Colors.redAccent,
+      duration: const Duration(seconds: 3),
+    ),
+  );
 }
 }else{//401(비밀번호 틀림) 등 기타 실패 
 ScaffoldMessenger.of(context).showSnackBar(
@@ -131,7 +190,10 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
          child: ConstrainedBox(
           constraints:const BoxConstraints(maxWidth:480),
            child: GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
+            onTap: () {
+              FocusScope.of(context).unfocus();
+              BgmPlayer().playBgm(); // 💡 화면 터치 시 키보드 내리면서 BGM 재생
+            },
             child: Scaffold(
               backgroundColor: bgColor,
               body: Stack(
@@ -147,8 +209,8 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start, //왼쪽정렬
-                        children: [
-                          _buildLogo(),
+                        children: [ //애니메이션을 적용하므로 여기부터 바뀜이 .. 
+                          /* 이전코드_buildLogo(),
                           const SizedBox(height: 32),
                           _buildHeader(),
                           const SizedBox(height: 48),
@@ -166,7 +228,66 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
                           const SizedBox(height: 16),
                           _buildAppleButton(),
                           const SizedBox(height: 48),
-                          _buildSignupLink(),
+                          _buildSignupLink(),*/
+                          // 1단계: 로고 애니메이션 적용
+                          FadeTransition(
+                            opacity: _fade1,
+                            child: SlideTransition(
+                              position: _slide1,
+                              child: _buildLogo(),
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+
+                          // 2단계: 타이틀 애니메이션 적용
+                          FadeTransition(
+                            opacity: _fade2,
+                            child: SlideTransition(
+                              position: _slide2,
+                              child: _buildHeader(),
+                            ),
+                          ),
+                          const SizedBox(height: 48),
+
+                          // 3단계: 이메일, 비밀번호, 옵션 줄 애니메이션 적용
+                          FadeTransition(
+                            opacity: _fade3,
+                            child: SlideTransition(
+                              position: _slide3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildEmailField(),
+                                  const SizedBox(height: 24),
+                                  _buildPasswordField(),
+                                  const SizedBox(height: 16),
+                                  _buildOptionsRow(),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+
+                          // 4단계: 로그인 버튼, 소셜 버튼, 회원가입 링크 애니메이션 적용
+                          FadeTransition(
+                            opacity: _fade4,
+                            child: SlideTransition(
+                              position: _slide4,
+                              child: Column(
+                                children: [
+                                  _buildLoginButton(),
+                                  const SizedBox(height: 32),
+                                  _buildDivider(),
+                                  const SizedBox(height: 32),
+                                  _buildKakaoButton(),
+                                  const SizedBox(height: 16),
+                                  _buildAppleButton(),
+                                  const SizedBox(height: 48),
+                                  _buildSignupLink(),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -174,7 +295,7 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
                 ],
               ),
             ),
-                 ),
+          ),
          ),
        ),
     );
@@ -204,8 +325,8 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
       onLongPress: (){
         Navigator.push(
           context,
-MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
-);
+          MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
+          );
       },
       child: Row(
         mainAxisSize: MainAxisSize.min, // 💡 로고 크기만큼만 공간을 차지하게 하여 정중앙에 오도록 함
@@ -255,7 +376,7 @@ MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
     );
   }
 
-  Widget _buildEmailField() {
+  /*Widget _buildEmailField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -276,14 +397,32 @@ MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
         ),
       ],
     );
+  }*/
+  Widget _buildEmailField() {
+    return _buildTextField(
+      controller: _emailController,
+      label: '이메일', // 💡 포커스 시 위로 올라갈 라벨 텍스트
+      hint: '이메일을 입력하세요',
+      icon: Icons.mail_outline,
+      keyboardType: TextInputType.emailAddress,
+    );
   }
 
-  //비밀번호 입력칸
+  //여기도 추가
   Widget _buildPasswordField() {
+    return _buildTextField(
+      controller: _passwordController,
+      label: '비밀번호', // 💡 포커스 시 위로 올라갈 라벨 텍스트
+      hint: '비밀번호를 입력하세요',
+      icon: Icons.lock_outline,
+      isPassword: true,
+    );
+  }
+  /*Widget _buildPasswordField() {
     return Column(
-crossAxisAlignment: CrossAxisAlignment.start,
-children: [
-const Text(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
           '비밀번호',
           style: TextStyle(
             color: Colors.white,
@@ -296,11 +435,11 @@ const Text(
           controller: _passwordController,
           hint: '비밀번호를 입력하세요',
           icon: Icons.lock_outline,
-          isPassword: true, //글씨가 점으로 가려지도록 설정
+          isPassword: true,
         ),
       ],
     );
-  }
+  }*/
 
   //체크박스와 비밀번호 찾기 줄
   Widget _buildOptionsRow() {
@@ -351,7 +490,7 @@ const Text(
     );
   }
 
-  //핑크색 메인 로그인 버튼
+//핑크색 메인 로그인 버튼
   Widget _buildLoginButton() {
     return Container(
       width: double.infinity, //가로 꽉 차게
@@ -495,7 +634,7 @@ const Text(
     );
   }
 
-  Widget _buildTextField({
+  /*Widget _buildTextField({ 기존 플레이스 홀더와  겹처서 보기가 안좋음
     required TextEditingController controller,
     required String hint,
     required IconData icon,
@@ -508,13 +647,104 @@ const Text(
       keyboardType: keyboardType,
       style: TextStyle(color: textColor, fontSize: 16),
       decoration: InputDecoration(
+
+// 💡 포커스가 가거나 글을 쓰면 hint가 위로 작아지며 올라가는 플로팅 효과 적용
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        labelText: hint, // 힌트 텍스트가 포커스 시 상단 라벨로 변환됩니다
+        labelStyle: TextStyle(color: subTextColor, fontSize: 15),
+        floatingLabelStyle: TextStyle(color: pinkAccent, fontSize: 13, fontWeight: FontWeight.bold),
+
+        // 평소에 보일 힌트 (포커스 없을 때)
         hintText: hint,
-        hintStyle: TextStyle(color: subTextColor),
+        hintStyle: TextStyle(color: subTextColor.withValues(alpha: 0.5)),//여기 속성 추가
         prefixIcon: Icon(icon, color: subTextColor, size: 20),
         filled: true,
         fillColor: cardColor,
-        contentPadding: const EdgeInsets.symmetric(vertical: 20),
+        contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),//여기도 추가
         border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: pinkAccent, width: 1.5),
+        ),
+      ),
+    );
+  }
+}*/
+
+/*Widget _buildTextField({
+    required TextEditingController controller,
+    required String hint,
+    required IconData icon,
+    bool isPassword = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: isPassword,
+      keyboardType: keyboardType,
+      style: TextStyle(color: textColor, fontSize: 16),
+      decoration: InputDecoration(
+        // 💡 둥둥 뜨는 labelText를 없애고 깔끔하게 hintText만 사용하여 
+        // 포커스하거나 글을 입력하면 힌트가 자연스럽게 사라지도록 처리합니다.
+        hintText: hint,
+        hintStyle: TextStyle(color: subTextColor.withValues(alpha: 0.5)),
+        
+        prefixIcon: Icon(icon, color: subTextColor, size: 20),
+        filled: true,
+        fillColor: cardColor,
+        contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: pinkAccent, width: 1.5),
+        ),
+      ),
+    );
+  }
+}*/
+
+Widget _buildTextField({
+    required TextEditingController controller,
+    required String label, // 💡 label 인자 추가
+    required String hint,
+    required IconData icon,
+    bool isPassword = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextFormField( // 💡 TextField 대신 플로팅 라벨을 지원하는 TextFormField 사용
+      controller: controller,
+      obscureText: isPassword,
+      keyboardType: keyboardType,
+      style: TextStyle(color: textColor, fontSize: 16),
+      decoration: InputDecoration(
+        // 💡 평소에는 안에 힌트로 있다가, 터치/포커스 시 상단으로 슬라이드 업 됩니다!
+        labelText: label,
+        hintText: hint,
+        hintStyle: TextStyle(color: subTextColor.withValues(alpha: 0.3)),
+        
+        // 평소 라벨 색상 및 포커스되었을 때 상단 핑크색 포인트
+        labelStyle: TextStyle(color: subTextColor, fontSize: 15),
+        floatingLabelStyle: TextStyle(color: pinkAccent, fontSize: 13, fontWeight: FontWeight.bold),
+        
+        prefixIcon: Icon(icon, color: subTextColor, size: 20),
+        filled: true,
+        fillColor: cardColor,
+        contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
         ),
