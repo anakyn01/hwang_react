@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.14 (backend)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="~/Desktop/hwang_react/8_portfolio/ai/backend /.venv" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="~/Desktop/hwang_react/portfolio/ai/backend /.venv" project-jdk-type="Python SDK" />
 </project>

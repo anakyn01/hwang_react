@@ -1,29 +1,353 @@
 "use client";
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/store/store";
-import { setInputText, setIsLoading, setShowMap, addMessage, setPlaces, setMobileView, setSelectedDistrict } from "@/store/chatSlice";
+import {
+  setInputText,
+  setIsLoading,
+  setShowMap,
+  addMessage,
+  setPlaces,
+  setMobileView,
+  setSelectedDistrict,
+} from "@/store/chatSlice";
 import ReactMarkdown from "react-markdown";
 import { Temporal } from "@js-temporal/polyfill";
-import { FaRobot, FaMapMarkerAlt, FaMap, FaTimes } from "react-icons/fa";
+import {
+  FaMapMarkerAlt,
+  FaMap,
+  FaTimes,
+  FaExternalLinkAlt,
+  FaLocationArrow,
+  FaChevronUp,
+  FaChevronDown,
+} from "react-icons/fa";
+
+// 🌟 요청하신 "다 검색할 지니" 럭셔리 황금빛 깃털 벡터 SVG 컴포넌트 코드
+const SearchGenieLogoSvg = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 65" width="100%" height="100%">
+    <defs>
+      <linearGradient id="searchGenieGold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#FFF8DC" />
+        <stop offset="30%" stopColor="#EEDC82" />
+        <stop offset="60%" stopColor="#D4AF37" />
+        <stop offset="100%" stopColor="#996515" />
+      </linearGradient>
+      <linearGradient id="featherGold" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#C5A059" />
+        <stop offset="60%" stopColor="#FFFACD" />
+        <stop offset="100%" stopColor="#8B6508" />
+      </linearGradient>
+      <filter id="luxuryGlow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="1" dy="2" stdDeviation="2" floodColor="#000" floodOpacity="0.8" />
+        <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#D4AF37" floodOpacity="0.5" />
+      </filter>
+    </defs>
+    <g filter="url(#luxuryGlow)" fontFamily="'Pretendard', 'Nanum Myeongjo', serif" fontWeight="900" fontSize="38" fill="url(#searchGenieGold)" letterSpacing="1.2">
+    
+      <text x="5" y="46">다 검</text>
+    
+      <g transform="translate(82, 5) rotate(10)">
+        <line x1="12" y1="2" x2="4" y2="48" stroke="url(#featherGold)" strokeWidth="1.2" />
+        <path d="M 12 2 Q 18 18 7 40 Q 3 46 1 48 Q 6 36 12 18 Z" fill="url(#featherGold)" />
+        <path d="M 10 8 Q 14 20 6 36" stroke="#FFF8DC" strokeWidth="0.7" fill="none" opacity="0.9" />
+      </g>
+
+  
+      <text x="115" y="46">색할 지니</text>
+    </g>
+  </svg>
+);
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
+const DISTRICT_COORDS: Record<string, { lat: number; lng: number }> = {
+  노원구: { lat: 37.6542, lng: 127.0568 },
+  도봉구: { lat: 37.6688, lng: 127.0471 },
+  강북구: { lat: 37.6396, lng: 127.0257 },
+  중랑구: { lat: 37.6066, lng: 127.0927 },
+  성북구: { lat: 37.5894, lng: 127.0167 },
+};
+
+const DEFAULT_DISTRICT_PLACES: Record<string, any[]> = {
+  노원구: [
+    {
+      name: "노원 중계점 수학전문학원",
+      address: "서울 노원구 한글비석로 245 (중계동 은행사거리)",
+      category: "입시/보습학원",
+      description: "중계동 은행사거리 대표 고등/중등 내신 및 수능 집중 관리 학원",
+      is_registered: true,
+      lat: 37.6515,
+      lng: 127.0765,
+      kakaoQuery: "노원구 중계동 은행사거리 수학학원",
+    },
+    {
+      name: "노원역 돈부리 & 수제돈까스",
+      address: "서울 노원구 상계로 65",
+      category: "일식/맛집",
+      description: "노원역 4번 출구 인근 두툼한 숙성 등심 돈까스와 사케동 맛집",
+      is_registered: true,
+      lat: 37.6558,
+      lng: 127.0615,
+      kakaoQuery: "노원역 돈까스 맛집",
+    },
+  ],
+  도봉구: [
+    {
+      name: "창동 에듀 입시영어학원",
+      address: "서울 도봉구 노해로65길 18",
+      category: "외국어학원",
+      description: "창동역 인근 체계적인 내신/수능 영어 커리큘럼 운영",
+      is_registered: true,
+      lat: 37.6531,
+      lng: 127.0479,
+      kakaoQuery: "창동역 영어학원",
+    },
+  ],
+  강북구: [
+    {
+      name: "수유역 스카이 과학학원",
+      address: "서울 강북구 도봉로 328",
+      category: "과학/입시학원",
+      description: "수유역 인근 물리·화학·생명과학 집중 특강 전문 학원",
+      is_registered: true,
+      lat: 37.6381,
+      lng: 127.0259,
+      kakaoQuery: "수유역 학원",
+    },
+  ],
+  중랑구: [
+    {
+      name: "면목 하이클래스 국어학원",
+      address: "서울 중랑구 면목로 410",
+      category: "입시학원",
+      description: "비문학 독해 및 내신 국어 완벽 대비 전문 학원",
+      is_registered: true,
+      lat: 37.5889,
+      lng: 127.0878,
+      kakaoQuery: "면목동 학원",
+    },
+  ],
+  성북구: [
+    {
+      name: "길음 뉴타운 코딩 & 수학학원",
+      address: "서울 성북구 길음로 33",
+      category: "코딩/수학학원",
+      description: "사고력 수학과 알고리즘 코딩을 함께 배우는 프리미엄 학원",
+      is_registered: true,
+      lat: 37.6038,
+      lng: 127.0251,
+      kakaoQuery: "길음역 수학학원",
+    },
+  ],
+};
+
+const UNIFIED_GLASS_BTN_STYLE: React.CSSProperties = {
+  height: "38px",
+  minHeight: "38px",
+  maxHeight: "38px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  paddingLeft: "14px",
+  paddingRight: "14px",
+  background:
+    "linear-gradient(135deg, rgba(88, 28, 135, 0.42) 0%, rgba(49, 46, 129, 0.3) 100%)",
+  backdropFilter: "blur(18px)",
+  WebkitBackdropFilter: "blur(18px)",
+  border: "1px solid rgba(253, 224, 71, 0.35)",
+  boxShadow:
+    "0 6px 20px rgba(0, 0, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.35)",
+  borderRadius: "12px",
+  color: "#fde047",
+  fontSize: "12px",
+  whiteSpace: "nowrap",
+};
 
 export default function Chat() {
   const dispatch = useDispatch<AppDispatch>();
-  const { messages, inputText, isLoading, showMap, places, mobileView, selectedDistrict } = useSelector(
-    (state: RootState) => state.chat
-  );
+  const {
+    messages,
+    inputText,
+    isLoading,
+    showMap,
+    places,
+    mobileView,
+    selectedDistrict,
+  } = useSelector((state: RootState) => state.chat);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatScrollContainerRef = useRef<HTMLDivElement>(null);
+  const kakaoMapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const markersRef = useRef<any[]>([]);
+  const infoWindowRef = useRef<any>(null);
+
+  const [selectedPlace, setSelectedPlace] = useState<any | null>(null);
+  const [sdkLoaded, setSdkLoaded] = useState(false);
+  const [isCardListCollapsed, setIsCardListCollapsed] = useState(true);
+
+  const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY || "";
+
+  const activePlaces =
+    places && places.length > 0
+      ? places
+      : DEFAULT_DISTRICT_PLACES[selectedDistrict] || [];
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (chatScrollContainerRef.current) {
+      chatScrollContainerRef.current.scrollTo({
+        top: chatScrollContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages, isLoading]);
 
   useEffect(() => {
     if (showMap) {
       dispatch(setMobileView("map"));
     }
   }, [showMap, dispatch]);
+
+  useEffect(() => {
+    const currentList =
+      places && places.length > 0
+        ? places
+        : DEFAULT_DISTRICT_PLACES[selectedDistrict] || [];
+    setSelectedPlace(currentList[0] || null);
+  }, [selectedDistrict, places]);
+
+  useEffect(() => {
+    if (!kakaoAppKey) return;
+    if (window.kakao && window.kakao.maps) {
+      window.kakao.maps.load(() => setSdkLoaded(true));
+      return;
+    }
+
+    const existingScript = document.getElementById("kakao-map-sdk");
+    if (existingScript) {
+      existingScript.addEventListener("load", () => {
+        window.kakao.maps.load(() => setSdkLoaded(true));
+      });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = "kakao-map-sdk";
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoAppKey}&libraries=services&autoload=false`;
+    script.async = true;
+    script.onload = () => {
+      if (window.kakao && window.kakao.maps) {
+        window.kakao.maps.load(() => setSdkLoaded(true));
+      }
+    };
+    document.head.appendChild(script);
+  }, [kakaoAppKey]);
+
+  useEffect(() => {
+    if (
+      !showMap ||
+      !sdkLoaded ||
+      !kakaoMapContainerRef.current ||
+      !window.kakao?.maps
+    )
+      return;
+
+    const kakao = window.kakao;
+    const centerCoord =
+      DISTRICT_COORDS[selectedDistrict] || DISTRICT_COORDS["노원구"];
+
+    if (!mapInstanceRef.current) {
+      mapInstanceRef.current = new kakao.maps.Map(kakaoMapContainerRef.current, {
+        center: new kakao.maps.LatLng(centerCoord.lat, centerCoord.lng),
+        level: 4,
+      });
+      infoWindowRef.current = new kakao.maps.InfoWindow({ zIndex: 10 });
+    } else {
+      mapInstanceRef.current.relayout();
+      mapInstanceRef.current.setCenter(
+        new kakao.maps.LatLng(centerCoord.lat, centerCoord.lng)
+      );
+    }
+
+    const map = mapInstanceRef.current;
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    markersRef.current.forEach((m) => m.setMap(null));
+    markersRef.current = [];
+
+    activePlaces.forEach((place) => {
+      const renderMarker = (lat: number, lng: number) => {
+        const position = new kakao.maps.LatLng(lat, lng);
+        const marker = new kakao.maps.Marker({
+          map,
+          position,
+          title: place.name,
+        });
+        markersRef.current.push(marker);
+
+        kakao.maps.event.addListener(marker, "click", () => {
+          setSelectedPlace(place);
+          map.panTo(position);
+          if (infoWindowRef.current) {
+            infoWindowRef.current.setContent(
+              `<div style="padding:6px 12px;font-size:12px;font-weight:bold;color:#0f172a;white-space:nowrap;">📍 ${place.name}</div>`
+            );
+            infoWindowRef.current.open(map, marker);
+          }
+        });
+      };
+
+      if (place.lat && place.lng) {
+        renderMarker(place.lat, place.lng);
+      } else if (place.address) {
+        geocoder.addressSearch(place.address, (result: any, status: any) => {
+          if (status === kakao.maps.services.Status.OK) {
+            renderMarker(parseFloat(result[0].y), parseFloat(result[0].x));
+          }
+        });
+      }
+    });
+  }, [showMap, sdkLoaded, selectedDistrict, activePlaces]);
+
+  const handleSelectPlace = useCallback(
+    (place: any) => {
+      setSelectedPlace(place);
+
+      if (sdkLoaded && mapInstanceRef.current && window.kakao?.maps) {
+        const kakao = window.kakao;
+        const map = mapInstanceRef.current;
+
+        const moveAndOpenInfo = (lat: number, lng: number) => {
+          const moveLatLon = new kakao.maps.LatLng(lat, lng);
+          map.setLevel(3);
+          map.panTo(moveLatLon);
+          if (infoWindowRef.current) {
+            infoWindowRef.current.setContent(
+              `<div style="padding:6px 12px;font-size:12px;font-weight:bold;color:#0f172a;white-space:nowrap;">📍 ${place.name}</div>`
+            );
+            const tempMarker = new kakao.maps.Marker({ position: moveLatLon });
+            infoWindowRef.current.open(map, tempMarker);
+          }
+        };
+
+        if (place.lat && place.lng) {
+          moveAndOpenInfo(place.lat, place.lng);
+        } else if (place.address) {
+          const geocoder = new kakao.maps.services.Geocoder();
+          geocoder.addressSearch(place.address, (result: any, status: any) => {
+            if (status === kakao.maps.services.Status.OK) {
+              moveAndOpenInfo(parseFloat(result[0].y), parseFloat(result[0].x));
+            }
+          });
+        }
+      }
+    },
+    [sdkLoaded]
+  );
 
   const handleSend = useCallback(async () => {
     if (!inputText.trim()) return;
@@ -42,7 +366,8 @@ export default function Chat() {
       lowerQuery.includes("카페") ||
       lowerQuery.includes("추천") ||
       lowerQuery.includes("극장") ||
-      lowerQuery.includes("근처");
+      lowerQuery.includes("근처") ||
+      lowerQuery.includes("알려줘");
 
     dispatch(setShowMap(isLocationQuery));
 
@@ -63,13 +388,21 @@ export default function Chat() {
       if (typeof data.show_map === "boolean") {
         dispatch(setShowMap(data.show_map || isLocationQuery));
       }
-      if (Array.isArray(data.places)) {
+      if (Array.isArray(data.places) && data.places.length > 0) {
         dispatch(setPlaces(data.places));
+        setSelectedPlace(data.places[0]);
       }
     } catch (error) {
       console.error("통신에러: ", error);
       const errorMsgId = Temporal.Now.instant().epochMilliseconds;
-      dispatch(addMessage({ id: errorMsgId, text: "백엔드 서버와 연결할 수 없습니다", sender: "ai" }));
+      dispatch(
+        addMessage({
+          id: errorMsgId,
+          text: `현재 백엔드 서버 응답 지연으로 **${selectedDistrict}** 추천 업체를 우측 전체 다음맵 위에 표시합니다. 업체 카드를 클릭해 위치를 확인해 보세요!`,
+          sender: "ai",
+        })
+      );
+      dispatch(setShowMap(true));
     } finally {
       dispatch(setIsLoading(false));
     }
@@ -84,252 +417,552 @@ export default function Chat() {
     [handleSend, isLoading]
   );
 
+  const kakaoSearchQuery = selectedPlace
+    ? selectedPlace.kakaoQuery || `${selectedDistrict} ${selectedPlace.name}`
+    : `${selectedDistrict} 맛집 학원`;
+
   return (
-    // 전체 배경에 은은한 다크 그라데이션 광원 효과 추가
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#0a0e17] via-[#111827] to-[#0d111a] p-0 sm:p-6 font-sans text-slate-200">
-      
-      {/* 메인 컨테이너: 글래스모피즘(반투명 유리 + 블러 + 미세한 보더/그림자) 적용 */}
-      <div className="w-full h-screen sm:h-[90vh] bg-[#131b2e]/70 backdrop-blur-2xl shadow-2xl rounded-none sm:rounded-2xl flex flex-col overflow-hidden max-w-[1400px] border border-white/10 ring-1 ring-white/5">
-        
-        {/* 상단바: 글래스 룩 적용 */}
-        <header className="flex flex-wrap justify-between items-center px-6 py-4 bg-[#17223b]/60 backdrop-blur-md text-slate-100 shrink-0 gap-4 shadow-sm border-b border-white/5">
+    <div
+      className="fixed inset-0 flex justify-center items-center p-0 sm:p-3 font-sans text-slate-100 overflow-hidden select-none"
+      style={{
+        background:
+          "radial-gradient(circle at 20% 20%, #2e1065 0%, #0f0728 55%, #030014 100%)",
+      }}
+    >
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          top: "5%",
+          left: "10%",
+          width: "460px",
+          height: "460px",
+          background:
+            "radial-gradient(circle, rgba(147, 51, 234, 0.5) 0%, rgba(219, 39, 119, 0.25) 50%, transparent 75%)",
+          filter: "blur(70px)",
+          zIndex: 0,
+        }}
+      />
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          bottom: "5%",
+          right: "10%",
+          width: "500px",
+          height: "500px",
+          background:
+            "radial-gradient(circle, rgba(234, 179, 8, 0.3) 0%, rgba(126, 34, 206, 0.35) 50%, transparent 75%)",
+          filter: "blur(80px)",
+          zIndex: 0,
+        }}
+      />
+
+      <div
+        className={`relative z-10 w-full h-[92vh] sm:h-[88vh] rounded-3xl flex flex-col overflow-hidden transition-all duration-300 ${
+          showMap
+            ? "w-[98vw] max-w-none mx-2 sm:mx-4 h-full rounded-none border-0 shadow-none my-0"
+            : "max-w-[1380px]"
+        }`}
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(88, 28, 135, 0.2) 0%, rgba(30, 27, 75, 0.35) 50%, rgba(15, 23, 42, 0.6) 100%)",
+          backdropFilter: "blur(30px) saturate(190%)",
+          WebkitBackdropFilter: "blur(30px) saturate(190%)",
+          border: showMap ? "none" : "1px solid rgba(216, 180, 254, 0.25)",
+          boxShadow: showMap
+            ? "none"
+            : "0 35px 70px -15px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.4)",
+        }}
+      >
+        {/* 상단 글래스 헤더 ("다 검색할 지니" SVG 로고 적용) */}
+        <header
+          className="flex flex-wrap justify-between items-center px-6 shrink-0 gap-4"
+          style={{
+            height: showMap ? "64px" : "80px",
+            background:
+              "linear-gradient(90deg, rgba(88, 28, 135, 0.28) 0%, rgba(30, 27, 75, 0.18) 100%)",
+            backdropFilter: "blur(20px)",
+            borderBottom: "1px solid rgba(216, 180, 254, 0.2)",
+          }}
+        >
           <div className="flex items-center space-x-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-[#1e2c4f]/80 backdrop-blur-md flex items-center justify-center shadow-inner text-[#fde047] text-xl border border-white/10">
-              <FaRobot />
-            </div>
-            <div>
-              <h1 className="text-2xl font-extrabold tracking-tight text-[#fde047] flex items-center gap-2 drop-shadow-sm">
-                AI <span className="text-white text-xl font-bold">로컬 어시스턴트</span>
-              </h1>
-              <p className="text-xs text-slate-400">지역 맞춤형 맛집 및 학원 추천 플랫폼</p>
+            {/* '다 검색할 지니' 벡터 SVG 로고 출력 */}
+            <div className="flex items-center h-10 w-52 sm:w-60 drop-shadow-md">
+              <SearchGenieLogoSvg />
             </div>
           </div>
 
           <div className="flex items-center space-x-3">
-            {/* 지역 선택 셀렉트 */}
-            <div className="flex items-center space-x-2 bg-[#131b2e]/80 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-inner cursor-pointer border border-white/10">
-              <FaMapMarkerAlt className="text-red-400 text-xs" />
-              <span className="text-xs text-slate-400">지역:</span>
-              <select 
+            <div
+              className="cursor-pointer transition hover:brightness-110"
+              style={{ ...UNIFIED_GLASS_BTN_STYLE, width: "145px" }}
+            >
+              <div className="flex items-center space-x-1.5">
+                <FaMapMarkerAlt className="text-[#fde047] text-[10px]" />
+                <span className="text-xs text-purple-200 font-medium">지역:</span>
+              </div>
+              <select
                 value={selectedDistrict}
-                onChange={(e) => dispatch(setSelectedDistrict(e.target.value))}
-                className="bg-transparent text-xs font-semibold text-[#fde047] focus:outline-none cursor-pointer"
+                onChange={(e) => {
+                  dispatch(setSelectedDistrict(e.target.value));
+                  dispatch(setShowMap(true));
+                }}
+                className="bg-transparent text-xs font-bold text-[#fde047] focus:outline-none cursor-pointer text-right"
               >
-                <option value="노원구" className="bg-[#131b2e] text-white">노원구</option>
-                <option value="도봉구" className="bg-[#131b2e] text-white">도봉구</option>
-                <option value="강북구" className="bg-[#131b2e] text-white">강북구</option>
-                <option value="중랑구" className="bg-[#131b2e] text-white">중랑구</option>
-                <option value="성북구" className="bg-[#131b2e] text-white">성북구</option>
+                <option value="노원구" className="bg-[#1e1b4b] text-white">
+                  노원구
+                </option>
+                <option value="도봉구" className="bg-[#1e1b4b] text-white">
+                  도봉구
+                </option>
+                <option value="강북구" className="bg-[#1e1b4b] text-white">
+                  강북구
+                </option>
+                <option value="중랑구" className="bg-[#1e1b4b] text-white">
+                  중랑구
+                </option>
+                <option value="성북구" className="bg-[#1e1b4b] text-white">
+                  성북구
+                </option>
               </select>
             </div>
 
-            {/* 상태 배지 */}
-            <div className="text-xs bg-[#1e2c4f]/80 backdrop-blur-md text-[#fde047] px-3.5 py-2 rounded-2xl font-semibold shadow-inner hidden sm:flex items-center gap-2 border border-white/10">
-              <FaMap className="text-xs text-[#fde047]" />
-              <span>{showMap ? "지도 연동 활성화" : "AI 대화 모드"}</span>
-            </div>
+            <button
+              onClick={() => dispatch(setShowMap(!showMap))}
+              className="text-xs font-semibold hidden sm:flex items-center cursor-pointer transition hover:brightness-110 active:scale-95"
+              style={{
+                ...UNIFIED_GLASS_BTN_STYLE,
+                width: "135px",
+                background:
+                  "linear-gradient(135deg, rgba(147, 51, 234, 0.4) 0%, rgba(234, 179, 8, 0.25) 100%)",
+                border: "1px solid rgba(253, 224, 71, 0.45)",
+              }}
+            >
+              <div className="flex items-center space-x-1.5">
+                <FaMap className="text-xs text-[#fde047]" />
+                <span>지도 연동</span>
+              </div>
+              <span className="text-[#fde047] font-bold">
+                {showMap ? "ON" : "OFF"}
+              </span>
+            </button>
           </div>
         </header>
 
-        {/* 중앙 바디 영역 */}
-        <div className="flex-1 flex flex-col sm:flex-row overflow-hidden relative">
-              
-              {/* 1) 채팅 영역 */}
-              <div className={`flex-1 flex flex-col h-full overflow-hidden bg-[#0f172a]/50 backdrop-blur-sm transition-all duration-300 ${
-                showMap ? "sm:w-1/2 sm:border-r sm:border-white/5" : "w-full"
-              } ${mobileView === "map" && showMap ? "hidden sm:flex" : "flex"}`}>
-                
-                {/* 대화 내용 스크롤 박스 */}
-                <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
-                  {messages.map((msg) => (
-                    <div
-                      key={msg.id}
-                      className={`flex items-end space-x-2 ${
-                        msg.sender === "user" ? "justify-end" : "justify-start"
-                      }`}
-                    >
-                      {msg.sender === "ai" && (
-                        <div className="w-9 h-9 rounded-2xl bg-[#1e2c4f]/80 backdrop-blur-md flex items-center justify-center shrink-0 shadow-md text-slate-200 border border-white/10">
-                          <FaRobot size={16} />
-                        </div>
-                      )}
-
-                      <div
-                        className={`max-w-[85%] sm:max-w-[75%] px-4 py-3 rounded-2xl text-sm sm:text-base leading-relaxed shadow-lg backdrop-blur-md ${
-                          msg.sender === "user"
-                            ? "bg-[#2563eb]/90 text-white rounded-br-none shadow-blue-900/30 border border-blue-400/20"
-                            : "bg-[#17223b]/80 text-slate-200 rounded-bl-none shadow-md border border-white/10"
-                        }`}
-                      >
-                        <div className="prose prose-invert prose-sm max-w-none">
-                          <ReactMarkdown>{msg.text}</ReactMarkdown>
-                        </div>
-                      </div>
+        {/* 중앙 바디 영역 (20:80 와이드 뷰) */}
+        <div className="flex-1 flex flex-col sm:flex-row overflow-hidden relative min-h-0">
+          <div
+            className={`flex flex-col h-full overflow-hidden transition-all duration-300 min-h-0 ${
+              showMap ? "w-full sm:w-[20%] sm:border-r sm:border-purple-300/15" : "w-full"
+            } ${mobileView === "map" && showMap ? "hidden sm:flex" : "flex"}`}
+          >
+            <div
+              ref={chatScrollContainerRef}
+              className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 custom-scrollbar min-h-0"
+            >
+              {messages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`flex items-end space-x-2.5 ${
+                    msg.sender === "user" ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[85%] sm:max-w-[85%] px-3.5 py-2.5 rounded-2xl text-xs leading-relaxed ${
+                      msg.sender === "user"
+                        ? "text-white rounded-br-xs"
+                        : "text-purple-100 rounded-bl-xs"
+                    }`}
+                    style={
+                      msg.sender === "user"
+                        ? {
+                            background:
+                              "linear-gradient(135deg, rgba(147, 51, 234, 0.65) 0%, rgba(79, 70, 229, 0.5) 100%)",
+                            backdropFilter: "blur(16px)",
+                            border: "1px solid rgba(216, 180, 254, 0.4)",
+                            boxShadow:
+                              "0 8px 25px rgba(147, 51, 234, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4)",
+                          }
+                        : {
+                            background:
+                              "linear-gradient(135deg, rgba(88, 28, 135, 0.25) 0%, rgba(30, 27, 75, 0.35) 100%)",
+                            backdropFilter: "blur(16px)",
+                            border: "1px solid rgba(216, 180, 254, 0.2)",
+                            boxShadow:
+                              "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.25)",
+                          }
+                    }
+                  >
+                    <div className="prose prose-invert prose-xs max-w-none select-text">
+                      <ReactMarkdown>{msg.text}</ReactMarkdown>
                     </div>
-                  ))}
+                  </div>
+                </div>
+              ))}
 
-                  {isLoading && (
-                    <div className="flex items-end space-x-2 justify-start">
-                      <div className="w-9 h-9 rounded-2xl bg-[#1e2c4f]/80 backdrop-blur-md flex items-center justify-center shrink-0 text-slate-200 border border-white/10">
-                        <FaRobot size={16} />
-                      </div>
-                      <div className="bg-[#17223b]/80 backdrop-blur-md px-4 py-3 rounded-2xl rounded-bl-none shadow-md flex items-center space-x-2 border border-white/10">
-                        <div className="w-2.5 h-2.5 bg-[#fde047] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                        <div className="w-2.5 h-2.5 bg-[#fde047] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                        <div className="w-2.5 h-2.5 bg-[#fde047] rounded-full animate-bounce"></div>
-                        <span className="text-xs text-slate-300 ml-1 font-medium">최적의 장소 분석 중...</span>
-                      </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
+              {isLoading && (
+                <div className="flex items-end space-x-2.5 justify-start">
+                  <div
+                    className="px-3.5 py-2.5 rounded-2xl flex items-center space-x-2 text-[#fde047]"
+                    style={UNIFIED_GLASS_BTN_STYLE}
+                  >
+                    <div className="w-2 h-2 bg-[#fde047] rounded-full animate-bounce [animation-delay:-0.3s]" />
+                    <div className="w-2 h-2 bg-[#fde047] rounded-full animate-bounce [animation-delay:-0.15s]" />
+                    <div className="w-2 h-2 bg-[#fde047] rounded-full animate-bounce" />
+                    <span className="text-[11px] text-purple-200 ml-1 font-medium">
+                      분석 중...
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div
+              className="px-4 py-3 flex items-center space-x-2.5 shrink-0"
+              style={{
+                height: showMap ? "60px" : "72px",
+                background:
+                  "linear-gradient(180deg, rgba(88, 28, 135, 0.15) 0%, rgba(15, 23, 42, 0.4) 100%)",
+                backdropFilter: "blur(20px)",
+                borderTop: "1px solid rgba(216, 180, 254, 0.2)",
+              }}
+            >
+              <input
+                type="text"
+                className="flex-1 h-[38px] px-3.5 text-xs text-white placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-[#fde047]/60 transition-all select-text"
+                style={{
+                  background: "rgba(30, 27, 75, 0.5)",
+                  backdropFilter: "blur(12px)",
+                  border: "1px solid rgba(216, 180, 254, 0.25)",
+                  borderRadius: "12px",
+                  boxShadow: "inset 0 2px 6px rgba(0, 0, 0, 0.4)",
+                }}
+                placeholder="맛집/학원 검색..."
+                value={inputText}
+                onChange={(e) => dispatch(setInputText(e.target.value))}
+                onKeyDown={handleKeyPress}
+              />
+              <button
+                onClick={handleSend}
+                disabled={isLoading}
+                className="text-xs font-bold text-[#fde047] transition-all cursor-pointer shrink-0 active:scale-95 hover:brightness-110"
+                style={{
+                  ...UNIFIED_GLASS_BTN_STYLE,
+                  height: "38px",
+                  minHeight: "38px",
+                  maxHeight: "38px",
+                  width: showMap ? "58px" : "75px",
+                  padding: "0",
+                  justifyContent: "center",
+                  background:
+                    "linear-gradient(135deg, rgba(234, 179, 8, 0.4) 0%, rgba(147, 51, 234, 0.3) 100%)",
+                  border: "1px solid rgba(253, 224, 71, 0.6)",
+                  boxShadow:
+                    "0 8px 20px rgba(234, 179, 8, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.5)",
+                }}
+              >
+                전송
+              </button>
+            </div>
+          </div>
+
+          {showMap && (
+            <div
+              className={`w-full sm:w-[80%] h-full relative flex flex-col overflow-hidden min-h-0 ${
+                mobileView === "map" && showMap ? "hidden sm:flex" : "flex"
+              }`}
+            >
+              <div className="absolute inset-0 z-0 bg-[#0f0728]">
+                {kakaoAppKey && sdkLoaded ? (
+                  <div ref={kakaoMapContainerRef} className="w-full h-full" />
+                ) : (
+                  <iframe
+                    key={kakaoSearchQuery}
+                    title="다음맵 실시간 지도"
+                    src={`https://map.kakao.com/?q=${encodeURIComponent(
+                      kakaoSearchQuery
+                    )}`}
+                    className="w-full h-full border-0"
+                  />
+                )}
+              </div>
+
+              <div
+                className="relative z-10 m-2 mb-1 px-3.5 py-2 flex justify-between items-center shrink-0"
+                style={{
+                  ...UNIFIED_GLASS_BTN_STYLE,
+                  height: "auto",
+                  minHeight: "42px",
+                  background: "rgba(30, 27, 75, 0.82)",
+                  backdropFilter: "blur(20px) saturate(180%)",
+                }}
+              >
+                <div className="flex items-center space-x-2">
+                  <div
+                    className="px-2.5 flex items-center space-x-1.5 text-[#fde047]"
+                    style={{
+                      ...UNIFIED_GLASS_BTN_STYLE,
+                      height: "28px",
+                      fontSize: "11px",
+                      width: "auto",
+                    }}
+                  >
+                    <FaMap className="text-[#fde047] text-[10px]" />
+                    <span className="font-bold text-[#fde047] text-xs">
+                      {selectedDistrict} 추천 업체 & 다음맵 (20:80 와이드)
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-purple-200 hidden xl:inline">
+                    업체 클릭 시 지도 전환
+                  </span>
                 </div>
 
-                {/* 하단 입력 폼 */}
-                <div className="p-4 bg-[#131b2e]/60 backdrop-blur-md flex items-center space-x-3 shrink-0 shadow-inner border-t border-white/5">
-                  <input
-                    type="text"
-                    className="flex-1 bg-[#0d111a]/80 backdrop-blur-md rounded-2xl px-4 py-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#fde047] transition shadow-inner border border-white/10"
-                    placeholder={`${selectedDistrict} 맛집이나 학원을 물어보세요...`}
-                    value={inputText}
-                    onChange={(e) => dispatch(setInputText(e.target.value))}
-                    onKeyPress={handleKeyPress}
-                  />
-                  {/* 노란색 계열 전송 버튼 */}
+                <div className="flex items-center space-x-1.5">
                   <button
-                    onClick={handleSend}
-                    disabled={isLoading}
-                    className="bg-[#fde047] hover:bg-[#facc15] disabled:bg-slate-800 text-slate-950 px-6 py-3 rounded-2xl text-sm font-bold transition shadow-md cursor-pointer shrink-0"
+                    onClick={() => setIsCardListCollapsed(!isCardListCollapsed)}
+                    className="text-xs font-semibold text-[#fde047] transition cursor-pointer hover:brightness-110 flex items-center space-x-1"
+                    style={{
+                      ...UNIFIED_GLASS_BTN_STYLE,
+                      height: "28px",
+                      fontSize: "11px",
+                      width: "105px",
+                    }}
                   >
-                    전송
+                    <span>
+                      {isCardListCollapsed ? "목록 펼치기" : "목록 접기"}
+                    </span>
+                    {isCardListCollapsed ? (
+                      <FaChevronDown className="text-[10px]" />
+                    ) : (
+                      <FaChevronUp className="text-[10px]" />
+                    )}
+                  </button>
+
+                  <button
+                    onClick={() => dispatch(setShowMap(false))}
+                    className="hover:text-rose-300 text-[#fde047] text-xs font-semibold transition cursor-pointer hover:brightness-110 flex items-center space-x-1"
+                    style={{
+                      ...UNIFIED_GLASS_BTN_STYLE,
+                      height: "28px",
+                      fontSize: "11px",
+                      width: "60px",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <span>닫기</span>
+                    <FaTimes className="text-[10px]" />
                   </button>
                 </div>
               </div>
 
-              {/* 2) 다음맵 배경 + 토스트 카드 영역 */}
-              {showMap && (
-                <div className={`w-full sm:w-1/2 h-full relative flex flex-col overflow-hidden bg-[#0d111a]/60 ${
-                  mobileView === "chat" && showMap ? "hidden sm:flex" : "flex"
-                }`}>
-                  
-                  {/* 배경 지도 시뮬레이션 레이어 */}
-                  <div className="absolute inset-0 bg-[#0a0e17]/80 backdrop-blur-sm flex flex-col items-center justify-center overflow-hidden">
-                    <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1.5px,transparent_1.5px)] [background-size:28px_28px]"></div>
-                    <div className="text-blue-400/80 text-6xl mb-3 animate-pulse">🗺️</div>
-                    <p className="text-xs text-blue-300/80 font-mono tracking-widest bg-[#131b2e]/80 backdrop-blur-md px-4 py-2 rounded-2xl shadow-lg border border-white/10">
-                      [ Kakao Map Interactive Layer Active ]
-                    </p>
-                  </div>
-
-                  {/* 상단 컨트롤: 지도 아이콘 + 애니메이션 닫기 버튼 */}
-                  <div className="relative z-10 p-4 bg-[#131b2e]/80 backdrop-blur-md flex justify-between items-center shadow-md border-b border-white/5">
-                    <div className="flex items-center space-x-2 bg-[#0f172a]/80 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-inner border border-white/10">
-                      <FaMap className="text-blue-400 text-xs" />
-                      <span className="text-xs font-bold text-white">{selectedDistrict} 추천 장소 지도</span>
-                    </div>
-
-                    <button
-                      onClick={() => dispatch(setShowMap(false))}
-                      className="group flex items-center space-x-2 bg-[#1e2c4f]/80 backdrop-blur-md hover:bg-red-500/20 hover:text-red-400 text-slate-200 px-3.5 py-2 rounded-2xl text-xs font-medium transition-all duration-300 cursor-pointer shadow-md transform active:scale-95 border border-white/10"
-                    >
-                      <FaMap className="text-blue-400 text-sm group-hover:rotate-12 transition-transform duration-300" />
-                      <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-[100px] transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100">
-                        지도 닫기
+              {!isCardListCollapsed && (
+                <div className="relative z-10 max-h-[46%] overflow-y-auto px-2.5 pb-2 space-y-2 custom-scrollbar shrink-0">
+                  <div
+                    className="flex items-center justify-between px-3 py-1.5 text-xs text-purple-100"
+                    style={{
+                      ...UNIFIED_GLASS_BTN_STYLE,
+                      height: "auto",
+                      minHeight: "34px",
+                      background: "rgba(30, 27, 75, 0.75)",
+                    }}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <span
+                        className="px-2 py-0.5 text-[10px] font-bold text-purple-200 flex items-center gap-1"
+                        style={{
+                          ...UNIFIED_GLASS_BTN_STYLE,
+                          height: "22px",
+                          width: "auto",
+                          fontSize: "10px",
+                          borderRadius: "8px",
+                          background:
+                            "linear-gradient(135deg, rgba(147, 51, 234, 0.35) 0%, rgba(79, 70, 229, 0.2) 100%)",
+                          border: "1px solid rgba(216, 180, 254, 0.4)",
+                        }}
+                      >
+                        🟣 공식 등록
                       </span>
-                      <FaTimes className="text-sm transition-transform duration-300 group-hover:rotate-90" />
-                    </button>
-                  </div>
-
-                  {/* 토스트 스타일 장소 카드 리스트 */}
-                  <div className="relative z-10 flex-1 overflow-y-auto p-4 space-y-3">
-                    <div className="flex space-x-3 p-3 bg-[#131b2e]/80 backdrop-blur-md rounded-2xl text-xs text-slate-300 shadow-lg border border-white/10">
-                      <div className="flex items-center space-x-1.5">
-                        <span>🔵</span>
-                        <span className="font-semibold text-blue-300">공식 등록</span>
-                      </div>
-                      <div className="flex items-center space-x-1.5">
-                        <span>🟠</span>
-                        <span className="font-semibold text-[#fde047]">AI 추천/미등록</span>
-                      </div>
+                      <span
+                        className="px-2 py-0.5 text-[10px] font-bold text-[#fde047] flex items-center gap-1"
+                        style={{
+                          ...UNIFIED_GLASS_BTN_STYLE,
+                          height: "22px",
+                          width: "auto",
+                          fontSize: "10px",
+                          borderRadius: "8px",
+                          background:
+                            "linear-gradient(135deg, rgba(234, 179, 8, 0.35) 0%, rgba(180, 83, 9, 0.2) 100%)",
+                          border: "1px solid rgba(253, 224, 71, 0.4)",
+                        }}
+                      >
+                        🟡 커스텀 추천
+                      </span>
                     </div>
-
-                    {places.length > 0 ? (
-                      places.map((place, index) => (
-                        <div 
-                          key={index} 
-                          className="p-4 bg-[#17223b]/80 backdrop-blur-md rounded-2xl shadow-xl hover:bg-[#17223b]/95 transition flex items-start space-x-3 text-left group cursor-pointer border border-white/10"
-                        >
-                          <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 text-base shadow-md border border-white/10 ${
-                            place.is_registered
-                              ? "bg-blue-500/20 text-blue-300"
-                              : "bg-amber-500/20 text-[#fde047]"
-                          }`}>
-                            {place.is_registered ? "🔵" : "🟠"}
-                          </div>
-
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-2">
-                              <h4 className="font-bold text-white text-sm truncate group-hover:text-[#fde047] transition">
-                                {place.name}
-                              </h4>
-                              <span className={`text-[10px] px-2.5 py-0.5 rounded-2xl font-semibold shrink-0 border border-white/10 ${
-                                place.is_registered
-                                  ? "bg-blue-500/20 text-blue-300"
-                                  : "bg-amber-500/20 text-[#fde047]"
-                              }`}>
-                                {place.is_registered ? "공식 등록" : "커스텀 추천"}
-                              </span>
-                            </div>
-                            <p className="text-xs text-slate-400 mt-1 truncate">
-                              📍 {place.address} ({place.category})  
-                            </p>
-                            <p className="text-xs text-slate-200 mt-2 bg-[#0f172a]/80 backdrop-blur-sm p-2.5 rounded-2xl shadow-inner leading-relaxed border border-white/5">
-                              {place.description}
-                            </p>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="h-40 flex flex-col items-center justify-center text-center text-slate-400 bg-[#131b2e]/80 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/10">
-                        <div className="text-3xl mb-2">🔍</div>
-                        <p className="text-xs text-slate-300">
-                          선택하신 지역의 장소 데이터를 불러오는 중이거나 표시할 항목이 없습니다.
-                        </p>
-                      </div>
-                    )}
+                    <span className="text-[11px] text-purple-200 font-medium">
+                      총 <b>{activePlaces.length}</b>개
+                    </span>
                   </div>
+
+                  {activePlaces.map((place, index) => {
+                    const isSelected = selectedPlace?.name === place.name;
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => handleSelectPlace(place)}
+                        className="p-3 transition-all flex items-start space-x-2.5 text-left group cursor-pointer hover:brightness-110"
+                        style={{
+                          borderRadius: "14px",
+                          background: isSelected
+                            ? "linear-gradient(135deg, rgba(88, 28, 135, 0.88) 0%, rgba(49, 46, 129, 0.82) 100%)"
+                            : "linear-gradient(135deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 23, 42, 0.72) 100%)",
+                          backdropFilter: "blur(22px) saturate(180%)",
+                          WebkitBackdropFilter: "blur(22px) saturate(180%)",
+                          border: isSelected
+                            ? "1px solid rgba(253, 224, 71, 0.85)"
+                            : "1px solid rgba(216, 180, 254, 0.24)",
+                          boxShadow: isSelected
+                            ? "0 12px 28px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.45)"
+                            : "0 8px 20px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.25)",
+                        }}
+                      >
+                        <div
+                          className="flex items-center justify-center shrink-0"
+                          style={{
+                            ...UNIFIED_GLASS_BTN_STYLE,
+                            width: "32px",
+                            height: "32px",
+                            minHeight: "32px",
+                            maxHeight: "32px",
+                            padding: "0",
+                            justifyContent: "center",
+                            background: place.is_registered
+                              ? "linear-gradient(135deg, rgba(147, 51, 234, 0.4) 0%, rgba(79, 70, 229, 0.2) 100%)"
+                              : "linear-gradient(135deg, rgba(234, 179, 8, 0.4) 0%, rgba(180, 83, 9, 0.2) 100%)",
+                          }}
+                        >
+                          {place.is_registered ? "🟣" : "🟡"}
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <h4 className="font-bold text-white text-xs truncate group-hover:text-[#fde047] transition flex items-center gap-1.5 sm:text-sm">
+                              <span>{place.name}</span>
+                              {isSelected && (
+                                <span
+                                  className="text-[10px] text-[#fde047] px-1.5 py-0.5 font-bold shrink-0"
+                                  style={{
+                                    ...UNIFIED_GLASS_BTN_STYLE,
+                                    height: "18px",
+                                    width: "auto",
+                                    padding: "0 5px",
+                                    fontSize: "9px",
+                                    borderRadius: "6px",
+                                    background:
+                                      "linear-gradient(135deg, rgba(234, 179, 8, 0.35) 0%, rgba(147, 51, 234, 0.2) 100%)",
+                                    border:
+                                      "1px solid rgba(253, 224, 71, 0.6)",
+                                  }}
+                                >
+                                  표시중
+                                </span>
+                              )}
+                            </h4>
+
+                            <span
+                              className={`text-[10px] px-2 py-0.5 font-bold shrink-0 ${
+                                place.is_registered
+                                  ? "text-purple-200"
+                                  : "text-[#fde047]"
+                              }`}
+                              style={{
+                                ...UNIFIED_GLASS_BTN_STYLE,
+                                height: "20px",
+                                width: "auto",
+                                padding: "0 6px",
+                                fontSize: "9px",
+                                borderRadius: "6px",
+                                background: place.is_registered
+                                  ? "linear-gradient(135deg, rgba(147, 51, 234, 0.35) 0%, rgba(79, 70, 229, 0.2) 100%)"
+                                  : "linear-gradient(135deg, rgba(234, 179, 8, 0.35) 0%, rgba(180, 83, 9, 0.2) 100%)",
+                                border: place.is_registered
+                                  ? "1px solid rgba(216, 180, 254, 0.4)"
+                                  : "1px solid rgba(253, 224, 71, 0.4)",
+                              }}
+                            >
+                              {place.is_registered ? "공식 등록" : "커스텀"}
+                            </span>
+                          </div>
+
+                          <p className="text-[11px] text-purple-200/80 mt-0.5 truncate">
+                            📍 {place.address} ({place.category})
+                          </p>
+                          <p className="text-[11px] text-purple-100/90 mt-1 line-clamp-1">
+                            {place.description}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
+              <div
+                className="relative z-10 mt-auto m-2 mb-2 px-3.5 py-2 flex items-center justify-between"
+                style={{
+                  ...UNIFIED_GLASS_BTN_STYLE,
+                  height: "auto",
+                  minHeight: "40px",
+                  width: "calc(100% - 16px)",
+                  background: "rgba(30, 27, 75, 0.88)",
+                  backdropFilter: "blur(20px) saturate(180%)",
+                  boxShadow:
+                    "0 15px 35px rgba(0, 0, 0, 0.65), inset 0 1px 2px rgba(255, 255, 255, 0.4)",
+                }}
+              >
+                <div className="flex items-center space-x-1.5 truncate pr-2">
+                  <FaLocationArrow className="text-[#fde047] text-[10px] shrink-0" />
+                  <span className="text-xs font-bold text-white truncate">
+                    {selectedPlace
+                      ? `${selectedPlace.name} — ${selectedPlace.address}`
+                      : `${selectedDistrict} 다음맵`}
+                  </span>
+                </div>
+                <a
+                  href={`https://map.kakao.com/?q=${encodeURIComponent(
+                    kakaoSearchQuery
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#fde047] text-xs font-extrabold shrink-0 transition hover:brightness-110 flex items-center space-x-1"
+                  style={{
+                    ...UNIFIED_GLASS_BTN_STYLE,
+                    height: "28px",
+                    width: "auto",
+                    fontSize: "11px",
+                    borderRadius: "8px",
+                    background:
+                      "linear-gradient(135deg, rgba(234, 179, 8, 0.38) 0%, rgba(147, 51, 234, 0.25) 100%)",
+                    border: "1px solid rgba(253, 224, 71, 0.6)",
+                  }}
+                >
+                  <span>다음맵 크게보기</span>
+                  <FaExternalLinkAlt size={9} />
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* 모바일 전용 플로팅 토글 버튼 */}
-      {showMap && (
-        <div className="fixed bottom-6 right-6 z-50 sm:hidden">
-          <button
-            onClick={() => dispatch(setMobileView(mobileView === "chat" ? "map" : "chat"))}
-            className="bg-[#fde047] hover:bg-[#facc15] text-slate-950 px-5 py-3 rounded-2xl font-bold shadow-2xl flex items-center space-x-2 text-sm active:scale-95 transition cursor-pointer backdrop-blur-md"
-          >
-            {mobileView === "chat" ? (
-              <>
-                <FaMap className="text-slate-950" />
-                <span>지도 보기</span>
-                <span className="w-2 h-2 rounded-2xl bg-blue-600 animate-ping"></span>
-              </>
-            ) : (
-              <>
-                <span>💬 채팅 보기</span>
-                {messages.length > 0 && (
-                  <span className="bg-slate-950 text-[#fde047] w-5 h-5 rounded-2xl text-xs flex items-center justify-center font-extrabold shadow-md">
-                    {messages.length}
-                  </span>
-                )}
-              </>
-            )}
-          </button>
-        </div>
-      )}
-
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(216, 180, 254, 0.28); border-radius: 9999px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(216, 180, 254, 0.48); }
+      `,
+        }}
+      />
     </div>
   );
 }
