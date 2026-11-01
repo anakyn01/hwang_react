@@ -11,6 +11,8 @@
   "dependencies": {
     "@js-temporal/polyfill": "^0.5.1",
     "@reduxjs/toolkit": "^2.13.0",
+    "@stylexjs/nextjs-plugin": "^0.11.1",
+    "@stylexjs/stylex": "^0.19.1",
     "axios": "^1.20.0",
     "bootstrap": "^5.3.8",
     "next": "16.3.4",
@@ -22,6 +24,7 @@
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
+    "@stylexjs/webpack-plugin": "^0.11.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",

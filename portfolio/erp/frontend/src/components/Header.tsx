@@ -1,72 +1,85 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
-import * as S from "@/assets/css/HeaderFooter.style";
+import { CustomAlert } from "@/components/common/CustomAlert";
+import styles from "./Header.module.css";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // 커스텀 알럿 상태 관리
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
 
-  const router = useRouter();
-
   const handleLogout = () => {
-   // 1. 로컬 스토리지에서 JWT 토큰 완전히 삭제
-   localStorage.removeItem("token");
-   // 2. 이후 Axios 요청 시 헤더에 토큰이 들어가지 않도록 기본 헤더 제거
-   delete axios.defaults.headers.common["Authorization"];
-   //3. 안내 창 띄우기
-   alert("로그아웃 되었습니다");
-   //4.메인으로 리다이렉트
-   router.push("/");
-  }
+    localStorage.removeItem("token");
+    delete axios.defaults.headers.common["Authorization"];
+    
+    // 브라우저 alert 대신 커스텀 알럿 호출
+    setAlertMessage("로그아웃 되었습니다");
+    setIsAlertOpen(true);
+  };
+
+  // 알럿 확인 버튼을 누를 때 로그인 페이지('/')로 이동
+  const handleAlertClose = () => {
+    setIsAlertOpen(false);
+    router.push("/");
+  };
 
   return (
-    <S.HeaderContainer>
-      <S.Logo>Smart ERP</S.Logo>
+    <>
+      <header className={styles.headerContainer}>
+        <div className={styles.logo}>Smart ERP</div>
 
-      {/* 데스크탑 네비게이션 */}
-      <S.DesktopNav>
-        <S.NavLink href="/dashboard">대시보드</S.NavLink>
-        <S.NavLink href="/dashboard/calender">캘린더</S.NavLink>
-        <S.NavLink href="/dashboard/production">생산관리</S.NavLink>
-        <S.NavLink href="/dashboard/inventory">재고관리</S.NavLink>
-        <S.NavLink href="/dashboard/hr">인사관리</S.NavLink>
-        <S.NavLink href="/dashboard/settings">기준정보</S.NavLink>
-      </S.DesktopNav>
+        <nav className={styles.desktopNav}>
+          <a href="/dashboard" className={styles.navLink}>대시보드</a>
+          <a href="/dashboard/calender" className={styles.navLink}>캘린더</a>
+          <a href="/dashboard/production" className={styles.navLink}>생산관리</a>
+          <a href="/dashboard/inventory" className={styles.navLink}>재고관리</a>
+          <a href="/dashboard/hr" className={styles.navLink}>인사관리</a>
+          <a href="/dashboard/settings" className={styles.navLink}>기준정보</a>
+        </nav>
 
-      {/* 데스크탑 유저 섹션 */}
-      <S.UserSection>
-        <span>관리자님 환영합니다</span>
-        <S.Button 
-        $variant="danger"
-        $size="small"
-        onClick={handleLogout}
-        >로그아웃</S.Button>
-      </S.UserSection>
+        <div className={styles.userSection}>
+          <span>관리자님 환영합니다</span>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            로그아웃
+          </button>
+        </div>
 
-      {/* 모바일 햄버거 버튼 */}
-      <S.MobileMenuToggle onClick={toggleMenu}>
-        {isMobileMenuOpen ? "✕" : "☰"}
-      </S.MobileMenuToggle>
+        <button className={styles.mobileMenuToggle} onClick={toggleMenu} aria-label="메뉴 열기">
+          {isMobileMenuOpen ? "✕" : "☰"}
+        </button>
 
-      {/* 모바일 드롭다운 메뉴 */}
-      <S.MobileNav $isOpen={isMobileMenuOpen}>
-        <a href="/production">생산관리</a>
-        <a href="/material">자재관리</a>
-        <a href="/quality">품질관리</a>
-        <a href="/equipment">설비관리</a>
-        <a href="/dashboard/mypage" style={{ color: "#93c5fd" }}>내 정보</a>
-        <a href="/logout" style={{ color: "#fca5a5" }}>로그아웃</a>
-      </S.MobileNav>
-    </S.HeaderContainer>
+        <div className={`${styles.mobileNav} ${isMobileMenuOpen ? styles.mobileNavOpen : ""}`}>
+          <a href="/production" className={styles.mobileNavLink}>생산관리</a>
+          <a href="/material" className={styles.mobileNavLink}>자재관리</a>
+          <a href="/quality" className={styles.mobileNavLink}>품질관리</a>
+          <a href="/equipment" className={styles.mobileNavLink}>설비관리</a>
+          <a href="/dashboard/mypage" className={styles.mobileNavLink} style={{ color: "#0066CC" }}>내 정보</a>
+          <button 
+            onClick={handleLogout} 
+            style={{ background: "none", border: "none", textAlign: "left", padding: "8px 0", color: "#FF3B30", fontWeight: 500, cursor: "pointer" }}
+          >
+            로그아웃
+          </button>
+        </div>
+      </header>
+
+      {/* 커스텀 알럿 모달 (로그아웃 확인 후 이동 처리) */}
+      <CustomAlert 
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleAlertClose}
+      />
+    </>
   );
 };
-/*
-jwt 방식은 로그아웃을 백앤드를 거칠 필요가 없이 프론트엔드(브라우저)에
-저장된 토큰 삭제
-*/

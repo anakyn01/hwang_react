@@ -1,75 +1,31 @@
 "use client";
-import * as S from "@/assets/css/Style.style";
+
+import React from "react";
+import styles from "./SideBar.module.css";
 
 export const SideBar = () => {
-    return(
-        <>
-<S.AsideContainer>
-<S.MenuSection>
-    <S.SectionTitle>
-        ERP 업무
-    </S.SectionTitle>
-    <S.MenuList>
-<li>
-    <S.MenuItem href="/dashboard">
-    대시보드
-    </S.MenuItem>
-</li>   
-<li>
-    <S.MenuItem href="/dashboard/calender">
-    캘린더
-    </S.MenuItem>
-</li>     
-<li>
-    <S.MenuItem href="/dashboard/production">
-    생산관리
-    </S.MenuItem>
-</li>
-<li>
-    <S.MenuItem href="/dashboard/inventory">
-    재고관리
-    </S.MenuItem>
-</li>
-<li>
-    <S.MenuItem href="/dashboard/hr">
-    인사관리
-    </S.MenuItem>
-</li>
-<li>
-    <S.MenuItem href="/dashboard/settings">
-    기준정보
-    </S.MenuItem>
-</li>
-    </S.MenuList>
-</S.MenuSection>
+  return (
+    <aside className={styles.asideContainer}>
+      <div className={styles.menuSection}>
+        <h3 className={styles.sectionTitle}>ERP 업무</h3>
+        <ul className={styles.menuList}>
+          <li><a href="/dashboard" className={styles.menuItem}>대시보드</a></li>
+          <li><a href="/dashboard/calender" className={styles.menuItem}>캘린더</a></li>
+          <li><a href="/dashboard/production" className={styles.menuItem}>생산관리</a></li>
+          <li><a href="/dashboard/inventory" className={styles.menuItem}>재고관리</a></li>
+          <li><a href="/dashboard/hr" className={styles.menuItem}>인사관리</a></li>
+          <li><a href="/dashboard/settings" className={styles.menuItem}>기준정보</a></li>
+        </ul>
+      </div>
 
-<S.MenuSection>
-    <S.SectionTitle>
-       시스템관리
-    </S.SectionTitle>
-    <S.MenuList>
-<li>
-    <S.MenuItem href="/master-data">
-    기준 정보 관리
-    </S.MenuItem>
-</li>
-<li>
-    <S.MenuItem href="/users">
-    사용자 권한 관리
-    </S.MenuItem>
-</li>
-<li>
-    <S.MenuItem href="/settings">
-    시스템 환경설정
-    </S.MenuItem>
-</li>
-    </S.MenuList>
-</S.MenuSection>
-
-
-
-
-</S.AsideContainer>        
-        </>
-    )
-}
+      <div className={styles.menuSection}>
+        <h3 className={styles.sectionTitle}>시스템 관리</h3>
+        <ul className={styles.menuList}>
+          <li><a href="/master-data" className={styles.menuItem}>기준 정보 관리</a></li>
+          <li><a href="/users" className={styles.menuItem}>사용자 권한 관리</a></li>
+          <li><a href="/settings" className={styles.menuItem}>시스템 환경설정</a></li>
+        </ul>
+      </div>
+    </aside>
+  );
+};

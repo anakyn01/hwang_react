@@ -1,0 +1,55 @@
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  margin-top: auto;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .footerContainer {
+    flex-direction: row;
+  }
+}
+
+.footerInfo {
+  font-size: 13px;
+  color: #86868B; /* 애플 서브 텍스트 그레이 컬러 */
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .footerInfo {
+    text-align: left;
+  }
+}
+
+.strong {
+  font-weight: 600;
+  color: #1D1D1F; /* 애플 오프 블랙 */
+}
+
+.footerLinks {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #424245;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #0066CC; /* 애플 블루 포인트 컬러 */
+}

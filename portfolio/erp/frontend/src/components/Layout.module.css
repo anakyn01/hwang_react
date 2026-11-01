@@ -1,0 +1,53 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topArea {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* 💡 메인 컨테이너: 최대 너비 제한을 풀고 화면 전체를 사용하도록 변경 */
+.mainContent {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+/* 💡 LNB(사이드바): 왼쪽 끝에 딱 붙도록 패딩과 정렬 조정 */
+.lnbWrapper {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 24px 12px;
+}
+
+/* 💡 콘텐츠 영역: 남은 공간을 가득 채우고(flex: 1) 여백을 시원하게 확장 */
+.contentArea {
+  flex: 1;
+  padding: 32px 40px;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  margin: 16px 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    flex-direction: column;
+  }
+  .lnbWrapper {
+    width: 100%;
+  }
+}
