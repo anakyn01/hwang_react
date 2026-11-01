@@ -14,7 +14,12 @@ export const SideBar = () => {
     <S.MenuItem href="/dashboard">
     대시보드
     </S.MenuItem>
-</li>        
+</li>   
+<li>
+    <S.MenuItem href="/dashboard/calender">
+    캘린더
+    </S.MenuItem>
+</li>     
 <li>
     <S.MenuItem href="/dashboard/production">
     생산관리

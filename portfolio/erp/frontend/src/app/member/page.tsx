@@ -3,10 +3,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-//
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/store/authSlice";
-
 import Script from "next/script";
 import * as S from "@/assets/css/Style.style";
 
@@ -56,7 +54,25 @@ export default function Member() {
         gender: "",
     });
 
-    // 1. 입력값 변경 핸들러 완성
+    // 💡 Alert 스타일 컴포넌트와 연동할 커스텀 알림 모달 상태 관리
+    const [alertModal, setAlertModal] = useState<{
+        isOpen: boolean;
+        message: string;
+        onConfirm?: () => void;
+    }>({
+        isOpen: false,
+        message: "",
+    });
+
+    // 모달 확인 버튼 클릭 시 실행될 닫기 및 콜백 핸들러
+    const handleCloseAlert = () => {
+        if (alertModal.onConfirm) {
+            alertModal.onConfirm();
+        }
+        setAlertModal({ isOpen: false, message: "" });
+    };
+
+    // 1. 입력값 변경 핸들러
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -65,13 +81,12 @@ export default function Member() {
         }));
     };
 
-    // 2. 다음 우편번호 검색 API 핸들러 완성
+    // 2. 다음 우편번호 검색 API 핸들러
     const handleAddressSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (window.daum && window.daum.Postcode) {
             new window.daum.Postcode({
                 oncomplete: function (data: any) {
-                    // 도로명 주소의 노출 규칙에 따라 주소를 조합
                     let fullAddress = data.address;
                     let extraAddress = "";
 
@@ -83,7 +98,6 @@ export default function Member() {
                         fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
                     }
 
-                    // 주소 상태 업데이트
                     setFormData((prev) => ({
                         ...prev,
                         address: fullAddress,
@@ -91,54 +105,68 @@ export default function Member() {
                 },
             }).open();
         } else {
-            alert("주소 검색 스크립트를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+            setAlertModal({
+                isOpen: true,
+                message: "주소 검색 스크립트를 불러오는 중입니다. 잠시 후 다시 시도해주세요.",
+            });
         }
     };
 
-    // 3. 폼 제출 및 백엔드 전송 로직 완성
+    // 3. 폼 제출 및 백엔드 전송 로직
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // 유효성 검사 (비밀번호 확인)
+        // 비밀번호 유효성 검사
         if (formData.password !== formData.repeatPassword) {
-            alert("비밀번호가 일치하지 않습니다.");
+            setAlertModal({
+                isOpen: true,
+                message: "비밀번호가 일치하지 않습니다.",
+            });
             return;
         }
 
         try {
-            // Spring Boot 서버로 POST 요청 (CORS 설정 및 포트에 맞게 URL 수정 필요)
-            const response = 
-            await axios.post("http://127.0.0.1:8080/api/members/register", formData);
+            const response = await axios.post("http://127.0.0.1:8080/api/members/register", formData);
             
             if (response.status === 200 || response.status === 201) {
-                alert("회원가입이 완료되었습니다!");
+                const token = response.data.token;
 
-//만약 백엔드에서 가입과 동시에 토큰을 내려준다면 바로 전역 상태(Redux)에 저장
-const token = 
-response.data.token;
-if(token){
-    dispatch(setLogin({token}));
-    axios.defaults.headers.common["Authorization"]=
-    `Bearer ${token}`;
-    router.push("/dashboard"); // 로그인 페이지로 이동
-} else {
-    router.push("/");//토큰이 없다면 로그인 페이지로 이동
-}
-
-
-
-
-                
+                // 성공 메시지와 함께 모달 확인 클릭 시 리디렉션 처리 연동
+                setAlertModal({
+                    isOpen: true,
+                    message: "회원가입이 완료되었습니다!",
+                    onConfirm: () => {
+                        if (token) {
+                            dispatch(setLogin({ token }));
+                            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+                            router.push("/dashboard");
+                        } else {
+                            router.push("/");
+                        }
+                    },
+                });
             }
         } catch (error) {
             console.error("회원가입 에러:", error);
-            alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+            setAlertModal({
+                isOpen: true,
+                message: "회원가입에 실패했습니다. 다시 시도해주세요.",
+            });
         }
     };
 
     return (
         <S.Container>
-            {/* Next.js Script 컴포넌트를 사용한 비동기 로드 */}
+            {/* 💡 S.Alert 접두사가 붙은 글래스모피즘 커스텀 알림창 렌더링 */}
+            {alertModal.isOpen && (
+                <S.AlertOverlay>
+                    <S.AlertBox>
+                        <S.AlertMessage>{alertModal.message}</S.AlertMessage>
+                        <S.AlertButton onClick={handleCloseAlert}>확인</S.AlertButton>
+                    </S.AlertBox>
+                </S.AlertOverlay>
+            )}
+
             <Script
                 src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
                 strategy="lazyOnload"
@@ -276,10 +304,10 @@ if(token){
                                 readOnly
                             />
                             <S.Button 
-                            type="button"                            
-                            onClick={handleAddressSearch}
-                            $variant="primary"
-                            $width="small"
+                                type="button"                            
+                                onClick={handleAddressSearch}
+                                $variant="primary"
+                                $width="small"
                             >
                                 주소검색
                             </S.Button>
@@ -292,23 +320,27 @@ if(token){
                             value={formData.detailAddress}
                             onChange={handleChange}
                         />
-                        <S.Button type="submit"
-                        $fullWidth $variant="primary"
-                        >Register Account</S.Button>
+                        
+                        <S.Button type="submit" $fullWidth $variant="primary">
+                            Register Account
+                        </S.Button>
 
                         <S.Divider />
 
                         <S.Button 
-                        $fullWidth
-                        $variant="insta"
-                        onClick={handleInstargramLogin}>
+                            $fullWidth
+                            $variant="insta"
+                            onClick={handleInstargramLogin}
+                            type="button"
+                        >
                             Register with Instagram
                         </S.Button>
 
                         <S.Button 
-                        onClick={handleKakaoLogin}
-                        $fullWidth
-                        $variant="kakao"
+                            onClick={handleKakaoLogin}
+                            $fullWidth
+                            $variant="kakao"
+                            type="button"
                         >
                             Register with Kakao
                         </S.Button>

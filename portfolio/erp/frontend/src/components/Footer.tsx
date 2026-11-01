@@ -7,7 +7,7 @@ export const Footer = () => {
 
 <S.FooterContainer>
       <S.FooterInfo>
-        <strong>Smart MES System</strong> v1.2.0 <br />
+        <strong>Smart ERP System</strong> v1.2.0 <br />
         &copy; {new Date().getFullYear()} All rights reserved.
       </S.FooterInfo>
       
