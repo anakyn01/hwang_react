@@ -21,7 +21,7 @@ class _ChatListScreenState extends State<ChatListScreen>
   late final Animation<double> _slideAnim;
   late final Animation<double> _fadeAnim;
 
-  // 임시 채팅방 데이터 (꺾쇠 에러 원천 차단형)
+  // 임시 채팅방 데이터
   final List chatRooms = [
     {
       'name': '지은',
@@ -230,71 +230,83 @@ class _ChatListScreenState extends State<ChatListScreen>
     );
   }
 
-  // 개별 채팅방 리스트 아이템
+  // 🛠️ 개별 채팅방 리스트 아이템 (ListTile 대신 Row를 사용하여 오버플로우 원천 방지)
   Widget _buildChatListItem(Map chat) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      leading: CircleAvatar(
-        radius: 28,
-        backgroundColor: chat['color'],
-        child: Text(
-          chat['name'].substring(0, 1),
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      title: Text(
-        chat['name'],
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      subtitle: Padding(
-        padding: const EdgeInsets.only(top: 4.0),
-        child: Text(
-          chat['message'],
-          style: TextStyle(color: subTextColor, fontSize: 14),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
-      // 우측 시간 및 안 읽은 뱃지
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            chat['time'],
-            style: TextStyle(color: subTextColor, fontSize: 12),
-          ),
-          const SizedBox(height: 6),
-          if (chat['unread'] > 0)
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: pinkAccent,
-                shape: BoxShape.circle,
-              ),
-              child: Text(
-                chat['unread'].toString(),
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold),
-              ),
-            )
-          else
-            const SizedBox(height: 22),
-        ],
-      ),
+    return InkWell(
       onTap: () {
         print("${chat['name']} 님과의 채팅방 입장");
       },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 28,
+              backgroundColor: chat['color'],
+              child: Text(
+                chat['name'].substring(0, 1),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    chat['name'],
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    chat['message'],
+                    style: TextStyle(color: subTextColor, fontSize: 14),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            // 우측 시간 및 안 읽은 뱃지
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  chat['time'],
+                  style: TextStyle(color: subTextColor, fontSize: 12),
+                ),
+                const SizedBox(height: 6),
+                if (chat['unread'] > 0)
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: pinkAccent,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      chat['unread'].toString(),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                else
+                  const SizedBox(height: 18),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

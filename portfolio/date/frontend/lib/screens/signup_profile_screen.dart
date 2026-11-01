@@ -203,11 +203,17 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
       var response = await http.Response.fromStream(streamedResponse);
       final data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['success'] == true) {
-        _showTopGlassToast(context, data['message'], isError: false);
+        if (!mounted) return;
+        _showTopGlassToast(context, data['message'] ?? '회원가입 완료! 승인 대기중입니다.', isError: false);
+        
+        // 👉 회원가입 완료 후 로그인 화면으로 이동 (예시로 Navigator.pop 또는 원하는 로그인 화면 경로 지정)
+        Navigator.pop(context); 
       } else {
-        _showTopGlassToast(context, data['message'] ?? '가입실패', isError: true);
+        if (!mounted) return;
+        _showTopGlassToast(context, data['message'] ?? '가입 실패', isError: true);
       }
     } catch (e) {
+      if (!mounted) return;
       _showTopGlassToast(context, '서버 통신 에러', isError: true);
     }
   }
@@ -411,12 +417,14 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
             controller: _emailController,
             label: '이메일',
             hint: 'example@test.com',
+            icon: Icons.email_outlined, // 👉 단색 톤 아이콘 적용
           ),
           const SizedBox(height: 24),
           _buildCustomAnimatedTextField(
             controller: _passwordController,
             label: '비밀번호',
             hint: '비밀번호 입력',
+            icon: Icons.lock_outline, // 👉 단색 톤 아이콘 적용
             obscureText: true,
           ),
         ],
@@ -444,6 +452,7 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
             controller: _nicknameController,
             label: '닉네임',
             hint: '별빛소나타',
+            icon: Icons.person_outline, // 👉 단색 톤 아이콘 적용
           ),
           const SizedBox(height: 24),
           _buildAgeAndGenderSection(),
@@ -452,6 +461,7 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
             controller: _bioController,
             label: '자기소개',
             hint: '커피 한 잔과 함께 영화 이야기 나눌 사람을 찾아요 ☕',
+            icon: Icons.edit_note_outlined, // 👉 단색 톤 아이콘 적용
             maxLines: 3,
           ),
         ],
@@ -586,12 +596,12 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.camera_alt, color: subTextColor, size: 32),
+                          Icon(Icons.camera_alt_outlined, color: subTextColor, size: 32), // 👉 단색 아이콘
                           const SizedBox(height: 8),
                           Text('대표 사진', style: TextStyle(color: subTextColor, fontSize: 12)),
                         ],
                       )
-                    : Icon(Icons.add, color: subTextColor, size: 28),
+                    : Icon(Icons.add, color: subTextColor, size: 28), // 👉 단색 아이콘
               )
             : null,
       ),
@@ -607,6 +617,7 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
             controller: _ageController,
             label: '나이',
             hint: '27',
+            icon: Icons.cake_outlined, // 👉 단색 톤 아이콘 적용
             isNumber: true,
           ),
         ),
@@ -713,11 +724,12 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
     );
   }
 
-  // ✨ 플레이스홀더 및 상단 라벨 애니메이션이 적용된 텍스트 필드
+  // ✨ 플레이스홀더 및 상단 라벨 애니메이션이 적용된 텍스트 필드 (단색 아이콘 적용)
   Widget _buildCustomAnimatedTextField({
     required TextEditingController controller,
     required String label,
     required String hint,
+    required IconData icon, // 👉 단색 아이콘 파라미터 추가
     int maxLines = 1,
     bool isNumber = false,
     bool obscureText = false,
@@ -759,9 +771,10 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
                         decoration: InputDecoration(
                           hintText: isActive ? hint : '',
                           hintStyle: TextStyle(color: subTextColor.withValues(alpha: 0.5)),
+                          prefixIcon: Icon(icon, color: subTextColor, size: 20), // 👉 단색 톤 아이콘 적용
                           filled: true,
                           fillColor: cardColor,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide.none,
@@ -779,7 +792,7 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
                       AnimatedPositioned(
                         duration: const Duration(milliseconds: 200),
                         curve: Curves.easeInOut,
-                        left: 16,
+                        left: 48, // 👉 아이콘 공간(prefixIcon)에 맞춰 라벨 위치 조정
                         top: isActive ? -10 : 16,
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
