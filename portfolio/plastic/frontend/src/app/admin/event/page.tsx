@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiArrowUp, FiArrowDown } from "react-icons/fi"
 import { Popup } from "@/component/modal/Popup";    
@@ -168,7 +168,7 @@ export default function Event() {
 
     return(
         <>
-            <Layout>
+            <Lay>
                 <S.EventAdminContainer>
                     <S.EventPageHeader>
                         <S.EventPageTitle>이벤트 랭킹 관리</S.EventPageTitle>
@@ -292,7 +292,7 @@ export default function Event() {
                         </S.EventRightColumn>
                     </S.EventGrid>
                 </S.EventAdminContainer>
-            </Layout>
+            </Lay>
 
             <Popup
                 isOpen={isSavePopupOpen}

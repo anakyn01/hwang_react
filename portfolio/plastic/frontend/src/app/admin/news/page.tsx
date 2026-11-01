@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiArrowUp, FiArrowDown } from "react-icons/fi";
 import { Popup } from "@/component/modal/Popup";
@@ -130,7 +130,7 @@ alert("순서 저장 실패")
 
 return (
         <>
-            <Layout>
+            <Lay>
                 <S.NewsContainer>
                     <S.NewsPageHeader>
                         <S.NewsPageTitle>원형 카테고리 아이콘 관리</S.NewsPageTitle>
@@ -242,7 +242,7 @@ return (
                         </S.NewsRightColumn>
                     </S.NewsGrid>
                 </S.NewsContainer>
-            </Layout>
+            </Lay>
 
             <Popup 
                 isOpen={isSavePopupOpen} 

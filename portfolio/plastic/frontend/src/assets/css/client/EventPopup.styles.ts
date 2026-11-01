@@ -32,17 +32,31 @@ margin-bottom:12px;
 width:100%; //부모너비에 딱 맟추기
 `;
 export const Input = styled.input`
-flex:1; 
-min-width:0;
-//인풋에 고집을 꺽고 부모크기에 맞춰 줄어들수 있도록 강제 허용
-height:36px; padding:0 8px;
-font-size:13px;
-border:1px solid #ccc;
-outline:none;
-background-color:#fff;
 
-&::placeholder{color:#999;}
-&:focus{border-color:#000;}
+  min-width: 0;
+  width: 100%; /* 부모 너비에 꽉 차도록 보장 */
+  height: 48px; /* 기존 36px -> 48px로 키워 클릭(터치) 영역 확보 및 시원한 느낌 */
+  padding: 0 16px; /* 좌우 여백을 늘려 텍스트가 답답하지 않게 설정 */
+  font-size: 15px; /* 글씨 크기를 살짝 키워 가독성 향상 */
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #e2e8f0; /* 기존 #ccc보다 살짝 더 부드러운 연회색 */
+  border-radius: 8px; /* 모서리를 둥글게 처리하여 부드러운 인상 */
+  outline: none;
+  transition: all 0.2s ease-in-out; /* 마우스 오버/포커스 시 부드러운 전환 효과 */
+
+  &::placeholder {
+    color: #94a3b8; /* 플레이스홀더 색상을 조금 더 세련된 톤으로 변경 */
+  }
+
+  &:hover {
+    border-color: #cbd5e1; /* 마우스를 올렸을 때 살짝 진해지는 피드백 */
+  }
+
+  &:focus {
+    border-color: #3b82f6; /* 클릭 시 진한 검은색 대신 산뜻한 블루 톤 적용 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); /* 포커스 시 외곽에 부드러운 링(그림자) 효과 */
+  }
 `;
 export const SubmitBtn = styled.button`
 flex-shrink:0;

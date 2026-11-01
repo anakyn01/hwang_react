@@ -1,120 +1,118 @@
 "use client";
 
 //개발후 연동
-import React ,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 
 import * as S from '@/assets/css/Style.style';
 import Link from 'next/link';
 
-
 //백앤드에서 받아올 데이터의 형태(타입)를 정의
 interface ScheduleData {
-  id:number;
-  departments:string;
-  weekday:string;
-  night:string;
-  weekend:string;
+  id: number;
+  departments: string;
+  weekday: string;
+  night: string;
+  weekend: string;
 }
 
-interface FamilySiteData{
-id:number; name:string; url:string;
+interface FamilySiteData {
+  id: number; name: string; url: string;
 }
 
-export default function Footer(){
+export default function Footer() {
 
-//1.서버에서 가져온 데이터를 담아둘 빈 바구니 만들기
-const [companyInfo, setCompanyInfo] = useState({
-name:"", address:"", clinicName:"", phone:"",
-email:"", locationUrl:""
-});
-const [schedules, setSchedules] = useState<ScheduleData[]>([]);
-const [familySites, setFamilySites] = useState<FamilySiteData[]>([]);
-const [isLoading, setIsLoading] =useState(true);
+  //1.서버에서 가져온 데이터를 담아둘 빈 바구니 만들기
+  const [companyInfo, setCompanyInfo] = useState({
+    name: "", address: "", clinicName: "", phone: "",
+    email: "", locationUrl: ""
+  });
+  const [schedules, setSchedules] = useState<ScheduleData[]>([]);
+  const [familySites, setFamilySites] = useState<FamilySiteData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-useEffect(()=>{
-const fetchFooterData = async () => {
-try{
-const response = await axios.get("http://localhost:4000/api/admin/footer");
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/admin/footer");
 
-if(response.data.success && response.data.data) {
-  const { companyInfo, schedules, familySites} = response.data.data;
-  //db에서 가져온 데이터로 빈 바구니를 채웁니다
-  if(companyInfo) setCompanyInfo(companyInfo);
-  if(schedules)setSchedules(schedules);
-  if(familySites) setFamilySites(familySites);
-}
-}catch(error){
-console.error("클라이언트 푸터 데이터 로드 실패", error);
-}finally{
-setIsLoading(false);
-}
-};
-fetchFooterData();
-},[]);
-//아직 db에서 데이터를 받아오고 있다면..
-if(isLoading) {
-  return <S.SiteFooterWrapper>
-    <S.SiteFooterInner>
-      로딩중...
-    </S.SiteFooterInner>
-  </S.SiteFooterWrapper>
-}
+        if (response.data.success && response.data.data) {
+          const { companyInfo, schedules, familySites } = response.data.data;
+          //db에서 가져온 데이터로 빈 바구니를 채웁니다
+          if (companyInfo) setCompanyInfo(companyInfo);
+          if (schedules) setSchedules(schedules);
+          if (familySites) setFamilySites(familySites);
+        }
+      } catch (error) {
+        console.error("클라이언트 푸터 데이터 로드 실패", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchFooterData();
+  }, []);
 
-    return(
-        <>
-<S.SiteFooterWrapper>
+  //아직 db에서 데이터를 받아오고 있다면..
+  if (isLoading) {
+    return <S.SiteFooterWrapper>
+      <S.SiteFooterInner>
+        로딩중...
+      </S.SiteFooterInner>
+    </S.SiteFooterWrapper>
+  }
+
+  return (
+    <>
+      <S.SiteFooterWrapper>
         <S.SiteFooterInner>
           {/* cs번호 진료시간 오시는길 */}
           <S.SiteFooterTop>
             <S.SiteFooterCs>
               <S.SiteFooterPhone>
-{companyInfo.phone || "02. 000. 0000"}                
+                {companyInfo.phone || "02. 000. 0000"}
               </S.SiteFooterPhone>
               <S.SiteFooterCsTitle>CS CENTER</S.SiteFooterCsTitle>
             </S.SiteFooterCs>
 
             <S.SiteFooterScheduleWrap>
+              {schedules.map((sch) => (
+                <React.Fragment key={sch.id}>
+                  <S.SiteFooterScheduleBlock>
+                    <S.SiteFooterScheduleTitle>{sch.departments}</S.SiteFooterScheduleTitle>
+                    <S.SiteFooterScheduleText>평일 : {sch.weekday}</S.SiteFooterScheduleText>
+                    {/*야간은 빈칸이면 깔끔하게 렌더링을 안함 */}
+                    {sch.night && <S.SiteFooterScheduleText>야간 : {sch.night}
+                    </S.SiteFooterScheduleText>}
+                    <S.SiteFooterScheduleText>
+                      토요일 : {sch.weekend}
+                    </S.SiteFooterScheduleText>
+                  </S.SiteFooterScheduleBlock>
 
-{schedules.map((sch) =>(
-  <>
-              <S.SiteFooterScheduleBlock key={sch.id}>
-                <S.SiteFooterScheduleTitle>{sch.departments}</S.SiteFooterScheduleTitle>
-                <S.SiteFooterScheduleText>평일 : {sch.weekday}</S.SiteFooterScheduleText>
- {/*야간은 빈칸이면 깔끔하게 렌더링을 안함 */}
- {sch.night &&<S.SiteFooterScheduleText>야간 : {sch.night}
-  </S.SiteFooterScheduleText>}
-<S.SiteFooterScheduleText>
-  토요일 : {sch.weekend}
-</S.SiteFooterScheduleText>
-              </S.SiteFooterScheduleBlock>
-
-              <S.SiteFooterScheduleBlock>
-                <S.SiteFooterScheduleTitle>스킨케어</S.SiteFooterScheduleTitle>
-                <S.SiteFooterScheduleText>평일 : AM 09:00 - PM 06:00</S.SiteFooterScheduleText>
-                <S.SiteFooterScheduleText>토요일 : PM 09:00 - PM 03:00</S.SiteFooterScheduleText>
-              </S.SiteFooterScheduleBlock>
-              </>
-))}
-            
-            
+                  <S.SiteFooterScheduleBlock>
+                    <S.SiteFooterScheduleTitle>스킨케어</S.SiteFooterScheduleTitle>
+                    <S.SiteFooterScheduleText>평일 : AM 09:00 - PM 06:00</S.SiteFooterScheduleText>
+                    <S.SiteFooterScheduleText>토요일 : PM 09:00 - PM 03:00</S.SiteFooterScheduleText>
+                  </S.SiteFooterScheduleBlock>
+                </React.Fragment>
+              ))}
             </S.SiteFooterScheduleWrap>
-<Link href={companyInfo.locationUrl || "/"} 
-passHref legacyBehavior>          
-            <S.SiteFooterLocationBtn>
-              오시는길 바로가기
+            
+            {/* 에러 발생 부분 수정: legacyBehavior 속성 제거 */}
+            <Link href={companyInfo.locationUrl || "/"}>
+              <S.SiteFooterLocationBtn>
+                오시는길 바로가기
               </S.SiteFooterLocationBtn>
-</Link> 
+            </Link>
+
           </S.SiteFooterTop>
 
-<S.SiteFooterBottom>
-<S.SiteFooterCompany>
-<S.SiteFooterCompanyName>
-{companyInfo.name || "안과"}
-</S.SiteFooterCompanyName>
+          <S.SiteFooterBottom>
+            <S.SiteFooterCompany>
+              <S.SiteFooterCompanyName>
+                {companyInfo.name || "안과"}
+              </S.SiteFooterCompanyName>
               <S.SiteFooterInfoText>
-{companyInfo.address || "201호"}              
+                {companyInfo.address || "201호"}
                 <br />
                 (안호범안스성형외과 건물 주차장 이용)
               </S.SiteFooterInfoText>
@@ -138,19 +136,14 @@ passHref legacyBehavior>
                 <S.SiteFooterFamilyTitle>Family</S.SiteFooterFamilyTitle>
                 {/*db에서 가져온 패밀리 사이트 배열 렌더링 */}
                 <S.SiteFooterFamilyLogos>
-{familySites.map((site) =>(
-  <a key={site.id} href={site.url} 
-  target="_blank" rel="noopener noreferrer">
-<div className='logo-placeholder'>
-  {site.name}
-  </div>    
-  </a>
-))}
-
-
-                  {/*<div className="logo-placeholder">Breast Surgery Center</div>
-                  <div className="logo-placeholder">Derm</div>
-                  <div className="logo-placeholder">Lifting Center</div>*/}
+                  {familySites.map((site) => (
+                    <a key={site.id} href={site.url}
+                      target="_blank" rel="noopener noreferrer">
+                      <div className='logo-placeholder'>
+                        {site.name}
+                      </div>
+                    </a>
+                  ))}
                 </S.SiteFooterFamilyLogos>
               </div>
             </S.SiteFooterBottomRight>
@@ -163,7 +156,7 @@ passHref legacyBehavior>
             <S.FloatingMenuIcon $bgColor="#FEE500">TALK</S.FloatingMenuIcon>
             <S.FloatingMenuText>빠른 상담</S.FloatingMenuText>
           </S.FloatingMenuItem>
-          
+
           <S.FloatingMenuItem>
             <S.FloatingMenuIcon $bgColor="#3b82f6">
               <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -173,8 +166,7 @@ passHref legacyBehavior>
             <S.FloatingMenuText>전화상담</S.FloatingMenuText>
           </S.FloatingMenuItem>
         </S.FloatingMenuWrapper>
-
       </S.SiteFooterWrapper>
-        </>
-    )
+    </>
+  )
 }

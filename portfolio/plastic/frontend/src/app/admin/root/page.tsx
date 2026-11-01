@@ -1,7 +1,7 @@
 "use client";
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 // 💡 직통 임포트(Direct Import)를 사용하여 스타일 깨짐 방지
 import * as S from "@/assets/css/admin/Admin.style";
 import { 
@@ -89,7 +89,7 @@ console.error("대시보드 실제 데이터 연동 실패:", error);
     ];
 
     return (
-<Layout>
+<Lay>
             <S.DashContainer>
                 <S.DashHeader>
                     <S.DashTitle>대시보드 (통합 관리 현황)</S.DashTitle>
@@ -256,6 +256,6 @@ console.error("대시보드 실제 데이터 연동 실패:", error);
                 </S.SystemGrid>
 
             </S.DashContainer>
-        </Layout>
+        </Lay>
     );
 }

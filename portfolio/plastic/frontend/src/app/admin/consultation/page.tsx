@@ -7,7 +7,7 @@ import axios from "axios";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiTrash2, FiSearch, FiCheck } from "react-icons/fi";
 
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 
 import {Popup} from "@/component/modal/Popup";
 import { Temporal } from '@js-temporal/polyfill';
@@ -135,7 +135,7 @@ alert("삭제에 실패")
 
     return(
         <>
-        <Layout>
+        <Lay>
           <S.ConsultContainer>
                     <S.ConsultPageHeader>
                         <S.ConsultPageTitle>상담신청 관리</S.ConsultPageTitle>
@@ -224,7 +224,7 @@ onClick={() => setCurrentPage(page)}
 )}                      
                     </S.ConsultTableCard>
                 </S.ConsultContainer>
-        </Layout>
+        </Lay>
 
         <Popup
 isOpen={isPopupOpen}

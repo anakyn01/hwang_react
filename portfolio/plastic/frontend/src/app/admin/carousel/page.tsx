@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { Layout } from "../Layout"; // 경로에 맞게 수정해주세요
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { Popup } from "@/component/modal/Popup";
 import { FiSave, FiPlus, FiTrash2, FiImage } from "react-icons/fi";
@@ -98,7 +98,7 @@ export default function Visual() {
 
     return (
         <>
-            <Layout>
+            <Lay>
                 <S.SetNavContainer>
                     <S.SetNavPageHeader>
                         <S.SetNavPageTitle>메인 비주얼(캐러셀) 관리</S.SetNavPageTitle>
@@ -176,7 +176,7 @@ export default function Visual() {
                         </S.SetNavCard>
                     </S.SetNavContentGrid>
                 </S.SetNavContainer>
-            </Layout>
+            </Lay>
 
             <Popup
                 isOpen={isPopupOpen}

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiSettings, FiList } from "react-icons/fi";
 import { Popup } from "@/component/modal/Popup";
@@ -111,7 +111,7 @@ export default function Board() {
 
     return (
         <>
-            <Layout>
+            <Lay>
                 <S.BoardContainer>
                     <S.BoardPageHeader>
                         <S.BoardPageTitle>게시판 관리</S.BoardPageTitle>
@@ -251,7 +251,7 @@ rel="noreferrer"
                         </S.BoardRightColumn>
                     </S.BoardGrid>
                 </S.BoardContainer>
-            </Layout>
+            </Lay>
 
             <Popup 
                 isOpen={isSavePopupOpen} 

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiArrowUp, FiArrowDown } from "react-icons/fi";
 import { Popup } from "@/component/modal/Popup";
@@ -136,7 +136,7 @@ export default function Safety() {
 
     return (
         <>
-            <Layout>
+            <Lay>
                 <S.AdminSafetyContainer>
                     <S.AdminSafetyPageHeader>
                         <S.AdminSafetyPageTitle>안전 시스템 관리</S.AdminSafetyPageTitle>
@@ -258,7 +258,7 @@ export default function Safety() {
                         </S.AdminSafetyRightColumn>
                     </S.AdminSafetyGrid>
                 </S.AdminSafetyContainer>
-            </Layout>
+            </Lay>
 
             <Popup 
                 isOpen={isSavePopupOpen} 

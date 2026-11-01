@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
-import { Layout} from '@/app/admin/Layout';
+import { Layout} from '@/app/admin/Lay';
 
 interface BoardInfo {
     BOARD_IDX: number;

@@ -22,7 +22,7 @@ import {
 } from "react-icons/fi";
 
 
-export const Layout = ({children}:{children:React.ReactNode}) =>{
+export default function Lay({children}:{children:React.ReactNode}) {
 
     const router = useRouter();
 

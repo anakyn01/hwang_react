@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { Popup } from "@/component/modal/Popup";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiType } from "react-icons/fi";
@@ -123,7 +123,7 @@ alert("설정 저장에 실패했습니다");
 
     return (
         <>
-            <Layout>
+            <Lay>
                 <S.SetNavContainer>
                     {/* 💡 2. 수정: 불필요하게 겹쳐 있던 <S.SetNavPageHeader> 태그 제거 */}
                     <S.SetNavPageHeader>
@@ -228,7 +228,7 @@ alert("설정 저장에 실패했습니다");
                         </S.SetNavCard>
                     </S.SetNavContentGrid>
                 </S.SetNavContainer>
-            </Layout>
+            </Lay>
 
             <Popup
                 isOpen={isPopupOpen}

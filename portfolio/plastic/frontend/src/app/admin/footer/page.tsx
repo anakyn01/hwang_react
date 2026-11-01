@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2 } from "react-icons/fi";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import { Popup } from "@/component/modal/Popup";
 
 interface ScheduleData{
@@ -127,7 +127,7 @@ setIsPopupOpen(true);
 };
     return(
         <>
-        <Layout>
+        <Lay>
  <S.FooterAdminContainer>
                     <S.FooterPageHeader>
                         <S.FooterPageTitle>푸터(하단 영역) 관리</S.FooterPageTitle>
@@ -277,7 +277,7 @@ setIsPopupOpen(true);
                         </div>
                     </S.FooterGrid>
                 </S.FooterAdminContainer>           
-        </Layout>
+        </Lay>
 
         <Popup
         isOpen={isPopupOpen}

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import *as S from "@/assets/css/admin/Admin.style"
 import { FiMoon, FiSun, FiCheck, FiSave} from "react-icons/fi";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import { Popup} from "@/component/modal/Popup";
 
 
@@ -59,7 +59,7 @@ const handleSave = async () => {
 
     return(
         <>
- <Layout>
+ <Lay>
                 <S.ToneContainer>
                     <S.TonePageHeader>
                         <S.TonePageTitle>톤앤매너 관리</S.TonePageTitle>
@@ -130,7 +130,7 @@ const handleSave = async () => {
                         </S.ToneSettingsCard>
                     </S.ToneCardGrid>
                 </S.ToneContainer>           
-            </Layout>
+            </Lay>
 
             {/* 💡 커스텀 저장 팝업 */}
             <Popup 

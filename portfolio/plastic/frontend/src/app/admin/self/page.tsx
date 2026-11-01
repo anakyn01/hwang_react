@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiHeart, FiEye } from "react-icons/fi";
 import { Popup } from "@/component/modal/Popup";
@@ -121,7 +121,7 @@ export default function Self() {
 
     return (
         <>
-            <Layout>
+            <Lay>
                 <S.SelfContainer>
                     <S.SelfPageHeader>
                         <S.SelfPageTitle>셀피(Selfies) 관리</S.SelfPageTitle>
@@ -245,7 +245,7 @@ export default function Self() {
                         </S.SelfRightColumn>
                     </S.SelfGrid>
                 </S.SelfContainer>
-            </Layout>
+            </Lay>
 
             <Popup 
                 isOpen={isSavePopupOpen} 

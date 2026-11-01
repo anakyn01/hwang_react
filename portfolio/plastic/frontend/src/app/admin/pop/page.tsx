@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiClock } from "react-icons/fi";
 import { Popup } from "@/component/modal/Popup";
@@ -136,7 +136,7 @@ console.log("설정 저장 실패:", error);
 
     return (
         <>
-<Layout>
+<Lay>
                 <S.PopContainer>
                     <S.PopPageHeader>
                         <S.PopPageTitle>메인 팝업 관리</S.PopPageTitle>
@@ -294,7 +294,7 @@ console.log("설정 저장 실패:", error);
                         </S.PopRightColumn>
                     </S.PopGrid>
                 </S.PopContainer>
-            </Layout>
+            </Lay>
 
             <Popup 
                 isOpen={isSavePopupOpen} 

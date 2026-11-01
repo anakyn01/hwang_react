@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiSave, FiPlus, FiTrash2, FiImage, FiArrowUp, FiArrowDown, FiVideo } from "react-icons/fi";
 import { Popup } from "@/component/modal/Popup";
@@ -134,7 +134,7 @@ export default function Vlog() {
 
     return (
         <>
-            <Layout>
+            <Lay>
                 <S.VlogContainer>
                     <S.AdminVlogPageHeader>
                         <S.AdminVlogPageTitle>VLOG 영상 관리</S.AdminVlogPageTitle>
@@ -258,7 +258,7 @@ export default function Vlog() {
                         </S.AdminVlogRightColumn>
                     </S.AdminVlogGrid>
                 </S.VlogContainer>
-            </Layout>
+            </Lay>
 
             <Popup 
                 isOpen={isSavePopupOpen} 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-import { Layout } from "../Layout";
+import Lay from "@/app/admin/Lay";
 import * as S from "@/assets/css/admin/Admin.style";
 import { FiTrash2, FiSearch, FiCheck, FiUserX } from "react-icons/fi";
 import { Popup } from "@/component/modal/Popup";
@@ -120,7 +120,7 @@ alert("상태 변경에 실패 했습니다")
 
     return (
         <>
-            <Layout>
+            <Lay>
                 <S.UserContainer>
                     <S.UserPageHeader>
                         <S.UserPageTitle>회원 관리</S.UserPageTitle>
@@ -230,7 +230,7 @@ disabled={currentPage >= totalPages}
 
 </S.UserTableCard>
 </S.UserContainer>
-</Layout>
+</Lay>
 
             {/* ✅ 커스텀 삭제 팝업 */}
             <Popup 
