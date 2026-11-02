@@ -24,12 +24,16 @@
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@stylexjs/babel-plugin": "^0.19.1",
+    "@stylexjs/postcss-plugin": "^0.19.1",
     "@stylexjs/webpack-plugin": "^0.11.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "autoprefixer": "^10.6.1",
+    "autoprefixer": "^10.6.2",
+    "babel-plugin-macros": "^3.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "postcss": "^8.5.30",

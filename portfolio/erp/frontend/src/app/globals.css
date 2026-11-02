@@ -1,22 +1,223 @@
-:root {
-  --bg-color: #F5F5F7;
-  --text-primary: #1D1D1F;
-  --text-secondary: #86868B;
-  --accent-blue: #0066CC;
-  --glass-bg: rgba(255, 255, 255, 0.82);
-  --glass-border: rgba(0, 0, 0, 0.06);
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-color);
-  color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  letter-spacing: -0.01em;
-  -webkit-font-smoothing: antialiased;
-}
+@stylex;
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: #F5F5F7 !important;
+  color: #1D1D1F;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Pretendard", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 💡 부트스트랩 CDN이 강제로 입히는 파란색 밑줄 완벽 제거 */
+a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* 💡 대시보드 테이블 내부 셀 여백 및 라인 애플 스타일 보정 */
+table th {
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #86868B;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: #FAFAFC;
+}
+
+table td {
+  padding: 16px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  vertical-align: middle;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+button {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* 애니메이션 클래스 연결 */
+.overlay-animated {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.alertBox-animated {
+  animation: scaleUp 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleDown {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.95); opacity: 0; }
+}
+
+.overlay-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.overlay-fadeOut {
+  animation: fadeOut 0.2s ease-in forwards;
+}
+
+.alertBox-scaleUp {
+  animation: scaleUp 0.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.alertBox-scaleDown {
+  animation: scaleDown 0.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* 체크 아이콘 래퍼 및 SVG 애니메이션 */
+.check-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.check-svg {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2.5;
+  stroke: #34C759; /* 애플 그린 컬러 */
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #34C759;
+  animation: fillCheckBg 0.4s ease-in-out 0.2s forwards;
+}
+
+.check-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2.5;
+  stroke-miterlimit: 10;
+  stroke: #34C759;
+  fill: rgba(52, 199, 89, 0.08);
+  animation: strokeCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.check-path {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: strokeCheck 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.4s forwards;
+}
+
+@keyframes strokeCircle {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes strokeCheck {
+  0% { stroke-dashoffset: 48; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fillCheckBg {
+  0% { background-color: transparent; }
+  100% { background-color: rgba(52, 199, 89, 0.08); border-radius: 50%; }
+}
+
+/* 기존 모달 페이드 및 스케일 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleDown {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.95); opacity: 0; }
+}
+
+.overlay-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.overlay-fadeOut {
+  animation: fadeOut 0.2s ease-in forwards;
+}
+
+.alertBox-scaleUp {
+  animation: scaleUp 0.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.alertBox-scaleDown {
+  animation: scaleDown 0.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* 인풋에 포커스가 있거나 내용이 채워져 있을 때 라벨이 위로 올라가는 스타일 */
+.floatingInput:focus ~ .floatingLabel,
+.floatingInput:not(:placeholder-shown) ~ .floatingLabel {
+  transform: translateY(-10px) scale(0.75);
+  color: #0066CC !important;
+}
+
+/* 💡 글로벌 레벨에서 input 및 button 태그의 기본 테두리/외곽선 강제 초기화 */
+input, button, textarea, select {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* 💡 애플 스타일 둥근 인풋 내부의 순수 입력 필드 강제 정돈 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* 애플 스타일 인풋 내부에 쓰이는 클래스 안전망 */
+.appleFieldClean,
+input[type="email"],
+input[type="password"] {
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }

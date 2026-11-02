@@ -3,22 +3,23 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-
-// 전역 상태 관리를 위한 Redux 훅 및 액션 임포트
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/store/authSlice";
+import { AlertModal } from "@/components/modal/AlertModal";
 
-import * as S from "@/assets/css/Style.style";
+import * as stylex from "@stylexjs/stylex";
+import { styles } from "@/assets/stylex/style.styles";
 
-export default function Home() {
+export default function LoginPage() {
   const router = useRouter();
   const dispatch = useDispatch();
   
-  // 입력값 상태 관리 (이메일, 비밀번호)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // 💡 S.Alert 접두사 스타일과 연동할 커스텀 모달 상태 관리
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
   const [alertModal, setAlertModal] = useState<{
     isOpen: boolean;
     message: string;
@@ -29,12 +30,10 @@ export default function Home() {
     nextRoute: "",
   });
 
-  // 로그인 폼 제출 핸들러
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      // 백엔드 로그인 API 호출
       const response = await axios.post("http://127.0.0.1:8080/api/members/login", {
         email,
         password,
@@ -42,32 +41,25 @@ export default function Home() {
 
       if (response.status === 200) {
         const token = response.data.token;
-        
-        // Redux 스토어 및 localStorage에 토큰 저장
         dispatch(setLogin(token));
-
-        // 이후 모든 axios 요청 헤더에 JWT 토큰 자동 포함 설정
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-        // 성공 모달 오픈 및 대시보드 이동 경로 설정
         setAlertModal({
           isOpen: true,
-          message: "로그인 성공!",
+          message: "로그인에 성공하였습니다.",
           nextRoute: "/dashboard",
         });
       }
     } catch (error) {
       console.error("로그인 에러:", error);
-      // 실패 모달 오픈
       setAlertModal({
         isOpen: true,
-        message: "이메일 또는 비밀번호를 확인해 주세요",
+        message: "이메일 또는 비밀번호를 확인해 주세요.",
         nextRoute: "",
       });
     }
   };
 
-  // 모달 확인 버튼 클릭 시 닫기 및 페이지 이동 처리
   const handleCloseAlert = () => {
     const route = alertModal.nextRoute;
     setAlertModal({ isOpen: false, message: "", nextRoute: "" });
@@ -76,77 +68,159 @@ export default function Home() {
     }
   };
 
+  // 💡 평상시에도 완벽하게 적용되는 공통 인풋 래퍼 인라인 스타일
+  const wrapperStyle = {
+    position: "relative" as const,
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    height: "56px",
+    backgroundColor: "#FFFFFF",
+    border: "1.5px solid #D2D2D7",
+    borderRadius: "16px",
+    padding: "0 16px",
+    boxSizing: "border-box" as const,
+    marginBottom: "16px",
+  };
+
+  // 💡 테두리와 배경이 없는 순수 내부 인풋 스타일
+  const cleanInputStyle = {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "transparent",
+    border: "none",
+    outline: "none",
+    fontSize: "15px",
+    color: "#1D1D1F",
+  };
+
   return (
-    <>
-      <S.Container>
-        {/* 💡 S.Alert 접두사가 붙은 글래스모피즘 커스텀 알림창 렌더링 */}
-        {alertModal.isOpen && (
-          <S.AlertOverlay>
-            <S.AlertBox>
-              <S.AlertMessage>{alertModal.message}</S.AlertMessage>
-              <S.AlertButton onClick={handleCloseAlert}>확인</S.AlertButton>
-            </S.AlertBox>
-          </S.AlertOverlay>
-        )}
+    <div {...stylex.props(styles.loginPageWrapper)}>
+      
+      <div {...stylex.props(styles.responsiveLoginCard)}>
+        
+        {/* PC 전용 좌측 그라데이션 배너 (모바일 자동 숨김) */}
+        <div {...stylex.props(styles.responsiveImageColumn)}>
+          <div style={{ fontSize: "18px", fontWeight: "750", letterSpacing: "-0.02em" }}>Smart ERP</div>
+          <div>
+            <h2 style={{ fontSize: "26px", fontWeight: "700", marginBottom: "12px", lineHeight: "1.25" }}>
+              스마트한 기업 운영의 기준
+            </h2>
+            <p style={{ fontSize: "14px", opacity: 0.85, lineHeight: "1.5", margin: 0 }}>
+              생산, 재고, 인사 관리를 하나의 매끄러운 플랫폼에서 통합 관리하세요.
+            </p>
+          </div>
+          <div style={{ fontSize: "11px", opacity: 0.6 }}>&copy; {new Date().getFullYear()} Heartbreakkid Corp.</div>
+        </div>
 
-        <S.Card>
-          <S.ImageColumn />
-          <S.FormColumn>
-            <S.Title>Welcome Back!</S.Title>
+        {/* 우측 폼 입력 영역 */}
+        <div {...stylex.props(styles.formColumn)} style={{ padding: "44px 40px", width: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          
+          <div style={{ textAlign: "center", marginBottom: "28px" }}>
+            <h1 style={{ fontSize: "26px", fontWeight: "700", color: "#1D1D1F", letterSpacing: "-0.025em", marginBottom: "6px" }}>
+              Apple Store에 로그인하세요
+            </h1>
+            <p style={{ fontSize: "13px", color: "#86868B", margin: 0 }}>Smart ERP 통합 계정을 사용합니다.</p>
+          </div>
+          
+          <form onSubmit={handleLogin} style={{ width: "100%" }}>
             
-            <S.Form onSubmit={handleLogin}>
-              <S.Input 
+            {/* 💡 1. 이메일 입력 래퍼 박스 (테두리 및 둥근 모서리 강제 적용) */}
+            <div style={wrapperStyle}>
+              <input 
                 type="email" 
-                id="exampleInputEmail" 
-                placeholder="Enter Email Address..." 
                 value={email}
-                onChange={(e: any) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setIsEmailFocused(true)}
+                onBlur={() => setIsEmailFocused(false)}
                 required
+                style={cleanInputStyle}
+                placeholder="이메일 또는 전화번호"
               />
-              
-              <S.Input 
+              {(isEmailFocused || email) && (
+                <button type="button" {...stylex.props(styles.arrowButtonBase)} aria-label="이메일 다음">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              )}
+            </div>
+            
+            {/* 💡 2. 비밀번호 입력 래퍼 박스 (테두리 및 둥근 모서리 강제 적용) */}
+            <div style={wrapperStyle}>
+              <input 
                 type="password" 
-                id="exampleInputPassword" 
-                placeholder="Password"
                 value={password}
-                onChange={(e: any) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setIsPasswordFocused(true)}
+                onBlur={() => setIsPasswordFocused(false)}
                 required
+                style={cleanInputStyle}
+                placeholder="암호"
               />
-              
-              <S.CheckboxWrapper>
-                <input type="checkbox" id="customCheck" />
-                <S.CheckboxLabel htmlFor="customCheck">
-                  Remember Me
-                </S.CheckboxLabel>
-              </S.CheckboxWrapper>
-              
-              <S.Button type="submit" $fullWidth $variant="primary">
-                Login
-              </S.Button>
+              {(isPasswordFocused || password) && (
+                <button type="submit" {...stylex.props(styles.arrowButtonBase)} aria-label="로그인 제출">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              )}
+            </div>
+            
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
+              <div {...stylex.props(styles.checkboxWrapper)}>
+                <input type="checkbox" id="customCheck" style={{ cursor: "pointer", width: "16px", height: "16px", accentColor: "#0066CC" }} />
+                <label htmlFor="customCheck" {...stylex.props(styles.checkboxLabel)} style={{ fontSize: "14px", color: "#424245" }}>
+                  계정 저장
+                </label>
+              </div>
+              <a href="/forgot" style={{ fontSize: "13px", color: "#0066CC", textDecoration: "none", fontWeight: "500" }}>
+                암호를 잊으셨습니까? &rarr;
+              </a>
+            </div>
+            
+            {/* 로그인 버튼 */}
+            <button type="submit" {...stylex.props(styles.unifiedButton)} style={{ backgroundColor: "#0066CC", color: "#FFFFFF", boxShadow: "0 4px 14px rgba(0, 102, 204, 0.25)" }}>
+              로그인
+            </button>
 
-              <S.Divider />
+            <div {...stylex.props(styles.divider)} style={{ margin: "20px 0" }} />
+            
+            {/* 소셜 로그인 버튼 */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <button type="button" {...stylex.props(styles.unifiedButton)} style={{ backgroundColor: "#FEE500", color: "#191919" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.83 5.32 4.57 6.74-.15.56-.56 2.03-.64 2.34-.1.38.14.38.29.28.12-.08 1.92-1.3 2.7-1.83.74.11 1.5.17 2.28.17 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
+                </svg>
+                카카오로 시작하기
+              </button>
               
-              <S.Button type="button" $fullWidth $variant="kakao">
-                <i className="fab fa-google fa-fw"></i> Login with kakao
-              </S.Button>
-              
-              <S.Button type="button" $fullWidth $variant="insta">
-                <i className="fab fa-facebook-f fa-fw"></i> Login with Insta
-              </S.Button>
-            </S.Form>
-            
-            <S.Divider />
-            
-            <S.StyledLink href="/forgot">
-              패스워드가 기억나지 않나요?
-            </S.StyledLink>
-            <S.StyledLink href="/member">
-              회원가입하기
-            </S.StyledLink>
-            
-          </S.FormColumn>
-        </S.Card>
-      </S.Container>
-    </>
+              <button type="button" {...stylex.props(styles.unifiedButton)} style={{ backgroundColor: "#1D1D1F", color: "#FFFFFF" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.35c.57-.69.96-1.65.86-2.61-.84.04-1.87.56-2.47 1.25-.53.6-1 1.57-.88 2.52.94.07 1.92-.47 2.49-1.16z"/>
+                </svg>
+                애플 계정으로 로그인
+              </button>
+            </div>
+          </form>
+          
+          <div style={{ marginTop: "24px", textAlign: "center", fontSize: "13px", color: "#86868B" }}>
+            <span>Apple 계정이 없으십니까? </span>
+            <a href="/member" style={{ color: "#0066CC", textDecoration: "none", fontWeight: "500" }}>
+              Apple 계정 생성 &rarr;
+            </a>
+          </div>
+          
+        </div>
+      </div>
+
+      <AlertModal 
+        isOpen={alertModal.isOpen}
+        message={alertModal.message}
+        onClose={handleCloseAlert}
+      />
+    </div>
   );
 }

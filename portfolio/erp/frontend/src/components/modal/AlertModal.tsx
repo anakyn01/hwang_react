@@ -1,46 +1,58 @@
 "use client";
 
-import { useState, useEffect} from "react";
-import * as S from "@/assets/css/Style.style";
+import { useState, useEffect } from "react";
+import * as stylex from "@stylexjs/stylex";
+import { styles } from "@/assets/stylex/style.styles";
 
-interface AlertModalProps{
-isOpen: boolean;
-message: string;
-onClose: () => void;    
+interface AlertModalProps {
+  isOpen: boolean;
+  message: string;
+  onClose: () => void;    
 }
 
-export const AlertModal = ({isOpen, message, onClose}:AlertModalProps) => {
-    // 💡 현재 모달이 '닫히는 중'인지 확인하는 상태
-    const [isClosing, setIsClosing] = useState(false);
+export const AlertModal = ({ isOpen, message, onClose }: AlertModalProps) => {
+  const [isClosing, setIsClosing] = useState(false);
 
-    //모달이 다시 열릴 때마다 닫히는 상태(isClosing)를 초기화해줌
-    useEffect(() => {
-        if(isOpen){setIsClosing(false);}
-    },[isOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      setIsClosing(false);
+    }
+  }, [isOpen]);
 
-    //💡 확인 버튼을 눌렀을 때 실행될 함수
-    const handleClose = () => {
-        setIsClosing(true); // 1. 애니메이션을 fadeOut으로 변경!
-        //2. 0.3초(애니메이션 재생 시간) 기다렸다가 진짜로 모달 닫기
-        setTimeout(() => {
-            onClose();
-        },300);
-    };
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  };
 
-    //css display none 역활
-    if (!isOpen) return null;
+  if (!isOpen) return null;
 
-    return(
-<S.ModalOverlay>
-    <S.ModalBox>
-<S.ModalText>{message}</S.ModalText>
-<S.Button
-$variant="white"
-$size="medium"
-onClick={handleClose}
-$fullWidth
->확인</S.Button>        
-    </S.ModalBox>
-</S.ModalOverlay>
-    );
-}
+  return (
+    <div 
+      {...stylex.props(styles.overlay)} 
+      className={isClosing ? "overlay-fadeOut" : "overlay-fadeIn"}
+    >
+      <div 
+        {...stylex.props(styles.alertBox)} 
+        className={isClosing ? "alertBox-scaleDown" : "alertBox-scaleUp"}
+      >
+        {/* 💡 별표 마크가 있던 자리를 깔끔한 애플 스타일 체크 애니메이션으로 완전 교체 */}
+        <div className="check-icon-wrapper">
+          <svg className="check-svg" viewBox="0 0 52 52">
+            <circle className="check-circle" cx="26" cy="26" r="25" fill="none" />
+            <path className="check-path" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+          </svg>
+        </div>
+
+        <p {...stylex.props(styles.message)}>{message}</p>
+        <button 
+          {...stylex.props(styles.confirmButton)} 
+          onClick={handleClose}
+        >
+          확인
+        </button>        
+      </div>
+    </div>
+  );
+};

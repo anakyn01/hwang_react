@@ -1,10 +1,17 @@
+import babelConfig from './babel.config.js';
 
-import autoprefixer from "autoprefixer";
-
+/** @type {import('postcss-load-config').Config} */
 const config = {
   plugins: {
-    "@tailwindcss/postcss": {},
-    autoprefixer:{},
+    '@stylexjs/postcss-plugin': {
+      include: [
+        './src/**/*.{js,jsx,ts,tsx}',
+        './app/**/*.{js,jsx,ts,tsx}',
+      ],
+      useCSSLayers: false,
+      babelConfig: babelConfig,
+    },
+    autoprefixer: {},
   },
 };
 
