@@ -1,0 +1,143 @@
+.calTopMargin {
+  padding: 0;
+  width: 100%;
+}
+
+.calendarWrapper {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  padding: 20px; /* 기존보다 패딩 축소 */
+  box-sizing: border-box;
+}
+
+.calHeader {
+  text-align: center;
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 14px; /* 여백 축소 */
+  color: #1D1D1F;
+}
+
+.grid {
+  display: grid;
+  /* 💡 7개 열의 너비를 픽셀 단위로 완벽히 1/7씩 균등 통일 (내용물 때문에 늘어남 방지) */
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  /* 💡 6주(6행)의 높이를 54px로 컴팩트하게 통일하여 달력 전체 높이를 낮춤 */
+  grid-auto-rows: 54px;
+  gap: 6px;
+  width: 100%;
+}
+
+.dayName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  height: 28px;
+  color: #86868B;
+
+  &:nth-child(1) { color: #FF3B30; }
+  &:nth-child(7) { color: #0066CC; }
+}
+
+/* 💡 실제 날짜 칸과 빈 칸(emptyCell)의 크기·박스 모델을 100% 동일하게 통일 */
+.dayCell,
+.emptyCell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 54px; /* 칸 높이 컴팩트하게 고정 */
+  padding: 5px 4px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.dayCell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 가운데 정렬 */
+  justify-content: flex-start;
+  width: 100%;
+  height: 54px;
+  padding: 4px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  font-size: 13px;
+  cursor: pointer;
+  box-sizing: border-box;
+  overflow: hidden; /* 내용 넘침 방지 */
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: rgba(0, 102, 204, 0.05);
+  }
+}
+
+/* 💡 오늘 날짜를 예쁜 동그라미 형태로 강조 */
+.todayCell {
+  border-color: #0066CC !important;
+  background-color: rgba(0, 102, 204, 0.08) !important;
+
+  /* 숫자 부분을 동그라미 포인트로 부각 */
+  .dayNumber {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background-color: #0066CC;
+    color: #ffffff !important;
+    border-radius: 50%;
+    font-weight: 700;
+  }
+}
+
+.dayNumber {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+/* 달력 칸 안의 일정 리스트 뱃지 영역 */
+.calendarScheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin-top: 2px;
+  overflow: hidden;
+}
+
+.scheduleBadge {
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.emptyCell {
+  background-color: transparent;
+  border: 1px solid transparent;
+  pointer-events: none;
+}
+
+.todayCell {
+  border: 1px solid #0066CC;
+  background-color: rgba(0, 102, 204, 0.06);
+  font-weight: 600;
+}

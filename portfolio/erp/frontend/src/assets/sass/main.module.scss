@@ -1,0 +1,62 @@
+/* ==========================================
+   1. 애플 스타일 공통 믹스인 및 변수 정의
+   ================================---------- */
+
+@mixin apple-glass-card($blur: 20px, $opacity: 0.85) {
+  background-color: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+@mixin apple-button($bg: #0066CC, $color: #FFFFFF) {
+  background-color: $bg;
+  color: $color;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+
+  &:hover {
+    background-color: #0055B3;
+  }
+}
+
+@mixin apple-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  color: #1D1D1F;
+  outline: none;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: #0066CC;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+    background-color: #FFFFFF;
+  }
+}
+
+/* ==========================================
+   2. 하위 스타일 파일들 임포트 (같은 sass 폴더 내)
+   ================================---------- */
+@import "./Calender.module.css";
+@import "./Header.module.css";
+@import "./Footer.module.css";
+@import "./Layout.module.css";
+@import "./ScheduleModal.module.css";
+@import "./SideBar.module.css";
+@import "./Dashboard.module";
+@import "./Hr.module";
+@import "./Inventory.module";
+@import "./Production.module";
+@import "./Settings.module";

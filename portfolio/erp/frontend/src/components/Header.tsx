@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { CustomAlert } from "@/components/common/CustomAlert";
-import styles from "./Header.module.css";
+import styles from "@/assets/sass/main.module.scss";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

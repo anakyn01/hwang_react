@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { CustomAlert } from "@/components/common/CustomAlert";
-import styles from "./Inventory.module.css";
+import styles from "@/assets/sass/main.module.scss";
 
 interface InventoryItem {
   id: string; 

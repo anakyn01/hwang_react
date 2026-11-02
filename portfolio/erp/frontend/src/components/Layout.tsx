@@ -5,7 +5,7 @@ import { Top } from "./Top";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { SideBar } from "./SideBar";
-import styles from "./Layout.module.css";
+import styles from "@/assets/sass/main.module.scss";
 
 interface LayoutProps {
   children: React.ReactNode;

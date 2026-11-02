@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Layout } from "@/components/Layout";
 import { CustomAlert } from "@/components/common/CustomAlert";
-import styles from "./Production.module.css";
+import styles from "@/assets/sass/main.module.scss";
 
 interface ProductionOrder {
   id: string;

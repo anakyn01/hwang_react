@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import styles from "./SideBar.module.css";
+import styles from "@/assets/sass/main.module.scss";
 
 export const SideBar = () => {
   return (
