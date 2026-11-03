@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/store/authSlice";
-import { AlertModal } from "@/components/modal/AlertModal";
 
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/assets/stylex/style.styles";
@@ -20,14 +19,17 @@ export default function LoginPage() {
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
+  // 💡 커스텀 글래스모피즘 모달 상태 관리
   const [alertModal, setAlertModal] = useState<{
     isOpen: boolean;
     message: string;
     nextRoute?: string;
+    isSuccess?: boolean;
   }>({
     isOpen: false,
     message: "",
     nextRoute: "",
+    isSuccess: false,
   });
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,6 +50,7 @@ export default function LoginPage() {
           isOpen: true,
           message: "로그인에 성공하였습니다.",
           nextRoute: "/dashboard",
+          isSuccess: true,
         });
       }
     } catch (error) {
@@ -56,19 +59,21 @@ export default function LoginPage() {
         isOpen: true,
         message: "이메일 또는 비밀번호를 확인해 주세요.",
         nextRoute: "",
+        isSuccess: false,
       });
     }
   };
 
   const handleCloseAlert = () => {
     const route = alertModal.nextRoute;
-    setAlertModal({ isOpen: false, message: "", nextRoute: "" });
-    if (route) {
+    const isSuccess = alertModal.isSuccess;
+    setAlertModal({ isOpen: false, message: "", nextRoute: "", isSuccess: false });
+    if (isSuccess && route) {
       router.push(route);
     }
   };
 
-  // 💡 평상시에도 완벽하게 적용되는 공통 인풋 래퍼 인라인 스타일
+  // 평상시에도 완벽하게 적용되는 공통 인풋 래퍼 인라인 스타일
   const wrapperStyle = {
     position: "relative" as const,
     display: "flex",
@@ -83,7 +88,7 @@ export default function LoginPage() {
     marginBottom: "16px",
   };
 
-  // 💡 테두리와 배경이 없는 순수 내부 인풋 스타일
+  // 테두리와 배경이 없는 순수 내부 인풋 스타일
   const cleanInputStyle = {
     width: "100%",
     height: "100%",
@@ -118,14 +123,14 @@ export default function LoginPage() {
           
           <div style={{ textAlign: "center", marginBottom: "28px" }}>
             <h1 style={{ fontSize: "26px", fontWeight: "700", color: "#1D1D1F", letterSpacing: "-0.025em", marginBottom: "6px" }}>
-              Apple Store에 로그인하세요
+              Smart ERP 에 로그인하세요
             </h1>
             <p style={{ fontSize: "13px", color: "#86868B", margin: 0 }}>Smart ERP 통합 계정을 사용합니다.</p>
           </div>
           
           <form onSubmit={handleLogin} style={{ width: "100%" }}>
             
-            {/* 💡 1. 이메일 입력 래퍼 박스 (테두리 및 둥근 모서리 강제 적용) */}
+            {/* 1. 이메일 입력 래퍼 박스 */}
             <div style={wrapperStyle}>
               <input 
                 type="email" 
@@ -147,7 +152,7 @@ export default function LoginPage() {
               )}
             </div>
             
-            {/* 💡 2. 비밀번호 입력 래퍼 박스 (테두리 및 둥근 모서리 강제 적용) */}
+            {/* 2. 비밀번호 입력 래퍼 박스 */}
             <div style={wrapperStyle}>
               <input 
                 type="password" 
@@ -207,20 +212,113 @@ export default function LoginPage() {
           </form>
           
           <div style={{ marginTop: "24px", textAlign: "center", fontSize: "13px", color: "#86868B" }}>
-            <span>Apple 계정이 없으십니까? </span>
+            <span>smartErp 계정이 없으십니까? </span>
             <a href="/member" style={{ color: "#0066CC", textDecoration: "none", fontWeight: "500" }}>
-              Apple 계정 생성 &rarr;
+              smartErp 계정 생성 &rarr;
             </a>
           </div>
           
         </div>
       </div>
 
-      <AlertModal 
-        isOpen={alertModal.isOpen}
-        message={alertModal.message}
-        onClose={handleCloseAlert}
-      />
+      {/* 💡 애플 스토어 공홈 감성의 완벽한 글래스모피즘 알림 팝업 창 */}
+      {alertModal.isOpen && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "rgba(0, 0, 0, 0.4)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 9999,
+          animation: "fadeIn 0.2s ease-out",
+        }}>
+          <div style={{
+            width: "100%",
+            maxWidth: "380px",
+            backgroundColor: "rgba(255, 255, 255, 0.85)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            borderRadius: "24px",
+            padding: "32px 28px",
+            boxShadow: "0 25px 50px rgba(0, 0, 0, 0.15)",
+            border: "1px solid rgba(255, 255, 255, 0.6)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+          }}>
+            {/* 성공 아이콘 또는 심볼 */}
+            {alertModal.isSuccess ? (
+              <div style={{
+                width: "52px",
+                height: "52px",
+                borderRadius: "50%",
+                backgroundColor: "rgba(52, 199, 89, 0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "16px",
+                color: "#34C759",
+              }}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            ) : (
+              <div style={{
+                width: "52px",
+                height: "52px",
+                borderRadius: "50%",
+                backgroundColor: "rgba(255, 59, 48, 0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "16px",
+                color: "#FF3B30",
+              }}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+            )}
+
+            <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#1D1D1F", marginBottom: "8px", letterSpacing: "-0.01em" }}>
+              {alertModal.isSuccess ? "알림" : "오류"}
+            </h3>
+            <p style={{ fontSize: "14px", color: "#424245", lineHeight: "1.5", marginBottom: "24px", margin: "0 0 24px 0" }}>
+              {alertModal.message}
+            </p>
+
+            <button
+              type="button"
+              onClick={handleCloseAlert}
+              style={{
+                width: "100%",
+                height: "48px",
+                backgroundColor: "#0066CC",
+                color: "#FFFFFF",
+                border: "none",
+                borderRadius: "14px",
+                fontSize: "15px",
+                fontWeight: "600",
+                cursor: "pointer",
+                boxShadow: "0 4px 12px rgba(0, 102, 204, 0.25)",
+                transition: "background-color 0.15s ease",
+              }}
+            >
+              확인
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

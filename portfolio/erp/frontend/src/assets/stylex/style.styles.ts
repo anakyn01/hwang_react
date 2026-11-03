@@ -964,4 +964,43 @@ alertBox: {
     },
   },
   
+  //추가
+  
+  iconWrapper: {
+    width: "44px",
+    height: "44px",
+    borderRadius: "50%",
+    backgroundColor: "rgba(0, 102, 204, 0.1)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "20px",
+    flexShrink: 0,
+  },
+  content: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    gap: "4px",
+  },
+
+
+  closeBtn: {
+    backgroundColor: "#0066CC",
+    color: "#FFFFFF",
+    border: "none",
+    borderRadius: "10px",
+    padding: "8px 14px",
+    fontSize: "13px",
+    fontWeight: "600",
+    cursor: "pointer",
+    flexShrink: 0,
+    boxShadow: "0 4px 12px rgba(0, 102, 204, 0.25)",
+  },
+  testContainer:{
+    backgroundColor:"red",
+    borderRadius:"20px",
+    width:"100%",
+    minHeight:"300px"
+  }
 });
