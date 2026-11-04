@@ -13,9 +13,9 @@ export const Footer = () => {
       </div>
       
       <div {...stylex.props(styles.footerLinks)}>
-        <a href="/support" {...stylex.props(styles.link)}>기술지원</a>
-        <a href="/terms" {...stylex.props(styles.link)}>이용약관</a>
-        <a href="/manual" {...stylex.props(styles.link)}>사용자 매뉴얼</a>
+        <a href="/dashboard/support" {...stylex.props(styles.link)}>기술지원</a>
+        <a href="/dashboard/terms" {...stylex.props(styles.link)}>이용약관</a>
+        <a href="/dashboard/manual" {...stylex.props(styles.link)}>사용자 매뉴얼</a>
       </div>
     </footer>
   );

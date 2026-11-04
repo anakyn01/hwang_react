@@ -202,6 +202,7 @@ button {
 input, button, textarea, select {
   outline: none !important;
   box-shadow: none !important;
+  border:none !important;
 }
 
 /* 💡 애플 스타일 둥근 인풋 내부의 순수 입력 필드 강제 정돈 */

@@ -19,14 +19,14 @@ export const SideBar = () => {
         </ul>
       </div>
 
-      <div {...stylex.props(styles.menuSection)}>
+      {/*<div {...stylex.props(styles.menuSection)}>
         <h3 {...stylex.props(styles.sectionTitle)}>시스템 관리</h3>
         <ul {...stylex.props(styles.menuList)}>
-          <li><a href="/master-data" {...stylex.props(styles.menuItem)}>기준 정보 관리</a></li>
-          <li><a href="/users" {...stylex.props(styles.menuItem)}>사용자 권한 관리</a></li>
-          <li><a href="/settings" {...stylex.props(styles.menuItem)}>시스템 환경설정</a></li>
+          <li><a href="/dashboard/master" {...stylex.props(styles.menuItem)}>기준 정보 관리</a></li>
+          <li><a href="/dashboard/users" {...stylex.props(styles.menuItem)}>사용자 권한 관리</a></li>
+          <li><a href="/dashboard/system" {...stylex.props(styles.menuItem)}>시스템 환경설정</a></li>
         </ul>
-      </div>
+      </div>*/}
     </aside>
   );
 };
