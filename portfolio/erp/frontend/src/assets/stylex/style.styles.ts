@@ -1890,4 +1890,94 @@ deleteModalContent: {
     gap: "24px",
   },
 
+  // 평상시에도 완벽하게 적용되는 공통 인풋 래퍼 인라인 스타일
+  wrapperStyle: {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    height: "56px",
+    backgroundColor: "#FFFFFF",
+    border: "1.5px solid #D2D2D7",
+    borderRadius: "16px",
+    padding: "0 16px",
+    boxSizing: "border-box",
+    marginBottom: "16px",
+  },
+   // 테두리와 배경이 없는 순수 내부 인풋 스타일
+  cleanInputStyle : {
+      width: "100%",
+      height: "100%",
+      backgroundColor: "transparent",
+      border: "none",
+      outline: "none",
+      fontSize: "15px",
+      color: "#1D1D1F",
+    },
+    accountWrap :{
+      marginTop: "24px", 
+      textAlign: "center", 
+      fontSize: "13px", 
+      color: "#86868B"
+    },
+    accountA:{
+      color: "#0066CC", 
+      textDecoration: "none", 
+      fontWeight: "500"
+    },
+    appleModalFixed:{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: "rgba(0, 0, 0, 0.4)",
+      backdropFilter: "blur(12px)",
+      WebkitBackdropFilter: "blur(12px)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999,
+      animation: "fadeIn 0.2s ease-out",
+    },
+    appleModalContent:{
+      width: "100%",
+      maxWidth: "380px",
+      backgroundColor: "rgba(255, 255, 255, 0.85)",
+      backdropFilter: "blur(20px)",
+      WebkitBackdropFilter: "blur(20px)",
+      borderRadius: "24px",
+      padding: "32px 28px",
+      boxShadow: "0 25px 50px rgba(0, 0, 0, 0.15)",
+      border: "1px solid rgba(255, 255, 255, 0.6)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      textAlign: "center",
+    },
+    appleModalSuccess:{
+      width: "52px",
+      height: "52px",
+      borderRadius: "50%",
+      backgroundColor: "rgba(52, 199, 89, 0.12)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: "16px",
+      color: "#34C759",
+    },
+    loadingWrap:{
+display:"flex",
+justifyContent:"center",
+alignItems:"center",
+height:"100vh"
+    },
+    loadingText:{
+fontSize:"16px",
+color:"#86868b"
+    }
+
+    
+
+
 });

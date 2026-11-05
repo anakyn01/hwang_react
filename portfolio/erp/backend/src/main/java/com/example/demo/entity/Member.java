@@ -55,6 +55,13 @@ public class Member {
     @Column(length = 20)
     private String gender; // male, female, other
 
+    //소셜로그인 추가
+    @Column(length = 30)
+    private String provider;
+
+    @Column(length = 100)
+    private String providerId;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt; // 가입일
@@ -64,6 +71,15 @@ public class Member {
 
     // 💡 이 부분을 새로 추가해 주세요! (비밀번호 변경을 허용하는 메서드)
     public void setPassword(String password) {
+
         this.password = password;
+    }
+
+    //추가
+    public void updateProfile(String tel, String address, String detailAddress){
+        if (tel != null) this.tel = tel;
+        if (address != null) this.address = address;
+        if (detailAddress != null) this.detailAddress = detailAddress;
+
     }
 }

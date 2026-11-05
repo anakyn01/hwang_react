@@ -9,6 +9,10 @@ import { setLogin } from "@/store/authSlice";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/assets/stylex/style.styles";
 
+//
+import { KakaoIcon } from "@/components/svg/KakaoIcon";
+import { AppleIcon } from "@/components/svg/AppleIcon";
+
 export default function LoginPage() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -98,6 +102,15 @@ export default function LoginPage() {
     fontSize: "15px",
     color: "#1D1D1F",
   };
+
+  const handleKakaoLogin = () => {
+    const REST_API_KEY = "43b4bfa2d77a904f4321f38325c03f09";
+    const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+
+    const kakaoURL = 
+    `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  window.location.href= kakaoURL;
+  }
 
   return (
     <div {...stylex.props(styles.loginPageWrapper)}>
@@ -195,17 +208,17 @@ export default function LoginPage() {
             
             {/* 소셜 로그인 버튼 */}
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              <button type="button" {...stylex.props(styles.unifiedButton)} style={{ backgroundColor: "#FEE500", color: "#191919" }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.83 5.32 4.57 6.74-.15.56-.56 2.03-.64 2.34-.1.38.14.38.29.28.12-.08 1.92-1.3 2.7-1.83.74.11 1.5.17 2.28.17 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
-                </svg>
+              <button type="button" 
+              {...stylex.props(styles.unifiedButton)} 
+              style={{ backgroundColor: "#FEE500", color: "#191919" }}
+              onClick={handleKakaoLogin}
+              >
+                <KakaoIcon/>
                 카카오로 시작하기
               </button>
               
               <button type="button" {...stylex.props(styles.unifiedButton)} style={{ backgroundColor: "#1D1D1F", color: "#FFFFFF" }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.35c.57-.69.96-1.65.86-2.61-.84.04-1.87.56-2.47 1.25-.53.6-1 1.57-.88 2.52.94.07 1.92-.47 2.49-1.16z"/>
-                </svg>
+                <AppleIcon/>
                 애플 계정으로 로그인
               </button>
             </div>
