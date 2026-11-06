@@ -21,7 +21,8 @@ import org.springframework.util.MultiValueMap; // 파라미터 전달용
 import com.fasterxml.jackson.databind.JsonNode; // JSON 파싱용
 import com.fasterxml.jackson.databind.ObjectMapper; // JSON 파싱용
 
-import java.net.http.HttpHeaders;
+import org.springframework.http.HttpHeaders; // 👈 이 부분이 있어야 합니다!
+import org.springframework.http.MediaType;   // 👈 MediaType 사용을 위해 필요합니다!
 
 @Service
 @RequiredArgsConstructor
@@ -172,7 +173,7 @@ throw new RuntimeException("카카오 엑세스 토큰 추출실패", e);
     }
 
 
-    private KakaoUserInfo getKakaoUserInfo(String kakaoAccessToken) {
+    private KakaoUserInfo getKakaoUserInfo(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();//외부 api 호출
         String url = "https://kapi.kakao.com/v2/user/me";//사용자 정보조회
 
@@ -205,6 +206,17 @@ ResponseEntity<String> response = restTemplate.postForEntity(url, request, Strin
         } catch(Exception e){
             throw new RuntimeException("카카오 사용자 정보 조회 실패", e);
         }
+    }
+
+    //마이페이지에서 전달받은 정보(전화번호, 주소 등)를 바탕으로 회원 프로필을 수정하는 메서드입니다.
+    @Transactional
+    public void updateProfile(String email, MemberUpdateDto dto) {
+        // 토큰에서 추출한 이메일을 기준으로 데이터베이스에서 회원 정보를 조회합니다. 없으면 예외를 발생시킵니다.
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을수 없습니다"));
+
+        // 회원 엔티티(Member)에 만들어 둔 updateProfile 편의 메서드를 호출하여 새로운 값으로 변경합니다.
+        member.updateProfile(dto.getTel(), dto.getAddress(), dto.getDetailAddress());
     }
 
 
