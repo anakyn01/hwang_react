@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,8 @@ import com.fasterxml.jackson.databind.ObjectMapper; // JSON 파싱용
 
 import org.springframework.http.HttpHeaders; // 👈 이 부분이 있어야 합니다!
 import org.springframework.http.MediaType;   // 👈 MediaType 사용을 위해 필요합니다!
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -106,6 +109,29 @@ public class MemberService {
 
         // 새 비밀번호로 변경
         member.setPassword(passwordEncoder.encode(newPassword));
+    }
+
+    @Async
+    @Transactional
+    public CompletableFuture<String> kakaoLoginAsync(String code){
+        //1. 카카오 서버로부터 액세스 토큰을 받아옵니다.
+        String kakaoAccessToken = getKakaoAccessToken(code);
+        //2. 액세스 토큰으로 카카오 사용자 정보를 조회합니다.
+        KakaoUserInfo userInfo = getKakaoUserInfo(kakaoAccessToken);
+        //3. 이메일 기준으로 가입여부를 확인하고 없으면 자동 회원가입을 진행
+        Member member = memberRepository.findByEmail(userInfo.getEmail()).orElseGet(() ->{
+Member newMember = Member.builder()
+        .firstName(userInfo.getNickname())
+        .lastName("카카오")
+        .email(userInfo.getEmail())
+        .password(passwordEncoder.encode("KAKAO_SOCIAL_USER"))
+        .provider("KAKAO")
+        .providerId(userInfo.getId())
+        .build();
+return memberRepository.save(newMember);
+        });
+        String token = jwtProvider.generateToken(member.getEmail());
+        return CompletableFuture.completedFuture(token);
     }
 
     //카카오 로그인 인가 코드를 처리하고 JWT를 발급하는 핵심 비즈니스 로직
