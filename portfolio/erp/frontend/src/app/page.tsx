@@ -12,6 +12,7 @@ import { styles } from "@/assets/stylex/style.styles";
 //
 import { KakaoIcon } from "@/components/svg/KakaoIcon";
 import { AppleIcon } from "@/components/svg/AppleIcon";
+import { GoogleIcon } from "@/components/svg/GoogleIcon";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -110,6 +111,18 @@ export default function LoginPage() {
     const kakaoURL = 
     `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   window.location.href= kakaoURL;
+  }
+
+  //구글 로그인
+  const handleGoogleLogin = () => {
+    const clientId = 
+    "1057151604719-8mor691610vpisojiec4h9n3rd10g964.apps.googleusercontent.com";
+    const redirectUri =
+    "http://localhost:3000/oauth/google/callback"
+    const googleAuthUrl =
+    `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`;
+  window.location.href = googleAuthUrl
+  
   }
 
   return (
@@ -217,10 +230,19 @@ export default function LoginPage() {
                 카카오로 시작하기
               </button>
               
-              <button type="button" {...stylex.props(styles.unifiedButton)} style={{ backgroundColor: "#1D1D1F", color: "#FFFFFF" }}>
-                <AppleIcon/>
-                애플 계정으로 로그인
-              </button>
+{/*<button type="button" {...stylex.props(styles.unifiedButton)} style={{ backgroundColor: "#1D1D1F", color: "#FFFFFF" }}>
+<AppleIcon/>
+애플 계정으로 로그인
+</button>*/}
+
+<button type="button" 
+{...stylex.props(styles.unifiedButton)} 
+style={{ backgroundColor: "#fff", color: "#1d1d1f", border:"1px solid #ccc !important" }}
+onClick={handleGoogleLogin}
+>
+  <GoogleIcon/>
+  <span>구글 계정으로 로그인</span>
+</button>
             </div>
           </form>
           
