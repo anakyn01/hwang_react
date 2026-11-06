@@ -5,9 +5,12 @@ import com.example.demo.dto.*;
 import com.example.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/members")
@@ -101,4 +104,16 @@ return ResponseEntity.ok(new TokenResponseDto(token));
 return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // 💡 반환 타입을 CompletableFuture<ResponseEntity<Object>>로 변경합니다.
+    @PostMapping("/google-login")
+    public CompletableFuture<ResponseEntity<Object>> googleLogin(@RequestBody GoogleLoginDto dto) {
+        return memberService.googleLoginAsync(dto.getCode())
+                // 성공 시 토큰 DTO를 담아 반환
+                .thenApply(token -> ResponseEntity.ok().body((Object) new TokenResponseDto(token)))
+                // 실패 시 에러 메시지 문자열을 담아 반환
+                .exceptionally(ex -> ResponseEntity.badRequest().body("구글 로그인 처리 중 오류가 발생했습니다: " + ex.getMessage()));
+    }
+
+
 }
