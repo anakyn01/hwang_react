@@ -1160,6 +1160,9 @@ Authorization: `Bearer ${accessToken}`,
     const googleName =
     googleUser.name || "구글유저";
 
+    //구글 프로필 사진  URL 추출
+    const googleProfileImg = googleUser.picture || null;
+
     //DB에 저장할 고유 아이디 생성 (kakao_ 뒤에 카카오 고유 번호 붙임)
     const generatedUserId = `google_${googleUser.id}`;
 
@@ -1180,6 +1183,8 @@ Authorization: `Bearer ${accessToken}`,
             PHONE:"010-0000-0000",
             IS_MAIL_AGREED:'Y',
             IS_SNS_AGREED:'Y',
+            PROVIDER:'GOOGLE',
+            PROFILE_IMG:googleProfileImg
         });
         await memberRepository.save(user);
     }

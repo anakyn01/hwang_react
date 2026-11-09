@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import { useDispatch } from "react-redux";
 import { loginSuccess} from "@/store/authSlice";
 import { RiKakaoTalkFill } from "react-icons/ri";
+import { FcGoogle } from "react-icons/fc";
 import Lay from "@/app/admin/Lay";
 
 export default function Login(){
@@ -16,9 +17,14 @@ export default function Login(){
     const [userId, setUserId] = useState("");
     const [userPw, setUserPw] = useState("");
 
-    const KAKAO_CLIENT_ID = "";
-    const REDIRECT_URI = "http://localhost:3000/auth/kakao/callback";
+const KAKAO_CLIENT_ID = "";
+const REDIRECT_URI = "http://localhost:3000/auth/kakao/callback";
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+const GOOGLE_CLIENT_ID = "";
+const GOOGLE_REDIRECT_URI = "http://localhost:3000/auth/google/callback";
+const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`;
+
 
 const handleStandardLogin = async () => {
 
@@ -27,6 +33,11 @@ const handleStandardLogin = async () => {
 //카카오로 로그인
 const handleKakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
+}
+
+//카카오로 로그인
+const handleGoogleLogin = () => {
+    window.location.href = GOOGLE_AUTH_URL;
 }
 
 return (
@@ -78,6 +89,20 @@ return (
                     <RiKakaoTalkFill size={24} />
                     카카오로 3초 만에 시작하기
                 </button>
+
+                {/* add */}
+                {/* 🎯 구글 소셜 로그인 버튼 추가 */}
+                    <button 
+                        onClick={handleGoogleLogin}
+                        style={{ 
+                            width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', 
+                            padding: '1rem', backgroundColor: '#ffffff', color: '#333', 
+                            border: '1px solid #ddd', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem' 
+                        }}
+                    >
+                        <FcGoogle size={24} />
+                        Google 계정으로 계속하기
+                    </button>
             </div>
         </Lay>
     );
