@@ -19,6 +19,22 @@ module.exports = new EntitySchema({
         ADDRESS2: { type: "varchar2", length: 300, nullable: true },
         IS_ADMIN: { type: "number", default: 0 },
         STATUS: { type: "varchar2", length: 20, default: "정상" },
-        CREATED_AT: { type: "date", createDate: true }
+        PROVIDER:{
+type: "varchar2", 
+length: 20, 
+default: "LOCAL"
+        },
+        PROFILE_IMG:{
+type: "varchar2", 
+length: 500, 
+nullable:true
+        },
+        REFRESH_TOKEN:{
+type: "varchar2", 
+length: 500, 
+nullable:true
+        },
+        CREATED_AT: { type: "date", createDate: true },
+        UPDATED_AT: { type: "date", updateDate: true }
     }
 });

@@ -1110,13 +1110,22 @@ Authorization: `Bearer ${accessToken}`,
             USER_PW:dummyPw,
             EMAIL:kakaoEmail,
             PHONE:"010-0000-0000",
-            IS_MAIL_AGREED:'Y'
+            IS_MAIL_AGREED:'Y',
             IS_SNS_AGREED:'Y',
         });
         await memberRepository.save(user);
     }
-}catch(error){
 
+    //프론트엔드로 로그인 성공 응답(유저 정보 반환)
+    res.status(200).json({
+        success:true,
+        userId:user.USER_ID,
+        isAdmin:user.IS_ADMIN === 1,
+        message: "카카오 소셜 로그인 성공"
+    })
+}catch(error){
+console.error('카카오 로그인 API에러: ',error.response?.data || error.message);
+res.status(500).json({success:false, message:'카카오 로그인 처리 실패'})
 }
 });
 
