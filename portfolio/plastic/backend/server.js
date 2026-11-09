@@ -1059,6 +1059,67 @@ app.post('/api/reset-password', async (req, res) => {
     }
 });
 
+app.post('/api/auth/kakao', async(req, res) => {
+const {code } = req.body;
+//프론트와 동일한 키와 URI 사용
+const KAKAO_CLIENT_ID = "";
+const REDIRECT_URI = "";
+try{
+    //1. 카카오 서버로 액세스 토큰 요청
+    const tokenResponse = await axios.post('https://kauth.kakao.com/auth/token', null,{
+        params:{
+grant_type:'authorization_code',
+client_id: KAKAO_CLIENT_ID,
+redirect_uri:REDIRECT_URI,
+code:code,
+        },
+        headers:{
+'Content-Type':'application/x-www-form-urlencoded; charset=utf-8',
+        },
+    });
+
+    const accessToken = tokenResponse.data.access_token;
+
+    const userInfoResponse = await axios.get('https://kapi.kakao.com/v2/user/me',{
+        headers:{
+Authorization: `Bearer ${accessToken}`,
+        },
+    });
+
+    const kakaoUser = userInfoResponse.data;
+    const kakaoEmail = 
+    kakaoUser.kakao_account?.email || `kakao_${kakaoUser.id}@noemail.com`;
+    const kakaoName =
+    kakaoUser.kakao_account?.profile?.nickname || "카카오유저";
+
+    //DB에 저장할 고유 아이디 생성 (kakao_ 뒤에 카카오 고유 번호 붙임)
+    const generatedUserId = `kakao_${kakaoUser.id}`;
+
+    const memberRepository = AppDataSource.getRepository(Member);
+
+    let user = await memberRepository.findOne({ where: { USER_ID: generatedUserId}});
+
+    //최초 로그인이라면 자동으로 회원가입 처리 (소셜 로그인용 더미 비밀번호 생성)
+    if (!user){
+        const salt = await bcrypt.genSalt(10);
+        const dummyPw = await bcrypt.hash(Math.random().toString(36), salt);
+
+        user = memberRepository.create({
+            USER_ID:generatedUserId,
+            USER_NAME:kakaoName,
+            USER_PW:dummyPw,
+            EMAIL:kakaoEmail,
+            PHONE:"010-0000-0000",
+            IS_MAIL_AGREED:'Y'
+            IS_SNS_AGREED:'Y',
+        });
+        await memberRepository.save(user);
+    }
+}catch(error){
+
+}
+});
+
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
