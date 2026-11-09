@@ -1129,6 +1129,74 @@ res.status(500).json({success:false, message:'카카오 로그인 처리 실패'
 }
 });
 
+//구글 소셜 로그인 처리
+app.post('/api/auth/google', async (req, res) => {
+    const {code } = req.body;
+//프론트와 동일한 키와 URI 사용
+const GOOGLE_CLIENT_ID = "";
+const GOOGLE_CLIENT_SECRET = "";
+const REDIRECT_URI = "";
+try{
+    //1. 카카오 서버로 액세스 토큰 요청
+    const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', {
+       code,
+client_id: GOOGLE_CLIENT_ID,
+client_secret: GOOGLE_CLIENT_SECRET,
+redirect_uri:REDIRECT_URI,
+grant_type:'authorization_code',
+    });
+
+    const accessToken = tokenResponse.data.access_token;
+
+    const userInfoResponse = await axios.get('https://www.googleapis.com/oauth2/v2/userinfo',{
+        headers:{
+Authorization: `Bearer ${accessToken}`,
+        },
+    });
+
+    const googleUser = userInfoResponse.data;
+    const googleEmail = 
+    googleUser.email;
+    const googleName =
+    googleUser.name || "구글유저";
+
+    //DB에 저장할 고유 아이디 생성 (kakao_ 뒤에 카카오 고유 번호 붙임)
+    const generatedUserId = `google_${googleUser.id}`;
+
+    const memberRepository = AppDataSource.getRepository(Member);
+
+    let user = await memberRepository.findOne({ where: { USER_ID: generatedUserId}});
+
+    //최초 로그인이라면 자동으로 회원가입 처리 (소셜 로그인용 더미 비밀번호 생성)
+    if (!user){
+        const salt = await bcrypt.genSalt(10);
+        const dummyPw = await bcrypt.hash(Math.random().toString(36), salt);
+
+        user = memberRepository.create({
+            USER_ID:generatedUserId,
+            USER_NAME:googleName,
+            USER_PW:dummyPw,
+            EMAIL:googleEmail,
+            PHONE:"010-0000-0000",
+            IS_MAIL_AGREED:'Y',
+            IS_SNS_AGREED:'Y',
+        });
+        await memberRepository.save(user);
+    }
+
+    //프론트엔드로 로그인 성공 응답(유저 정보 반환)
+    res.status(200).json({
+        success:true,
+        userId:user.USER_ID,
+        isAdmin:user.IS_ADMIN === 1,
+        message: "구글 소셜 로그인 성공"
+    })
+}catch(error){
+console.error('구글 로그인 API에러: ',error.response?.data || error.message);
+res.status(500).json({success:false, message:'구글 로그인 처리 실패'})
+}
+});
+
 // 5. 서버 실행
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
