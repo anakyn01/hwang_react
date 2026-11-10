@@ -266,11 +266,40 @@ Future<void> _loginWithKakao() async {
 
 }  */
 
+// 💡 [1] 클래스 내부에 중복 클릭 방지용 상태 변수 추가
+bool _isSigningIn = false;
+
 //구글 로그인 실행함수
 Future<void> _loginWithGoogle() async {
 //내용
+// 이미 로그인이 진행 중이라면 중복 실행을 막기 위해 여기서 리턴!
+  if (_isSigningIn) return;
+
+setState(() {
+    _isSigningIn = true;
+  });
+
 try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //add
+  const String webClientId = '957606689287-ge2ccniq0ml4jal532osk88pdau96o3h.apps.googleusercontent.com';
+
+  GoogleSignIn googleSignIn = GoogleSignIn(
+      // 💡 웹(크롬)일 때는 웹 클라이언트 ID를, 모바일일 때는 null(자동 설정)을 전달합니다.
+      clientId: kIsWeb ? webClientId : null,
+    );
+
+    //add
+
+// 💡 [핵심 해결책] 웹에서 이미 이전 구글 객체가 대기 중이거나 충돌 상태일 수 있으므로
+    // 로그인 시도 전 강제로 signout을 한 번 호출하여 깨끗한 상태로 만듭니다.
+    if (kIsWeb) {
+      try {
+        await googleSignIn.signOut();
+      } catch (_) {}
+    }
+
+
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser != null) {
         await _socialLoginToBackend(
           googleUser.email, 
@@ -281,7 +310,20 @@ try {
       }
     } catch (error) {
       print('구글 로그인 에러: $error');
+      //add
+      if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('구글 로그인 중 오류가 발생했습니다. 다시 시도해주세요.')),
+      );
     }
+    } finally {//
+    // 💡 로그인이 성공하든 실패하든 끝나면 다시 상태 해제
+    if (mounted) {
+      setState(() {
+        _isSigningIn = false;
+      });
+    }
+  }
 }
   
   //[3] 화면을 그리는 메인 함수

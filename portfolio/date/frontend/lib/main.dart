@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:flutter/foundation.dart'; // 💡 kIsWeb을 사용하기 위해 필요합니다!
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart'; // 💡 KakaoSdk를 사용하기 위해 필요합니다!
 
 import '../services/bgm_player.dart'; // 오디오 서비스 임포트
 
@@ -14,6 +16,14 @@ import 'screens/community_screen.dart';
 import 'screens/map_search_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // 💡 카카오 SDK 초기화 (네이티브 앱 키 입력)
+  KakaoSdk.init(nativeAppKey: '43b4bfa2d77a904f4321f38325c03f09');
+  if (kIsWeb) {
+    // 웹 환경에서는 GoogleSignIn의 initialize 또는 클라이언트 ID 명시적 세팅이 필요할 수 있습니다.
+    // 보통 login_screen.dart에서 GoogleSignIn(clientId: '...')로 처리하지만, 
+    // 전역적으로 초기화가 필요할 때 이곳을 활용할 수 있습니다.
+  }
   runApp(const DatingApp());
 }
 
