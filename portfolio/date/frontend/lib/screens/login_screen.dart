@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+//add
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../services/bgm_player.dart'; // 💡 BgmPlayer 서비스 임포트
 
@@ -178,7 +181,108 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
   );
 }
 }
+
+//여기에 추가
+//소셜 로그인 전용 API 주소
+String get _socialApiUrl{
+//내용
+if (kIsWeb) {
+      return 'http://localhost:3000/api/social-login';
+    } else if (defaultTargetPlatform == TargetPlatform.android) {
+      return 'http://10.0.2.2:3000/api/social-login';
+    } else {
+      return 'http://localhost:3000/api/social-login';
+    }
+}
+
+//공통 소셜 로그인 백엔드 통신함수
+Future<void> _socialLoginToBackend(String email, String provider, String providerId, String nickname) async{
+//내용
+try {
+      final response = await http.post(
+        Uri.parse(_socialApiUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'provider': provider,
+          'provider_id': providerId,
+          'nickname': nickname,
+        }),
+      );
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200 && data['success'] == true) {
+        if (mounted) {
+          final user = data['user'];
+          if (user['phone_number'] == null || user['occupation'] == null) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => SecondarySignupScreen(userId: user['id'])),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const RootScreen()),
+            );
+          }
+        }
+      } else if (response.statusCode == 403) {
+        if (data['message'] != null && data['message'].contains('수질 검사')) {
+          if (mounted) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PendingApprovalScreen()));
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data['message']), backgroundColor: Colors.redAccent));
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data['message'] ?? '소셜 로그인 실패')));
+      }
+    } catch (e) {
+      print('소셜 로그인 통신 에러: $e');
+    }
+  }
+
+  // 💡 카카오 로그인 실행 함수
+  Future<void> _loginWithKakao() async {
+    try {
+      bool isInstalled = await isKakaoTalkInstalled();
+      OAuthToken token = isInstalled 
+          ? await UserApi.instance.loginWithKakaoTalk() 
+          : await UserApi.instance.loginWithKakaoAccount();
+          
+      User user = await UserApi.instance.me();
+      
+      // 카카오 계정에 이메일이 없을 경우 고유 ID를 활용한 임시 이메일 생성
+      String email = user.kakaoAccount?.email ?? '${user.id}@kakao.com';
+      String nickname = user.kakaoAccount?.profile?.nickname ?? '카카오유저';
+      
+      await _socialLoginToBackend(email, 'kakao', user.id.toString(), nickname);
+    } catch (error) {
+      print('카카오 로그인 에러: $error');
+    }
+}
   
+//카카오 로그인 실행함수
+Future<void> _loginWithKakao() async {
+
+}  
+
+//구글 로그인 실행함수
+Future<void> _loginWithGoogle() async {
+//내용
+try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser != null) {
+        await _socialLoginToBackend(
+          googleUser.email, 
+          'google', 
+          googleUser.id, 
+          googleUser.displayName ?? '구글유저'
+        );
+      }
+    } catch (error) {
+      print('구글 로그인 에러: $error');
+    }
+}
   
   //[3] 화면을 그리는 메인 함수
   @override
@@ -281,7 +385,7 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
                                   const SizedBox(height: 32),
                                   _buildKakaoButton(),
                                   const SizedBox(height: 16),
-                                  _buildAppleButton(),
+                                  _buildGoogleButton(),//
                                   const SizedBox(height: 48),
                                   _buildSignupLink(),
                                 ],
@@ -553,12 +657,32 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
   }
 
   //애플 로그인 버튼
-  Widget _buildAppleButton() {
+  /*Widget _buildAppleButton() {
     return _buildSocialButton(
       text: 'Apple로 로그인',
       color: cardColor,
       textColor: Colors.white,
       icon: Icons.apple,
+    );
+  }*/
+
+  Widget _buildGoogleButton() {
+    return _buildSocialButton(
+      text: 'Google로 로그인',
+      color: Colors.white,
+      textColor: Colors.black87,
+      icon: Icons.g_mobiledata,
+      onTap:_loginWithGoogle,
+    );
+  }
+
+  Widget _buildKakaoButton() {
+    return _buildSocialButton(
+      text: '카카오로 로그인',
+      color: const Color(0xFFFEE500),
+      textColor: Colors.black87,
+      icon: Icons.chat_bubble,
+      onTap:_loginWithKakao,
     );
   }
 
@@ -568,6 +692,7 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
     required Color color,
     required Color textColor,
     required IconData icon,
+    required VoidCallback onTap, //add
   }) {
     return Container(
       width: double.infinity,
@@ -580,9 +705,9 @@ const SnackBar(content: Text('서버와 연결할 수 없습니다. 백엔드 �
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () {
+          onTap: /*() {
             print("$text 클릭됨");
-          },
+          },*/ onTap,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
