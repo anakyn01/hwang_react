@@ -242,6 +242,49 @@ app.patch('/api/admin/users/:id/approve', async (req, res) => {
   }
 });
 
+app.post('/api/social-login', async(req, res) => {
+  const {email, provider, provider_id, nickname } = req.body;
+
+  try{
+    //1. 이미 가입된 유저인지 이메일로 확인
+    let user = await User.findOne({where:{email}});
+    //2. 신규 유저라면 DB에 자동 회원가입 처리
+    if(!user) {
+      //소셜 로그인은 비밀번호가 필요 없으나, 모델 조건 충족을 
+      // 위해 provider_id를 암호화하여 저장
+      const hashedSocialPassword = await bcrypt.hash(provider_id, 10);
+
+      user = await User.create({
+        email: email,
+        password: hashedSocialPassword,
+        nickname: nickname,
+        age: 20,
+        gender:'M',
+        status:'PENDING'
+      });
+    }
+
+    //3. 상태검사
+    if(user.status === 'PENDING'){
+      return res.status(403).json({
+        success: false,
+        message:'수질 검사(승인)가 진행 중입니다. 조금만 기다려 주세요'
+      });
+    }
+
+    if(user.status === 'BANNED'){
+      return res.status(403).json({
+        success:false,
+        message:'이용 수칙 위반으로 영구 정지된 계정입니다.'
+      });
+    }
+res.json({success:true, message: `${provider} 로그인 성공`, user});
+  } catch (error) {
+    console.error("소셜 로그인 에러:", error);
+    res.status(500).json({success: false, message:'서버 에러가 발생했습니다'});
+  }
+})
+
 const PORT = 3000;
 app.listen(PORT, async () => {
   try {
