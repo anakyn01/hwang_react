@@ -261,10 +261,10 @@ try {
     }
 }
   
-//카카오 로그인 실행함수
+/*카카오 로그인 실행함수
 Future<void> _loginWithKakao() async {
 
-}  
+}  */
 
 //구글 로그인 실행함수
 Future<void> _loginWithGoogle() async {
@@ -647,14 +647,14 @@ try {
   }
 
   //카카오 로그인 버튼
-  Widget _buildKakaoButton() {
+ /* Widget _buildKakaoButton() {
     return _buildSocialButton(
       text: '카카오로 로그인',
       color: const Color(0xFFFEE500),
       textColor: Colors.black87,
       icon: Icons.chat_bubble,
     );
-  }
+  }*/
 
   //애플 로그인 버튼
   /*Widget _buildAppleButton() {
@@ -676,13 +676,13 @@ try {
     );
   }
 
-  Widget _buildKakaoButton() {
+ Widget _buildKakaoButton() {
     return _buildSocialButton(
       text: '카카오로 로그인',
       color: const Color(0xFFFEE500),
       textColor: Colors.black87,
       icon: Icons.chat_bubble,
-      onTap:_loginWithKakao,
+      onTap: _loginWithKakao,
     );
   }
 
