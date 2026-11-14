@@ -113,17 +113,16 @@ export default function LoginPage() {
   window.location.href= kakaoURL;
   }
 
-  //구글 로그인
+// 구글 로그인
   const handleGoogleLogin = () => {
-    const clientId = 
-    "1057151604719-8mor691610vpisojiec4h9n3rd10g964.apps.googleusercontent.com";
-    const redirectUri =
-    "http://localhost:3000/oauth/google/callback"
-    const googleAuthUrl =
-    `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`;
-  window.location.href = googleAuthUrl
-  
-  }
+    const clientId = "1057151604719-8mor691610vpisojiec4h9n3rd10g964.apps.googleusercontent.com";
+    // 💡 구글 콘솔에 등록된 리디렉션 URI와 완벽히 일치해야 합니다.
+    const redirectUri = "http://localhost:3000/oauth/google/callback";
+    
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`;
+    
+    window.location.href = googleAuthUrl;
+  };
 
   return (
     <div {...stylex.props(styles.loginPageWrapper)}>
