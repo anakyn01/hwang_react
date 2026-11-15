@@ -2,18 +2,8 @@ import styled from "styled-components";
 import Link from "next/link";
 import { BoxShadow, FlexColumn, FlexColumnStart, Fw500, W100 } from "./common/Common.styles";
 
-//mypage
-export const CalendarLayout = styled.div`
-display:flex; gap:24px;
-@media(max-width:1024px) {
-flex-direction:column;
-}
-`;
-export const LeftPanel = styled.div`
-width:320px;
-flex-shrink:0;
-@media(max-width:1024px){width:100%;}
-`;
+
+
 export const RightPanel = styled.div`
 flex:1; min-width:0;
 `;
@@ -60,13 +50,4 @@ background-color:#f1f5f9;
 color:#2563eb;
 border-right:3px solid #2563eb;
 }
-`;
-export const CalendarWrapper = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  background-color: #ffffff;
-  ${BoxShadow};
 `;

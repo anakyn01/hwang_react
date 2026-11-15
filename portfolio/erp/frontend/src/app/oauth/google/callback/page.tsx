@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react"; // 👈 useRef 추가
+import { useEffect, useRef, Suspense } from "react"; // 👈 Suspense 추가
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/store/authSlice";
 
-export default function GoogleCallbackPage() {
+// 1️⃣ 기존 로직을 처리하는 하위 컴포넌트 생성
+function GoogleCallbackContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const dispatch = useDispatch();
@@ -44,5 +45,14 @@ export default function GoogleCallbackPage() {
         <div>
             <p>구글 로그인 인증 중 입니다. 잠시만 기다려 주세요....</p>
         </div>
+    );
+}
+
+// 2️⃣ 메인 페이지는 Suspense로 하위 컴포넌트를 감싸기만 수행
+export default function GoogleCallbackPage() {
+    return (
+        <Suspense fallback={<div>인증 정보를 불러오는 중입니다...</div>}>
+            <GoogleCallbackContent />
+        </Suspense>
     );
 }

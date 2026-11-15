@@ -420,7 +420,7 @@ const ringAnimation = keyframes`
   100% { transform: rotate(0deg); }
 `;
 
-export const ToastContainer = styled.div<{ $isClosing?: boolean }>`
+/*export const ToastContainer = styled.div<{ $isClosing?: boolean }>`
   position: fixed !important;
   top: 100px !important;
   right: 25px !important;
@@ -434,7 +434,7 @@ export const ToastContainer = styled.div<{ $isClosing?: boolean }>`
   padding: 14px 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   
-  /* 💡 가로로 나란히 배치되는 슬림한 토스트 구조 */
+ 가로로 나란히 배치되는 슬림한 토스트 구조
   display: flex;
   align-items: center;
   gap: 12px;
@@ -442,42 +442,42 @@ export const ToastContainer = styled.div<{ $isClosing?: boolean }>`
   width: 100%;
   box-sizing: border-box;
   animation: ${({ $isClosing }) => ($isClosing ? toastSlideOut : toastSlideIn)} 0.25s ease-out forwards;
-`;
+`;*/
 
-export const ToastIcon = styled.div`
+/*export const ToastIcon = styled.div`
   font-size: 22px;
   line-height: 1;
   animation: ${ringAnimation} 0.6s ease-in-out infinite;
   flex-shrink: 0;
-`;
+`;*/
 
-export const ToastContent = styled.div`
+/*export const ToastContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
   flex: 1;
   overflow: hidden;
   text-align: left;
-`;
+`;*/
 
-export const ToastTitle = styled.div`
+/*export const ToastTitle = styled.div`
   font-size: 13px;
   font-weight: 700;
   color: #1d1d1f;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
+`;*/
 
-export const ToastMessage = styled.div`
+/*export const ToastMessage = styled.div`
   font-size: 12px;
   color: #515154;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
+`;*/
 
-export const ToastCloseBtn = styled.button`
+/*export const ToastCloseBtn = styled.button`
   background-color: #0066cc;
   color: #ffffff;
   border: none;
@@ -492,4 +492,4 @@ export const ToastCloseBtn = styled.button`
   &:hover {
     background-color: #0055b3;
   }
-`;
+`;*/
