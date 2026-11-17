@@ -14,6 +14,12 @@ import { KakaoIcon } from "@/components/svg/KakaoIcon";
 import { AppleIcon } from "@/components/svg/AppleIcon";
 import { GoogleIcon } from "@/components/svg/GoogleIcon";
 
+//서버분기
+/*const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL;*/
+
+import {SERVER_URL, FRONTEND_URL } from '@/config/urls';
+
 export default function LoginPage() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -41,7 +47,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:8080/api/members/login", {
+      const response = await axios.post(`${SERVER_URL}/api/members/login`, {
         email,
         password,
       });
@@ -106,7 +112,7 @@ export default function LoginPage() {
 
   const handleKakaoLogin = () => {
     const REST_API_KEY = "43b4bfa2d77a904f4321f38325c03f09";
-    const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+    const REDIRECT_URI = `${FRONTEND_URL}/oauth/kakao/callback`;
 
     const kakaoURL = 
     `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -117,7 +123,7 @@ export default function LoginPage() {
   const handleGoogleLogin = () => {
     const clientId = "1057151604719-8mor691610vpisojiec4h9n3rd10g964.apps.googleusercontent.com";
     // 💡 구글 콘솔에 등록된 리디렉션 URI와 완벽히 일치해야 합니다.
-    const redirectUri = "http://localhost:3000/oauth/google/callback";
+    const redirectUri = `${FRONTEND_URL}/oauth/google/callback`;
     
     const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`;
     

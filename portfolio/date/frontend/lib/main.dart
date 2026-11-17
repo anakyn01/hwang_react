@@ -15,6 +15,8 @@ import 'screens/diary_screen.dart';
 import 'screens/community_screen.dart';
 import 'screens/map_search_screen.dart';
 
+import './config/env.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   // 💡 카카오 SDK 초기화 (네이티브 앱 키 입력)
@@ -197,8 +199,8 @@ class _DatingHomeScreenState extends State<DatingHomeScreen> {
   }
 
   Future<void> fetchProfiles() async {
-    try {
-      final response = await http.get(Uri.parse('http://localhost:3000/api/profiles'));
+    try {//dart는 백틱스를 특수기호앞에 사용하지 않아요
+      final response = await http.get(Uri.parse('${Env.serverUrl}/api/profiles'));
       if (response.statusCode == 200) {
         final body = json.decode(response.body);
         final List<dynamic> data = body['data'];
@@ -221,7 +223,7 @@ class _DatingHomeScreenState extends State<DatingHomeScreen> {
   Future<void> handleSwipe(int targetUserId, String action) async {
     try {
       await http.post(
-        Uri.parse('http://localhost:3000/api/swipe'),
+        Uri.parse('${Env.serverUrl}/api/swipe'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'sender_id': 1, 'receiver_id': targetUserId, 'action': action}),
       );

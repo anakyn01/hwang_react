@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 // 웹(kIsWeb) 및 플랫폼 자동 감지 도구
 import 'package:flutter/foundation.dart';
 import 'dart:ui'; // Glassmorphism(ImageFilter) 패키지
+import '../config/env.dart';
 
 class SignupProfileScreen extends StatefulWidget {
   const SignupProfileScreen({super.key});
@@ -130,11 +131,11 @@ class _SignupProfileScreenState extends State<SignupProfileScreen>
   // 서버 주소 설정
   String get _apiUrl {
     if (kIsWeb) {
-      return 'http://localhost:3000/api/signup';
+      return '${Env.serverUrl}/api/signup';
     } else if (defaultTargetPlatform == TargetPlatform.android) {
       return 'http://10.0.2.2:3000/api/signup';
     } else {
-      return 'http://localhost:3000/api/signup';
+      return '${Env.serverUrl}/api/signup';
     }
   }
 

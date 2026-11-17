@@ -6,6 +6,7 @@ import { Layout } from "@/components/Layout";
 import { CustomAlert } from "@/components/common/CustomAlert";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/assets/stylex/style.styles";
+import {SERVER_URL, FRONTEND_URL } from '@/config/urls';
 
 interface ProductionOrder {
   id: string;
@@ -44,7 +45,7 @@ export default function Production() {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
-      const response = await axios.get("http://localhost:8080/api/production/orders", {
+      const response = await axios.get(`${SERVER_URL}/api/production/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(response.data);
@@ -71,7 +72,7 @@ export default function Production() {
 
     try {
       const token = localStorage.getItem("jwtToken");
-      const response = await axios.post("http://localhost:8080/api/production/orders", newOrderData, {
+      const response = await axios.post(`${SERVER_URL}/api/production/orders`, newOrderData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

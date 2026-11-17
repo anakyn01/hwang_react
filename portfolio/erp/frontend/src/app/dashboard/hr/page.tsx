@@ -6,6 +6,7 @@ import { CustomAlert } from "@/components/common/CustomAlert";
 import axios from "axios";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/assets/stylex/style.styles";
+import {SERVER_URL, FRONTEND_URL } from '@/config/urls';
 
 interface Employee {
   id: string;
@@ -48,7 +49,7 @@ export default function Hr() {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/hr/employees", {
+      const response = await axios.get(`${SERVER_URL}/api/hr/employees`, {
         params: {
           search: searchQuery,
           role: selectedRole === "ALL" ? "" : selectedRole,
@@ -320,7 +321,7 @@ export default function Hr() {
                 onClick={async () => {
                   try {
                     for (const entry of roleEntries) {
-                      await axios.post("http://localhost:8080/api/hr/employees", {
+                      await axios.post(`${SERVER_URL}/api/hr/employees`, {
                         name: newEmpName,
                         department: newEmpDept,
                         role: entry.role,
@@ -393,7 +394,7 @@ export default function Hr() {
                 type="button"
                 onClick={async () => {
                   try {
-                    await axios.put(`http://localhost:8080/api/hr/employees/${editingEmployee.id}`, {
+                    await axios.put(`${SERVER_URL}/api/hr/employees/${editingEmployee.id}`, {
                       role: editingEmployee.role,
                       status: editingEmployee.status,
                       department: editingEmployee.department,

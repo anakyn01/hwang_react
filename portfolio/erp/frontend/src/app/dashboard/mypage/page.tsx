@@ -7,6 +7,7 @@ import { Layout } from "@/components/Layout";
 import { CustomAlert } from "@/components/common/CustomAlert";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/assets/stylex/style.styles";
+import {SERVER_URL, FRONTEND_URL } from '@/config/urls';
 
 export default function MyPageClient() {
     const router = useRouter();
@@ -48,7 +49,7 @@ export default function MyPageClient() {
 
         try {
             await axios.post(
-                "http://127.0.0.1:8080/api/members/change-password",
+                `${SERVER_URL}/api/members/change-password`,
                 { oldPassword, newPassword },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

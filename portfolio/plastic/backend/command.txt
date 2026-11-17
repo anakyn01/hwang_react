@@ -1,0 +1,11 @@
+create database dating_db;
+
+npm install mysql2
+
+npm install sqlite3 이거 문제
+npm uninstall sqlite3
+
+npm install better-sqlite3
+
+
+

@@ -56,6 +56,17 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+
+
+// 2. TypeORM 오라클 DB 연결
+AppDataSource.initialize()
+    .then(() => {
+        console.log("✅ mysql DB가 성공적으로 연결되었습니다.");
+    })
+    .catch((error) => {
+        console.error("❌ DB 연결 실패:", error);
+    });
+
 // 공통 이미지 업로드 API
 app.post('/api/admin/upload', upload.single('logoImage'), (req, res) => {
     if (!req.file) {
@@ -66,14 +77,7 @@ app.post('/api/admin/upload', upload.single('logoImage'), (req, res) => {
     res.status(200).json({ success: true, fileName: req.file.filename });
 });
 
-// 2. TypeORM 오라클 DB 연결
-AppDataSource.initialize()
-    .then(() => {
-        console.log("✅ 오라클 DB가 성공적으로 연결되었습니다.");
-    })
-    .catch((error) => {
-        console.error("❌ DB 연결 실패:", error);
-    });
+
 
 // 3. 헬스 체크 API (서버 상태 확인용)
 app.get('/api/health', (req, res) => {

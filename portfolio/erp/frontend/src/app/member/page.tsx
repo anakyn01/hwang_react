@@ -10,6 +10,7 @@ import { AlertModal } from "@/components/modal/AlertModal";
 
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/assets/stylex/style.styles";
+import {SERVER_URL, FRONTEND_URL } from '@/config/urls';
 
 const handleInstargramLogin = () => {
     // 인스타그램 로그인 로직
@@ -143,7 +144,7 @@ export default function Member() {
         }
 
         try {
-            const response = await axios.post("http://127.0.0.1:8080/api/members/register", formData);
+            const response = await axios.post("${SERVER_URL}/api/members/register", formData);
             
             if (response.status === 200 || response.status === 201) {
                 const token = response.data.token;

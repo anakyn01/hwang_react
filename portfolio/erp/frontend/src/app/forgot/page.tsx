@@ -7,6 +7,7 @@ import { AlertModal } from "@/components/modal/AlertModal";
 
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/assets/stylex/style.styles";
+import {SERVER_URL, FRONTEND_URL } from '@/config/urls';
 
 export default function ForgotPasswordClient() {
     const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ export default function ForgotPasswordClient() {
         e.preventDefault();
         
         try {
-            await axios.post("http://127.0.0.1:8080/api/members/forgot-password", { email });
+            await axios.post("${SERVER_URL}/api/members/forgot-password", { email });
             setAlertModal({
                 isOpen: true,
                 message: "이메일로 임시 비밀번호가 발송되었습니다. 확인 후 로그인해주세요.",

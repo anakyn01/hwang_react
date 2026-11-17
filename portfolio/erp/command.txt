@@ -1,2 +1,10 @@
+호스트 heartbreakkid.co.kr
+사용자명 hbk0426
+비밀번호 Rian1223!!
+
+
+
+
+
 npm install styled-components
 npm install -D @type/styled-components
