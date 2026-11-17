@@ -1,0 +1,32 @@
+{
+  "arch": "x86_64",
+  "build": "h6c023e8_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "bzip2 >=1.0.8,<2.0a0",
+    "libiconv >=1.16,<2.0a0",
+    "libxml2 >=2.13.8,<2.14.0a0",
+    "lz4-c >=1.9.4,<1.10.0a0",
+    "openssl >=3.0.18,<4.0a0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133",
+    "xz >=5.6.4,<6.0a0",
+    "zlib >=1.2.13,<2.0a0",
+    "zstd >=1.5.6,<1.6.0a0"
+  ],
+  "fn": "libarchive-3.8.2-h6c023e8_0.conda",
+  "license": "BSD-2-Clause",
+  "license_family": "BSD",
+  "md5": "775fe9d0f2f8c22ac9e3a56d2b0f327a",
+  "name": "libarchive",
+  "platform": "win32",
+  "sha256": "35427e640b7852c894f568384a36e07e27ef70d3b4f2ac3e6b658d7dcdf0f5a1",
+  "size": 1860635,
+  "subdir": "win-64",
+  "timestamp": 1761152150000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libarchive-3.8.2-h6c023e8_0.conda",
+  "version": "3.8.2"
+}

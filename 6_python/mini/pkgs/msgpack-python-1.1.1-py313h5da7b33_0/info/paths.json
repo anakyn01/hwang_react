@@ -1,0 +1,107 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/msgpack-1.1.1.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/msgpack-1.1.1.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "422a6df69bae8d2fd82cb774f42e09159d78a7dd1fd199d6a74a1900b22d011b",
+      "size_in_bytes": 8637
+    },
+    {
+      "_path": "Lib/site-packages/msgpack-1.1.1.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "c6c86458a29a661d2a8063e421e62b47039492eba3a3e3d7d2fae3a67b42f8cd",
+      "size_in_bytes": 1262
+    },
+    {
+      "_path": "Lib/site-packages/msgpack-1.1.1.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/msgpack-1.1.1.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "c82dce55ef6c905134ac077bd2ea49c6e1f9594a3c2febdbb954a26d0fa24787",
+      "size_in_bytes": 101
+    },
+    {
+      "_path": "Lib/site-packages/msgpack-1.1.1.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "901d4f113205d94570bb52f4d91a29317ad3bd22076d203424abb57848320767",
+      "size_in_bytes": 94
+    },
+    {
+      "_path": "Lib/site-packages/msgpack-1.1.1.dist-info/licenses/COPYING",
+      "path_type": "hardlink",
+      "sha256": "492dedba85da5872f78e6091bcd1fea474d660d35acb4dee964b8aab3f007427",
+      "size_in_bytes": 614
+    },
+    {
+      "_path": "Lib/site-packages/msgpack-1.1.1.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "dadca4498d695dd880db16130d1ea33f0d2a239646c518a1ca17f84b9859c979",
+      "size_in_bytes": 8
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "ab64f93d1b084d5a5ecad812d16892aa893d218f15fda1620bc5559574c24e00",
+      "size_in_bytes": 1109
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "4a06f8649d1e52b65e0690392f78ed3a1b67ad5271cffcf6ca1385816273fb93",
+      "size_in_bytes": 1658
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/__pycache__/exceptions.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "d6e8a967f76a1d632bd700596c7db4bccbd0607a6078f8d94b20b6e44d3c5fcc",
+      "size_in_bytes": 2107
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/__pycache__/ext.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "dc504761e1e07534a9eefe379caa0ba713dc123f1d41cf8d6f931478a81a07ea",
+      "size_in_bytes": 8036
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/__pycache__/fallback.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "058e017c8f975912e33fd95149b75769a00a012eefb9e191006ea835429430bd",
+      "size_in_bytes": 42011
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/_cmsgpack.cp313-win_amd64.pyd",
+      "path_type": "hardlink",
+      "sha256": "027e359f64c30b4ea8a747bb3ddd55ac5ca5c7e48b33c9a36fe7c2d54e22d1b7",
+      "size_in_bytes": 144144
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/exceptions.py",
+      "path_type": "hardlink",
+      "sha256": "7424d67a2f1da64accb100dc8d093be004e5f47b08047d326edf3338f36a3187",
+      "size_in_bytes": 1081
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/ext.py",
+      "path_type": "hardlink",
+      "sha256": "92d789bf4de7f6d633779a28df1628a554e8e2f45a031a27050409857a21659a",
+      "size_in_bytes": 5726
+    },
+    {
+      "_path": "Lib/site-packages/msgpack/fallback.py",
+      "path_type": "hardlink",
+      "sha256": "d20d4fce9d2fb66044989e70f45decffe24c55444ff114b81b571ce5345a02c2",
+      "size_in_bytes": 32390
+    }
+  ],
+  "paths_version": 1
+}

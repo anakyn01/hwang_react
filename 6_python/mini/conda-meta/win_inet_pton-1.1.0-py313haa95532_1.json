@@ -1,0 +1,45 @@
+{
+  "name": "win_inet_pton",
+  "version": "1.1.0",
+  "build": "py313haa95532_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "win_inet_pton-1.1.0-py313haa95532_1.conda",
+  "md5": "5e0b29b7d41654437b98ef9b47a8b5d6",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/win_inet_pton-1.1.0-py313haa95532_1.conda",
+  "sha256": "584b2c2ad3ff8284378aebf5f1abf4fca38a58ba1fe45e388abffd141928ec39",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "PUBLIC-DOMAIN",
+  "timestamp": 1761746316000,
+  "size": 10272,
+  "requested_spec": "pkgs/main/win-64::win_inet_pton==1.1.0=py313haa95532_1",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\win_inet_pton-1.1.0-py313haa95532_1.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\win_inet_pton-1.1.0-py313haa95532_1",
+  "files": [
+    "Lib/site-packages/__pycache__/win_inet_pton.cpython-313.pyc",
+    "Lib/site-packages/win_inet_pton-1.1.0.dist-info/INSTALLER",
+    "Lib/site-packages/win_inet_pton-1.1.0.dist-info/METADATA",
+    "Lib/site-packages/win_inet_pton-1.1.0.dist-info/RECORD",
+    "Lib/site-packages/win_inet_pton-1.1.0.dist-info/REQUESTED",
+    "Lib/site-packages/win_inet_pton-1.1.0.dist-info/WHEEL",
+    "Lib/site-packages/win_inet_pton-1.1.0.dist-info/direct_url.json",
+    "Lib/site-packages/win_inet_pton-1.1.0.dist-info/licenses/LICENSE",
+    "Lib/site-packages/win_inet_pton-1.1.0.dist-info/top_level.txt",
+    "Lib/site-packages/win_inet_pton.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\win_inet_pton-1.1.0-py313haa95532_1",
+    "type": 1
+  }
+}

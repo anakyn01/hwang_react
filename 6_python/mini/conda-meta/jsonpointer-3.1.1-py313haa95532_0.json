@@ -1,0 +1,49 @@
+{
+  "name": "jsonpointer",
+  "version": "3.1.1",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "jsonpointer-3.1.1-py313haa95532_0.conda",
+  "md5": "75eab033c2afaa3732443501ce5c69a9",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/jsonpointer-3.1.1-py313haa95532_0.conda",
+  "sha256": "d0cc264fcb1555ed5e2fea4cbcbef11c2fbdec97b003625b784229aa5255f483",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1774433242000,
+  "size": 43602,
+  "requested_spec": "pkgs/main/win-64::jsonpointer==3.1.1=py313haa95532_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\jsonpointer-3.1.1-py313haa95532_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\jsonpointer-3.1.1-py313haa95532_0",
+  "files": [
+    "Lib/site-packages/__pycache__/jsonpointer.cpython-313.pyc",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/INSTALLER",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/METADATA",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/RECORD",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/REQUESTED",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/WHEEL",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/direct_url.json",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/licenses/AUTHORS",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/licenses/LICENSE.txt",
+    "Lib/site-packages/jsonpointer-3.1.1.dist-info/top_level.txt",
+    "Lib/site-packages/jsonpointer.py",
+    "Scripts/jsonpointer-script.py",
+    "Scripts/jsonpointer.exe"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\jsonpointer-3.1.1-py313haa95532_0",
+    "type": 1
+  }
+}

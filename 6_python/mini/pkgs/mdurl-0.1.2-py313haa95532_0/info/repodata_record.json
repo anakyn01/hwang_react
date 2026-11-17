@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "mdurl-0.1.2-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "6c5764715afea281b71aa53cdc81c545",
+  "name": "mdurl",
+  "platform": "win32",
+  "sha256": "c2748474cedb35b4643872288cedf94deae958ff684d17daf222bbb26bac4e79",
+  "size": 26954,
+  "subdir": "win-64",
+  "timestamp": 1758552317000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/mdurl-0.1.2-py313haa95532_0.conda",
+  "version": "0.1.2"
+}

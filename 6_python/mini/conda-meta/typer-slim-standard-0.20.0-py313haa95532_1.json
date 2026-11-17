@@ -1,0 +1,41 @@
+{
+  "name": "typer-slim-standard",
+  "version": "0.20.0",
+  "build": "py313haa95532_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "typer-slim-standard-0.20.0-py313haa95532_1.conda",
+  "md5": "928952e95121b247487ae696bac105fd",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/typer-slim-standard-0.20.0-py313haa95532_1.conda",
+  "sha256": "05bc257bcdc83b244bbd10915692690463fc8b27e40abb67115df64faaa79fc1",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "rich",
+    "shellingham",
+    "typer-slim 0.20.0 py313haa95532_1"
+  ],
+  "constrains": [
+    "typer 0.20.0.*",
+    "typer-cli 0.20.0.*"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1771513106000,
+  "size": 7252,
+  "requested_spec": "pkgs/main/win-64::typer-slim-standard==0.20.0=py313haa95532_1",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\typer-slim-standard-0.20.0-py313haa95532_1.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\typer-slim-standard-0.20.0-py313haa95532_1",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\typer-slim-standard-0.20.0-py313haa95532_1",
+    "type": 1
+  }
+}

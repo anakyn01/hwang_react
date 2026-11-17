@@ -1,0 +1,59 @@
+{
+  "name": "pycparser",
+  "version": "3.0",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "pycparser-3.0-py313haa95532_0.conda",
+  "md5": "9487fca3796d5c8cd0c361909099518d",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pycparser-3.0-py313haa95532_0.conda",
+  "sha256": "48cef9cf6d54f01afab07973fc1b295586120acffb2b9ca592a5bc0deee49dd2",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1774959857000,
+  "size": 140506,
+  "requested_spec": "pkgs/main/win-64::pycparser==3.0=py313haa95532_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\pycparser-3.0-py313haa95532_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\pycparser-3.0-py313haa95532_0",
+  "files": [
+    "Lib/site-packages/pycparser-3.0.dist-info/INSTALLER",
+    "Lib/site-packages/pycparser-3.0.dist-info/METADATA",
+    "Lib/site-packages/pycparser-3.0.dist-info/RECORD",
+    "Lib/site-packages/pycparser-3.0.dist-info/REQUESTED",
+    "Lib/site-packages/pycparser-3.0.dist-info/WHEEL",
+    "Lib/site-packages/pycparser-3.0.dist-info/direct_url.json",
+    "Lib/site-packages/pycparser-3.0.dist-info/licenses/LICENSE",
+    "Lib/site-packages/pycparser-3.0.dist-info/top_level.txt",
+    "Lib/site-packages/pycparser/__init__.py",
+    "Lib/site-packages/pycparser/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/pycparser/__pycache__/_ast_gen.cpython-313.pyc",
+    "Lib/site-packages/pycparser/__pycache__/ast_transforms.cpython-313.pyc",
+    "Lib/site-packages/pycparser/__pycache__/c_ast.cpython-313.pyc",
+    "Lib/site-packages/pycparser/__pycache__/c_generator.cpython-313.pyc",
+    "Lib/site-packages/pycparser/__pycache__/c_lexer.cpython-313.pyc",
+    "Lib/site-packages/pycparser/__pycache__/c_parser.cpython-313.pyc",
+    "Lib/site-packages/pycparser/_ast_gen.py",
+    "Lib/site-packages/pycparser/_c_ast.cfg",
+    "Lib/site-packages/pycparser/ast_transforms.py",
+    "Lib/site-packages/pycparser/c_ast.py",
+    "Lib/site-packages/pycparser/c_generator.py",
+    "Lib/site-packages/pycparser/c_lexer.py",
+    "Lib/site-packages/pycparser/c_parser.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\pycparser-3.0-py313haa95532_0",
+    "type": 1
+  }
+}

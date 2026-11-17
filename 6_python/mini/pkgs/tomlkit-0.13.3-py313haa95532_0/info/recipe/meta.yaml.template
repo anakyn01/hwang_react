@@ -1,0 +1,64 @@
+{% set name = "tomlkit" %}
+{% set version = "0.13.3" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 430cf247ee57df2b94ee3fbe588e71d362a941ebb545dec29b53961d61add2a1
+
+build:
+  number: 0
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vvv
+
+requirements:
+  host:
+    - pip
+    - poetry-core >=1.0.0a9
+    - python
+  run:
+    - python
+
+test:
+  source_files:
+    - tests
+  imports:
+    - tomlkit
+    - tomlkit.api
+    - tomlkit.container
+    - tomlkit.exceptions
+    - tomlkit.items
+    - tomlkit.parser
+    - tomlkit.source
+    - tomlkit.toml_char
+    - tomlkit.toml_document
+    - tomlkit.toml_file
+  requires:
+    - pip
+    - pytest
+    - pyyaml
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -ra -v --tb=short tests
+
+about:
+  home: https://github.com/python-poetry/tomlkit
+  license: MIT
+  license_family: MIT
+  license_file:
+    - LICENSE
+    - tests/toml-spec-tests/LICENSE
+    - tests/toml-test/COPYING
+  summary: Style preserving TOML library
+  description: |
+    This package is a 1.0.0-compliant TOML library.
+  dev_url: https://github.com/python-poetry/tomlkit
+  doc_url: https://github.com/python-poetry/tomlkit/blob/master/README.md
+
+extra:
+  recipe-maintainers:
+    - ocefpaf

@@ -1,0 +1,101 @@
+{
+  "paths": [
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "ee6f2c2b3c361f368c52c757d351adf1d829b6ab1b3e78dffd65221612806736",
+      "size_in_bytes": 1504
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "14203f0c65d2109bff0d0c18365d23bcd88fec1205ca231e69991d95c2e4287f",
+      "size_in_bytes": 673
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "16798d47d09e0e0caec0044629ad70d7e6ead265ca380216fa91721bfa411ad2",
+      "size_in_bytes": 2029
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "0075fab56937a96b9c7bbbca2eb8fb967ba554711d5a896d81aba8f1b8025e05",
+      "size_in_bytes": 109
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "8c757378faf200657ac177cf3171022837192be6d14eb8903c6f755e41777851",
+      "size_in_bytes": 105
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/entry_points.txt",
+      "path_type": "hardlink",
+      "sha256": "068ba74aa0549742ad32afa2aabe20eff208ca1968e7f3c08b09d8d8a0223665",
+      "size_in_bytes": 64
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage-0.7.6.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "f0bfbba74fc71e9a8c35509997698382b2dfb2c7d9ad87026693625a0b97a4f3",
+      "size_in_bytes": 20
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "b7d299769fc322fbfdd64c8095ba9f5e4ae4cbfeb7aa2718ba3bc4fa777cc653",
+      "size_in_bytes": 93
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage/_version.py",
+      "path_type": "hardlink",
+      "sha256": "ce145852cc8dfd511b370ebbd8a364d9bf1fab6b151308a6255e9a07210c3cd8",
+      "size_in_bytes": 497
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage/heartbeat.py",
+      "path_type": "hardlink",
+      "sha256": "f90f050377ef04905a969be984195694b4c2337b145bc35d5d84ad780a9f5194",
+      "size_in_bytes": 6160
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage/patch.py",
+      "path_type": "hardlink",
+      "sha256": "8416a7b3ef89ccefe29f6e4dcbf6a0ff07d5cc0d805b115893bab49cb422b860",
+      "size_in_bytes": 6276
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage/plugin.py",
+      "path_type": "hardlink",
+      "sha256": "a9baad896bdf721d4496fd22b53709e056ba1df538798f308d44ff9e66fb2b4a",
+      "size_in_bytes": 635
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage/tokens.py",
+      "path_type": "hardlink",
+      "sha256": "597c4dfa97c1f5c9b2f75294ad727d91cb41774797ea2a6e617739eb25402a10",
+      "size_in_bytes": 10522
+    },
+    {
+      "_path": "site-packages/anaconda_anon_usage/utils.py",
+      "path_type": "hardlink",
+      "sha256": "bc9752a04fbef840504347ac4bb9cad63d7e33d3bca2a02f20c5aabee1cad522",
+      "size_in_bytes": 10245
+    }
+  ],
+  "paths_version": 1
+}

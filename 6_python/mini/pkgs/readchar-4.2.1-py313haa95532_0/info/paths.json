@@ -1,0 +1,155 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/readchar-4.2.1.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/readchar-4.2.1.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "0bc2e2f7ea2bdba6f048ed86a382e8404eece86443c74b639232900e94240945",
+      "size_in_bytes": 7686
+    },
+    {
+      "_path": "Lib/site-packages/readchar-4.2.1.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "a4f53f305e2ab577c3974ad399fa984eecb0fe8969c1f7c13d326eae4f831bad",
+      "size_in_bytes": 1763
+    },
+    {
+      "_path": "Lib/site-packages/readchar-4.2.1.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/readchar-4.2.1.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "ff309ddcdd65ebd02bc724dbf2bcc4a0ff53a5b61792a44548d383e4ebb19d3b",
+      "size_in_bytes": 91
+    },
+    {
+      "_path": "Lib/site-packages/readchar-4.2.1.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "bd5ffbb217b641abffb040e73c102e52cf7fe2068bb0135b7c91d0de61c21b05",
+      "size_in_bytes": 86
+    },
+    {
+      "_path": "Lib/site-packages/readchar-4.2.1.dist-info/licenses/LICENCE",
+      "path_type": "hardlink",
+      "sha256": "ed3b3d1c3be232c6760d19f53e714913264fbbc355d73652112516893df8a255",
+      "size_in_bytes": 1076
+    },
+    {
+      "_path": "Lib/site-packages/readchar-4.2.1.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "5b2230f3ceb457dce4f1a63f251c305277c519160199818da838f9a2ba3760dd",
+      "size_in_bytes": 9
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "f4bde248930f4fcd03d399530c5525815693e52d44236ca8cf39836c57b25200",
+      "size_in_bytes": 611
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "b0e3c2294c5188e017f82bdd3ddc146f3a859bf0fc9c45df36c16f07edc01fd6",
+      "size_in_bytes": 928
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__pycache__/_base_key.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "c55999ccf8f2e2a34a199d87a7adeaa171c14d930966bbb4102041e53356fd55",
+      "size_in_bytes": 731
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__pycache__/_config.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "ffff39bacac96896e69a9b95ba77d7f1b7bed938130633c993b3b300ab29ab3e",
+      "size_in_bytes": 928
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__pycache__/_posix_key.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "226e145e051159e52fd4c0ecc6d2aa46f29b1beee373ab7486a57c716cb97006",
+      "size_in_bytes": 793
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__pycache__/_posix_read.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "f98f7061415173b3b09d900795b27d9c1961a129169ea0a3bf773169eef7a7ee",
+      "size_in_bytes": 2142
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__pycache__/_win_key.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "bfa91c5d777ce15eb20b5e308a3d0efbd5a481ef75671ead11b7e57c253c87a7",
+      "size_in_bytes": 693
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__pycache__/_win_read.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "f5e3dbc5914587fedee931606195c66f3e21141a941d4e3c95e7995116681ffb",
+      "size_in_bytes": 1201
+    },
+    {
+      "_path": "Lib/site-packages/readchar/__pycache__/key.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "c76fa4cd1bfbd9306c9c9120746f90eaff13fef4a960c15c9dfc6e821483c60d",
+      "size_in_bytes": 481
+    },
+    {
+      "_path": "Lib/site-packages/readchar/_base_key.py",
+      "path_type": "hardlink",
+      "sha256": "be0d5afcd67fb86adc866f5577ab74a1da2068c878d50a3dcb4cddb34340d983",
+      "size_in_bytes": 487
+    },
+    {
+      "_path": "Lib/site-packages/readchar/_config.py",
+      "path_type": "hardlink",
+      "sha256": "c4dc6f6560d0cf28a0e1926c60da858f1d5f3413598aee74df28d61415d73744",
+      "size_in_bytes": 365
+    },
+    {
+      "_path": "Lib/site-packages/readchar/_posix_key.py",
+      "path_type": "hardlink",
+      "sha256": "b7bf5ae50e333bf63c9ef6b00bc64765287b511133252b4cf4cd22f58d7cb7b0",
+      "size_in_bytes": 838
+    },
+    {
+      "_path": "Lib/site-packages/readchar/_posix_read.py",
+      "path_type": "hardlink",
+      "sha256": "6ec5a483412a27193e348110aa249abcc356af52b144c353be06064f886e1a70",
+      "size_in_bytes": 1370
+    },
+    {
+      "_path": "Lib/site-packages/readchar/_win_key.py",
+      "path_type": "hardlink",
+      "sha256": "d4f1e578369d9cea23aaea59d194e9f48c6064f08ab230037b196d3fe14de689",
+      "size_in_bytes": 1063
+    },
+    {
+      "_path": "Lib/site-packages/readchar/_win_read.py",
+      "path_type": "hardlink",
+      "sha256": "e37ff5385f532d63c4f56fd45436449bfba8fbf13264c591c01e5ff0076063cf",
+      "size_in_bytes": 1311
+    },
+    {
+      "_path": "Lib/site-packages/readchar/key.py",
+      "path_type": "hardlink",
+      "sha256": "92c47d338dcf025134e0a7e76be2fd32b6a22e97b15144ca90bc1021134c9c13",
+      "size_in_bytes": 282
+    },
+    {
+      "_path": "Lib/site-packages/readchar/py.typed",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    }
+  ],
+  "paths_version": 1
+}

@@ -1,0 +1,84 @@
+# This file created by conda-build 26.1.0
+# meta.yaml template originally from:
+# C:\Users\task_177495971170849\pycparser-feedstock\recipe, last modified Tue Mar 31 12:22:48 2026
+# ------------------------------------------------
+
+package:
+  name: pycparser
+  version: '3.0'
+source:
+  url: https://pypi.org/packages/source/p/pycparser/pycparser-3.0.tar.gz
+  sha256: 600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29
+build:
+  number: '0'
+  script: C:\\Users\\task_177495971170849\\croot\\pycparser_1774959815978\\_h_env\\python.exe
+    -m pip install . --no-deps --no-build-isolation -vvv
+  string: py313haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.12.2 haa95532_0
+    - libexpat 2.7.5 hd7fb8db_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - libzlib 1.3.1 h02ab6af_0
+    - openssl 3.5.5 hbb43b14_0
+    - packaging 25.0 py313haa95532_1
+    - pip 26.0.1 pyhc872135_0
+    - python 3.13.12 h39c999c_100_cp313
+    - python_abi 3.13 3_cp313
+    - setuptools 80.10.2 py313haa95532_0
+    - sqlite 3.51.2 hee5a0db_0
+    - tk 8.6.15 hf199647_0
+    - tzdata 2026a he532380_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - wheel 0.46.3 py313haa95532_0
+    - xz 5.8.2 h53af0af_0
+    - zlib 1.3.1 h02ab6af_0
+  run:
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+test:
+  source_files:
+    - tests
+  imports:
+    - pycparser
+    - pycparser.c_ast
+    - pycparser.c_lexer
+    - pycparser.c_parser
+  requires:
+    - pip
+    - pytest
+    - python >=3.13,<3.14.0a0
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('pycparser')=='3.0')"
+    - pytest --rootdir=. -vv tests
+about:
+  home: https://github.com/eliben/pycparser
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Complete C99 parser in pure Python
+  description: 'pycparser is a complete parser of the C language, written in pure
+    Python using the PLY parsing library.
+
+    It parses C code into an AST and can serve as a front-end for C compilers or analysis
+    tools.
+
+    '
+  dev_url: https://github.com/eliben/pycparser
+  doc_url: https://github.com/eliben/pycparser
+extra:
+  recipe-maintainers:
+    - synapticarbors
+  final: true
+  copy_test_source_files: true
+  remote_url: https://github.com/AnacondaRecipes/pycparser-feedstock
+  sha: 03970421c18670f962b10ecbac399fbfb70f3d0a
+  task_id: NYAKhVRbR0SZRUoX56fZBA
+  task_run_id: '0'
+  pbp_graph_uuid: 0a69e57d-8c31-4ccc-8bb8-bb7549ce2af4

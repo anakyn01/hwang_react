@@ -1,0 +1,56 @@
+{
+  "name": "zlib",
+  "version": "1.3.1",
+  "build": "h1c6eee0_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "zlib-1.3.1-h1c6eee0_1.conda",
+  "md5": "2cabd7930e833462962979b8bfce6ff3",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/zlib-1.3.1-h1c6eee0_1.conda",
+  "sha256": "10596d5e73832102d7c09031ba2cd6e6ce47dd0c71ff94e660bd5759e681ecc2",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "libzlib 1.3.1 h1c6eee0_1",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "constrains": [],
+  "license": "Zlib",
+  "license_family": "OTHER",
+  "timestamp": 1776974467000,
+  "size": 106377,
+  "requested_spec": "pkgs/main/win-64::zlib==1.3.1=h1c6eee0_1",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\zlib-1.3.1-h1c6eee0_1.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\zlib-1.3.1-h1c6eee0_1",
+  "files": [
+    "Library/include/zconf.h",
+    "Library/include/zlib.h",
+    "Library/lib/pkgconfig/zlib.pc",
+    "Library/lib/z.lib",
+    "Library/lib/zdll.lib",
+    "Library/lib/zlib.lib",
+    "Library/lib/zlibstatic.lib",
+    "Library/share/man/man3/zlib.3"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "Library/lib/pkgconfig/zlib.pc",
+        "prefix_placeholder": "C:/Users/task_177697404366470/croot/zlib-split_1776974362322/_h_env",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "ae952b7a52e50cb9fb612e9201724deb8536fae747150b9cb267cd2227c7b363",
+        "size_in_bytes": 599,
+        "sha256_in_prefix": "1c873b6fc437af9d2017c0cd206ae058174975ab018452be18de613c2e73efcd"
+      }
+    ]
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\zlib-1.3.1-h1c6eee0_1",
+    "type": 1
+  }
+}

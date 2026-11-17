@@ -1,0 +1,83 @@
+-- 1. 회원 정보를 저장할 users 테이블 (이미 있으시다면 건너뛰어도 됩니다)
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    zip_code VARCHAR(20),
+    address VARCHAR(255),
+    detail_address VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. 헤더의 기본 설정(로고 등)을 저장할 테이블 (데이터 1줄만 사용합니다)
+CREATE TABLE IF NOT EXISTS header_settings (
+    id INT PRIMARY KEY DEFAULT 1,
+    logo_type VARCHAR(20) DEFAULT 'text',
+    logo_text VARCHAR(100) DEFAULT 'INDIGO',
+    logo_image VARCHAR(255) DEFAULT '/assets/images/header/logo.png'
+);
+
+-- 3. 헤더의 서브메뉴 리스트를 저장할 테이블
+CREATE TABLE IF NOT EXISTS header_menus (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    link VARCHAR(255) NOT NULL
+);
+
+create table if not exists banner_settings(
+id int primary key default 1,
+banner_type varchar(20) default 'single',
+single_banner varchar(255) default '/assets/images/p-images/slide01.jpg'
+);
+
+create table if not exists carousel_images(
+    id int AUTO_INCREMENT primary key,
+    url varchar(255) not null
+)
+
+create table if not exists weare_main(
+    id int primary key default 1,
+    main_title varchar(100) default 'we are',
+    main_description text
+);
+
+create table if not exists weare_features(
+    id int AUTO_INCREMENT PRIMARY key,
+    icon_class varchar(50) not null,
+    title varchar(100) not null,
+    description text
+);
+
+
+create table if not exists work_settings(
+    id int primary key default 1,
+    row_count int default 2
+);
+
+create table if not exists work_images(
+    id int AUTO_INCREMENT primary key,
+    image_url VARCHAR(255) not null
+);
+
+- 블로그 -
+create table if not exists blog_settings(
+    id int primary key default 1,
+    row_count int default 1
+);
+
+create table if not exists blog_items(
+    id int AUTO_INCREMENT primary key,
+    image_url VARCHAR(255) not null,
+    date_str VARCHAR(50) not null,
+    text_content TEXT
+);
+
+맵
+USE company;
+CREATE TABLE if NOT EXISTS map_settings(
+id INT PRIMARY KEY DEFAULT 1,
+map_type VARCHAR(20) DEFAULT 'google',
+map_url TEXT
+);

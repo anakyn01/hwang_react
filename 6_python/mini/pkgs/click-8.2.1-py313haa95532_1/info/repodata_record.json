@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "colorama",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "click-8.2.1-py313haa95532_1.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "17865c3c6a7a80bb226bf7a8e1b0a34e",
+  "name": "click",
+  "platform": "win32",
+  "sha256": "cd3f6faec56670975522d5a3ff658a93fab1591320e345c3556603d7642df0b5",
+  "size": 328826,
+  "subdir": "win-64",
+  "timestamp": 1764332409000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/click-8.2.1-py313haa95532_1.conda",
+  "version": "8.2.1"
+}

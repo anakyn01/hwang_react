@@ -1,0 +1,68 @@
+{
+  "name": "fmt",
+  "version": "12.1.0",
+  "build": "ha349831_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "fmt-12.1.0-ha349831_0.conda",
+  "md5": "17ae3f100dfdbf5fd1291f5d42c37913",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/fmt-12.1.0-ha349831_0.conda",
+  "sha256": "5dd4c4ad9a4557c783980ca135e10ec6de1c150b9df3a4099efc8982922de509",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1772640043000,
+  "size": 194070,
+  "requested_spec": "pkgs/main/win-64::fmt==12.1.0=ha349831_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\fmt-12.1.0-ha349831_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\fmt-12.1.0-ha349831_0",
+  "files": [
+    "Library/bin/fmt.dll",
+    "Library/include/fmt/args.h",
+    "Library/include/fmt/base.h",
+    "Library/include/fmt/chrono.h",
+    "Library/include/fmt/color.h",
+    "Library/include/fmt/compile.h",
+    "Library/include/fmt/core.h",
+    "Library/include/fmt/format-inl.h",
+    "Library/include/fmt/format.h",
+    "Library/include/fmt/os.h",
+    "Library/include/fmt/ostream.h",
+    "Library/include/fmt/printf.h",
+    "Library/include/fmt/ranges.h",
+    "Library/include/fmt/std.h",
+    "Library/include/fmt/xchar.h",
+    "Library/lib/cmake/fmt/fmt-config-version.cmake",
+    "Library/lib/cmake/fmt/fmt-config.cmake",
+    "Library/lib/cmake/fmt/fmt-targets-release.cmake",
+    "Library/lib/cmake/fmt/fmt-targets.cmake",
+    "Library/lib/fmt.lib",
+    "Library/lib/pkgconfig/fmt.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "Library/lib/pkgconfig/fmt.pc",
+        "prefix_placeholder": "C:/Users/task_177263938273193/croot/fmt_1772639938671/_h_env",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "085bef061e0227db9a8dfdadf91597528c0cf1b7dcace8e56da1c0a288a8e1fc",
+        "size_in_bytes": 340,
+        "sha256_in_prefix": "c6366fe0a62dfc4400e0f4b983d9fbb1b57caaba17c3de38fec05a7c1e6a6645"
+      }
+    ]
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\fmt-12.1.0-ha349831_0",
+    "type": 1
+  }
+}

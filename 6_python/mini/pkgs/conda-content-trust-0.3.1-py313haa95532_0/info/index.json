@@ -1,0 +1,18 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "depends": [
+    "conda >=26.3.0",
+    "cryptography >=41",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "name": "conda-content-trust",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1775266762162,
+  "version": "0.3.1"
+}

@@ -1,0 +1,83 @@
+{
+  "paths": [
+    {
+      "_path": "Library/bin/expat.dll",
+      "path_type": "hardlink",
+      "sha256": "71e5268e434cabe2f431830ccf283dcb4b419c472dfeba22d901c8e578ee638c",
+      "size_in_bytes": 278856
+    },
+    {
+      "_path": "Library/bin/libexpat.dll",
+      "path_type": "hardlink",
+      "sha256": "4003857b86144ffcdcb0b3788dba5082e2a33e90cb9be3749c5fe98125eaae55",
+      "size_in_bytes": 278856
+    },
+    {
+      "_path": "Library/include/expat.h",
+      "path_type": "hardlink",
+      "sha256": "26805a0d1a7a6a5cd8ead9cf7f4da29f63f0547a9ad41e80dba4ed9fe1943140",
+      "size_in_bytes": 44733
+    },
+    {
+      "_path": "Library/include/expat_config.h",
+      "path_type": "hardlink",
+      "sha256": "1366767761b3f21bd491553af0f23dc9ebe99193d4dc3a5918ce24e853209b8d",
+      "size_in_bytes": 3431
+    },
+    {
+      "_path": "Library/include/expat_external.h",
+      "path_type": "hardlink",
+      "sha256": "c234a3cf21f8cf4bdc49bce409908d6d69d835f1c75fd502f4ea6f8399acd0c2",
+      "size_in_bytes": 6138
+    },
+    {
+      "_path": "Library/lib/cmake/expat-2.7.5/expat-config-version.cmake",
+      "path_type": "hardlink",
+      "sha256": "ee8cd9e044ab8e75b63ea67ede19f49bbdbeccf9cc23b574d872787d023089ff",
+      "size_in_bytes": 2827
+    },
+    {
+      "_path": "Library/lib/cmake/expat-2.7.5/expat-config.cmake",
+      "path_type": "hardlink",
+      "sha256": "275dd795ba90ff99bb31fffd6c495c8037124ab1c80a0edef671d5b6ce02ef89",
+      "size_in_bytes": 3736
+    },
+    {
+      "_path": "Library/lib/cmake/expat-2.7.5/expat-release.cmake",
+      "path_type": "hardlink",
+      "sha256": "da895f346e9e2047ea6e83323d21dd7b1ec607567cc0ba7284b053f6e12de165",
+      "size_in_bytes": 904
+    },
+    {
+      "_path": "Library/lib/cmake/expat-2.7.5/expat.cmake",
+      "path_type": "hardlink",
+      "sha256": "2236974f616832319808e28d95b32baef316f224f7b109b565a64bf19653d9c8",
+      "size_in_bytes": 4205
+    },
+    {
+      "_path": "Library/lib/expat.lib",
+      "path_type": "hardlink",
+      "sha256": "cfb760320411512899d51e15462a657ce4f447982d5fb8e35d024cd94ebb7f18",
+      "size_in_bytes": 18844
+    },
+    {
+      "_path": "Library/lib/libexpat.lib",
+      "path_type": "hardlink",
+      "sha256": "cfb760320411512899d51e15462a657ce4f447982d5fb8e35d024cd94ebb7f18",
+      "size_in_bytes": 18844
+    },
+    {
+      "_path": "Library/share/doc/expat/AUTHORS",
+      "path_type": "hardlink",
+      "sha256": "59f14371c6b75912cfebb46e6247ee5146766e803a0365b124e5d3011e7d0877",
+      "size_in_bytes": 142
+    },
+    {
+      "_path": "Library/share/doc/expat/changelog",
+      "path_type": "hardlink",
+      "sha256": "2ef35667dc49ca97af6a2dea7c4a97af812d98a2f5e43dfe82dcfd9c1d80257d",
+      "size_in_bytes": 97407
+    }
+  ],
+  "paths_version": 1
+}

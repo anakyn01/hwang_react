@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <title>반복문</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Loops</h1>           
+<p>
+- 반복이란 일상생활에서 똑같은 행동에 패턴을 유지하는걸 반복이라 한다
+- 하지만 개발에서는 지정된 범위만큼 실행하는것을 반복이라고 합니다
+- 반복문에 종류는 for, while 등이 있다
+- 동일한 코드를 반복해서 실행하고 싶을때 유용합니다
+- for문을 사용경우 : "횟수가 정해져 있을때 밤위가 명학할때 최적화"
+- while문 : "반복횟수가 정해져 있지 않고 어떤 조건이 참인동안 계속 실행하고 싶을때"
+- do-while : "일단 한번 실행하고 보자 그 결과에 따라 반복할지 결정해야 할때"
+</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h1>for</h1>
+            <p id="bad"></p>
+            <p id="good"></p>
+<code>
+for (expr1; expr2; expr3) {}    
+expr1은 코드블록이 실행되기 전에 한번 실행된다
+expr2은 코드블록 실행조건을 정의합니다
+expr3는 코드블록이 실행될때 마다 실행
+</code>            
+        </div>
+        <div class="col-md-4">
+<h1>while</h1>
+<p id="while"></p>
+<code>
+while(condition){}
+for문과 다르게 조각을 분리
+</code>
+        </div>
+        <div class="col-md-4">
+<h1>cors</h1>
+<p>
+Cross-Origin Resource Sharing : 교차 출처 리소스 공유
+react사용할때 잘나옴
+- 서로다른 출처를 가진 서버끼리 자원을 주고 받을수 있게 허용하는 체계
+- 브라우저는 기본적으로 동일 출처정책(Same-Origin Policy)을 따릅니다
+이는 내출처와 다른곳에서 온 요청은 보안상 위험할수 있으니 차단하겠다
+그래서 CORS라는 약속을 통해 이출저는 내가 허용할께
+java : http://localhost:8080
+react, nextjs : http://localhost:5174
+</p>            
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h1>do while</h1>
+<p id="do"></p>
+<code>
+do { } while (condition);
+</code>
+    </div>
+    <div class="col-md-4">
+<h1>break:반복문 종료</h1>
+<mark id="stop"></mark>
+    </div>
+    <div class="col-md-4">
+<h1>continue:건너뛰고 실행</h1>
+<mark id="continue"></mark>
+    </div>
+</div>
+
+</div>   
+<script src="js/loop.js"></script> 
+</body>
+</html>

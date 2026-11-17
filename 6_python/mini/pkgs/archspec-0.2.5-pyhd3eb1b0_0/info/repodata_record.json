@@ -1,0 +1,21 @@
+{
+  "build": "pyhd3eb1b0_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch/",
+  "constrains": [],
+  "depends": [
+    "python >=3.7"
+  ],
+  "fn": "archspec-0.2.5-pyhd3eb1b0_0.conda",
+  "license": "MIT OR Apache-2.0",
+  "md5": "c0ad195970a65c174b997011ac13f2f8",
+  "name": "archspec",
+  "noarch": "python",
+  "package_type": "noarch_python",
+  "sha256": "d7c38d818d5f88e636de5d9fba2365be56f3230ee2656ab3b552c1e4bbd07668",
+  "size": 49261,
+  "subdir": "noarch",
+  "timestamp": 1758125010000,
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/archspec-0.2.5-pyhd3eb1b0_0.conda",
+  "version": "0.2.5"
+}

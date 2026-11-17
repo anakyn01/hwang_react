@@ -1,0 +1,8 @@
+Library/bin/brotlicommon.dll
+Library/lib/brotlicommon.lib
+Library/lib/pkgconfig/libbrotlicommon.pc
+Library/share/man/man1/brotli.1
+Library/share/man/man3/constants.h.3
+Library/share/man/man3/decode.h.3
+Library/share/man/man3/encode.h.3
+Library/share/man/man3/types.h.3

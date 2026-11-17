@@ -1,0 +1,149 @@
+{
+  "name": "conda-libmamba-solver",
+  "version": "26.4.0",
+  "build": "pyh3785b3c_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "subdir": "noarch",
+  "fn": "conda-libmamba-solver-26.4.0-pyh3785b3c_0.conda",
+  "md5": "fc796e92a2a25510e91f2ca2e847d0b0",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/conda-libmamba-solver-26.4.0-pyh3785b3c_0.conda",
+  "sha256": "9fb5f001da926efe52f122683bb2cef9d3a5dd2b25034905930fe9e3c050140d",
+  "depends": [
+    "boltons >=23.0.0",
+    "conda >=26.1",
+    "libmambapy >=2",
+    "msgpack-python >=1.1.1",
+    "python >=3.10",
+    "requests >=2.28.0,<3.0.0",
+    "zstandard >=0.15"
+  ],
+  "constrains": [],
+  "noarch": "python",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "package_type": "noarch_python",
+  "timestamp": 1776806077000,
+  "size": 57731,
+  "requested_spec": "pkgs/main/noarch::conda-libmamba-solver==26.4.0=pyh3785b3c_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\conda-libmamba-solver-26.4.0-pyh3785b3c_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\conda-libmamba-solver-26.4.0-pyh3785b3c_0",
+  "files": [
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/INSTALLER",
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/METADATA",
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/RECORD",
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/REQUESTED",
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/WHEEL",
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/direct_url.json",
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/entry_points.txt",
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/licenses/AUTHORS.md",
+    "Lib/site-packages/conda_libmamba_solver-26.4.0.dist-info/licenses/LICENSE",
+    "Lib/site-packages/conda_libmamba_solver/__init__.py",
+    "Lib/site-packages/conda_libmamba_solver/conda_build_exceptions.py",
+    "Lib/site-packages/conda_libmamba_solver/exceptions.py",
+    "Lib/site-packages/conda_libmamba_solver/index.py",
+    "Lib/site-packages/conda_libmamba_solver/mamba_utils.py",
+    "Lib/site-packages/conda_libmamba_solver/plugin.py",
+    "Lib/site-packages/conda_libmamba_solver/repoquery.py",
+    "Lib/site-packages/conda_libmamba_solver/shards.py",
+    "Lib/site-packages/conda_libmamba_solver/shards_cache.py",
+    "Lib/site-packages/conda_libmamba_solver/shards_subset.py",
+    "Lib/site-packages/conda_libmamba_solver/shards_typing.py",
+    "Lib/site-packages/conda_libmamba_solver/solver.py",
+    "Lib/site-packages/conda_libmamba_solver/state.py",
+    "Lib/site-packages/conda_libmamba_solver/utils.py",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/conda_build_exceptions.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/exceptions.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/index.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/mamba_utils.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/plugin.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/repoquery.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/shards.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/shards_cache.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/shards_subset.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/shards_typing.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/solver.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/state.cpython-313.pyc",
+    "Lib/site-packages/conda_libmamba_solver/__pycache__/utils.cpython-313.pyc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/__init__.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 769
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/conda_build_exceptions.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 1983
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/exceptions.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 968
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/index.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 37298
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/mamba_utils.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 8170
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/plugin.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 1573
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/repoquery.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 9484
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/shards.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 30990
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/shards_cache.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 8349
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/shards_subset.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 30315
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/shards_typing.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 2225
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/solver.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 47435
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/state.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 36004
+      },
+      {
+        "_path": "Lib/site-packages/conda_libmamba_solver/__pycache__/utils.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 5632
+      }
+    ]
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\conda-libmamba-solver-26.4.0-pyh3785b3c_0",
+    "type": 1
+  }
+}

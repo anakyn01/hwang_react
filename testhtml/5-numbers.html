@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-12">
+        <h1>BigInt</h1>
+        <p>사용법 : n이라는 정수 리터럴을 붙이거나 BinInt("")`</p>
+        <mark id="show"></mark>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+<h1>e5 : 00000</h1>
+<mark id="e"></mark>
+<p>
+대부분의 프로그래밍 언어는 다양한 숫자 유형이 있습니다<br/>
+정수<br/>
+byte(8bit), short(16bit), int(32bit), long(64bit)<br/>
+실수<br/>
+float(32bit), double(64bit)<br/>
+but<br/>
+javascript numbers are always double(64bit floating point)<br/>
+</p>
+    </div>
+    <div class="col-md-3">
+<h1>Integer Precision 정수정밀도</h1>
+<mark id="int"></mark>
+    </div>
+    <div class="col-md-3">
+<h1>Floating Precision</h1>
+<mark id="bad"></mark><br>
+<mark id="good"></mark><br>
+    </div>
+    <div class="col-md-3">
+<h1>BigInt</h1>
+<p>
+Javascript는 2<sup>53-1(90007199254740991)</sup>부터
+Javascript는 -2<sup>53-1(-90007199254740991)</sup>의 정수만 안전하게 표현합니다
+이 어려운 글씨를 출력해 보아요..
+</p>
+<mark id="print"></mark>
+    </div>
+</div>
+
+    <div class="row">
+<div class="col-md-3">
+<h1>문자열과 숫자를 더할 경우는 ?<small id="n1"></small></h1>
+</div>
+<div class="col-md-3">
+<h1>NaN 숫자가 아님</h1>
+<p id="nan"></p>
+</div>
+<div class="col-md-3">
+    <h1>Infinity</h1>
+<p>Infinity나 -Infinity는 계산가능 결과가 최대값을 벗어나는 경우 반환</p>
+<p id="inf"></p>
+</div>
+<div class="col-md-3">
+<h1>16진수</h1>
+<p id="six"></p>
+<p>
+자바스크립트는 0x가 붙으면 16진수로 해석합니다
+
+- 2진수(Binary) : 컴퓨터의 기본언어 
+컴퓨터 내부의 회로는 전류가 흐르느냐(1) 흐르지 않느냐(0)으로 동작합니다
+0과 1 단두개의 숫자만 사용하는것이 2진수
+특징 : 모든 정보는 2진수로 변환되어 처리됩니다
+10진수 100이 이진수 1100100
+=> 100을 2로 계속나누면서 나머지를 아래에서 위로 읽음
+100 / 2 = 50 0
+50 /2 = 25 0
+25 / 2 =12 1
+12 / 2 =6 0
+6 / 2 = 3 0
+3 / 2 = 1 1
+1 / 2 = 0 1
+
+8진수 (Octal) : 2진수를 3자리씩 묶은것
+총8개이니 0,1,2,3,4,5,6,7
+
+100 / 8 = 12  4
+12 / 8 = 1    4
+1 / 8 = 0,    1
+
+16진수 
+100 / 16 = 6  나머지 4
+6 / 16 = 0 6
+64가 나옴
+</p>
+</div>
+    </div>
+</div>  
+<script src="js/nums.js"></script>  
+</body>
+</html>

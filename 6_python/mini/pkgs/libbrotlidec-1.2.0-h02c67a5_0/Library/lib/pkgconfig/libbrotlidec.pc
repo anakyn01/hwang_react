@@ -1,0 +1,12 @@
+prefix=C:/miniconda3/conda-bld/brotli-split_1762363672018/_h_env/Library
+exec_prefix=C:/miniconda3/conda-bld/brotli-split_1762363672018/_h_env/Library
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libbrotlidec
+URL: https://github.com/google/brotli
+Description: Brotli decoder library
+Version: 1.2.0
+Libs: -L${libdir} -lbrotlidec
+Requires.private: libbrotlicommon >= 1.2.0
+Cflags: -I${includedir}

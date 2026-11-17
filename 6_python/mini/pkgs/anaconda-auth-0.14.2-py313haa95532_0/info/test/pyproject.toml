@@ -1,0 +1,286 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling", "hatch-vcs>=0.3", "setuptools-scm>=7.1"]
+
+[project]
+dependencies = [
+  "keyring",
+  "pkce",
+  "python-dotenv",
+  "pydantic",
+  "pyjwt",
+  "requests",
+  "cryptography >=3.4.0",  # see pyjwt
+  "semver<4",
+  "anaconda-cli-base >=0.8.1",
+  "httpx"
+]
+description = "A client auth library for Anaconda APIs"
+dynamic = ["version"]
+license = {text = "BSD-3-Clause"}
+name = "anaconda-auth"
+readme = "README.md"
+requires-python = ">=3.10"
+
+[project.entry-points."anaconda_cli.subcommand"]
+auth = "anaconda_auth.cli:app"
+# TODO: Deprecated plugin name
+cloud = "anaconda_cloud_auth.cli:app"
+sites = "anaconda_auth.cli:sites_app"
+token = "anaconda_auth.repo:app"
+
+[project.entry-points.conda]
+anaconda-auth = "anaconda_auth._conda.entrypoint"
+
+[project.entry-points."panel.auth"]
+anaconda_auth = "anaconda_auth.panel:AnacondaLoginHandler"
+
+[project.optional-dependencies]
+dev = [
+  "mypy",
+  "pytest",
+  "pytest-cov",
+  "pytest-mock",
+  "requests-mock",
+  "responses",
+  "tox",
+  "types-requests"
+]
+publish = [
+  "build",
+  "twine",
+  "wheel"
+]
+
+[project.scripts]
+conda-token = "anaconda_auth._conda.conda_token:cli"
+
+[project.urls]
+documentation = "https://anaconda.github.io/anaconda-auth"
+homepage = "https://anaconda.com"
+issues = "https://github.com/anaconda/anaconda-auth/issues"
+repository = "https://github.com/anaconda/anaconda-auth"
+
+[tool.coverage]
+paths.source = [
+  "src",
+  ".tox*/*/lib/python*/site-packages"
+]
+report.omit = [
+  "src/anaconda_auth/_version.py"
+]
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/anaconda_auth/_version.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src/anaconda_auth",
+  "/src/anaconda_cloud_auth",
+  "/.env.template",
+  "/pyproject.toml",
+  "/tests",
+  "/Makefile",
+  "/environment-dev.yml"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anaconda_auth", "src/anaconda_cloud_auth"]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.mypy]
+disallow_untyped_defs = true
+files = [
+  "src/**/*.py"
+]
+python_version = "3.10"
+
+[[tool.mypy.overrides]]
+ignore_errors = true
+module = "*._version"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "anaconda_anon_usage.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "binstar_client.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "semver.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "anaconda_navigator.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "jaraco.classes.properties.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "panel.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "conda.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "conda_token.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "ruamel.*"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "pydantic.v1.*"
+
+[tool.pytest.ini_options]
+addopts = [
+  "--cov",
+  "--color=yes",
+  "--cov-append",
+  "--cov-branch",
+  "--cov-report=html:./cov_html",
+  "--cov-report=term-missing",
+  "--cov-report=xml:./coverage.xml",
+  "--durations=5",
+  "-vv"
+]
+filterwarnings = [
+  # Treat all warnings errors: https://til.simonwillison.net/pytest/treat-warnings-as-errors
+  "error",
+  # Ignore our own intended deprecation warnings
+  "ignore:Please use `anaconda org auth` instead:DeprecationWarning",
+  "ignore:Client API version is:DeprecationWarning",
+  "ignore:The following fields have been set using legacy environment variables:DeprecationWarning",
+  "ignore:AnacondaCloudConfig is deprecated, please use AnacondaAuthConfig instead:DeprecationWarning",
+  "ignore:Please replace imports from `import anaconda_cloud_auth` to `import anaconda_auth`:DeprecationWarning",
+  # TODO(mattkram): This is something we need to fix in anaconda-cli-base
+  "ignore:pkg_resources is deprecated as an API:UserWarning",
+  # Ignore conda's PendingDeprecationWarning
+  "ignore::PendingDeprecationWarning"
+]
+markers = [
+  "integration: Integration tests requiring a browser"
+]
+norecursedirs = ["env", "envs", ".tox"]
+pythonpath = "src/"
+
+[tool.ruff]
+target-version = "py38"
+
+[tool.ruff.lint]
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+ignore = ["E501", "UP007"]
+# see https://docs.astral.sh/ruff/rules/
+select = ["F", "E", "W", "I", "UP", "TID"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+# Disallow all relative imports.
+ban-relative-imports = "all"
+
+[tool.ruff.lint.isort]
+force-single-line = true
+known-first-party = ["anaconda_*"]
+
+[tool.ruff.lint.per-file-ignores]
+# TID252 Prefer absolute imports over relative imports (allow tests to import from conftest)
+"**/tests/*.py" = ["TID252"]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist =
+    py39
+    py310-{old-keyring,new-keyring,pydantic1,pydantic2,conda}
+    py311-{conda}
+    py312-{conda}
+    py313-{no-conda,conda}
+    pendingdeprecations
+    mypy
+    report
+isolated_build = True
+requires =
+    tox-conda
+    tox-gh-actions
+
+[gh-actions]
+python =
+    3.10: py310, mypy
+    3.11: py311, mypy
+    3.12: py312, mypy
+    3.13: py313, mypy
+    3.14: py314, mypy
+
+[testenv]
+passenv =
+    TEST_API_KEY
+    CE_TOKEN
+    ANACONDA_AUTH_DOMAIN
+    ANACONDA_AUTH_CLIENT_ID
+    ANACONDA_AUTH_USE_UNIFIED_REPO_API_KEY
+deps =
+    mypy
+    pytest
+    pytest-cov
+    pytest-mock
+    pytest-asyncio
+    requests-mock
+    # Exclude a release with a bug: see https://github.com/tiangolo/typer/discussions/795
+    typer !=0.12.2
+    # This is to test the removal of jaraco.classes in earlier versions, so we don't explicitly depend
+    # on an import from that library and instead rely on `keyring.backend.properties`.
+    old-keyring: keyring <=23.4.0
+    pydantic1: pydantic <2.0
+    pydantic2: pydantic >=2.0
+conda_deps =
+    anaconda-anon-usage
+    anaconda-client
+    # Optionally install conda to test plugins
+    conda: conda
+    # Keep testing semver<3 until version 3+ released to defaults
+    # mattkram: Drop semver2 testing because of issues installing on Windows
+    #           See: https://github.com/anaconda/anaconda-auth/issues/221
+    # semver2: semver<3
+    # semver3: semver>=3,<4
+conda_channels =
+    anaconda-cloud
+    defaults
+    conda-forge
+commands = pytest {posargs}
+
+[testenv:.package]
+conda_deps =
+
+[testenv:mypy]
+conda_deps =
+deps =
+    mypy
+    pytest
+    pytest-cov
+    pytest-mock
+    pytest-asyncio
+    types-requests
+    anaconda-cli-base
+    typer
+    rich
+commands = mypy
+
+[testenv:report]
+deps = coverage[toml]
+skip_install = true
+commands =
+    coverage report
+    coverage xml -o coverage.xml
+"""

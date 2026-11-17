@@ -1,0 +1,22 @@
+{
+  "app_entry": "start cmd.exe /K \"${CONDA_ROOT_PREFIX}\\\\Scripts\\\\activate.bat\" \"${CONDA_PREFIX}\"",
+  "app_type": "desk",
+  "arch": "x86_64",
+  "build": "haa95532_1",
+  "build_number": 1,
+  "constrains": [
+    "anaconda-navigator >=1.9.8",
+    "menuinst >=2.1.1"
+  ],
+  "depends": [],
+  "icon": "7447b4140e5047b7899ea07f1c19ad88.png",
+  "license": "BSD-3-Clause AND CC-BY-NC-ND-4.0",
+  "license_family": "Other",
+  "name": "anaconda_prompt",
+  "platform": "win",
+  "subdir": "win-64",
+  "summary": "Opens a terminal instance with conda activated (requires menuinst 2.1.1 or greater).",
+  "timestamp": 1749741674175,
+  "type": "app",
+  "version": "1.1.0"
+}

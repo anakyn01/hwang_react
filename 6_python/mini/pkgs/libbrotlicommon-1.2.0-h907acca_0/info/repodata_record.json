@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "h907acca_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "fn": "libbrotlicommon-1.2.0-h907acca_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "d9c1dc58106b14e5173de685e8593dde",
+  "name": "libbrotlicommon",
+  "platform": "win32",
+  "sha256": "515b14efb88b6a184c3a228df9d735a60505a77d6d0d85ca2efe3fdf26135f7c",
+  "size": 87952,
+  "subdir": "win-64",
+  "timestamp": 1762363782000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libbrotlicommon-1.2.0-h907acca_0.conda",
+  "version": "1.2.0"
+}

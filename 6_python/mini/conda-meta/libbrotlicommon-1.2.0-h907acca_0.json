@@ -1,0 +1,55 @@
+{
+  "name": "libbrotlicommon",
+  "version": "1.2.0",
+  "build": "h907acca_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "libbrotlicommon-1.2.0-h907acca_0.conda",
+  "md5": "d9c1dc58106b14e5173de685e8593dde",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libbrotlicommon-1.2.0-h907acca_0.conda",
+  "sha256": "515b14efb88b6a184c3a228df9d735a60505a77d6d0d85ca2efe3fdf26135f7c",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1762363782000,
+  "size": 87952,
+  "requested_spec": "pkgs/main/win-64::libbrotlicommon==1.2.0=h907acca_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlicommon-1.2.0-h907acca_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlicommon-1.2.0-h907acca_0",
+  "files": [
+    "Library/bin/brotlicommon.dll",
+    "Library/lib/brotlicommon.lib",
+    "Library/lib/pkgconfig/libbrotlicommon.pc",
+    "Library/share/man/man1/brotli.1",
+    "Library/share/man/man3/constants.h.3",
+    "Library/share/man/man3/decode.h.3",
+    "Library/share/man/man3/encode.h.3",
+    "Library/share/man/man3/types.h.3"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "Library/lib/pkgconfig/libbrotlicommon.pc",
+        "prefix_placeholder": "C:/miniconda3/conda-bld/brotli-split_1762363672018/_h_env",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "196e98937d559fad5dc93f510532914062b4f6e9155f4adb13757d44a48fc21c",
+        "size_in_bytes": 392,
+        "sha256_in_prefix": "6aa5aaaadc76ae9c3799e12215e8542e36770107a4d18a81a639b0a64dc6141c"
+      }
+    ]
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\libbrotlicommon-1.2.0-h907acca_0",
+    "type": 1
+  }
+}

@@ -1,0 +1,101 @@
+# This file created by conda-build 25.9.0
+# meta.yaml template originally from:
+# C:\Users\task_176700171154409\markdown-it-py-feedstock\recipe, last modified Mon Dec 29 09:49:46 2025
+# ------------------------------------------------
+
+package:
+  name: markdown-it-py
+  version: 4.0.0
+source:
+  - url: https://pypi.org/packages/source/m/markdown-it-py/markdown_it_py-4.0.0.tar.gz
+    sha256: cb0a2b4aa34f932c007117b194e945bd74e0ec24133ceb5bac59009cda1cb9f3
+  - url: https://github.com/executablebooks/markdown-it-py/archive/refs/tags/v4.0.0.tar.gz
+    sha256: c562899de418498f223f0c48b3d462319a64493bd3b2758e1a76f11ad8f0ae15
+    folder: gh
+build:
+  number: '1'
+  entry_points:
+    - markdown-it = markdown_it.cli.parse:main
+  script: C:\\Users\\task_176700171154409\\croot\\markdown-it-py_1767001834659\\_h_env\\python.exe
+    -m pip install . -vv --no-deps --no-build-isolation
+  string: py313haa95532_1
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.12.2 haa95532_0
+    - flit-core 3.12.0 py313he100be2_1
+    - libexpat 2.7.3 h885b0b7_4
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - libzlib 1.3.1 h02ab6af_0
+    - openssl 3.0.18 h543e019_0
+    - pip 25.3 pyhc872135_0
+    - python 3.13.11 h260b955_100_cp313
+    - python_abi 3.13 3_cp313
+    - setuptools 80.9.0 py313haa95532_0
+    - sqlite 3.51.0 hda9a48d_0
+    - tk 8.6.15 hf199647_0
+    - tzdata 2025b h04d1e81_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - wheel 0.45.1 py313haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.3.1 h02ab6af_0
+  run:
+    - mdurl >=0.1,<0.2
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+  run_constrained:
+    - commonmark >=0.9,<0.10
+    - linkify-it-py >=1,<3
+    - markdown >=3.4,<3.9
+    - mdit-py-plugins >=0.5.0
+    - mistletoe >=1.0,<2.0
+    - mistune >=3.0,<4.0
+    - panflute >=2.3,<2.4
+    - sphinx-book-theme >=1,<2
+test:
+  source_files:
+    - gh/tests
+  requires:
+    - linkify-it-py
+    - pip
+    - pytest
+  imports:
+    - markdown_it
+    - markdown_it.cli
+    - markdown_it.main
+    - markdown_it.presets
+    - markdown_it.renderer
+    - markdown_it.rules_inline
+    - markdown_it.token
+    - markdown_it.tree
+    - markdown_it.utils
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('markdown-it-py')=='4.0.0')"
+    - set PYTHONUTF8=1
+    - set PYTHONIOENCODING="UTF-8"
+    - pytest -k "not(test_commonmark_extras or test_table_tokens or test_file or test_use_existing_env
+      or test_store_labels or test_inline_definitions or test_pretty or test_pretty_text_special)"
+      -v gh/tests
+    - markdown-it --help
+about:
+  home: https://github.com/executablebooks/markdown-it-py
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  description: 'Python port of markdown-it. Markdown parsing, done right!
+
+    '
+  summary: Python port of markdown-it. Markdown parsing, done right!
+  doc_url: https://github.com/executablebooks/markdown-it-py/blob/master/README.md
+  dev_url: https://github.com/executablebooks/markdown-it-py
+extra:
+  recipe-maintainers:
+    - choldgraf
+    - dopplershift
+  final: true
+  copy_test_source_files: true

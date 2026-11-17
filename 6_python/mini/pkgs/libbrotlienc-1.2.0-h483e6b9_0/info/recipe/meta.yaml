@@ -1,0 +1,63 @@
+# This file created by conda-build 25.9.0
+# ------------------------------------------------
+
+package:
+  name: libbrotlienc
+  version: 1.2.0
+source:
+  url: https://github.com/google/brotli/archive/v1.2.0.tar.gz
+  sha256: 816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec
+build:
+  run_exports:
+    - libbrotlienc >=1.2.0,<1.3.0a0
+  number: 0
+  string: h483e6b9_0
+requirements:
+  build:
+    - bzip2 1.0.8 h2bbff1b_6
+    - cmake 4.1.2 hc6e6e83_0
+    - libuv 1.48.0 h827c3e9_0
+    - libzlib 1.3.1 h02ab6af_0
+    - lz4-c 1.9.4 h2bbff1b_1
+    - ninja-base 1.12.1 h4157e71_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - vs2019_win-64 19.29.30159 hd50ca63_10
+    - vs_win-64 2019.11 hd50ca63_10
+    - vswhere 3.1.7 haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.3.1 h02ab6af_0
+    - zstd 1.5.7 h56299aa_0
+  host:
+    - libbrotlicommon 1.2.0 h907acca_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+  run:
+    - libbrotlicommon 1.2.0 h907acca_0
+    - ucrt >=10.0.20348.0
+    - vc >=14.2,<15
+    - vc14_runtime >=14.29.30133
+test:
+  commands:
+    - if not exist %LIBRARY_BIN%\\brotlienc.dll exit 1
+    - if not exist %LIBRARY_LIB%\\brotlienc.lib exit 1
+    - if exist %LIBRARY_LIB%\\brotlienc-static.lib exit 1
+about:
+  home: https://github.com/google/brotli
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Brotli compression format
+  description: Brotli compression format
+  doc_url: https://github.com/google/brotli/tree/master/docs
+  dev_url: https://github.com/google/brotli
+extra:
+  recipe-maintainers:
+    - CJ-Wright
+    - wesm
+    - xhochy
+  final: true
+  copy_test_source_files: true

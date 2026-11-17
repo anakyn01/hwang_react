@@ -1,0 +1,20 @@
+{
+  "arch": "x86_64",
+  "build": "h6c2663c_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [],
+  "fn": "nlohmann_json-3.11.2-h6c2663c_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "7533a3f9925b9e46ac0c258be87c2877",
+  "name": "nlohmann_json",
+  "platform": "win32",
+  "sha256": "c7981dedae2f3d7734a062f4e07e08a060d462f72c17778df206989a3db42446",
+  "size": 128841,
+  "subdir": "win-64",
+  "timestamp": 1680083671000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/nlohmann_json-3.11.2-h6c2663c_0.conda",
+  "version": "3.11.2"
+}

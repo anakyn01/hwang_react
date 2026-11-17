@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "h827c3e9_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "vc >=14.2,<15.0a0",
+    "vs2015_runtime >=14.29.30133,<15.0a0"
+  ],
+  "fn": "libmpdec-4.0.0-h827c3e9_0.conda",
+  "license": "BSD-2-Clause",
+  "license_family": "BSD",
+  "md5": "a294b317c2e3732cafdba824a893b80c",
+  "name": "libmpdec",
+  "platform": "win32",
+  "sha256": "3851b0985a481e019440ee2720bdfe1a98fe4db8cd67f8cc16333a0fa40f38df",
+  "size": 96993,
+  "subdir": "win-64",
+  "timestamp": 1726088489000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libmpdec-4.0.0-h827c3e9_0.conda",
+  "version": "4.0.0"
+}

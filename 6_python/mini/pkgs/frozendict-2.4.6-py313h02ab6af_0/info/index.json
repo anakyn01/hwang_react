@@ -1,0 +1,19 @@
+{
+  "arch": "x86_64",
+  "build": "py313h02ab6af_0",
+  "build_number": 0,
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "license": "LGPL-3.0-only",
+  "license_family": "LGPL",
+  "name": "frozendict",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1761750775394,
+  "version": "2.4.6"
+}

@@ -1,0 +1,37 @@
+# This file created by conda-build 25.5.0
+# ------------------------------------------------
+
+package:
+  name: vs2015_runtime
+  version: 14.44.35208
+source:
+  - url: https://download.visualstudio.microsoft.com/download/pr/40b59c73-1480-4caf-ab5b-4886f176bf71/D62841375B90782B1829483AC75695CCEF680A8F13E7DE569B992EF33C6CD14A/vc_redist.x64.exe
+    sha256: d62841375b90782b1829483ac75695ccef680a8f13e7de569b992ef33c6cd14a
+build:
+  number: 10
+  string: ha6b5a95_10
+requirements:
+  run:
+    - vc14_runtime >=14.44.35208
+  build: []
+test:
+  commands: echo "this is an empty wrapper package"
+about:
+  home: https://github.com/conda-forge/vc-feedstock
+  license: BSD-3-Clause
+  license_family: BSD
+  summary: A backwards compatible meta-package. See vc14_runtime for the new package.
+extra:
+  feedstock-name: vc
+  recipe-maintainers:
+    - 183amir
+    - isuruf
+    - jakirkham
+    - msarahan
+    - patricksnape
+    - pelson
+  final: true
+  copy_test_source_files: true
+  sha: f2304a1a86c2d8665c55c3f532dc4d1713ef81ef
+  remote_url: git@github.com:AnacondaRecipes/vc-feedstock.git
+  flow_run_id: 34be99fa-3404-4ca1-92c5-120797a7aaa3

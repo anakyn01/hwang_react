@@ -1,0 +1,110 @@
+# This file created by conda-build 26.1.0
+# ------------------------------------------------
+
+package:
+  name: libkrb5
+  version: 1.22.1
+source:
+  url: https://github.com/krb5/krb5/archive/krb5-1.22.1-final.tar.gz
+  sha256: d7dd1ded54c1c2d3381da4a266935feda6ba6398155720df27e2975bd5a39239
+build:
+  run_exports:
+    - libkrb5 >=1.22.1,<1.23.0a0
+  ignore_run_exports: null
+  number: 1
+  string: h3d06f0e_1
+requirements:
+  build:
+    - msys2-base 1.0.0 0
+    - msys2-bash 5.2.032 1000
+    - msys2-bash-completion 2.14.0 1000
+    - msys2-coreutils 8.32 5000
+    - msys2-dash 0.5.12 1000
+    - msys2-diffutils 3.10 1000
+    - msys2-file 5.45 3000
+    - msys2-filesystem 2023.02.07 2000
+    - msys2-findutils 4.10.0 2000
+    - msys2-gawk 5.3.0 1000
+    - msys2-gcc-libs 13.3.0 1000
+    - msys2-gmp 6.3.0 1000
+    - msys2-grep 3.0 6000
+    - msys2-gzip 1.13 1000
+    - msys2-inetutils 2.5 2000
+    - msys2-info 7.1 3000
+    - msys2-less 661 1000
+    - msys2-libbz2 1.0.8 4000
+    - msys2-libiconv 1.17 1000
+    - msys2-libintl 0.22.4 1000
+    - msys2-liblzma 5.4.6 2000
+    - msys2-libpcre 8.45 4000
+    - msys2-libpcre2_8 10.44 1000
+    - msys2-libreadline 8.2.013 1000
+    - msys2-libutil-linux 2.35.2 4000
+    - msys2-libxcrypt 4.4.36 1000
+    - msys2-libxml2 2.13.3 1000
+    - msys2-libzstd 1.5.6 1000
+    - msys2-make 4.4.1 2000
+    - msys2-mintty 3.7.4 1000
+    - msys2-mpfr 4.2.1 1000
+    - msys2-msys-mutex 1.0 msys2
+    - msys2-msys2-launcher 1.5 1000
+    - msys2-msys2-runtime 3.5.4 1000
+    - msys2-ncurses 6.5 1000
+    - msys2-posix 1.0.0 0
+    - msys2-sed 4.9 1000
+    - msys2-tar 1.35 2000
+    - msys2-time 1.9 3000
+    - msys2-tzcode 2024a 1000
+    - msys2-unzip 6.0 3000
+    - msys2-util-linux 2.35.2 4000
+    - msys2-which 2.21 4000
+    - msys2-zip 3.0 4000
+    - msys2-zlib 1.3.1 1000
+    - perl 5.42.0.1 0_h02ab6af_perl5
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2022_win-64 19.44.35207 hc920ad0_10
+    - vs_win-64 2022.14 hc920ad0_10
+    - vswhere 3.1.7 haa95532_0
+  run_constrained:
+    - krb5 1.22.1
+  host:
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+  run:
+    - ucrt >=10.0.20348.0
+    - vc >=14.3,<15
+    - vc14_runtime >=14.44.35208
+test:
+  commands:
+    - echo on
+    - if exist "%PREFIX%\\Library\\bin\\krb5_64.dll" (exit 0) else (exit 1)
+    - if exist "%PREFIX%\\Library\\include\\krb5.h" (exit 0) else (exit 1)
+about:
+  home: https://web.mit.edu/kerberos
+  license: MIT
+  license_family: MIT
+  license_file: doc/notice.rst
+  summary: A network authentication protocol.
+  description: 'Kerberos is a network authentication protocol. It is designed to provide
+    strong authentication for client/server applications by using secret-key cryptography.
+
+    '
+  doc_url: https://web.mit.edu/kerberos/krb5-1.21/doc/index.html
+  dev_url: https://github.com/krb5/krb5
+extra:
+  recipe-maintainers:
+    - chenghlee
+    - mariusvniekerk
+    - mingwandroid
+    - ocefpaf
+    - pelson
+  final: true
+  copy_test_source_files: true
+  remote_url: https://github.com/AnacondaRecipes/krb5-feedstock
+  sha: fc239f1dfdf41fcd77632d013f2f55540c9b525f
+  task_id: Zqt6fKdsQlqI7Pip2-4JGw
+  task_run_id: '0'
+  pbp_graph_uuid: 3beab3e8-c271-4134-aa7a-bb1dc9c46af0

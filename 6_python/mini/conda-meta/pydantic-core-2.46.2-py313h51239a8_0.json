@@ -1,0 +1,54 @@
+{
+  "name": "pydantic-core",
+  "version": "2.46.2",
+  "build": "py313h51239a8_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "pydantic-core-2.46.2-py313h51239a8_0.conda",
+  "md5": "e5fa5c704a4f127d949bb35808553c6e",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pydantic-core-2.46.2-py313h51239a8_0.conda",
+  "sha256": "f99e0004435d75b3932cdc2fb8c676d11b5440590ec32f65d05b8714a252dc68",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "typing-extensions >=4.14.1",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1776695422000,
+  "size": 1851404,
+  "requested_spec": "pkgs/main/win-64::pydantic-core==2.46.2=py313h51239a8_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\pydantic-core-2.46.2-py313h51239a8_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\pydantic-core-2.46.2-py313h51239a8_0",
+  "files": [
+    "Lib/site-packages/pydantic_core-2.46.2.dist-info/INSTALLER",
+    "Lib/site-packages/pydantic_core-2.46.2.dist-info/METADATA",
+    "Lib/site-packages/pydantic_core-2.46.2.dist-info/RECORD",
+    "Lib/site-packages/pydantic_core-2.46.2.dist-info/REQUESTED",
+    "Lib/site-packages/pydantic_core-2.46.2.dist-info/WHEEL",
+    "Lib/site-packages/pydantic_core-2.46.2.dist-info/direct_url.json",
+    "Lib/site-packages/pydantic_core-2.46.2.dist-info/licenses/LICENSE",
+    "Lib/site-packages/pydantic_core/__init__.py",
+    "Lib/site-packages/pydantic_core/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/pydantic_core/__pycache__/core_schema.cpython-313.pyc",
+    "Lib/site-packages/pydantic_core/_pydantic_core.cp313-win_amd64.pyd",
+    "Lib/site-packages/pydantic_core/_pydantic_core.pyi",
+    "Lib/site-packages/pydantic_core/core_schema.py",
+    "Lib/site-packages/pydantic_core/py.typed"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\pydantic-core-2.46.2-py313h51239a8_0",
+    "type": 1
+  }
+}

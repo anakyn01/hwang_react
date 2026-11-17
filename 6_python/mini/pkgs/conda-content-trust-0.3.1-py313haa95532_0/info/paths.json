@@ -1,0 +1,215 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "c787d1a7e20e0879ffc59697857f2f4ea601ae9768d6fca12a8fa5a104c987b0",
+      "size_in_bytes": 5761
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "ef334269a76c9298008c6b90bda8fcaa8aed193aa5c4403b9eb945ca2698a28d",
+      "size_in_bytes": 2813
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "41c708c5adba6e097513ab8ccb9f1d7865a2fb469e22491a9e01dcc64da459fc",
+      "size_in_bytes": 87
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "cbebfe1d18036facb3be67a96274a59e2febfb0f4d9a7f27d62c33999a177179",
+      "size_in_bytes": 109
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/entry_points.txt",
+      "path_type": "hardlink",
+      "sha256": "f2421f4d25769ae214a905748d9cd953e5d670b3a125e6ccd559a2383aaf4980",
+      "size_in_bytes": 126
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/licenses/AUTHORS.md",
+      "path_type": "hardlink",
+      "sha256": "8a44c515da54b5c0f0f3ef6f10472939212a5271e21b6ab9bce17662a0b07183",
+      "size_in_bytes": 340
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust-0.3.1.dist-info/licenses/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "09dfa8272613416b4e2121ea9fdf9709a25e1abf144e4c17c81a975a6fd771c9",
+      "size_in_bytes": 1505
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "115bbaa1d16eea05d98fb4c3e0eda173d2dcf3390e1ff5603a5a76071bc8d5e5",
+      "size_in_bytes": 126
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__main__.py",
+      "path_type": "hardlink",
+      "sha256": "dbdd77abe5ad64fe105a698be07558ea8314457d68397bcdcd7c1ba4acc2e070",
+      "size_in_bytes": 122
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "545b14c5e7268904167973a65599f438be49cb5ff526003ed47253a03d5bcbc8",
+      "size_in_bytes": 183
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/__main__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "053b0b2c045b9a8e71a8067c4cf5817a9cf8352e515f86e33a14253fce269bb7",
+      "size_in_bytes": 241
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/__version__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "5b2503c2f418fcbc22acc201f1abf09a01a0940e41c248565a082903037c392f",
+      "size_in_bytes": 603
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/authentication.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "bb5380be093de50acb17591302de778637d54fea2d3dfc671390cc7575048bfe",
+      "size_in_bytes": 14307
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/cli.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "cce97763ad428814e2d3d00cffb0c43d2ba052275c3c9d321f9326719b62f95a",
+      "size_in_bytes": 17527
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/common.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "4dc324ba59e3e1b56bde672b9c6deecddc0f1f90c979f2abbb7413fe35b7fa4b",
+      "size_in_bytes": 32278
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/constants.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "2a7bdd5062b96f3b835b98464defaf9454fda09a3370d0cdcd7a6a97d3466d09",
+      "size_in_bytes": 369
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/metadata_construction.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "86ebc71b620550875d8ea13551e46c5326e24705b062a5a1b4004e56a3b5abd0",
+      "size_in_bytes": 5472
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/plugin.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "7e5957fb6053d945262f17535159fb6f5325b0babb3b3350632c43f48a0aa860",
+      "size_in_bytes": 1908
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/root_signing.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "c8e2a9d053ddf5d1d8310758519d753569a9c3c5b2b2eb848559180c2f3a5dc8",
+      "size_in_bytes": 11329
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/signing.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "399f1c9b43d647118e6d92c88095d690c2251f184044481f4703ab8dca37275e",
+      "size_in_bytes": 6042
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__pycache__/verification.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "6205365590f8ceff77b4cca8d1b45342151050b72d0b8f72a3fbc51b52a58265",
+      "size_in_bytes": 11431
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/__version__.py",
+      "path_type": "hardlink",
+      "sha256": "17c123735fa07303ce864e5350a51586c80566d86cd48b7bec4eee7f1fd9933d",
+      "size_in_bytes": 544
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/authentication.py",
+      "path_type": "hardlink",
+      "sha256": "9d36a781010a23d2664bf17a7b91479c644498ada6bb4d4251f9da67c4fc066e",
+      "size_in_bytes": 22762
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/cli.py",
+      "path_type": "hardlink",
+      "sha256": "8e06658410e0ce523bb13c22afb02a786493ce489a94a494bc4260c3a12bc167",
+      "size_in_bytes": 18746
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/common.py",
+      "path_type": "hardlink",
+      "sha256": "bf8e6eed5fba37d3f83348e06b4c829c95f3e7c585a7b571737db6a882f92f60",
+      "size_in_bytes": 33367
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/constants.py",
+      "path_type": "hardlink",
+      "sha256": "6471defbefdaf4fa9db135427fbb81b826cdae76f69c99540c21aca7c4a4d857",
+      "size_in_bytes": 307
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/metadata_construction.py",
+      "path_type": "hardlink",
+      "sha256": "dda500c7b598f7be0d2b07cf7f5db4a12f9210d75f05add53284405fbef371fe",
+      "size_in_bytes": 10326
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/plugin.py",
+      "path_type": "hardlink",
+      "sha256": "f7d7b31fb2f06b7acf8f6ba272ce3b96f5fb1bed2b639f2c29008b49527562eb",
+      "size_in_bytes": 1343
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/root_signing.py",
+      "path_type": "hardlink",
+      "sha256": "63b5b8e3ca51960976a04cb1b421c9ac9a2fce1b40b17d86fc9ca1eff81dcba8",
+      "size_in_bytes": 15516
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/signing.py",
+      "path_type": "hardlink",
+      "sha256": "e3a545a96fe9799f4b9cf0f173547298660d3f710748aef17e72d5c68217cf6f",
+      "size_in_bytes": 8706
+    },
+    {
+      "_path": "Lib/site-packages/conda_content_trust/verification.py",
+      "path_type": "hardlink",
+      "sha256": "89b00096763295031acc23d4a41e1f08428c70d93727a7d0aad18538b937a3c3",
+      "size_in_bytes": 11299
+    },
+    {
+      "_path": "Scripts/conda-content-trust-script.py",
+      "path_type": "hardlink",
+      "sha256": "f9df2177c21138c587603d382adc9234ef7fed68255f3344c22f1ce034488596",
+      "size_in_bytes": 215
+    },
+    {
+      "_path": "Scripts/conda-content-trust.exe",
+      "path_type": "hardlink",
+      "sha256": "f24d102084620e54fe68d07f6e9169118b283f8d33d0c8f4b974c2e05a306059",
+      "size_in_bytes": 54032
+    }
+  ],
+  "paths_version": 1
+}

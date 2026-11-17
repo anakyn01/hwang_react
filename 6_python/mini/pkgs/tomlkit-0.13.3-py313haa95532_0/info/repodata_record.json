@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "tomlkit-0.13.3-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "c5c83cb181bee0abb42aa29669eecee6",
+  "name": "tomlkit",
+  "platform": "win32",
+  "sha256": "5ab0840c91097eb033eb73a06cae0dee6317379b1c15cff4fe9672168488d28b",
+  "size": 189958,
+  "subdir": "win-64",
+  "timestamp": 1762896691000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/tomlkit-0.13.3-py313haa95532_0.conda",
+  "version": "0.13.3"
+}

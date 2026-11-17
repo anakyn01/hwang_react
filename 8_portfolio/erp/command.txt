@@ -1,0 +1,2 @@
+npm install styled-components
+npm install -D @type/styled-components

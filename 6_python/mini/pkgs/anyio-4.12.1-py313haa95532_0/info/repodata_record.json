@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "trio >=0.32.0"
+  ],
+  "depends": [
+    "idna >=2.8",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "anyio-4.12.1-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "68c07c0dd57fb3631e0b44bbcc6ec85d",
+  "name": "anyio",
+  "platform": "win32",
+  "sha256": "51ad4b3ea68d808dd29deef0c3b83e4be8535b968e6627f2b294d61d0c01c1de",
+  "size": 318164,
+  "subdir": "win-64",
+  "timestamp": 1773134551000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/anyio-4.12.1-py313haa95532_0.conda",
+  "version": "4.12.1"
+}

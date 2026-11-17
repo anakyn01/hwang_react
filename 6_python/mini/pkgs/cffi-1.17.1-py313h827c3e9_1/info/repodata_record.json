@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "py313h827c3e9_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "pycparser",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "vc >=14.2,<15.0a0",
+    "vs2015_runtime >=14.29.30133,<15.0a0"
+  ],
+  "fn": "cffi-1.17.1-py313h827c3e9_1.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "fac3f2092ebb5da2a06e318005e509a5",
+  "name": "cffi",
+  "platform": "win32",
+  "sha256": "e5770f4990a8b6f0bd7cb9659ef2aee54ef1b076abe7d1a1b4de025bf2847b3f",
+  "size": 316489,
+  "subdir": "win-64",
+  "timestamp": 1736184767000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/cffi-1.17.1-py313h827c3e9_1.conda",
+  "version": "1.17.1"
+}

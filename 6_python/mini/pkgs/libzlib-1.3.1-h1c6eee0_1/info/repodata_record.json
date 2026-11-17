@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "h1c6eee0_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "zlib 1.3.1"
+  ],
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "fn": "libzlib-1.3.1-h1c6eee0_1.conda",
+  "license": "Zlib",
+  "license_family": "OTHER",
+  "md5": "2196721c1cfe5eeb83a9f7f4642b2eab",
+  "name": "libzlib",
+  "platform": "win32",
+  "sha256": "673d46c51c391e52eddf4fecf3418e727fae4750ce4ecdc98b9de8625a0fc85a",
+  "size": 63482,
+  "subdir": "win-64",
+  "timestamp": 1776974452000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libzlib-1.3.1-h1c6eee0_1.conda",
+  "version": "1.3.1"
+}

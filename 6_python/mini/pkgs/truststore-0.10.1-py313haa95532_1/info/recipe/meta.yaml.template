@@ -1,0 +1,63 @@
+{% set name = "truststore" %}
+{% set version = "0.10.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/sethmlarson/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  fn: {{ name }}-{{ version }}.tar.gz
+  sha256: a470d2763875f9b9a148d5726af330d15b65d2a83f70610c262de8888ee94b4e
+
+build:
+  skip: true  # [py<310]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 1
+
+requirements:
+  host:
+    - python
+    - pip
+    - flit-core >=3.2,<4
+  run:
+    - python
+
+test:
+  requires:
+    - pip
+    - aiohttp
+    - pyopenssl
+    - pytest
+    - pytest-asyncio
+    - pytest-httpserver
+    - urllib3
+    - trustme
+    - requests
+    - flaky
+    - httpx
+  imports:
+    - truststore
+  source_files:
+    - tests
+  commands:
+    - pip check
+    - pytest -k "not (test_failures or test_failure_after_loading_additional_anchors)" tests/  # [win]
+    - pytest -k 'not (test_failures or test_failure_after_loading_additional_anchors)' tests/  # [osx]
+
+about:
+  home: https://github.com/sethmlarson/truststore
+  summary: Verify certificates using native system trust stores
+  description: |
+    A library which exposes native system certificate stores (ie "trust stores")
+    through an ssl.SSLContext-like API. This means that Python applications no
+    longer need to rely on certifi as a root certificate store.
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+  doc_url: https://truststore.readthedocs.io
+  dev_url: https://github.com/sethmlarson/truststore
+
+extra:
+  recipe-maintainers:
+    - conda-forge/truststore

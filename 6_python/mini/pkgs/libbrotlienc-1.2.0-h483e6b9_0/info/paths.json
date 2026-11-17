@@ -1,0 +1,25 @@
+{
+  "paths": [
+    {
+      "_path": "Library/bin/brotlienc.dll",
+      "path_type": "hardlink",
+      "sha256": "81c41f2e1ee7d337f7f20ad45edd10b4b3da56ddbbdafd22c733d7c0051fa8e3",
+      "size_in_bytes": 693064
+    },
+    {
+      "_path": "Library/lib/brotlienc.lib",
+      "path_type": "hardlink",
+      "sha256": "7d178ff305b8e4c27028f590fe18158ede322fd8f2124acdff10a1c7eb6ecf90",
+      "size_in_bytes": 4990
+    },
+    {
+      "_path": "Library/lib/pkgconfig/libbrotlienc.pc",
+      "file_mode": "text",
+      "path_type": "hardlink",
+      "prefix_placeholder": "C:/miniconda3/conda-bld/brotli-split_1762363672018/_h_env",
+      "sha256": "9f046220a34258e6b65d599b06fcf69a3c520766b50df6209d01868104a707df",
+      "size_in_bytes": 419
+    }
+  ],
+  "paths_version": 1
+}

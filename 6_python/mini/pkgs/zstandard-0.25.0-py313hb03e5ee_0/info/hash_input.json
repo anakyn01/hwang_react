@@ -1,0 +1,8 @@
+{
+  "c_compiler": "vs2022",
+  "zstd": "1.5",
+  "c_stdlib": "vs",
+  "c_stdlib_version": "2022.14",
+  "target_platform": "win-64",
+  "channel_targets": "defaults"
+}

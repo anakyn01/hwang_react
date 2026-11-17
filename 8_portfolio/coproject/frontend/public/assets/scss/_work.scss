@@ -1,0 +1,105 @@
+@import 'variables';
+
+.work-section{
+    margin-top:73px;
+
+    @media all and (min-width: $bp-tablet) {
+        margin-top:118px;
+    }
+
+    .sec-tit{
+    width:90%; 
+    max-width:1132px; 
+    margin:0 auto;
+    margin-bottom:47px; 
+    text-align:center;
+
+        @media all and (min-width: $bp-tablet) {
+            margin-bottom: 76px;
+        }
+
+        @media all and (min-width: $bp-pc) {
+            text-align:left;
+        }
+    }
+   
+
+
+    .work-list{
+        li{
+        width:100%;
+            
+            @media all and (min-width: $bp-tablet) {
+                float:left;//block 형태를 왼쪽으로 정렬
+                width:50%;
+            }
+
+            @media all and (min-width: $bp-pc) {
+                width:25%;
+            }
+
+            a{
+                display: block;
+                position: relative;
+                width:100%;
+                height:100%;
+                
+                &:before{
+                display:block;
+                position: absolute;
+                top:0; 
+                left:0; 
+                z-index:10; 
+                width:100%; 
+                height:100%;
+                background-color: $primary;
+                content:""; 
+                opacity:0;//투명도0
+                transition:all 0.2s;
+                }
+                &:hover{
+                    &:before{
+                        opacity:0.86;
+                    }
+                    .info{
+                        transform: translateY(23px);
+                        opacity:1;
+                        @media all and (min-width: $bp-tablet) {
+                            transform: translateY(37px);
+                        }
+                    }
+                }
+            }
+
+            .info{
+position:absolute; 
+top:0; left:23px; z-index:20; opacity: 0;
+transition:all 0.3s;//변동주는 사항을 부드럽게 작성하기 위함이다
+                h3{
+margin-bottom:8px; font-size:23px; color:#fff;
+font-weight:normal;
+                }
+                span{
+                font-size:11px; color:#fff;
+                }
+            }
+            img{
+display:block; width:100%;  max-width:100%;
+height:auto;
+            }
+
+        }
+    }
+}
+/*
+width:100% 강제성
+=> 부모요소의 가로 너비와 똑같이 만들어라 라는 강한 명령
+부모요소의 너비가 500px이면 자식요소도 500px
+
+max-width:100% 유연성
+=> 최대 너비를 부모 요소만큼으로 제한하되 내용물이 작으면 알아서 줄어라
+부모요소가 500px이라도 실제 내용물 (이미지 등)이 300px밖에 안된다면
+300px로 표시된다 
+부모보다 작을때는 자신에 원래크기를 유지
+이미지가 강제로 늘어나 화질이 깨지는 것을 방지
+*/

@@ -1,0 +1,26 @@
+flutter run -d chrome
+
+create database dating_db;
+use dating_db;
+
+npm install sequelize mysql2
+
+
+
+HTTP패키지 설치
+flutter pub add http
+
+백엔드(Node.js) 파일 업로드 세팅
+npm install multer
+mkdir uploads
+
+플러터(Flutter) 사진첩 도구 설치
+flutter pub add image_picker
+
+
+npm install mysql2 bcrypt
+
+use dating_db;
+ALTER TABLE users
+ADD COLUMN phone_number VARCHAR(20) NULL AFTER address,
+ADD COLUMN occupation VARCHAR(50) NULL AFTER phone_number;

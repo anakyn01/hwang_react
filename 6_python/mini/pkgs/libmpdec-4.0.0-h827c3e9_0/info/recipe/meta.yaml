@@ -1,0 +1,54 @@
+# This file created by conda-build 24.7.1
+# ------------------------------------------------
+
+package:
+  name: libmpdec
+  version: 4.0.0
+source:
+  patches:
+    - fix-dll-name.diff
+  sha256: 942445c3245b22730fd41a67a7c5c231d11cb1b9936b9c0f76334fb7d0b4468c
+  url: https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-4.0.0.tar.gz
+build:
+  noarch: false
+  noarch_python: false
+  number: '0'
+  string: h827c3e9_0
+requirements:
+  build:
+    - vs2019_win-64 19.29.30154 h96f319f_5
+    - vswhere 2.8.4 haa95532_0
+  host:
+    - vc 14.40 h2eaa2aa_1
+    - vs2015_runtime 14.40.33807 h98bb1dd_1
+  run:
+    - vc >=14.2,<15.0a0
+    - vs2015_runtime >=14.29.30133,<15.0a0
+test:
+  commands:
+    - if not exist %LIBRARY_BIN%\libmpdec-4.dll exit 1
+about:
+  description: 'libmpdec is a fast C library for correctly-rounded arbitrary precision
+    decimal floating point
+
+    arithmetic. It is a complete implementation of Mike Cowlishaw/IBM''s
+
+    General Decimal Arithmetic Specification.
+
+    '
+  dev_url: https://www.bytereef.org/mpdecimal/download.html
+  doc_url: https://www.bytereef.org/mpdecimal/index.html
+  home: https://www.bytereef.org/mpdecimal/index.html
+  license: BSD-2-Clause
+  license_family: BSD
+  license_file: COPYRIGHT.txt
+  summary: A package for correctly-rounded arbitrary precision decimal floating point
+    arithmetic
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 811da69b-98dd-49a1-a9d1-707ee611bc95
+  recipe-maintainers:
+    - isuruf
+  remote_url: git@github.com:AnacondaRecipes/mpdecimal-feedstock.git
+  sha: 765d0b3f93bd70305a5e61c91a167ceab6b93428

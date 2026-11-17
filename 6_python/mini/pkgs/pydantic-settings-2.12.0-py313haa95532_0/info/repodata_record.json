@@ -1,0 +1,33 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "azure-identity >=1.16.0",
+    "boto3 >=1.35.0",
+    "tomli >=2.0.1",
+    "azure-keyvault-secrets >=4.8.0",
+    "pyyaml >=6.0.1",
+    "google-cloud-secret-manager >=2.23.1"
+  ],
+  "depends": [
+    "pydantic >=2.7.0",
+    "python >=3.13,<3.14.0a0",
+    "python-dotenv >=0.21.0",
+    "python_abi 3.13.* *_cp313",
+    "typing-inspection >=0.4.0"
+  ],
+  "fn": "pydantic-settings-2.12.0-py313haa95532_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "9be00e22c3dd90cc9dd9e183021866db",
+  "name": "pydantic-settings",
+  "platform": "win32",
+  "sha256": "41e0f59c3321217f4aa6014c3411daec4264f4ea2483ac4711b90accdc8ae080",
+  "size": 150711,
+  "subdir": "win-64",
+  "timestamp": 1764165274000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pydantic-settings-2.12.0-py313haa95532_0.conda",
+  "version": "2.12.0"
+}

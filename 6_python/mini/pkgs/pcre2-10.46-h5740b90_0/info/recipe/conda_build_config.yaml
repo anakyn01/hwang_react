@@ -1,0 +1,35 @@
+bzip2: '1'
+c_compiler: vs2019
+c_stdlib: vs
+c_stdlib_version: '2019.11'
+channel_targets: defaults
+cpu_optimization_target: nocona
+cran_mirror: https://cran.r-project.org
+cxx_compiler: vs2017
+extend_keys:
+- pin_run_as_build
+- ignore_build_only_deps
+- ignore_version
+- extend_keys
+fortran_compiler: gfortran
+ignore_build_only_deps:
+- python
+- numpy
+lua: '5'
+numpy: '1.26'
+pcre2: '10.42'
+perl: 5.26.2
+pin_run_as_build:
+  python:
+    max_pin: x.x
+    min_pin: x.x
+  r-base:
+    max_pin: x.x
+    min_pin: x.x
+platform: win-64
+python: '3.12'
+r_base: '3.4'
+re2: '2024'
+target_platform: win-64
+vc: '14'
+zlib: '1.2'

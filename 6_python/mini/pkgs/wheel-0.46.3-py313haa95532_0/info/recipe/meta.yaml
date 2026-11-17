@@ -1,0 +1,72 @@
+# This file created by conda-build 25.9.0
+# meta.yaml template originally from:
+# C:\Users\task_176944982412009\wheel-feedstock\recipe, last modified Mon Jan 26 17:57:48 2026
+# ------------------------------------------------
+
+package:
+  name: wheel
+  version: 0.46.3
+source:
+  url: https://pypi.io/packages/source/w/wheel/wheel-0.46.3.tar.gz
+  sha256: e3e79874b07d776c40bd6033f8ddf76a7dad46a7b8aa1b2787a83083519a1803
+build:
+  number: '0'
+  entry_points:
+    - wheel = wheel._commands:main
+  string: py313haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.12.2 haa95532_0
+    - flit-core 3.12.0 py313he100be2_1
+    - libexpat 2.7.3 h885b0b7_4
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - libzlib 1.3.1 h02ab6af_0
+    - openssl 3.0.18 h543e019_0
+    - python 3.13.11 h260b955_100_cp313
+    - python-installer 0.7.0 pyhd3eb1b0_1
+    - python_abi 3.13 3_cp313
+    - sqlite 3.51.1 hda9a48d_0
+    - tk 8.6.15 hf199647_0
+    - tzdata 2025c he532380_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - xz 5.6.4 h4754444_1
+    - zlib 1.3.1 h02ab6af_0
+  run:
+    - packaging >=24.0
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+test:
+  imports:
+    - wheel
+    - wheel._commands
+  requires:
+    - pip
+  commands:
+    - pip check
+    - wheel --help
+    - wheel version
+about:
+  home: https://github.com/pypa/wheel
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.txt
+  summary: A built-package format for Python.
+  description: "This library is the reference implementation of the Python wheel packaging\
+    \ standard,\nas defined in PEP 427.\nIt has two different roles:\n  1. A setuptools\
+    \ extension for building wheels that provides the bdist_wheel setuptools command\n\
+    \  2. A command line tool for working with wheel files\n"
+  dev_url: https://github.com/pypa/wheel
+  doc_url: https://wheel.readthedocs.io/
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mingwandroid
+    - ocefpaf
+    - pelson
+  final: true
+  copy_test_source_files: true

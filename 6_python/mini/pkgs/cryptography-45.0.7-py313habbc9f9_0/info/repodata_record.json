@@ -1,0 +1,30 @@
+{
+  "arch": "x86_64",
+  "build": "py313habbc9f9_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "pyopenssl >=23.0.0"
+  ],
+  "depends": [
+    "cffi >=1.14",
+    "openssl >=3.0.18,<4.0a0",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "fn": "cryptography-45.0.7-py313habbc9f9_0.conda",
+  "license": "Apache-2.0 OR BSD-3-Clause",
+  "license_family": "OTHER",
+  "md5": "8210abddfcda82392e1f71c28b1a3cf7",
+  "name": "cryptography",
+  "platform": "win32",
+  "sha256": "b0fd7a7b1763d6a4df0f7043c1b9971d1d272b76ccf017415393d41e03a0dbe8",
+  "size": 1413747,
+  "subdir": "win-64",
+  "timestamp": 1760092869000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/cryptography-45.0.7-py313habbc9f9_0.conda",
+  "version": "45.0.7"
+}

@@ -1,0 +1,66 @@
+{
+  "name": "python-dotenv",
+  "version": "1.2.1",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "python-dotenv-1.2.1-py313haa95532_0.conda",
+  "md5": "072ed01dfef3ee838397aca7daca4909",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/python-dotenv-1.2.1-py313haa95532_0.conda",
+  "sha256": "13d615a42829d3c12dc481c69ab5f1116c3199e288f41254349a06271ce4e9fb",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [
+    "click >=5.0"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1768559797000,
+  "size": 76112,
+  "requested_spec": "pkgs/main/win-64::python-dotenv==1.2.1=py313haa95532_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\python-dotenv-1.2.1-py313haa95532_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\python-dotenv-1.2.1-py313haa95532_0",
+  "files": [
+    "Lib/site-packages/dotenv/__init__.py",
+    "Lib/site-packages/dotenv/__main__.py",
+    "Lib/site-packages/dotenv/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/dotenv/__pycache__/__main__.cpython-313.pyc",
+    "Lib/site-packages/dotenv/__pycache__/cli.cpython-313.pyc",
+    "Lib/site-packages/dotenv/__pycache__/ipython.cpython-313.pyc",
+    "Lib/site-packages/dotenv/__pycache__/main.cpython-313.pyc",
+    "Lib/site-packages/dotenv/__pycache__/parser.cpython-313.pyc",
+    "Lib/site-packages/dotenv/__pycache__/variables.cpython-313.pyc",
+    "Lib/site-packages/dotenv/__pycache__/version.cpython-313.pyc",
+    "Lib/site-packages/dotenv/cli.py",
+    "Lib/site-packages/dotenv/ipython.py",
+    "Lib/site-packages/dotenv/main.py",
+    "Lib/site-packages/dotenv/parser.py",
+    "Lib/site-packages/dotenv/py.typed",
+    "Lib/site-packages/dotenv/variables.py",
+    "Lib/site-packages/dotenv/version.py",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/INSTALLER",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/METADATA",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/RECORD",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/REQUESTED",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/WHEEL",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/direct_url.json",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/entry_points.txt",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/licenses/LICENSE",
+    "Lib/site-packages/python_dotenv-1.2.1.dist-info/top_level.txt",
+    "Scripts/dotenv-script.py",
+    "Scripts/dotenv.exe"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\python-dotenv-1.2.1-py313haa95532_0",
+    "type": 1
+  }
+}

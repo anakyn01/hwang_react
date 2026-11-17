@@ -1,0 +1,34 @@
+{
+  "name": "python_abi",
+  "version": "3.13",
+  "build": "3_cp313",
+  "build_number": 3,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "python_abi-3.13-3_cp313.conda",
+  "md5": "38fc6cb6b97bcc2dc25c8bb4803dbd73",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/python_abi-3.13-3_cp313.conda",
+  "sha256": "d0a5b4e854c76a4ff354a9ce22725cff8986afff92e3fccca14a02171fccd56e",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [],
+  "constrains": [
+    "python 3.13.* *_cp313"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1764349785000,
+  "size": 6092,
+  "requested_spec": "pkgs/main/win-64::python_abi==3.13=3_cp313",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\python_abi-3.13-3_cp313.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\python_abi-3.13-3_cp313",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\python_abi-3.13-3_cp313",
+    "type": 1
+  }
+}

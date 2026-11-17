@@ -1,0 +1,455 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/pywin32_ctypes-0.2.3.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/pywin32_ctypes-0.2.3.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "3cf648c9d946430962e357c4baaf5e16818d6d00e513d407da2f6e19275984d1",
+      "size_in_bytes": 4043
+    },
+    {
+      "_path": "Lib/site-packages/pywin32_ctypes-0.2.3.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "a69cad57441cffd8167239dae49fd1b0e99d646a25764d1a3c42e55b12cc3ded",
+      "size_in_bytes": 5749
+    },
+    {
+      "_path": "Lib/site-packages/pywin32_ctypes-0.2.3.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/pywin32_ctypes-0.2.3.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "ff309ddcdd65ebd02bc724dbf2bcc4a0ff53a5b61792a44548d383e4ebb19d3b",
+      "size_in_bytes": 91
+    },
+    {
+      "_path": "Lib/site-packages/pywin32_ctypes-0.2.3.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "b4bbbebb94e8f7c5c3fcdf77e5d3b22a81797d7057d10618dacc6c65296406b7",
+      "size_in_bytes": 104
+    },
+    {
+      "_path": "Lib/site-packages/pywin32_ctypes-0.2.3.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "43aedaaf40bc821b075abf7aac9f2203498b0b16d840bc5e4b97c798c383c349",
+      "size_in_bytes": 12
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "1264bb8935a6d1d414a2bb4c8d3039244598207db90140546833e1a6915f4c7a",
+      "size_in_bytes": 214
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "0509a9305033d76a7401cc28f808995f974d71005c1d0b340412ac5436fc89d2",
+      "size_in_bytes": 186
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/__pycache__/pywintypes.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "bc16f6fdc07bc25396e694a8472030b3cb91bad105cf76309f7773dc1ec718bf",
+      "size_in_bytes": 354
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/__pycache__/version.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "5313c1b6f94de7146a66d75e87e9ec13b00f8e20401e6b358115be8f22acc2ab",
+      "size_in_bytes": 163
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/__pycache__/win32api.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "90ba6dff362b7f78dfded5885ccc6861b1e141c70f054084195269be6e070f9a",
+      "size_in_bytes": 348
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/__pycache__/win32cred.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "8647f9c643a12c9178b99be9aa85db4f6335ad5bc875d76c6a2b373655181a10",
+      "size_in_bytes": 351
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "a9b760dd3bc8c29fc265de271d4846897130d5b4ca5f1247a90b7ee3ae3b7354",
+      "size_in_bytes": 1647
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "093d1b64d9b0225c22ce37ff4cf490f9829656ece9cbcbea2fcbd44ff9e67a56",
+      "size_in_bytes": 2588
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/__pycache__/_winerrors.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "561c7d9717f8abdd70a110d5829088c923a996a03791976561af45aa4bf11d13",
+      "size_in_bytes": 175
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/__pycache__/compat.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "6ee83f4bceb5cf1e88fba68315e2413d7535ae71cf4ecdf70d1ea859ced1cf60",
+      "size_in_bytes": 590
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/_winerrors.py",
+      "path_type": "hardlink",
+      "sha256": "a79dabbf9bef0c630d891bef4ff9e9217584b173e854332da26fa09ada399343",
+      "size_in_bytes": 199
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "33af13e1fadc85c5b11c56598439bb17d3ace186cf5f8454b4a05ba0f4ecbbbd",
+      "size_in_bytes": 270
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "f8064ae8aa0a6b1bb51d154641543017720d5aaceaf344760a1391c0f7f41326",
+      "size_in_bytes": 328
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/_authentication.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "38c52f966f18f55a34cd2d8e768407775eb5c704f6a618829772901f68a4d3e8",
+      "size_in_bytes": 7131
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/_common.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "40eb56787dc2a07c18b77acf7341f6c88fb00cb848b3948d24800b836b297658",
+      "size_in_bytes": 1110
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/_dll.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "2875653d6257a0c806bfecdf6b704129042bdffacc437b1d69975edca7182267",
+      "size_in_bytes": 1181
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/_nl_support.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "1845045f4963eb5b50b82943b9f847c591f6a46d91081452506fb6eab8a86508",
+      "size_in_bytes": 490
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/_resource.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "0c99ad6a48317d9c66cc902598dbba71b160ea2c1de5fa7e39bc1a527a5228e6",
+      "size_in_bytes": 6571
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/_system_information.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "6765d4c42ea96703c81a243ea95fff5f737a998af706b5a6ba440ff211d8841b",
+      "size_in_bytes": 1357
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/_time.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "bad5c0feef0129c3cd890d1f7b788a816baa42a8d8260e4017ed0c7e7c83052b",
+      "size_in_bytes": 503
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/__pycache__/_util.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "17a045f9aca5271acdc9021b0c1458cffb469687934a8b45ffe0d47f8f3fe099",
+      "size_in_bytes": 4146
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/_authentication.py",
+      "path_type": "hardlink",
+      "sha256": "a11c608a0677981fc94d7147225259c566366f7e4f9d0683bc46f3a89371a73b",
+      "size_in_bytes": 5333
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/_common.py",
+      "path_type": "hardlink",
+      "sha256": "b4abd24830626252f582abe0d455ff4472d361aa0d58eecb27ad5defc095c9fe",
+      "size_in_bytes": 576
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/_dll.py",
+      "path_type": "hardlink",
+      "sha256": "1881b196affa858f8e882734a4098f70635abfeabaf2376d31da13482814b7ae",
+      "size_in_bytes": 771
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/_nl_support.py",
+      "path_type": "hardlink",
+      "sha256": "145c45e177001765bf7cfbe9c2bad3a40eb5958311874deac05de417d76f164c",
+      "size_in_bytes": 313
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/_resource.py",
+      "path_type": "hardlink",
+      "sha256": "18004fa544cdd7a4225e55ea6128e4c3b92925463e0d91317cc55673c701465a",
+      "size_in_bytes": 4555
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/_system_information.py",
+      "path_type": "hardlink",
+      "sha256": "6bf591c988be17d05fdbdf65bcd31bfd911ce33c48a0bd3654c8fee63fdd90cf",
+      "size_in_bytes": 872
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/_time.py",
+      "path_type": "hardlink",
+      "sha256": "c845139bb4c8c7f77631ed6f38556cb9b391ffc5e6b286fa7bcd27e9d8fdc182",
+      "size_in_bytes": 332
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/cffi/_util.py",
+      "path_type": "hardlink",
+      "sha256": "ab0735c2415daf286f38f65fd56ee7599324b92da8f06b8fa50336fac4020d46",
+      "size_in_bytes": 2662
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/compat.py",
+      "path_type": "hardlink",
+      "sha256": "5cf48e680c5003874b9f49275cef707dead06fa229555039e8029af795b93245",
+      "size_in_bytes": 158
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "1de3548dd3f4063e521de6ff71532a0996b4d015131c3f04d43a85ab4c296859",
+      "size_in_bytes": 272
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "b194a465dccd5268d908405c5b7a51254e2ec6963e9c8d90c7c3cb47fe7fb24c",
+      "size_in_bytes": 332
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/_authentication.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "4b1fe5ffc10fbcc1d620024e180ec74ed49233f75233de43108d1e350559e366",
+      "size_in_bytes": 4465
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/_common.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "d2cd0514fb2cda43b4b3af85c20f6451e8031b6ba284603e295297ef06c86afd",
+      "size_in_bytes": 1946
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/_dll.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "facafe16048bc161c992d4c20dc1feec65025fef5ff8f6733fa72f0d26fbea5b",
+      "size_in_bytes": 656
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/_nl_support.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "b32ed530d5bae848210a165cd32996a2fa62b8d7dbe74b7446b51ad2b4b338e8",
+      "size_in_bytes": 380
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/_resource.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "772f5f3b0fc4a7624c0c038009ad0e92cf0143bc03954361ccf5435a597eb308",
+      "size_in_bytes": 5340
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/_system_information.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "e5d952787d65a7874c2825d07e60d873b655e0394d8aa328e8c6b8a696ff63f6",
+      "size_in_bytes": 1418
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/_time.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "1bebc30023ee8a671e8688ead1c7a20ab205d094f69b7fc9b1810c5e79e725d9",
+      "size_in_bytes": 393
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/__pycache__/_util.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "4c3d5745f4c659039bddf9aaeb18a2a9a4fec1042e81f4820792096abe53bd98",
+      "size_in_bytes": 2751
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/_authentication.py",
+      "path_type": "hardlink",
+      "sha256": "bdc35b7abf0afcc5160e0ce2793895e305445a5d70c1305ebe730aa5fe920d33",
+      "size_in_bytes": 3822
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/_common.py",
+      "path_type": "hardlink",
+      "sha256": "c4fc941ab36eb111873c972cb51e2fc4f2625c3ef908ea2f016a3412c097eeba",
+      "size_in_bytes": 1223
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/_dll.py",
+      "path_type": "hardlink",
+      "sha256": "99f121695ecd6e9f29a24d318343ba1a16ac13aa1238ec5be1c80a3dedfc1538",
+      "size_in_bytes": 552
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/_nl_support.py",
+      "path_type": "hardlink",
+      "sha256": "493e983f3a4256ad49aa25d5c44a142d44d1165feb063305ff5a8f366b0baa55",
+      "size_in_bytes": 315
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/_resource.py",
+      "path_type": "hardlink",
+      "sha256": "633981bdfd3819dd2958bb748b670841899a05c056e17d90bbefac6e4e37df50",
+      "size_in_bytes": 4264
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/_system_information.py",
+      "path_type": "hardlink",
+      "sha256": "4c3ae57533f82d3ace3867ba5152ca74592b470138dbc05655313618f34754ca",
+      "size_in_bytes": 941
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/_time.py",
+      "path_type": "hardlink",
+      "sha256": "d176163226a179cc21d958022dd7e81f116ac3e6ee7d7e3f442036b2be024b12",
+      "size_in_bytes": 342
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/core/ctypes/_util.py",
+      "path_type": "hardlink",
+      "sha256": "61be61286a5b7e71df657eb1e28633728e622e0e8084c4dae8e09e2c77fcfa0a",
+      "size_in_bytes": 2030
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywin32/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "5b1e66a9879ec1eaa8503707101ceb80334b44fc9ed92a1693533052c0c39125",
+      "size_in_bytes": 354
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywin32/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "273db631ede787c766c545551087fef71dbddc76f51fa07c231037ec2dc2a8db",
+      "size_in_bytes": 309
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywin32/__pycache__/pywintypes.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "ebc756f8ff879ce3fc1fed63e1c172cd62ff8b754c5387f2f65b95b29fb99da1",
+      "size_in_bytes": 3089
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywin32/__pycache__/win32api.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "81a226c71a21f9fe4d912d274f18c4c1ed56bd12a11cc72fe70a7d4bc45811e5",
+      "size_in_bytes": 9616
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywin32/__pycache__/win32cred.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "58ce053431f0154d0594b5e3ad42d0159ad5f8d33261cf1b3144a58fbb5adba8",
+      "size_in_bytes": 5986
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywin32/pywintypes.py",
+      "path_type": "hardlink",
+      "sha256": "9293a633d949f30dc120fd13ee3ede7f3c61ae80fb632a7b126f343bcab506b4",
+      "size_in_bytes": 1867
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywin32/win32api.py",
+      "path_type": "hardlink",
+      "sha256": "359ddd509f5b74c3c1847f3d1036f7b3f8a39631515afcb6bc5c2b3ba6c9b80f",
+      "size_in_bytes": 7724
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywin32/win32cred.py",
+      "path_type": "hardlink",
+      "sha256": "66048bbbb354e640103fc6ba4a51d7b5f4d22ee7c0776e2e3bc828be3d62da40",
+      "size_in_bytes": 4801
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/pywintypes.py",
+      "path_type": "hardlink",
+      "sha256": "c15c3ad51e4c25fa1fea113149a238451ddc9f11198e825aac21fcd0db4f9ebf",
+      "size_in_bytes": 350
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/tests/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "b2be9464f8651a8098e479bba44b7c34acd728ff5822e88839b8be1ced812e22",
+      "size_in_bytes": 693
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/tests/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "580002810ee4ec4ed089c7c12c38049fb628de7ccc19c9547f4fbc7d14bced5c",
+      "size_in_bytes": 1015
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/tests/__pycache__/test_backends.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "352c754935a6be6cd529b75d02587367b2bd44084225d5a00f13c82b12b26e83",
+      "size_in_bytes": 2056
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/tests/__pycache__/test_win32api.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "b5d3657704f17e1c7c7b58ed61f69200c84718d3e1d4da7c93f57304d5a64c8a",
+      "size_in_bytes": 17676
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/tests/__pycache__/test_win32cred.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "756593fcc6064244cfdee7a4cef83e80586c62e1618a27079101b72b07978732",
+      "size_in_bytes": 10102
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/tests/test_backends.py",
+      "path_type": "hardlink",
+      "sha256": "423968e860b61c791c4b7d709e6bcb8e76b652d0b29b6ab04758d659caa8fc46",
+      "size_in_bytes": 1245
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/tests/test_win32api.py",
+      "path_type": "hardlink",
+      "sha256": "f1bf99be30231e150ee5a0aa28cdab611ff8529ad27eff0014d292a366f982b0",
+      "size_in_bytes": 11687
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/tests/test_win32cred.py",
+      "path_type": "hardlink",
+      "sha256": "48cfff3a3e8b34fce664839667004ade71ef491356e8d93a00ef2493d891f5b1",
+      "size_in_bytes": 7948
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/version.py",
+      "path_type": "hardlink",
+      "sha256": "a3849c3ecc7779b13da57f9f179e58e0d67013e819975a6eb52e9a136a5356d2",
+      "size_in_bytes": 23
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/win32api.py",
+      "path_type": "hardlink",
+      "sha256": "8842072ffa492076ae4a4297280cf40a943eb60f6547d609ceb57af230158ead",
+      "size_in_bytes": 346
+    },
+    {
+      "_path": "Lib/site-packages/win32ctypes/win32cred.py",
+      "path_type": "hardlink",
+      "sha256": "34d5d5737fb80a8b74c71c0999317363d07a1fa6045fa7a0416fa46e658591ff",
+      "size_in_bytes": 348
+    }
+  ],
+  "paths_version": 1
+}

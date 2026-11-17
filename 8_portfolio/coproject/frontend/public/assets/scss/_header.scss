@@ -1,0 +1,96 @@
+@import 'variables';
+
+.header{
+    position: relative;
+    /*줄서있는 상태를 유지하되 약간 발이나 팔을 뻗어 이동할수 있는 상태
+    자신에 원래위치를 기준으로 삼고 자신을 기준으로 위치를 조정함
+    자식요소에게 absolute를 적용하기 위한 부모요소설정할때*/
+    padding: 18px 5%;
+    display:flex;//가로 한줄 합치기
+    align-items:center;//세로폭 가운데 정렬
+    justify-content:space-between;//왼쪽오른쪽 나란히 맞추기
+
+
+    //태블릿일때
+    @media all and (min-width: $bp-tablet){
+        position : static;
+        /*그냥 줄 서있는 상태
+        포지션을 별도로 지정하지 않으면 모든 요소는 static상태
+        위치조정속성이 적용되지 않음 요소를 강제로 이동하거나 겹치게 하지 않는다*/
+        padding:28px 52px;
+        /*height: 60px !important;
+        box-sizing: border-box;*/
+       
+    }
+
+    .logo{
+        //float:left;
+        //부트스트랩 3까지 display:flex, display:grid
+        /*@media all and (min-width: $bp-tablet){
+         margin-top:-3px;
+        }*/
+        a{
+            font-size: 26px;
+            color:$primary;
+            font-weight:normal;
+        }
+
+    }
+
+    .gnb{
+        display:none;//보이지 않게하는 이유는 스크립트로 콘트롤하기 위해
+        position: absolute;//절대적인 상태로 포지션을 가짐
+        top:100%; left:0; width:100%;
+        background-color:$primary;
+
+        //여기가 중요
+        &.active{
+            display:block;
+        }
+
+        //테블릿 모드
+        @media all and (min-width: $bp-tablet) {
+            display:block !important;
+            position:static;
+            float:right; width:auto; 
+            margin-top: 6px; background:none;
+        }
+        li {
+            border-bottom: 1px solid #303f9f;
+
+            @media all and (min-width: $bp-tablet){
+            float:left; margin-left:21px; border-bottom:0;
+            }
+
+            a{
+                display:block; padding: 14px 0 14px 5%;
+                font-size:14px; color:#fff;
+
+                @media all and (min-width: $bp-tablet){
+                    padding:0; font-size:16px; color:$primary;
+                }
+            }
+        }
+    }
+//}
+
+.menu-toggle-btn{
+    float:right; //오른쪽으로 정렬
+    width:20px; margin-top:4px; cursor:pointer;
+
+    @media all and (min-width: $bp-tablet) {
+        display:none !important;
+    }
+
+    span{
+        display:block; 
+        width:100%;
+        height:2px;
+        background-color:$primary;
+
+        &:nth-child(2){
+            margin:5px 0;//마진top bottom 5px 좌우 0
+        }
+    }
+ }
+} 

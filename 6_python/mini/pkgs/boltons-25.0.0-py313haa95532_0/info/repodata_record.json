@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "fn": "boltons-25.0.0-py313haa95532_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "78e0f7a51d811d64b0d0fa4e886458f2",
+  "name": "boltons",
+  "platform": "win32",
+  "sha256": "c695504d0b210c758b9952a8f6accd217588ffa3bad87eccff5d8db1870e0893",
+  "size": 523882,
+  "subdir": "win-64",
+  "timestamp": 1751383878000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/boltons-25.0.0-py313haa95532_0.conda",
+  "version": "25.0.0"
+}

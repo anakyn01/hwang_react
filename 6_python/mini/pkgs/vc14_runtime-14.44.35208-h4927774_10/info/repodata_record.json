@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "h4927774_10",
+  "build_number": 10,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "vs2015_runtime 14.44.35208.* *_10"
+  ],
+  "depends": [
+    "ucrt >=10.0.20348.0"
+  ],
+  "fn": "vc14_runtime-14.44.35208-h4927774_10.conda",
+  "license": "LicenseRef-MicrosoftVisualCpp2015-2022Runtime",
+  "license_family": "Proprietary",
+  "md5": "13296ea2847729c01c316b089cb28337",
+  "name": "vc14_runtime",
+  "platform": "win32",
+  "sha256": "747f5d55439e327d3b035c0078be59991ffa5683542fbcecbcc6abcfff50588a",
+  "size": 845189,
+  "subdir": "win-64",
+  "timestamp": 1752199754000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/vc14_runtime-14.44.35208-h4927774_10.conda",
+  "version": "14.44.35208"
+}

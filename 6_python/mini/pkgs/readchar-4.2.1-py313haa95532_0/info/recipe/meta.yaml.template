@@ -1,0 +1,54 @@
+{% set name = "readchar" %}
+{% set version = "4.2.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/magmax/python-{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 2c3a6eb9a41c228ab8324b7abaff7a91ec5c8c450b5b81f0853b6f0855b9e692
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<38]
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools >=61.0
+  run:
+    - python
+
+test:
+  source_files:
+    - tests
+  imports:
+    - readchar
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -s -v tests/linux  # [linux]
+    - pytest -v tests/windows  # [win]
+  requires:
+    - pip
+    - pytest >=6.0
+
+about:
+  home: https://github.com/magmax/python-readchar
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Python library to read characters and key strokes.
+  description: Python library to read characters and key strokes.
+  dev_url: https://github.com/magmax/python-readchar
+  doc_url: https://github.com/magmax/python-readchar
+
+extra:
+  recipe-maintainers:
+    - mxr-conda
+    - oblute
+    - benhuff
+    - rluria14

@@ -1,0 +1,61 @@
+{
+  "name": "frozendict",
+  "version": "2.4.6",
+  "build": "py313h02ab6af_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "frozendict-2.4.6-py313h02ab6af_0.conda",
+  "md5": "16d7e8878fbec9e9856e9b7b3a7d41cb",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/frozendict-2.4.6-py313h02ab6af_0.conda",
+  "sha256": "95ee413c83df0269fea089be2bf2fa7c1761a986d213f1c6926d4bd904176180",
+  "arch": "x86_64",
+  "platform": "win32",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133"
+  ],
+  "constrains": [],
+  "license": "LGPL-3.0-only",
+  "license_family": "LGPL",
+  "timestamp": 1761750775000,
+  "size": 39675,
+  "requested_spec": "pkgs/main/win-64::frozendict==2.4.6=py313h02ab6af_0",
+  "package_tarball_full_path": "D:\\hwang_react\\6_python\\mini\\pkgs\\frozendict-2.4.6-py313h02ab6af_0.conda",
+  "extracted_package_dir": "D:\\hwang_react\\6_python\\mini\\pkgs\\frozendict-2.4.6-py313h02ab6af_0",
+  "files": [
+    "Lib/site-packages/frozendict-2.4.6.dist-info/INSTALLER",
+    "Lib/site-packages/frozendict-2.4.6.dist-info/METADATA",
+    "Lib/site-packages/frozendict-2.4.6.dist-info/RECORD",
+    "Lib/site-packages/frozendict-2.4.6.dist-info/REQUESTED",
+    "Lib/site-packages/frozendict-2.4.6.dist-info/WHEEL",
+    "Lib/site-packages/frozendict-2.4.6.dist-info/direct_url.json",
+    "Lib/site-packages/frozendict-2.4.6.dist-info/licenses/LICENSE.txt",
+    "Lib/site-packages/frozendict-2.4.6.dist-info/top_level.txt",
+    "Lib/site-packages/frozendict/__init__.py",
+    "Lib/site-packages/frozendict/__init__.pyi",
+    "Lib/site-packages/frozendict/__pycache__/__init__.cpython-313.pyc",
+    "Lib/site-packages/frozendict/__pycache__/_frozendict_py.cpython-313.pyc",
+    "Lib/site-packages/frozendict/__pycache__/cool.cpython-313.pyc",
+    "Lib/site-packages/frozendict/__pycache__/core.cpython-313.pyc",
+    "Lib/site-packages/frozendict/__pycache__/monkeypatch.cpython-313.pyc",
+    "Lib/site-packages/frozendict/__pycache__/version.cpython-313.pyc",
+    "Lib/site-packages/frozendict/_frozendict_py.py",
+    "Lib/site-packages/frozendict/cool.py",
+    "Lib/site-packages/frozendict/core.py",
+    "Lib/site-packages/frozendict/monkeypatch.py",
+    "Lib/site-packages/frozendict/py.typed",
+    "Lib/site-packages/frozendict/version.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "D:\\hwang_react\\6_python\\mini\\pkgs\\frozendict-2.4.6-py313h02ab6af_0",
+    "type": 1
+  }
+}

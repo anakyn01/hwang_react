@@ -1,0 +1,6 @@
+body{/*태그를 사용하는 방법*/
+/*글자색 바꾸는것 컬러*/
+color:violet;
+}
+.one{color:red;}
+#two{color:green;}

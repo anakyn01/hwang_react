@@ -1,0 +1,1 @@
+["pytest-mock", "pip", "pydantic >=2", "pytest", "conda"]

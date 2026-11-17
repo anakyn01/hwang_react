@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "h6201b9f_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "libiconv >=1.16,<2.0a0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133",
+    "zlib >=1.2.13,<2.0a0"
+  ],
+  "fn": "libxml2-2.13.9-h6201b9f_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "32feaa8872e9a7c839069a0c2a37df20",
+  "name": "libxml2",
+  "platform": "win32",
+  "sha256": "7f90427c984b96deda664a993dcda120490c955c2298cdffc9860f20f7caf1e0",
+  "size": 1531227,
+  "subdir": "win-64",
+  "timestamp": 1761769014000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/libxml2-2.13.9-h6201b9f_0.conda",
+  "version": "2.13.9"
+}

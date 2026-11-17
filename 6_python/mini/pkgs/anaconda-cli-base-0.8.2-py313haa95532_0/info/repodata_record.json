@@ -1,0 +1,36 @@
+{
+  "arch": "x86_64",
+  "build": "py313haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [
+    "anaconda-client >=1.13.0",
+    "anaconda-auth >=0.12.0",
+    "anaconda-cloud-cli >=0.3.0"
+  ],
+  "depends": [
+    "click",
+    "packaging >=23.0",
+    "pydantic >=2.12",
+    "pydantic-settings >=2.3",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "readchar",
+    "rich",
+    "tomli",
+    "tomlkit",
+    "typer >=0.17"
+  ],
+  "fn": "anaconda-cli-base-0.8.2-py313haa95532_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "5717d515db735fe7167bd3b5ea7bdc50",
+  "name": "anaconda-cli-base",
+  "platform": "win32",
+  "sha256": "cf508cd7fc76dc48d8a53935c0365029900f6a338b07b0bdd142ccf61f6a9eb7",
+  "size": 86912,
+  "subdir": "win-64",
+  "timestamp": 1775469436000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/anaconda-cli-base-0.8.2-py313haa95532_0.conda",
+  "version": "0.8.2"
+}

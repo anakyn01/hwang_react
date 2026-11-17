@@ -1,0 +1,71 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/pkce-1.0.3.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/pkce-1.0.3.dist-info/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "103b5b0eb1f668e32238e43d70529b56782b50ca3fb3c15e22725b692fc707ea",
+      "size_in_bytes": 1093
+    },
+    {
+      "_path": "Lib/site-packages/pkce-1.0.3.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "398d63b4d1857920c6bc778adcf50a4c0cf66d477ff12d94941dcdba946b0731",
+      "size_in_bytes": 1029
+    },
+    {
+      "_path": "Lib/site-packages/pkce-1.0.3.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "c1de9d83fc0bd67660a409f49ed4615cf90925fe77be459c7fa323b4ef7a31ec",
+      "size_in_bytes": 825
+    },
+    {
+      "_path": "Lib/site-packages/pkce-1.0.3.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "Lib/site-packages/pkce-1.0.3.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "195f5a3138703ffe28342b6f102d9e737a9462eb6059e033925ae8ff49b85894",
+      "size_in_bytes": 91
+    },
+    {
+      "_path": "Lib/site-packages/pkce-1.0.3.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "5c2a07d1c22f2fd6d6709c8240ba09ad8c2ba6f08480b2c5ce4af9616efefa1d",
+      "size_in_bytes": 112
+    },
+    {
+      "_path": "Lib/site-packages/pkce-1.0.3.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "5c75817b6ecf59ec4e59e2cd0af1f69217e19c5afaece453b8a998ea33a98c71",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "Lib/site-packages/pkce/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "c6274195d91384cc5fe48831b648f2efcd83d371906b018b73a34afd04e92ef5",
+      "size_in_bytes": 2761
+    },
+    {
+      "_path": "Lib/site-packages/pkce/__pycache__/__init__.cpython-313.pyc",
+      "path_type": "hardlink",
+      "sha256": "14003dbe0e5e3bfd3bff913a13787b764be1201800715ebd34d248908f6a3c25",
+      "size_in_bytes": 3247
+    },
+    {
+      "_path": "Lib/site-packages/pkce/py.typed",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    }
+  ],
+  "paths_version": 1
+}

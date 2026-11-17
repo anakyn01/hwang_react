@@ -1,0 +1,103 @@
+# This file created by conda-build 26.1.0
+# meta.yaml template originally from:
+# C:\Users\task_177546923055330\anaconda-cli-base-feedstock\recipe, last modified Mon Apr  6 09:54:38 2026
+# ------------------------------------------------
+
+package:
+  name: anaconda-cli-base
+  version: 0.8.2
+source:
+  url: https://pypi.org/packages/source/a/anaconda-cli-base/anaconda_cli_base-0.8.2.tar.gz
+  sha256: 2b7f04cbc19af3d70875411d2020832a0264d21a0575f91ed66b6401b2390063
+build:
+  number: '0'
+  script: C:\\Users\\task_177546923055330\\croot\\anaconda-cli-base_1775469327506\\_h_env\\python.exe
+    -m pip install . -vv --no-deps --no-build-isolation
+  entry_points:
+    - anaconda = anaconda_cli_base.cli:app
+  string: py313haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2026.3.19 haa95532_0
+    - hatch-vcs 0.5.0 py313haa95532_0
+    - hatchling 1.29.0 py313haa95532_0
+    - libexpat 2.7.5 hd7fb8db_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - libzlib 1.3.1 h02ab6af_0
+    - openssl 3.5.5 hbb43b14_0
+    - packaging 26.0 py313haa95532_0
+    - pathspec 1.0.4 py313haa95532_0
+    - pip 26.0.1 pyhc872135_1
+    - pluggy 1.5.0 py313haa95532_0
+    - python 3.13.12 h39c999c_100_cp313
+    - python_abi 3.13 3_cp313
+    - setuptools 82.0.1 py313haa95532_0
+    - setuptools-scm 10.0.5 py313haa95532_0
+    - sqlite 3.51.2 hee5a0db_0
+    - tk 8.6.15 hf199647_0
+    - trove-classifiers 2026.1.14.14 py313haa95532_0
+    - tzdata 2026a he532380_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vcs-versioning 1.1.1 py313haa95532_0
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - wheel 0.46.3 py313haa95532_0
+    - xz 5.8.2 h53af0af_0
+    - zlib 1.3.1 h02ab6af_0
+  run:
+    - click
+    - packaging >=23.0
+    - pydantic >=2.12
+    - pydantic-settings >=2.3
+    - python >=3.13,<3.14.0a0
+    - python_abi 3.13.* *_cp313
+    - readchar
+    - rich
+    - tomli
+    - tomlkit
+    - typer >=0.17
+  run_constrained:
+    - anaconda-auth >=0.12.0
+    - anaconda-client >=1.13.0
+    - anaconda-cloud-cli >=0.3.0
+test:
+  source_files:
+    - tests
+  imports:
+    - anaconda_cli_base
+  requires:
+    - pip
+    - pytest
+    - pytest-mock
+    - types-requests
+  commands:
+    - pip check
+    - anaconda -h
+    - anaconda -V
+    - python -c "from anaconda_cli_base import __version__; assert __version__ ==
+      \"0.8.2\""
+    - python -c "from importlib.metadata import version; assert(version('anaconda-cli-base')=='0.8.2')"
+    - pytest -v tests
+about:
+  home: https://www.anaconda.com
+  license: BSD-3-Clause
+  license_file: LICENSE
+  license_family: BSD
+  summary: A base CLI entrypoint supporting Anaconda CLI plugins
+  description: A base CLI entrypoint supporting Anaconda CLI plugins
+  dev_url: https://pypi.org/project/anaconda-cli-base
+  doc_url: https://pypi.org/project/anaconda-cli-base
+extra:
+  recipe-maintainers:
+    - albertdefusco
+    - mattkram
+  final: true
+  copy_test_source_files: true
+  remote_url: https://github.com/AnacondaRecipes/anaconda-cli-base-feedstock
+  sha: d303f751bc6ddaaa012ece672e1087654f427fc4
+  task_id: Ln-5bjw9RMyDGxyLYV_jWQ
+  task_run_id: '0'
+  pbp_graph_uuid: f9181f80-04a8-48a7-9c28-ba27772b6c12

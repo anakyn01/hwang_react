@@ -1,0 +1,27 @@
+{
+  "arch": "x86_64",
+  "build": "h56299aa_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64/",
+  "constrains": [],
+  "depends": [
+    "libzlib >=1.3.1,<2.0a0",
+    "lz4-c >=1.9.4,<1.10.0a0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30133",
+    "xz >=5.6.4,<6.0a0"
+  ],
+  "fn": "zstd-1.5.7-h56299aa_0.conda",
+  "license": "BSD-3-Clause AND GPL-2.0-or-later",
+  "license_family": "BSD",
+  "md5": "fd829528313216f62505dd7a281230ea",
+  "name": "zstd",
+  "platform": "win32",
+  "sha256": "c822ed29c20166934ef9c9e29b863bc382b2c3c602ac1f3a62e9af2c0495a74c",
+  "size": 660146,
+  "subdir": "win-64",
+  "timestamp": 1758039218000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/zstd-1.5.7-h56299aa_0.conda",
+  "version": "1.5.7"
+}
