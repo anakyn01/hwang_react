@@ -1,5 +1,6 @@
 package com.hbk.controller;
 
+import com.hbk.dto.MemberResponseDto;
 import com.hbk.entity.Member;
 import com.hbk.repository.MemberRepository;
 import com.hbk.security.JwtTokenProvider; // 👈 1. JWT 토큰 Provider 임포트 추가
@@ -47,7 +48,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
     }
 
-    // 4. 로그인 API (JWT 토큰 발급 구조로 수정)
+    // 4. 로그인 API
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Member loginData){
         Optional<Member> memberOpt = memberRepository.findByEmail(loginData.getEmail());
@@ -56,15 +57,19 @@ public class MemberController {
             Member member = memberOpt.get();
 
             if(member.getPassword().equals(loginData.getPassword())){
-                // 💡 5. 로그인이 성공하면 이메일(또는 유저네임)을 기반으로 JWT 토큰을 생성합니다.
                 String token = jwtTokenProvider.createToken(member.getEmail());
 
-                // 💡 6. 프론트엔드에서 토큰과 유저 정보를 함께 쓸 수 있도록 Map에 담아 반환합니다.
-                Map<String, Object> response = new HashMap<>();
-                response.put("token", token);
-                response.put("member", member);
+                // 💡 객체 직렬화 에러를 완벽하게 피하기 위해 단순한 키-값 구조로 전달합니다.
+                Map<String, String> responseData = new HashMap<>();
+                responseData.put("token", token);
 
-                return ResponseEntity.ok(response);
+                // 닉네임이 비어있을 경우를 대비한 안전 장치
+                String nickname = (member.getNickname() != null && !member.getNickname().isEmpty())
+                        ? member.getNickname()
+                        : "회원";
+                responseData.put("nickname", nickname);
+
+                return ResponseEntity.ok(responseData);
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이메일 또는 비밀번호가 일치하지 않습니다");

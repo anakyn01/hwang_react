@@ -11,23 +11,28 @@ export const SideBar = () => {
     </S.SectionTitle>
     <S.MenuList>
 <li>
-    <S.MenuItem href="/production">
+    <S.MenuItem href="/dashboard">
+    대시보드
+    </S.MenuItem>
+</li>        
+<li>
+    <S.MenuItem href="/dashboard/production">
     생산관리
     </S.MenuItem>
 </li>
 <li>
-    <S.MenuItem href="/material">
-    자재관리
+    <S.MenuItem href="/dashboard/inventory">
+    재고관리
     </S.MenuItem>
 </li>
 <li>
-    <S.MenuItem href="/quality">
-    품질관리
+    <S.MenuItem href="/dashboard/hr">
+    인사관리
     </S.MenuItem>
 </li>
 <li>
-    <S.MenuItem href="/equipment">
-    설비관리
+    <S.MenuItem href="/dashboard/settings">
+    기준정보
     </S.MenuItem>
 </li>
     </S.MenuList>

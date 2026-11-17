@@ -1,0 +1,26 @@
+<div class="chat-row {% if role == 'user' %}user-row{% else %}ai-row{% endif %}">
+    {% if role != 'user' %}
+    <div class="avatar ai-avatar">
+        <i class="fa-solid fa-robot"></i>
+    </div>
+    {% endif %}
+
+    <div class="message-bubble {% if role == 'user' %}user-bubble{% else %}ai-bubble{% endif %}">
+        <div class="bubble-header">
+            {% if role == 'user' %}
+                <i class="fa-solid fa-pen-nib me-1"></i><span>You</span>
+            {% else %}
+                <i class="fa-solid fa-microchip me-1"></i><span>AI Architect</span>
+            {% endif %}
+        </div>
+        <div class="bubble-content">
+            {{ content | safe }}
+        </div>
+    </div>
+
+    {% if role == 'user' %}
+    <div class="avatar user-avatar">
+        <i class="fa-solid fa-user-astronaut"></i>
+    </div>
+    {% endif %}
+</div>

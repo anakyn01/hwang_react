@@ -1,8 +1,13 @@
+
+import "./globals.css"; //테일윈드 사용할 경우
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./lib/registy";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
 // 💡 방금 만든 조건부 레이아웃 컴포넌트를 불러옵니다
 import ConditionalLayout from "@/components/ConditionalLayout";
+import { ReduxProvider } from "@/store/ReduxProvider";
+
+
 
 export const metadata: Metadata = {
 title: {
@@ -15,17 +20,27 @@ title: {
 export default function RootLayout({ children }: Readonly<{children:React.ReactNode;
   }>) {
   return (
-    <html lang="ko">
-      <body>
-        <StyledComponentsRegistry>
-          <ThemeProviderWrapper>
-     
-            <ConditionalLayout>
-          {children}
-          </ConditionalLayout>
-     
-          </ThemeProviderWrapper>
-        </StyledComponentsRegistry>
+
+    <html lang="ko" className="h-full">
+
+      <head>
+{/* 부트스트랩 CDN 추가 */}
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+        />
+      </head>
+<body className="h-full m-0 bg-gray-50 text-gray-900 antialiased">
+        {/*<StyledComponentsRegistry>
+          <ThemeProviderWrapper>*/}
+          <ReduxProvider>
+                <ConditionalLayout>
+                {children}
+                </ConditionalLayout>
+          </ReduxProvider>
+          {/*</ThemeProviderWrapper>
+        </StyledComponentsRegistry>*/}
+
         </body>
     </html>
   );

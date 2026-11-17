@@ -151,7 +151,13 @@ display:block;
 
 `;
 
-
+// 버튼들을 가로로 정렬하고 간격을 주는 래퍼 컴포넌트
+export const ButtonGroup = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+`;
 
 
 

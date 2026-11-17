@@ -1,0 +1,107 @@
+@import './variables';
+
+.container{
+    max-width: 1000px;
+    margin:0 auto;
+    padding:2rem;
+    .header{
+@include flex-between;
+margin-bottom: 2.5rem;
+padding-bottom:1rem;
+border-bottom:1px solid $border-color;
+        h2{
+color:$text-main;
+font-size:1.5rem;
+font-weight:700;
+margin:0;
+        }
+    }
+
+    .content{
+        display:grid;
+        grid-template-columns: 240px 1fr;
+        gap:2.5rem;
+
+        .sidebar{
+            ul{
+                list-style:none;
+                padding:0; margin:0;
+li {
+          padding: 0.875rem 1rem;
+          color: $text-muted;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 500;
+          transition: all 0.2s ease;
+          margin-bottom: 0.25rem;
+
+          // 부모 선택자(&) 활용 (가상 클래스)
+          &:hover {
+            background-color: $bg-light;
+            color: $text-main;
+          }
+
+          &.active {
+            background-color: $primary-color;
+            color: #ffffff;
+          }
+
+            }
+        }
+    }
+
+    .mainPanel{
+        @include card-layout;
+h3 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        color: $text-main;
+      }
+
+      .formGroup {
+        margin-bottom: 1.5rem;
+
+        label {
+          display: block;
+          font-size: 0.875rem;
+          color: $text-muted;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+        }
+
+        input {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border: 1px solid $border-color;
+          border-radius: 8px;
+          font-size: 1rem;
+          color: $text-main;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+          }
+        }
+    }
+
+.saveBtn {
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        padding: 0.875rem 2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          // Sass 내장 함수 darken(): 기존 색상을 10% 어둡게 만듦
+          background-color: darken($primary-color, 10%); 
+        }
+      }
+    }
+  }
+}

@@ -2,10 +2,13 @@
 import {useState} from "react";
 import axios from "axios";
 import { useRouter} from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setLogin } from "@/store/authSlice";
 
 
 //import type {Metadata} from "next";
 import * as S from "@/assets/css/Style.style";
+import { AlertModal } from "@/components/modal/AlertModal"; // 💡 알림 모달 컴포넌트를 불러옵니다.
 
 /*export const metadata: Metadata = {
   title:'로그인',
@@ -13,11 +16,16 @@ import * as S from "@/assets/css/Style.style";
 
 export default function Home() {
 const router = useRouter();
-
+const dispatch = useDispatch();
 //1. 로그인 폼 상태 관리
 const [formData, setFormData] = useState({
   email:"", password:"",
-})
+});
+
+// 💡 2. 알림 모달의 오픈 여부와 표시할 메시지, 그리고 로그인 성공 시 이동을 위한 후행 처리 상태
+const [isAlertOpen, setIsAlertOpen] = useState(false);
+const [alertMessage, setAlertMessage] = useState("");
+const [isLoginSuccess, setIsLoginSuccess] = useState(false);
 
 //2. 이력값 변경 핸들러
 const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -35,8 +43,11 @@ e.preventDefault();
 const {email, password} = formData;
 
 if(!email || !password) {
-  alert("이메일과 비밀번호를 모두 입력해주세요.");
-      return;
+  //alert("이메일과 비밀번호를 모두 입력해주세요.");
+setAlertMessage("이메일과 비밀번호를 모두 입력해주세요.");
+setIsLoginSuccess(false);
+setIsAlertOpen(true);
+return;
 }
 
 try{
@@ -45,19 +56,26 @@ try{
     email, password,
   });
 
-  if(response.data.success){
-    alert("로그인 성공 !");
-
+  if(response.status === 200){
+    //alert("로그인 성공 !");
+const token = response.data.token;
     // 서버에서 발급한 JWT 토큰을 로컬 스토리지에 저장
-    localStorage.setItem("token", response.data.token);
-
+    dispatch(setLogin(token));
+axios.defaults.headers.common["Authorization"]=`Bearer ${token}`;
     //
-    router.push("/admin");
+setAlertMessage("로그인 성공 !");
+setIsLoginSuccess(true);
+setIsAlertOpen(true);
+    //router.push("/admin");
   }
 
 }catch (error:any){
 const errorMessage = error.response?.data?.message || "로그인 중 오류가 발생했습니다";
-alert(errorMessage);
+setAlertMessage(errorMessage);
+setIsLoginSuccess(false);
+setIsAlertOpen(true);
+
+//alert(errorMessage);
 }
 
 
@@ -71,6 +89,14 @@ const handleInstaLogin = () => {
   
 }
 
+//add
+// 💡 모달이 닫힐 때 로그인 성공 상태였다면 관리자 페이지로 이동시킵니다.
+  const handleModalClose = () => {
+    setIsAlertOpen(false);
+    if (isLoginSuccess) {
+      router.push("/admin");
+    }
+  };
 
   return (
    <>
@@ -140,7 +166,15 @@ Login with Insta
 </S.StyledLink>
   </S.FormColumn>
 </S.Card>
-</S.Container>   
+</S.Container>  
+
+
+{/* 💡 로그인 성공/실패 시 화면에 렌더링될 커스텀 알림 모달 */}
+      <AlertModal 
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleModalClose}
+      />
    </>
   );
 }

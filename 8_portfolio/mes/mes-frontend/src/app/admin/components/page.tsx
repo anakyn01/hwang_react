@@ -4,6 +4,7 @@ import { useState, useEffect} from "react";
 import axios from "axios";
 import {Layout} from "@/components/Layout";
 import * as S from "@/assets/css/Style.style";
+import { AlertModal } from "@/components/modal/AlertModal";
 
 interface ComponentItem{
    id:number;
@@ -25,7 +26,14 @@ const [form, setForm] =
 useState({
    componentName:"", category:"", stockQuantity:0,
    minThreshold:100, supplier:""
-})
+});
+
+// 💡 3. 알림 모달의 오픈 여부와 표시할 메시지를 관리하는 상태
+const [isAlertOpen, setIsAlertOpen] = useState(false);
+const [alertMessage, setAlertMessage] = useState("");
+
+
+
 // 3. 백엔드 서버로부터 현재 등록된 SCM 자재 목록을 비동기로 조회해오는 함수입니다.
 const fetchComponents= async () => {
    try{
@@ -51,11 +59,16 @@ localStorage.getItem("token");
 await axios.post("http://localhost:4000/api/scm/components", form, {
    headers:{Authorization:`Bearer ${token}`}
 });
-alert("자재 정보가 등록되었습니다.");
+//alert("자재 정보가 등록되었습니다.");
+setAlertMessage("자재 정보가 등록되었습니다.");
+setIsAlertOpen(true);
+
 setForm({ componentName: "", category: "", stockQuantity: 0, minThreshold: 100, supplier: "" });
 fetchComponents();   
 }catch(err){
-alert("등록 실패");
+//alert("등록 실패");
+setAlertMessage("등록 실패");
+setIsAlertOpen(true);
    }
 };
 return(
@@ -130,6 +143,14 @@ return(
 </S.Grid>
       </S.RightPanel>
     </S.CalendarLayout>
+
+{/* 💡 자재 등록 성공/실패 시 화면에 렌더링될 커스텀 알림 모달 */}
+<AlertModal 
+isOpen={isAlertOpen}
+message={alertMessage}
+onClose={() => setIsAlertOpen(false)}
+/>
+
  </Layout>       
     )
 }

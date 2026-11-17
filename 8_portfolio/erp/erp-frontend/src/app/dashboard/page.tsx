@@ -4,14 +4,13 @@ import { SmallCalendar } from "@/components/SmallCalendar";
 import {Calender} from "@/components/Calender";
 import * as S from "@/assets/css/Style.style";
 
-export default function MyPage(){
+export default function dash(){
 return(
     <>
     <Layout>
-<S.CalendarLayout>
-    <S.LeftPanel>
-        <SmallCalendar/>
-    </S.LeftPanel>
+<S.CalendarLayout>        
+<h1></h1>
+
     <S.RightPanel>
         <Calender/>
     </S.RightPanel>

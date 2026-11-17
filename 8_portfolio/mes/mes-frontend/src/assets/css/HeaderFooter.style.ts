@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, MainBg, Ohidden, Pointer, TransitionAll, W100 } from "./common/Common.style";
+import { Absolute, BoxShadow, FlexBetween, FlexCenter, FlexColumn, MainBg, Ohidden, Pointer, SeconBg, TransitionAll, W100 } from "./common/Common.style";
 
 export const HeaderContainer = styled.header`
 width:100vw;
@@ -49,33 +49,9 @@ ${FlexCenter};
   }
 `;
 
-export const LogoutButton = styled.button`
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  font-weight: bold;
 
-  &:hover {
-    background-color: #dc2626;
-  }
-`;
 
-export const MobileMenuToggle = styled.button`
-  display: none;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 1.75rem;
-  cursor: pointer;
 
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
 
 export const MobileNav = styled.nav<{ $isOpen: boolean }>`
 ${FlexColumn};
@@ -106,10 +82,10 @@ ${BoxShadow};
 
 export const FooterContainer = styled.footer`
 ${W100};
-  background-color: #f8fafc;
+  ${SeconBg};
   border-top: 1px solid #e2e8f0;
   padding: 24px 32px;
-  color: #64748b;
+  color: #0c0f13;
 ${FlexColumn};
   gap: 16px;
 
@@ -135,7 +111,7 @@ export const FooterLinks = styled.div`
   font-size: 0.875rem;
 
   a {
-    color: #475569;
+    color: inherit;
     text-decoration: none;
     transition: color 0.2s;
 

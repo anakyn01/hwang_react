@@ -1,0 +1,616 @@
+/* Google Fonts에서 Pretendard 폰트 패밀리를 웹 폰트로 로드합니다. */
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap');
+
+/* 앱 전반에서 사용할 글래스모피즘 및 머티리얼 디자인용 CSS 변수(Custom Properties)를 정의합니다. */
+:root {
+    --glass-bg: rgba(30, 41, 59, 0.55); /* 반투명 글래스 배경색상 지정 */
+    --glass-border: rgba(255, 255, 255, 0.14); /* 반투명 유리 테두리 색상 지정 */
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); /* 주요 브랜드 그라데이션 정의 */
+    --user-bubble-bg: linear-gradient(135deg, rgba(99, 102, 241, 0.88) 0%, rgba(139, 92, 246, 0.88) 100%); /* 유저 말풍선 배경 그라데이션 */
+    --ai-bubble-bg: rgba(15, 23, 42, 0.72); /* AI 말풍선 반투명 배경 색상 */
+    --text-primary: #f8fafc; /* 기본 글자 색상 (밝은 흰빛) */
+    --text-secondary: #94a3b8; /* 보조 글자 색상 (회색빛) */
+    --accent-cyan: #38bdf8; /* 포인트 시안 컬러 */
+    --material-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.45), 0 4px 12px -2px rgba(0, 0, 0, 0.3); /* 머티리얼 입체 그림자 효과 */
+}
+
+/* Streamlit 메인 앱 컨테이너의 배경에 다크 스페이스 오로라 그라데이션을 적용합니다. */
+.stApp {
+    background: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.22), transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.18), transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.12), transparent 50%),
+                #0b0f19 !important;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif !important; /* Pretendard 폰트를 기본 서체로 지정합니다. */
+    color: var(--text-primary) !important; /* 기본 텍스트 색상을 변수 값으로 고정합니다. */
+}
+
+/* Streamlit 기본 상단 헤더 영역을 투명하게 처리합니다. */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+}
+/* Streamlit 기본 하단 푸터 영역을 완전히 숨깁니다. */
+footer {
+    display: none !important;
+}
+
+/* 메인 컨텐츠 영역의 최대 너비를 제한하고 하단 고정 푸터에 내용이 가리지 않도록 여백을 확보합니다. */
+.block-container {
+    max-width: 1020px !important;
+    padding-top: 2rem !important;
+    padding-bottom: 160px !important;
+}
+
+/* ==========================================
+   글래스모피즘 토스트 팝업 (FontAwesome 아이콘)
+   ========================================== */
+/* 우측 상단에 플로팅되는 글래스모피즘 토스트 팝업의 기본 레이아웃을 설정합니다. */
+.glass-toast {
+    position: fixed;
+    top: 28px;
+    right: 28px;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 22px;
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    color: #f8fafc;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.2);
+    animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+               toastFadeOut 0.45s ease-in 3.2s forwards;
+    pointer-events: none;
+}
+
+/* 토스트 팝업 내부 아이콘 래퍼의 박스 스타일을 지정합니다. */
+.glass-toast-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(99, 102, 241, 0.25));
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38bdf8;
+    font-size: 1.1rem;
+}
+
+/* 토스트 텍스트 본문 영역의 정렬 방향을 세로로 설정합니다. */
+.glass-toast-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 토스트 팝업의 메인 제목 폰트 스타일을 지정합니다. */
+.glass-toast-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* 토스트 팝업의 서브 설명 폰트 스타일을 지정합니다. */
+.glass-toast-desc {
+    font-size: 0.78rem;
+    color: #94a3b8;
+}
+
+/* 토스트 팝업이 우측에서 부드럽게 슬라이드인 되는 애니메이션 키프레임입니다. */
+@keyframes toastSlideIn {
+    from { opacity: 0; transform: translateX(50px) scale(0.95); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* 토스트 팝업이 일정 시간 후 위로 사라지며 페이드아웃 되는 애니메이션 키프레임입니다. */
+@keyframes toastFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-12px); visibility: hidden; }
+}
+
+/* ==========================================
+   상단 글래스 헤더
+   ========================================== */
+/* 상단 고정 헤더 바에 글래스모피즘 블러 효과와 테두리를 적용합니다. */
+.glass-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--material-shadow);
+    position: relative;
+    z-index: 10;
+}
+
+/* 헤더 좌측 로고와 타이틀 그룹의 정렬을 지정합니다. */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* 헤더 내 로고 아이콘 배경 박스의 그라데이션 및 입체감을 설정합니다. */
+.brand-icon-wrapper {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.45);
+}
+
+/* 메인 브랜드 타이틀 텍스트 크기와 굵기를 지정합니다. */
+.brand-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+}
+
+/* 브랜드 서브타이틀 텍스트 스타일을 지정합니다. */
+.brand-subtitle {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+/* 헤더 우측 시스템 상태 배지의 알약 모양 스타일을 지정합니다. */
+.glass-badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #34d399;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 상태 표시 초록색 점에 깜빡이는 애니메이션을 부여합니다. */
+.status-dot {
+    font-size: 0.75rem;
+    animation: pulseGlow 2s infinite;
+}
+
+/* 상태 점 깜빡임 효과의 투명도 변화 키프레임입니다. */
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+}
+
+/* ==========================================
+   첨부 파일 활성 배지 & 첨부 해제 버튼
+   ========================================== */
+/* 파일이 업로드되었을 때 상단에 뜨는 활성 파일 칩 배지 스타일을 지정합니다. */
+.active-file-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: rgba(56, 189, 248, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    border-radius: 14px;
+    color: #e0f2fe;
+    font-size: 0.86rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Streamlit 기본 버튼('첨부 해제' 버튼 등)을 다크 루비 글래스 스타일로 재정의합니다. */
+div[data-testid="stButton"] > button {
+    height: 42px !important;
+    border-radius: 14px !important;
+    background: rgba(244, 63, 94, 0.16) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(244, 63, 94, 0.45) !important;
+    color: #fda4af !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    transition: all 0.2s ease !important;
+}
+
+/* 버튼에 마우스 호버 시 붉은빛 글래스 강조 효과를 부여합니다. */
+div[data-testid="stButton"] > button:hover {
+    background: rgba(244, 63, 94, 0.32) !important;
+    border-color: #fb7185 !important;
+    color: #ffffff !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(244, 63, 94, 0.35) !important;
+}
+
+/* 버튼 내부 텍스트 단락의 색상과 여백을 초기화합니다. */
+div[data-testid="stButton"] > button p {
+    color: inherit !important;
+    margin: 0 !important;
+}
+
+/* 버튼 앞에 FontAwesome 휴지통 아이콘 문자를 자동 삽입합니다. */
+div[data-testid="stButton"] > button p::before {
+    content: "\f1f8";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 7px;
+}
+
+/* ==========================================
+   채팅 메시지 말풍선 (머티리얼 + 글래스 룩)
+   ========================================== */
+/* 대화 행(Row)의 플렉스 정렬과 등장 애니메이션을 설정합니다. */
+.chat-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.25s ease-out;
+    position: relative;
+    z-index: 5;
+}
+
+/* 말풍선이 아래에서 위로 살짝 떠오르며 나타나는 애니메이션 키프레임입니다. */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 유저 메시지 행은 우측으로 정렬합니다. */
+.user-row { justify-content: flex-end; }
+/* AI 메시지 행은 좌측으로 정렬합니다. */
+.ai-row { justify-content: flex-start; }
+
+/* 프로필 아바타 박스의 공통 크기와 모양을 지정합니다. */
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* AI 아바타의 다크 글래스 테두리 및 시안 컬러를 설정합니다. */
+.ai-avatar {
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: var(--accent-cyan);
+}
+
+/* 유저 아바타의 그라데이션 배경을 설정합니다. */
+.user-avatar {
+    background: var(--primary-gradient);
+    color: #ffffff;
+}
+
+/* 대화 말풍선 공통 박스의 패딩, 블러 및 모서리 곡률을 지정합니다. */
+.message-bubble {
+    max-width: 76%;
+    padding: 14px 18px;
+    border-radius: 20px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--material-shadow);
+    line-height: 1.65;
+    font-size: 0.94rem;
+    word-break: break-word;
+}
+
+/* 유저 말풍선의 그라데이션 배경과 우측 하단 뾰족한 모서리를 지정합니다. */
+.user-bubble {
+    background: var(--user-bubble-bg);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-bottom-right-radius: 4px;
+    color: #ffffff;
+}
+
+/* AI 말풍선의 반투명 다크 배경과 좌측 하단 뾰족한 모서리를 지정합니다. */
+.ai-bubble {
+    background: var(--ai-bubble-bg);
+    border: 1px solid var(--glass-border);
+    border-bottom-left-radius: 4px;
+    color: var(--text-primary);
+}
+
+/* 말풍선 상단에 위치한 발신자 라벨 스타일을 지정합니다. */
+.bubble-header {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ==========================================
+   하단 고정 반응형 글래스 푸터 독 (수평 정렬 완벽 교정)
+   ========================================== */
+/* `#footer-dock-marker`가 속한 수평 블록을 화면 하단에 플로팅 독(Dock) 형태로 고정합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 22px !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+    width: min(980px, 92vw) !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    max-height: 66px !important;
+    z-index: 9999 !important;
+    background: rgba(15, 23, 42, 0.82) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 20px !important;
+    padding: 0 12px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08) inset !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+}
+
+/* [핵심 1] 보이지 않는 #footer-dock-marker 래퍼가 클립을 아래로 밀어내는 현상을 완전히 차단합니다.[cite: 5] */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stElementContainer"]:has(#footer-dock-marker),
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) .element-container:has(#footer-dock-marker) {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* [핵심 2] 푸터 내부의 모든 컬럼 컨테이너의 기본 패딩과 마진을 없애고 높이를 46px로 맞춥니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) > div[data-testid="stColumn"],
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) > div[data-testid="column"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 46px !important;
+}
+
+/* 좌측 클립 아이콘 컬럼의 너비를 46px 정사각형으로 엄격하게 고정합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) > div[data-testid="stColumn"]:first-child,
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) > div[data-testid="column"]:first-child {
+    flex: 0 0 46px !important;
+    width: 46px !important;
+    max-width: 46px !important;
+}
+
+/* 우측 입력폼 컬럼이 나머지 가로 영역을 모두 채우도록 설정합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) > div[data-testid="stColumn"]:last-child,
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) > div[data-testid="column"]:last-child {
+    flex: 1 1 auto !important;
+    width: calc(100% - 56px) !important;
+}
+
+/* 내부 수직 블록들의 여백 간격을 0으로 초기화하고 수평 정렬을 유지합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stVerticalBlock"],
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stVerticalBlockBorderWrapper"],
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stElementContainer"] {
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* 푸터 독 내부의 stForm 기본 테두리와 여백을 없애고 수직 중앙에 배치합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) div[data-testid="stForm"] {
+    position: static !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: 46px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* 폼 내부의 수평 배치 블록 설정을 고정합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) div[data-testid="stForm"] [data-testid="stHorizontalBlock"] {
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ==========================================
+   1. 커스텀 파일 업로더 (46x46px 고정)
+   ========================================== */
+/* 파일 업로더 컴포넌트 전체 크기를 46x46px로 고정합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploader"] {
+    width: 46px !important;
+    height: 46px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* 파일 업로더 드롭존 박스를 반투명 글래스 사각형 버튼 형태로 꾸밉니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploaderDropzone"] {
+    position: relative !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+    height: 46px !important;
+    width: 46px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    overflow: hidden !important;
+}
+
+/* 드롭존에 호버 시 보라빛 글래스 하이라이트를 부여합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploaderDropzone"]:hover {
+    background: rgba(99, 102, 241, 0.28) !important;
+    border-color: #818cf8 !important;
+}
+
+/* 업로더 내부의 기본 안내 텍스트, 설명, 아이콘, 파일 리스트 영역을 모두 숨깁니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploaderDropzone"] [data-testid="stFileUploaderDropzoneInstructions"],
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploaderDropzone"] span,
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploaderDropzone"] small,
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploaderDropzone"] svg,
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] {
+    display: none !important;
+}
+
+/* 업로더 내부 실제 파일 선택 버튼을 영역 전체에 투명하게 확장합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploaderDropzone"] button {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 46px !important;
+    height: 46px !important;
+    opacity: 0 !important;
+    z-index: 2 !important;
+    cursor: pointer !important;
+}
+
+/* 드롭존 중앙에 FontAwesome 클립 아이콘 문자('\f0c6')를 가상 요소로 렌더링합니다. */
+div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) [data-testid="stFileUploaderDropzone"]::after {
+    content: "\f0c6";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1.15rem;
+    color: #e2e8f0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================
+   2. 텍스트 입력창 (46px 높이 일치)
+   ========================================== */
+/* 텍스트 입력창 너비를 가득 채우고 마진을 없애킵니다. */
+div[data-testid="stForm"] [data-testid="stTextInput"] {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* 텍스트 입력창의 기본 베이스 래퍼 높이를 46px로 고정하고 다크 글래스 배경을 입힙니다. */
+div[data-testid="stForm"] [data-testid="stTextInput"] div[data-baseweb="input"],
+div[data-testid="stForm"] [data-testid="stTextInput"] div[data-baseweb="base-input"] {
+    background-color: rgba(15, 23, 42, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 14px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+    box-shadow: none !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* 실제 인풋 태그 내 글자 색상과 패딩을 설정합니다. */
+div[data-testid="stForm"] [data-testid="stTextInput"] input {
+    background-color: transparent !important;
+    color: #f8fafc !important;
+    -webkit-text-fill-color: #f8fafc !important;
+    height: 46px !important;
+    padding: 0 16px !important;
+    font-size: 0.95rem !important;
+}
+
+/* 인풋창 포커스 시 테두리 색상과 은은한 보라빛 글로우 효과를 부여합니다. */
+div[data-testid="stForm"] [data-testid="stTextInput"] div[data-baseweb="input"]:focus-within {
+    border-color: #818cf8 !important;
+    background-color: rgba(30, 41, 59, 0.85) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* 플레이스홀더 텍스트 색상을 은은한 회색톤으로 지정합니다. */
+div[data-testid="stForm"] [data-testid="stTextInput"] input::placeholder {
+    color: #94a3b8 !important;
+    -webkit-text-fill-color: #94a3b8 !important;
+}
+
+/* 입력창 우측에 뜨는 'Press Enter to submit form' 안내 문구를 숨겨 레이아웃 뒤틀림을 방지합니다. */
+div[data-testid="stForm"] [data-testid="InputInstructions"] {
+    display: none !important;
+}
+
+/* ==========================================
+   3. 전송 버튼 (46px 높이 일치)
+   ========================================== */
+/* 전송 버튼 컨테이너 너비를 채웁니다. */
+div[data-testid="stForm"] [data-testid="stFormSubmitButton"] {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* 전송 버튼 높이를 46px로 고정하고 브랜드 그라데이션과 입체 그림자를 적용합니다. */
+div[data-testid="stForm"] [data-testid="stFormSubmitButton"] button {
+    height: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+    width: 100% !important;
+    border-radius: 14px !important;
+    background: var(--primary-gradient) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
+    transition: all 0.2s ease !important;
+    margin: 0 !important;
+}
+
+/* 전송 버튼에 호버 시 위로 살짝 뜨며 그림자가 진해지는 효과를 줍니다. */
+div[data-testid="stForm"] [data-testid="stFormSubmitButton"] button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6) !important;
+}
+
+/* 전송 버튼 텍스트 앞에 FontAwesome 종이비행기 아이콘 문자('\f1d8')를 삽입합니다. */
+div[data-testid="stForm"] [data-testid="stFormSubmitButton"] button p::before {
+    content: "\f1d8";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 6px;
+}
+
+/* 모바일 디바이스(너비 768px 이하) 환경 대응 반응형 미디어 쿼리입니다. */
+@media (max-width: 768px) {
+    .glass-header { padding: 12px 16px; }
+    .brand-title { font-size: 1.05rem; }
+    .glass-badge { display: none; }
+    .message-bubble { max-width: 88%; font-size: 0.9rem; }
+    div[data-testid="stHorizontalBlock"]:has(#footer-dock-marker) {
+        bottom: 12px !important;
+        width: 95vw !important;
+        padding: 0 10px !important;
+    }
+}

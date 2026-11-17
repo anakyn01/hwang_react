@@ -51,3 +51,12 @@ outline:none;
 resize:none;
 height:80px;
 `;
+
+// 입력 폼 필드들을 세로 또는 가로로 묶어주는 래퍼 컴포넌트
+export const FormGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+    width: 100%;
+`;

@@ -11,6 +11,7 @@ import axios from "axios";
 */
 import {Layout} from "@/components/Layout";
 import * as S from "@/assets/css/Style.style";
+import { AlertModal } from "@/components/modal/AlertModal";
 
 // 백엔드에서 받아올 공정 라인 데이터의 타입(TypeScript 인터페이스)을 정의합니다
 interface ProcessLine {
@@ -28,7 +29,14 @@ const [lines, setLines] = useState<ProcessLine[]>([]);
 // 2. 신규 공정 라인 등록 폼의 입력값들을 관리하는 상태(form)와 초기값 설정
 const [form, setForm] = useState({lineName:"", 
    processType:"", currentProduct:"", operator:""
-})
+});
+
+// 💡 3. 알림 모달의 오픈 여부와 표시할 메시지를 관리하는 상태
+   const [isAlertOpen, setIsAlertOpen] = useState(false);
+   const [alertMessage, setAlertMessage] = useState("");
+
+
+
 // 3. 백엔드 서버로부터 현재 등록된 공정 라인 목록을 비동기로 조회해오는 함수입니다.
 const fetchLines = async () => {
    try{
@@ -60,14 +68,21 @@ await axios.post("http://localhost:4000/api/process/lines", form, {
    headers: { Authorization: `Bearer ${token}` }
 })
 
-alert("공정 라인이 등록되었습니다."); // 성공 알림창을 띄웁니다.
+//alert("공정 라인이 등록되었습니다."); // 성공 알림창을 띄웁니다.
+
+// 💡 기본 alert 대신 커스텀 모달에 성공 메시지를 담아 띄웁니다.
+setAlertMessage("공정 라인이 등록되었습니다.");
+setIsAlertOpen(true);
+
 setForm({
    lineName:"", processType:"", currentProduct:"", operator:"",
 });
 fetchLines();
 // 최신 목록을 다시 불러와 화면에 반영합니다.
    }catch(err){
-alert("등록 실패"); // 실패 시 알림창을 띄웁니다.
+//alert("등록 실패"); // 실패 시 알림창을 띄웁니다.
+setAlertMessage("등록 실패");
+setIsAlertOpen(true);
    }
 }
 return(
@@ -130,6 +145,16 @@ iPhone Duo 라인 가동 현황
 </S.Grid>
    </S.RightPanel>
 </S.CalendarLayout>
+
+{/* 💡 등록 성공/실패 시 화면에 렌더링될 커스텀 알림 모달 */}
+<AlertModal 
+   isOpen={isAlertOpen}
+   message={alertMessage}
+   onClose={() => setIsAlertOpen(false)}
+/>
+
+
+
  </Layout>       
     )
 }

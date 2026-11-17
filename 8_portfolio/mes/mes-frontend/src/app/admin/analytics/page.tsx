@@ -4,6 +4,7 @@ import { useState, useEffect} from "react";
 import axios from "axios";
 import {Layout} from "@/components/Layout";
 import * as S from "@/assets/css/Style.style";
+import { AlertModal } from "@/components/modal/AlertModal";
 
 interface AnalyticsRecord {
     id: number;
@@ -21,11 +22,22 @@ useState<AnalyticsRecord[]>([]);
 const [form, setForm] = 
 useState({ lineName: "", targetCount: 1000, actualCount: 980, defectCount: 20 });
 
+// 💡 알림 모달의 오픈 여부와 표시할 메시지를 관리하는 상태
+const [isAlertOpen, setIsAlertOpen] = useState(false);
+const [alertMessage, setAlertMessage] = useState("");
+
 const fetchRecords = async () => {
    try{
+const token =
+localStorage.getItem("token");
 
+const res = await axios.get("http://localhost:4000/api/analytics/records",{
+    headers:{Authorization:`Bearer ${token}`}
+});
+
+if(res.data.success) setRecords(res.data.records);
    }catch(err){
-
+console.error("생산 실적 조회 실패", err);
    }
 }
 
@@ -34,9 +46,20 @@ useEffect(() => {fetchRecords();},[]);
 const handleSubmit = async (e:React.FormEvent) => {
    e.preventDefault();
    try{
+const token =
+localStorage.getItem("token");
 
+await axios.post("http://localhost:4000/api/analytics/records", form,{
+    headers:{Authorization:`Bearer ${token}`}
+});
+//customModal
+// 💡 등록 성공 시 커스텀 모달 호출
+setAlertMessage("생산 실적이 성공적으로 등록되었습니다.");
+setIsAlertOpen(true);
+
+fetchRecords();
    }catch(err){
-
+//customModal
    }
 }
 
@@ -94,7 +117,14 @@ $variant="primary"
 </S.Grid>
 </S.RightPanel>
 </S.CalendarLayout>
+{/* 💡 생산 실적 등록 성공/실패 시 화면에 렌더링될 커스텀 알림 모달 */}
+<AlertModal 
+isOpen={isAlertOpen}
+message={alertMessage}
+onClose={() => setIsAlertOpen(false)}
+/>
         </Layout>
-     
+
+
     );
 }
