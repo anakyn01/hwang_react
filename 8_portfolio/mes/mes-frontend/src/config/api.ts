@@ -1,0 +1,1 @@
+export const RENDER_API_URL = "https://mesbackend-2p1r.onrender.com";
