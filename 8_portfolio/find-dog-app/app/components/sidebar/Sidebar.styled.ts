@@ -49,7 +49,7 @@ display:${({$isCollapsed }) => ($isCollapsed ? 'none':'block')};
 margin-right:1rem;
 `;
 
-export const SidebarBrand = styled.a`
+export const SidebarBrand = styled.a<{$isCollapsed?:boolean}>`
   display: flex;
   align-items: center;
   justify-content: center;
