@@ -5,7 +5,7 @@ import { Layout } from "@/components/Layout";
 import { CustomAlert } from "@/components/common/CustomAlert";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "@/assets/stylex/style.styles";
-import {SERVER_URL, FRONTEND_URL } from '@/config/urls';
+import {SERVER_URL } from '@/config/urls';
 
 interface MasterItem {
   code: string;
