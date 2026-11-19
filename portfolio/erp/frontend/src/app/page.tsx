@@ -14,6 +14,11 @@ import { AppleIcon } from "@/components/svg/AppleIcon";
 import { GoogleIcon } from "@/components/svg/GoogleIcon";
 import { SERVER_URL } from "@/config/urls";
 
+const KAKAO_REDIRECT_URI =
+  "http://heartbreakkid.co.kr/portfolio/erp/oauth/kakao/callback/";
+const GOOGLE_REDIRECT_URI =
+  "http://heartbreakkid.co.kr/portfolio/erp/oauth/google/callback/";
+
 export default function LoginPage() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -101,27 +106,20 @@ export default function LoginPage() {
     color: "#1D1D1F",
   };
 
-  const getFrontendOrigin = () => {
-    if (typeof window !== "undefined") {
-      return window.location.origin;
-    }
-    return "";
-  };
-
   const handleKakaoLogin = () => {
     const REST_API_KEY = "43b4bfa2d77a904f4321f38325c03f09";
-    const REDIRECT_URI = `${getFrontendOrigin()}/oauth/kakao/callback`;
-
-    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${encodeURIComponent(
+      KAKAO_REDIRECT_URI
+    )}&response_type=code`;
     window.location.href = kakaoURL;
   };
 
   const handleGoogleLogin = () => {
     const clientId =
       "1057151604719-8mor691610vpisojiec4h9n3rd10g964.apps.googleusercontent.com";
-    const redirectUri = `${getFrontendOrigin()}/oauth/google/callback`;
-
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`;
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+      GOOGLE_REDIRECT_URI
+    )}&response_type=code&scope=email profile`;
 
     window.location.href = googleAuthUrl;
   };
