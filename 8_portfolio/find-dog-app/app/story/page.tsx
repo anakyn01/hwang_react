@@ -1,9 +1,10 @@
 "use client";
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 
 import * as S from '@/css/style.styles';
+import { RENDER_API_URL } from '@/config/api';
 
 // MUI 아이콘
 import {
@@ -16,34 +17,33 @@ import { Plus, MessageSquare, Share2, Eye } from 'lucide-react';
 import Footer from '../components/Footer';
 
 interface StoryPost {
-id: number;
-category: string; // '입양후기', '일상공유', '고민상담' 등
-author: string;
-timeAgo: string;
-title: string;
-content: string;
-images: string[];
-commentsCount: number;
-sharesCount: number;
-viewsCount: number;
-isPick?: boolean;    
+  id: number;
+  category: string; // '입양후기', '일상공유', '고민상담' 등
+  author: string;
+  timeAgo: string;
+  title: string;
+  content: string;
+  images: string[];
+  commentsCount: number;
+  sharesCount: number;
+  viewsCount: number;
+  isPick?: boolean;
 }
 
-export default function StoryPage(){
+export default function StoryPage() {
+  const [activeTab, setActiveTab] = useState('입양이야기');
+  const [subTab, setSubTab] = useState('전체');
+  const [isAlertOn, setIsAlertOn] = useState(false);
+  const [storyList, setStoryList] = useState<StoryPost[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-const [activeTab, setActiveTab] = useState('입양이야기');
-const [subTab, setSubTab] = useState('전체');
-const [isAlertOn, setIsAlertOn] = useState(false);
-const [storyList, setStoryList] = useState<StoryPost[]>([]);
-const [loading, setLoading] = useState<boolean>(true);
-
-useEffect(() => {
+  useEffect(() => {
     const fetchStories = async () => {
-        try{
-const response =
-await axios.get('http://localhost:8080/api/stories');
-        }catch(error){
-console.error('스토리 데이터를 불러오는데 실패했습니다.', error);
+      try {
+        const response = await axios.get(`${RENDER_API_URL}/api/stories`);
+        setStoryList(response.data);
+      } catch (error) {
+        console.error('스토리 데이터를 불러오는데 실패했습니다.', error);
         // 테스트용 더미 데이터
         setStoryList([
           {
@@ -77,27 +77,25 @@ console.error('스토리 데이터를 불러오는데 실패했습니다.', erro
             isPick: false
           }
         ]);
-        }finally{
-setLoading(false);
-        }
+      } finally {
+        setLoading(false);
+      }
     };
     fetchStories();
-},[]);
+  }, []);
 
-    return(
-<S.AppWrapper>
+  return (
+    <S.AppWrapper>
       <S.Container>
-        
         {/* 상단 헤더 */}
         <S.Header>
           <S.Logo>어서찾아주개</S.Logo>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            {/* 상단 우측 말풍선/알림 아이콘 등 필요시 배치 */}
             <NotificationsNoneIcon fontSize="large" style={{ cursor: 'pointer' }} />
           </div>
         </S.Header>
 
-        {/* 1차 탭 메뉴 (입양이야기, 입양/임보, 봉사, 포인핸드 정보) */}
+        {/* 1차 탭 메뉴 */}
         <S.TabContainer>
           {['입양이야기', '입양 / 임보', '봉사', '어서찾아주개 정보'].map((tab) => (
             <S.TabBtn
@@ -110,7 +108,7 @@ setLoading(false);
           ))}
         </S.TabContainer>
 
-        {/* 2차 서브 탭 메뉴 (전체, 입양후기, 일상공유, 고민상담) */}
+        {/* 2차 서브 탭 메뉴 */}
         <div style={{ display: 'flex', gap: '16px', padding: '12px 16px', backgroundColor: '#fff', fontSize: '14px', fontWeight: 'bold', borderBottom: '1px solid #f1f3f5' }}>
           {['전체', '입양후기', '일상공유', '고민상담'].map((sub) => (
             <span
@@ -137,9 +135,8 @@ setLoading(false);
           <S.FilterSelect defaultValue="latest">
             <option value="latest">최신순</option>
           </S.FilterSelect>
-          
+
           <div style={{ marginLeft: 'auto', display: 'flex', gap: '6px', color: '#888', cursor: 'pointer' }}>
-            {/* 정렬 아이콘 형태 */}
             <span style={{ fontSize: '18px' }}>🔲</span>
             <span style={{ fontSize: '18px' }}>☰</span>
           </div>
@@ -179,8 +176,6 @@ setLoading(false);
           ) : (
             storyList.map((post) => (
               <div key={post.id} style={{ backgroundColor: '#fff', borderBottom: '8px solid #f8f9fa', padding: '16px' }}>
-                
-                {/* 포인핸드 Pick 배너형 게시물 */}
                 {post.isPick ? (
                   <div style={{ backgroundColor: '#fff5eb', borderRadius: '12px', padding: '12px', border: '1px solid #ffe8d6' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
@@ -189,12 +184,12 @@ setLoading(false);
                       </span>
                       <span style={{ fontSize: '11px', color: '#888' }}>{post.timeAgo}</span>
                     </div>
-                    
+
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                      <img 
-                        src={post.images[0]} 
-                        alt="Pick" 
-                        style={{ width: '70px', height: '70px', borderRadius: '8px', objectFit: 'cover' }} 
+                      <img
+                        src={post.images[0]}
+                        alt="Pick"
+                        style={{ width: '70px', height: '70px', borderRadius: '8px', objectFit: 'cover' }}
                       />
                       <div>
                         <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#222', marginBottom: '4px' }}>
@@ -210,7 +205,6 @@ setLoading(false);
                     </div>
                   </div>
                 ) : (
-                  /* 일반 커뮤니티 피드형 게시물 */
                   <div>
                     {/* 유저 정보 및 작성 시간 */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
@@ -238,17 +232,17 @@ setLoading(false);
                     {post.images && post.images.length > 0 && (
                       <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', overflowX: 'auto' }}>
                         {post.images.map((img, idx) => (
-                          <img 
-                            key={idx} 
-                            src={img} 
-                            alt={`img-${idx}`} 
-                            style={{ width: '90px', height: '90px', borderRadius: '8px', objectFit: 'cover' }} 
+                          <img
+                            key={idx}
+                            src={img}
+                            alt={`img-${idx}`}
+                            style={{ width: '90px', height: '90px', borderRadius: '8px', objectFit: 'cover' }}
                           />
                         ))}
                       </div>
                     )}
 
-                    {/* 하단 인터랙션 아이콘 (댓글, 공유, 조회수) */}
+                    {/* 하단 인터랙션 아이콘 */}
                     <div style={{ display: 'flex', gap: '16px', fontSize: '12px', color: '#888', borderTop: '1px solid #f1f3f5', paddingTop: '10px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <MessageSquare size={14} /> {post.commentsCount}
@@ -262,7 +256,6 @@ setLoading(false);
                     </div>
                   </div>
                 )}
-
               </div>
             ))
           )}
@@ -276,6 +269,6 @@ setLoading(false);
 
         <Footer />
       </S.Container>
-    </S.AppWrapper>        
-    )
+    </S.AppWrapper>
+  );
 }

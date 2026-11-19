@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState} from "react";
-import { useRouter} from 'next/navigation';
+import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import axios from "axios";
@@ -9,39 +9,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import * as S from '../DashBoard.styled';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { RENDER_API_URL } from '@/config/api';
 
-// 💡 3. Next.js 페이지는 기본적으로 export default function 형태로 내보내야 합니다.
 export default function LoginPage() {
-    
-    // 💡 4. useNavigate() 대신 useRouter()를 사용합니다.
     const router = useRouter();
 
-    // 사용자가 입력할 이메일과 비밀번호를 담을 바구니(상태)를 만듭니다.
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // 로그인 버튼을 누를때 실행되는 함수
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!email || !password) {
             alert('이메일과 비밀번호를 모두 입력해 주세요');
             return;
         }
-        
+
         try {
-            const response = await axios.post('http://localhost:8080/api/admin/login', {
+            const response = await axios.post(`${RENDER_API_URL}/api/admin/login`, {
                 email, password
-            },{ withCredentials:true});
-            
+            }, { withCredentials: true });
+
             alert(`${response.data.name}님, ${response.data.message}`);
 
-            // 로그인 후 저장된 이름이 보이게 브라우저 저장소(localStorage)에 저장
             localStorage.setItem('userName', response.data.name);
-
-            // 💡 5. navigate('/admin') 대신 router.push('/admin')으로 이동합니다.
             router.push('/admin');
-            
+
         } catch (error: any) {
             if (error.response && error.response.data) {
                 alert(error.response.data.message);
@@ -145,5 +138,5 @@ export default function LoginPage() {
                 </Container>
             </S.Background>
         </>
-    )
+    );
 }
