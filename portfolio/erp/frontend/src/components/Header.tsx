@@ -40,12 +40,12 @@ export const Header = () => {
         <div {...stylex.props(styles.logo)}>Smart ERP</div>
 
         <nav {...stylex.props(styles.desktopNav)}>
-          <a href="/dashboard" {...stylex.props(styles.navLink)}>대시보드</a>
-          <a href="/dashboard/calender" {...stylex.props(styles.navLink)}>캘린더</a>
-          <a href="/dashboard/production" {...stylex.props(styles.navLink)}>생산관리</a>
-          <a href="/dashboard/inventory" {...stylex.props(styles.navLink)}>재고관리</a>
-          <a href="/dashboard/hr" {...stylex.props(styles.navLink)}>인사관리</a>
-          <a href="/dashboard/settings" {...stylex.props(styles.navLink)}>기준정보</a>
+          <a href="/portfolio/erp/dashboard" {...stylex.props(styles.navLink)}>대시보드</a>
+          <a href="/portfolio/erp/dashboard/calender" {...stylex.props(styles.navLink)}>캘린더</a>
+          <a href="/portfolio/erp/dashboard/production" {...stylex.props(styles.navLink)}>생산관리</a>
+          <a href="/portfolio/erp/dashboard/inventory" {...stylex.props(styles.navLink)}>재고관리</a>
+          <a href="/portfolio/erp/dashboard/hr" {...stylex.props(styles.navLink)}>인사관리</a>
+          <a href="/portfolio/erp/dashboard/settings" {...stylex.props(styles.navLink)}>기준정보</a>
         </nav>
 
         <div {...stylex.props(styles.userSection)}>
@@ -54,7 +54,7 @@ export const Header = () => {
           {/* 💡 마이페이지 아이콘 버튼 추가 (/dashboard/mypage 연결) */}
           <button 
             {...stylex.props(styles.mypageIconButton)} 
-            onClick={() => router.push("/dashboard/mypage")}
+            onClick={() => router.push("/portfolio/erp/dashboard/mypage")}
             title="마이페이지"
             aria-label="마이페이지"
           >
